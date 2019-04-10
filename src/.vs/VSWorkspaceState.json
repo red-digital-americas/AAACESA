@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\containers",
+    "\\app\\containers\\default-layout",
+    "\\app\\views",
+    "\\app\\views\\apps",
+    "\\app\\views\\base"
+  ],
+  "SelectedNode": "\\app\\views\\apps\\apps-routing.module.ts",
+  "PreviewInSolutionExplorer": false
+}
