@@ -1,5 +1,32 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="animated fadeIn">
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <mat-card>
+        <mat-card-title primary>
+          Ejemplo de un componente que muestra un usuario
+        </mat-card-title>
+        <mat-card-content>
+          <div *ngFor=' let elemento of usuarios '>
+            <app-usuario [usuario]="elemento"></app-usuario>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-title>
+          Ejemplo de un componente que ingresa un n&uacute;mero entero
+        </mat-card-title>
+        <mat-card-content>
+          <app-contador valorInicial="3"></app-contador>
+          <br>
+          <app-contador valorInicial="0"></app-contador>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
+    </div>
     <div class="col-sm-6 col-lg-3">
       <div class="card text-white bg-primary">
         <div class="card-body pb-0">
@@ -19,12 +46,12 @@
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas baseChart class="chart"
-          [datasets]="lineChart1Data"
-          [labels]="lineChart1Labels"
-          [options]="lineChart1Options"
-          [colors]="lineChart1Colours"
-          [legend]="lineChart1Legend"
-          [chartType]="lineChart1Type"></canvas>
+                  [datasets]="lineChart1Data"
+                  [labels]="lineChart1Labels"
+                  [options]="lineChart1Options"
+                  [colors]="lineChart1Colours"
+                  [legend]="lineChart1Legend"
+                  [chartType]="lineChart1Type"></canvas>
         </div>
       </div>
     </div><!--/.col-->
@@ -39,12 +66,12 @@
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas baseChart class="chart"
-          [datasets]="lineChart2Data"
-          [labels]="lineChart2Labels"
-          [options]="lineChart2Options"
-          [colors]="lineChart2Colours"
-          [legend]="lineChart2Legend"
-          [chartType]="lineChart2Type"></canvas>
+                  [datasets]="lineChart2Data"
+                  [labels]="lineChart2Labels"
+                  [options]="lineChart2Options"
+                  [colors]="lineChart2Colours"
+                  [legend]="lineChart2Legend"
+                  [chartType]="lineChart2Type"></canvas>
         </div>
       </div>
     </div><!--/.col-->
@@ -66,12 +93,12 @@
         </div>
         <div class="chart-wrapper mt-3" style="height:70px;">
           <canvas baseChart class="chart"
-          [datasets]="lineChart3Data"
-          [labels]="lineChart3Labels"
-          [options]="lineChart3Options"
-          [colors]="lineChart3Colours"
-          [legend]="lineChart3Legend"
-          [chartType]="lineChart3Type"></canvas>
+                  [datasets]="lineChart3Data"
+                  [labels]="lineChart3Labels"
+                  [options]="lineChart3Options"
+                  [colors]="lineChart3Colours"
+                  [legend]="lineChart3Legend"
+                  [chartType]="lineChart3Type"></canvas>
         </div>
       </div>
     </div><!--/.col-->
@@ -93,12 +120,12 @@
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas baseChart class="chart"
-          [datasets]="barChart1Data"
-          [labels]="barChart1Labels"
-          [options]="barChart1Options"
-          [colors]="barChart1Colours"
-          [legend]="barChart1Legend"
-          [chartType]="barChart1Type"></canvas>
+                  [datasets]="barChart1Data"
+                  [labels]="barChart1Labels"
+                  [options]="barChart1Options"
+                  [colors]="barChart1Colours"
+                  [legend]="barChart1Legend"
+                  [chartType]="barChart1Type"></canvas>
         </div>
       </div>
     </div><!--/.col-->
@@ -121,12 +148,12 @@
       </div><!--/.row-->
       <div class="chart-wrapper" style="height:300px;margin-top:40px;">
         <canvas baseChart class="chart"
-        [datasets]="mainChartData"
-        [labels]="mainChartLabels"
-        [options]="mainChartOptions"
-        [colors]="mainChartColours"
-        [legend]="mainChartLegend"
-        [chartType]="mainChartType"></canvas>
+                [datasets]="mainChartData"
+                [labels]="mainChartLabels"
+                [options]="mainChartOptions"
+                [colors]="mainChartColours"
+                [legend]="mainChartLegend"
+                [chartType]="mainChartType"></canvas>
       </div>
     </div>
     <div class="card-footer">
@@ -177,12 +204,12 @@
           <i class="fa fa-facebook"></i>
           <div class="chart-wrapper">
             <canvas baseChart class="chart"
-            [datasets]="brandBoxChartData1"
-            [labels]="brandBoxChartLabels"
-            [options]="brandBoxChartOptions"
-            [colors]="brandBoxChartColours"
-            [legend]="brandBoxChartLegend"
-            [chartType]="brandBoxChartType"></canvas>
+                    [datasets]="brandBoxChartData1"
+                    [labels]="brandBoxChartLabels"
+                    [options]="brandBoxChartOptions"
+                    [colors]="brandBoxChartColours"
+                    [legend]="brandBoxChartLegend"
+                    [chartType]="brandBoxChartType"></canvas>
           </div>
         </div>
         <div class="brand-card-body">
@@ -203,12 +230,12 @@
           <i class="fa fa-twitter"></i>
           <div class="chart-wrapper">
             <canvas baseChart class="chart"
-            [datasets]="brandBoxChartData2"
-            [labels]="brandBoxChartLabels"
-            [options]="brandBoxChartOptions"
-            [colors]="brandBoxChartColours"
-            [legend]="brandBoxChartLegend"
-            [chartType]="brandBoxChartType"></canvas>
+                    [datasets]="brandBoxChartData2"
+                    [labels]="brandBoxChartLabels"
+                    [options]="brandBoxChartOptions"
+                    [colors]="brandBoxChartColours"
+                    [legend]="brandBoxChartLegend"
+                    [chartType]="brandBoxChartType"></canvas>
           </div>
         </div>
         <div class="brand-card-body">
@@ -229,12 +256,12 @@
           <i class="fa fa-linkedin"></i>
           <div class="chart-wrapper">
             <canvas baseChart class="chart"
-            [datasets]="brandBoxChartData3"
-            [labels]="brandBoxChartLabels"
-            [options]="brandBoxChartOptions"
-            [colors]="brandBoxChartColours"
-            [legend]="brandBoxChartLegend"
-            [chartType]="brandBoxChartType"></canvas>
+                    [datasets]="brandBoxChartData3"
+                    [labels]="brandBoxChartLabels"
+                    [options]="brandBoxChartOptions"
+                    [colors]="brandBoxChartColours"
+                    [legend]="brandBoxChartLegend"
+                    [chartType]="brandBoxChartType"></canvas>
           </div>
         </div>
         <div class="brand-card-body">
@@ -255,12 +282,12 @@
           <i class="fa fa-google-plus"></i>
           <div class="chart-wrapper">
             <canvas baseChart class="chart"
-            [datasets]="brandBoxChartData4"
-            [labels]="brandBoxChartLabels"
-            [options]="brandBoxChartOptions"
-            [colors]="brandBoxChartColours"
-            [legend]="brandBoxChartLegend"
-            [chartType]="brandBoxChartType"></canvas>
+                    [datasets]="brandBoxChartData4"
+                    [labels]="brandBoxChartLabels"
+                    [options]="brandBoxChartOptions"
+                    [colors]="brandBoxChartColours"
+                    [legend]="brandBoxChartLegend"
+                    [chartType]="brandBoxChartType"></canvas>
           </div>
         </div>
         <div class="brand-card-body">
@@ -564,7 +591,6 @@
                 <td>
                   <div>Avram Tarasios</div>
                   <div class="small text-muted">
-
                     <span>Recurring</span> | Registered: Jan 1, 2015
                   </div>
                 </td>

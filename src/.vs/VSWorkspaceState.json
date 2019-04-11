@@ -2,12 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\containers",
     "\\app\\containers\\default-layout",
     "\\app\\views",
-    "\\app\\views\\apps",
-    "\\app\\views\\base"
+    "\\app\\views\\component_aaacesa",
+    "\\app\\views\\component_aaacesa\\general-summary-dashboard",
+    "\\app\\views\\dashboard"
   ],
-  "SelectedNode": "\\app\\views\\apps\\apps-routing.module.ts",
+  "SelectedNode": "\\app\\app.component.ts",
   "PreviewInSolutionExplorer": false
 }
