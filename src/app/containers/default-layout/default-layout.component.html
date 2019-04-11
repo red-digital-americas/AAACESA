@@ -2,8 +2,8 @@
   [fixed]="true"
   [navbarBrandFull]="{src: 'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'CoreUI Logo'}"
   [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}"
-  [sidebarToggler]="'lg'"
-  [asideMenuToggler]="'lg'">
+  [sidebarToggler]="false"
+  [asideMenuToggler]="false">
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Dashboard</a>
@@ -205,7 +205,7 @@
 <div class="app-body">
   <app-sidebar [fixed]="true" [display]="'lg'">
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="sidebarMinimized"></app-sidebar-nav>
-    <app-sidebar-minimizer></app-sidebar-minimizer>
+    <!-- <app-sidebar-minimizer></app-sidebar-minimizer> -->
   </app-sidebar>
   <!-- Main content -->
   <main class="main">
@@ -213,13 +213,6 @@
     <ol class="breadcrumb">
       <app-breadcrumb></app-breadcrumb>
       <!-- Breadcrumb Menu-->
-      <li class="breadcrumb-menu d-md-down-none">
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-          <a class="btn" href="#"><i class="icon-speech"></i></a>
-          <a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>
-          <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
-        </div>
-      </li>
     </ol>
     <div class="container-fluid">
       <router-outlet></router-outlet>
@@ -239,9 +232,9 @@
               <strong>Lucas</strong>
             </div>
             <small class="text-muted mr-3">
-              <i class="icon-calendar"></i>  1 - 3pm</small>
+              <i class="icon-calendar"></i>  1 - 3pm</small>
             <small class="text-muted">
-              <i class="icon-location-pin"></i>  Palo Alto, CA</small>
+              <i class="icon-location-pin"></i>  Palo Alto, CA</small>
           </div>
           <div class="list-group-item list-group-item-accent-info">
             <div class="avatar float-right">
@@ -251,9 +244,9 @@
               <strong>Megan</strong>
             </div>
             <small class="text-muted mr-3">
-              <i class="icon-calendar"></i>  4 - 5pm</small>
+              <i class="icon-calendar"></i>  4 - 5pm</small>
             <small class="text-muted">
-              <i class="icon-social-skype"></i>  On-line</small>
+              <i class="icon-social-skype"></i>  On-line</small>
           </div>
           <div class="list-group-item list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Tomorrow</div>
           <div class="list-group-item list-group-item-accent-danger list-group-item-divider">
@@ -261,9 +254,9 @@
               <strong>deadline</strong>
             </div>
             <small class="text-muted mr-3">
-              <i class="icon-calendar"></i>  10 - 11pm</small>
+              <i class="icon-calendar"></i>  10 - 11pm</small>
             <small class="text-muted">
-              <i class="icon-home"></i>  creativeLabs HQ</small>
+              <i class="icon-home"></i>  creativeLabs HQ</small>
             <div class="avatars-stack mt-2">
               <div class="avatar avatar-xs">
                 <img class="img-avatar" src="assets/img/avatars/2.jpg" alt="admin@bootstrapmaster.com">
@@ -286,18 +279,18 @@
             <div>
               <strong>#10 Startups.Garden</strong> Meetup</div>
             <small class="text-muted mr-3">
-              <i class="icon-calendar"></i>  1 - 3pm</small>
+              <i class="icon-calendar"></i>  1 - 3pm</small>
             <small class="text-muted">
-              <i class="icon-location-pin"></i>  Palo Alto, CA</small>
+              <i class="icon-location-pin"></i>  Palo Alto, CA</small>
           </div>
           <div class="list-group-item list-group-item-accent-primary list-group-item-divider">
             <div>
               <strong>Team meeting</strong>
             </div>
             <small class="text-muted mr-3">
-              <i class="icon-calendar"></i>  4 - 6pm</small>
+              <i class="icon-calendar"></i>  4 - 6pm</small>
             <small class="text-muted">
-              <i class="icon-home"></i>  creativeLabs HQ</small>
+              <i class="icon-home"></i>  creativeLabs HQ</small>
             <div class="avatars-stack mt-2">
               <div class="avatar avatar-xs">
                 <img class="img-avatar" src="assets/img/avatars/2.jpg" alt="admin@bootstrapmaster.com">

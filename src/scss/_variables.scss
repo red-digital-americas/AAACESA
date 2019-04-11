@@ -1,1 +1,45 @@
 // Variable overrides
+// Generales
+$body-bg:    #191C37;
+$body-color:  	#FFFF;
+$font-size-base: 1rem;
+
+// Cards Colors
+$card-bg: #212649;
+$card-border-color: #212649;
+$card-cap-bg: #212649;
+$card-spacer-x: 2rem;
+$card-spacer-y: 2rem;
+$card-border-radius: 10px;
+
+// Breadcrumb
+$breadcrumb-active-color: #AF4919;
+$breadcrumb-bg: transparent;
+$breadcrumb-divider: none;
+
+//Modals
+$modal-content-bg: #212649;
+$modal-content-border-color: #212649;
+$modal-header-border-color: #212649;
+$modal-footer-border-color: #212649;
+$modal-dialog-margin-y-sm-up: 15rem;
+
+//Forms
+$input-bg: transparent;
+$input-color: #FFFF;
+$input-border-color: #646880;
+$input-border-radius: 15px;
+$input-placeholder-color: #646880;
+$input-focus-border-color:#B2B3C0;
+$input-focus-box-shadow: #B2B3C0;
+$input-disabled-bg: #191C37;
+
+
+$theme-colors:(
+    primary: #FB600A,
+    secondary: #4C58A9,
+    succes: #0AA010,
+    info: #18EDED,
+    warning: #E2DA0C,
+    danger: #CD0428
+);
