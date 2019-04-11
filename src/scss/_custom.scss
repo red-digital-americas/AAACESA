@@ -1,1 +1,39 @@
 // Here you can add other styles
+.app-header{
+    background-color: #30376A;
+    z-index: 1019;
+    height: 68px;
+    border-bottom: none;
+    box-shadow: 0 10px 5px #131528; 
+}
+.header-fixed .app-header {
+    z-index: 1019;
+}
+
+.header-fixed .app-body {
+    margin-top: 68px;
+}
+
+
+.sidebar{
+    background-color: #212649;
+    z-index: 1020;
+}
+.sidebar-fixed .sidebar {
+    z-index: 1020;
+}
+.sidebar .nav-link.active{
+    color: #ffffff;
+    background: #131529 ;
+}
+.sidebar .nav-link:hover {
+    color: #fff;
+    background: #30376A;
+}
+.sidebar .nav-link.active .nav-icon {
+    color: #ffffff;
+}
+
+.breadcrumb {
+    border-bottom: none;
+}
