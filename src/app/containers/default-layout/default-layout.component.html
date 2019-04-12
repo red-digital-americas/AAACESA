@@ -1,10 +1,10 @@
 <app-header
   [fixed]="true"
-  [navbarBrandFull]="{src: 'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'CoreUI Logo'}"
-  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}"
+  [navbarBrandFull]="{src: 'assets/img/brand/logo.png', alt: 'Almacenes Fiscalizados -- Inicio'}"
+  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'Almacenes Fiscalizados -- Inicio'}"
   [sidebarToggler]="false"
   [asideMenuToggler]="false">
-  <ul class="nav navbar-nav d-md-down-none">
+  <!-- <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Dashboard</a>
     </li>
@@ -14,7 +14,10 @@
     <li class="nav-item px-3">
       <a class="nav-link" href="#">Settings</a>
     </li>
-  </ul>
+  </ul> -->
+  
+  <span class="label label-default">Bienvenido! Luis Angarita</span>
+  
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
@@ -61,7 +64,7 @@
         </a>
       </div>
     </li>
-    <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
+    <!-- <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <i class="icon-list"></i><span class="badge badge-pill badge-warning">15</span>
       </a>
@@ -179,7 +182,7 @@
     </li>
     <li class="nav-item d-md-down-none">
       <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
-    </li>
+    </li> -->
     <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com"/>
@@ -218,7 +221,7 @@
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>
-  <app-aside [fixed]="true" [display]="false">
+  <!-- <app-aside [fixed]="true" [display]="false">
     <tabset>
       <tab>
         <ng-template tabHeading><i class="icon-list"></i></ng-template>
@@ -468,7 +471,7 @@
         </div>
       </tab>
     </tabset>
-  </app-aside>
+  </app-aside> -->
 </div>
 <app-footer>
   <span><a href="https://coreui.io/pro/angular/">CoreUI Pro</a> &copy; 2018 creativeLabs.</span>

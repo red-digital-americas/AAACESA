@@ -7,6 +7,10 @@
     border-bottom: none;
     box-shadow: 0 10px 5px #131528; 
 }
+.app-header .navbar-brand {
+    width: 200px;
+    height: 55px;
+}
 .header-fixed .app-header {
     z-index: 1019;
 }
