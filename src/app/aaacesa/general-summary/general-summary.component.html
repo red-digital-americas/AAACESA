@@ -1,8 +1,18 @@
 <div class="info-box">
-  <span class="info-box-icon" ng-class="color"></span>
+  <span class="info-box-icon {{summary.color}}"></span>
   <div class="info-box-content">
-    <span class="info-box-text">Total de Pendientes</span>
-    <span class="info-box-number">10</span>
+    <div class="row">
+      <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+        <span class="info-box-number">{{summary.cantidad}}</span>
+        <span class="info-box-text">{{summary.tipo}}</span>
+      </div>
+      <div class="col-xs-12 col-lg-4" style="padding:0">
+        <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+      </div>
+      <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+        <span class="info-box-text text-center" style="padding:50% 0 0 0"><i class="fas fa-plus-circle"></i></span>        
+      </div>
+    </div>
   </div>
   <!-- /.info-box-content -->
 </div>

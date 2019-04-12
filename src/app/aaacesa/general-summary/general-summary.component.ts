@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Summary } from '../general-summary/summary';
 
 @Component({
   selector: 'app-general-summary',
@@ -10,6 +11,7 @@ export class GeneralSummaryComponent implements OnInit {
   constructor() { }
 
   @Input() color: any = "bg-green"
+  @Input() summary: Summary
 
   ngOnInit() {
   }

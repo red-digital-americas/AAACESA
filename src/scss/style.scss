@@ -18,11 +18,11 @@
  */
 .info-box {
   display: block;
-  min-height: 150px;
-  background: #fff;
+  min-height: 130px;
+  background: #212649;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 1px;
   margin-bottom: 15px;
 }
 
@@ -43,7 +43,7 @@ small {
   border-bottom-left-radius: 2px;
   display: block;
   float: right;
-  height: 150px;
+  height: 130px;
   width: 15px;
   text-align: center;
   font-size: 45px;
@@ -52,27 +52,26 @@ small {
 }
 
 .info-box-content {
-  padding: 5px 10px;
-  margin-left: 90px;
+  padding: 20px 30px 10px 30px;
 }
 
 .info-box-number {
   display: block;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 40px;
 }
 
 .progress-description,
 .info-box-text {
   display: block;
-  font-size: 14px;
+  font-size: 11px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .info-box-text {
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .info-box-more {
@@ -81,4 +80,28 @@ small {
 
 .progress-description {
   margin: 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #212649;
+  background-clip: border-box;
+  border: 1px solid #212649;
+  border-radius: 1px;
+}
+
+.card-header {
+  padding: 1rem 1rem;
+  margin-bottom: 0;
+  background-color: #212649;
+  border-bottom: 1px solid #212649;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem;
 }
