@@ -12,12 +12,14 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
 import { UsuarioComponent } from '../../aaacesa/usuario/usuario.component';
 import { ContadorComponent } from '../../aaacesa/contador/contador.component';
+import { GeneralSummaryComponent } from '../../aaacesa/general-summary/general-summary.component'
 
 @NgModule({
   declarations: [
     DashboardComponent,
     UsuarioComponent,
-    ContadorComponent
+    ContadorComponent,
+    GeneralSummaryComponent
   ],
   imports: [
     FormsModule,

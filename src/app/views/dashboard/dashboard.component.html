@@ -2,27 +2,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-      <mat-card>
-        <mat-card-title primary>
-          Ejemplo de un componente que muestra un usuario
-        </mat-card-title>
-        <mat-card-content>
-          <div *ngFor=' let elemento of usuarios '>
-            <app-usuario [usuario]="elemento"></app-usuario>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <br>
-      <mat-card>
-        <mat-card-title>
-          Ejemplo de un componente que ingresa un n&uacute;mero entero
-        </mat-card-title>
-        <mat-card-content>
-          <app-contador valorInicial="3"></app-contador>
-          <br>
-          <app-contador valorInicial="0"></app-contador>
-        </mat-card-content>
-      </mat-card>
+      <app-general-summary></app-general-summary>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 

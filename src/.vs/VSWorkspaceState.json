@@ -1,13 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app",
-    "\\app\\containers\\default-layout",
-    "\\app\\views",
-    "\\app\\views\\component_aaacesa",
-    "\\app\\views\\component_aaacesa\\general-summary-dashboard",
-    "\\app\\views\\dashboard"
+    "\\scss"
   ],
-  "SelectedNode": "\\app\\app.component.ts",
+  "SelectedNode": "\\app",
   "PreviewInSolutionExplorer": false
 }
