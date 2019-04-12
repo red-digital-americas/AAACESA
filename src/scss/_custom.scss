@@ -27,6 +27,11 @@
 .sidebar-fixed .sidebar {
     z-index: 1020;
 }
+.sidebar .nav-link {
+    display: flow-root;
+    padding: 1.25rem 3.25rem;
+    text-align: center;
+}
 .sidebar .nav-link.active{
     color: #ffffff;
     background: #131529 ;
@@ -34,6 +39,11 @@
 .sidebar .nav-link:hover {
     color: #fff;
     background: #30376A;
+}
+.sidebar .nav-link .nav-icon {
+    display: flow-root;
+    font-size: 2rem;
+    width: 5.25rem;
 }
 .sidebar .nav-link.active .nav-icon {
     color: #ffffff;

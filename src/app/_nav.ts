@@ -2,53 +2,53 @@ export const navItems = [
   {
     name: 'Dashboard',
     url: '/dashboard',
-    icon: 'icon-speedometer',
+    icon: 'icon-home',
   },
   {
     name: 'Pre Alertas',
     url: '/theme/colors',
-    icon: 'icon-drop'
+    icon: 'icon-info'
   },
   {
     name: 'Previos',
     url: '/theme/typography',
-    icon: 'icon-pencil'
+    icon: 'icon-grid'
   },
   {
     name: 'Salidas',
-    url: '/base',
-    icon: 'icon-puzzle',
+    url: '/base/cards',
+    icon: 'fa fa-external-link',
   },
   {
     name: 'Exportación',
-    url: '/buttons',
-    icon: 'icon-cursor',
+    url: '/buttons/buttons',
+    icon: 'icon-globe',
   },
   {
     name: 'Finanzas',
     url: '/charts',
-    icon: 'icon-pie-chart'
+    icon: 'icon-chart'
   },
   {
     name: 'Cálculo Maniobras',
-    url: '/editors',
-    icon: 'fa fa-code',
+    url: '/plugins/calendar',
+    icon: 'cui-calculator',
   },
   {
     name: 'Bitácora',
-    url: '/forms',
+    url: '/forms/basic-forms',
     icon: 'icon-note',
     
   },
   {
     name: 'Admin de Usuarios',
-    url: '/google-maps',
-    icon: 'icon-map',
+    url: '/tables/datatable',
+    icon: 'fa fa-sitemap',
   },
   {
     name: 'Abandono',
     url: '/icons',
-    icon: 'icon-star',
+    icon: 'fa fa-chain-broken',
   },
   {
     divider: true

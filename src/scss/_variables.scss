@@ -3,8 +3,7 @@
 $body-bg:    #191C37;
 $body-color:  	#FFFF;
 $font-size-base: 1rem;
-$nav-link-padding-y: 1rem;
-$nav-link-height: 200rem;
+
 // Cards Colors
 $card-bg: #212649;
 $card-border-color: #212649;
@@ -34,6 +33,15 @@ $input-placeholder-color: #646880;
 $input-focus-border-color:#B2B3C0;
 $input-focus-box-shadow: #B2B3C0;
 $input-disabled-bg: #191C37;
+$input-group-addon-bg: transparent;
+$input-group-addon-color:#646880;
+
+
+//Dropdowns
+$dropdown-bg: #191C37;
+$dropdown-border-color: none;
+$dropdown-divider-bg: none;
+$dropdown-link-hover-bg:#212649;
 
 
 $theme-colors:(
