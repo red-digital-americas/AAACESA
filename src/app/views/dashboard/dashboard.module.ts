@@ -4,6 +4,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CommonModule } from "@angular/common";
+import { MatDividerModule } from '@angular/material/divider';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -33,7 +34,8 @@ import { GeneralSummaryComponent } from '../../aaacesa/general-summary/general-s
     MatInputModule,
     MatCardModule,
     MatGridListModule,
-    CommonModule
+    CommonModule,
+    MatDividerModule
   ],
   exports: [
     UsuarioComponent,
