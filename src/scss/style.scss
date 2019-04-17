@@ -3,11 +3,114 @@
 
 // Import styles with default layout.
 // If you are going to use dark layout please comment next line
-@import "node_modules/@coreui/coreui-pro/scss/coreui";
+//@import "node_modules/@coreui/coreui-pro/scss/coreui";
 
 // Import styles with dark layout
 // If you want to use dark layout uncomment next line
-// @import "node_modules/@coreui/coreui-pro/scss/themes/dark/coreui-dark";
+@import "node_modules/@coreui/coreui-pro/scss/themes/dark/coreui-dark";
 
 // If you want to add something do it here
 @import "custom";
+
+/*
+ * Component: Info Box
+ * -------------------
+ */
+.info-box {
+  display: block;
+  min-height: 130px;
+  background: #212649;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 1px;
+  margin-bottom: 15px;
+}
+
+small {
+  font-size: 14px;
+}
+
+.progress {
+  background: rgba(0, 0, 0, .2);
+  margin: 5px -10px 5px -10px;
+  height: 2px;
+}
+
+.info-box-icon {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: right;
+  height: 130px;
+  width: 15px;
+  text-align: center;
+  font-size: 45px;
+  line-height: 90px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box-content {
+  padding: 20px 30px 10px 30px;
+}
+
+.info-box-number {
+  display: block;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.progress-description,
+.info-box-text {
+  display: block;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-box-text {
+  text-transform: none;
+}
+
+.info-box-more {
+  display: block;
+}
+
+.progress-description {
+  margin: 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #212649;
+  background-clip: border-box;
+  border: 1px solid #212649;
+  border-radius: 1px;
+}
+
+.card-header {
+  padding: 1rem 1rem;
+  margin-bottom: 0;
+  background-color: #212649;
+  border-bottom: 1px solid #212649;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.page-item.active .page-link {
+  background-color: #ed0e19 !important;
+  border-color: #ed0e19 !important;
+  border-radius: 100% !important;
+}
+.page-link{
+  border-radius: 100% !important;
+}

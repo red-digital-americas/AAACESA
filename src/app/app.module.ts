@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -39,10 +40,24 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { FormsModule } from '@angular/forms';
+import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
+// import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    P404Component,
+    P500Component,
+    LoginComponent,
+    RegisterComponent,
+    ResetpasswordComponent,
+    // AbandonoComponent
+  ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AppAsideModule,
@@ -53,16 +68,13 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    FormsModule
   ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    P404Component,
-    P500Component,
-    LoginComponent,
-    RegisterComponent
+  exports: [
   ],
+  providers: [],
+
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
