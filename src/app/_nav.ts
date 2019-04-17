@@ -38,7 +38,6 @@ export const navItems = [
     name: 'Bitácora',
     url: '/forms/basic-forms',
     icon: 'icon-note',
-    
   },
   {
     name: 'Admin de Usuarios',
@@ -47,8 +46,8 @@ export const navItems = [
   },
   {
     name: 'Abandono',
-    url: '/icons',
-    icon: 'fa fa-chain-broken',
+    url: '/abandono',
+    icon: 'icon-list',
   },
   {
     divider: true

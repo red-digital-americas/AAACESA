@@ -105,3 +105,12 @@ small {
   flex: 1 1 auto;
   padding: 1rem;
 }
+
+.page-item.active .page-link {
+  background-color: #ed0e19 !important;
+  border-color: #ed0e19 !important;
+  border-radius: 100% !important;
+}
+.page-link{
+  border-radius: 100% !important;
+}
