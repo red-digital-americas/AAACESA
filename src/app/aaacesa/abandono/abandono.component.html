@@ -1,0 +1,69 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+<!-- <p>
+  abandono works!
+</p> -->
+<div class="animated fadeIn">
+  <div class="card">
+    <!-- <div class="card-header">
+      DataTable
+      <a href="https://coreui.io/pro/angular/" class="badge badge-danger ml-2">CoreUI Pro Component</a>
+    </div> -->
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4 offset-md-8">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="BUSCAR"/>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="masterguide">Guía Master <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="houseguide">Guía House <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="npieces">No. de piezas <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="weight">Peso <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="status">Estatus <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 20%">
+              <mfDefaultSorter by="leftDate">Fecha de abandono <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data">
+            <!-- <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td class="text-right">{{item.age}}</td>
+            <td>{{item.city | uppercase}}</td> -->
+            <td class="text-center">{{item.masterguide}}</td>
+            <td class="text-center">{{item.houseguide}}</td>
+            <td class="text-center">{{item.npieces}}</td>
+            <td class="text-center">{{item.weight}}</td>
+            <td class="text-center">{{item.status}}</td>
+            <td class="text-center">{{item.leftDate}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
