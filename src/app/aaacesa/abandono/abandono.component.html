@@ -10,6 +10,24 @@
     </div> -->
     <div class="card-body">
       <div class="row mb-3">
+        <div class="col-md-8">
+            <div class="row">
+              <div class="col-sm-3">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+              </div>
+              <div class="col-sm-3">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+              </div>
+              <div class="col-sm-4">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>
+                      <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de fecha">
+                    </div>
+              </div>
+            </div>
+        </div>
         <div class="col-md-4 offset-md-8">
           <div class="input-group">
             <div class="input-group-prepend">

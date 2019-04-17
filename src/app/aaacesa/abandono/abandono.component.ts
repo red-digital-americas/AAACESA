@@ -25,6 +25,14 @@ import { Http } from '@angular/http';
 // export class DataTableComponent {
   export class AbandonoComponent {
 
+   // Datepicker
+
+   minDate = '';
+   maxDate = '';
+
+   bsValue: Date = new Date();
+   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+
   public data;
   public filterQuery = '';
 

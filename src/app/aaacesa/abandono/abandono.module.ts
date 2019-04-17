@@ -17,6 +17,20 @@ import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
 import { DataFilterPipe } from './datafilterpipe';
 import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+// Angular 2 Input Mask
+import { TextMaskModule } from 'angular2-text-mask';
+
+// Timepicker
+import { TimepickerModule } from 'ngx-bootstrap';
+
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
+// Ng2-select
+import { SelectModule } from 'ng-select';
+
 
 // import { DataTableComponent } from './datatable.component';
 import { AbandonoComponent } from './abandono.component';
@@ -33,7 +47,12 @@ import { AbandonoRoutingModule } from './abandono-routing.module';
     DataTableModule,
     FormsModule,
 // tslint:disable-next-line: deprecation
-    HttpModule
+    HttpModule,
+    MatDatepickerModule,
+    TextMaskModule,
+    TimepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    SelectModule
   ],
   declarations: [
     // DataTableComponent,
