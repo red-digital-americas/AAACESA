@@ -1,59 +1,31 @@
-import { Observable } from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { UserAuth } from '../models/user.models';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
+@Injectable()
 export class LoginServices{
+    public url="http://104.130.201.153/";
+    
+    constructor(private http: HttpClient, private https: Http) { }
 
-    usuario;
-    pasword;
-    users = [
-        {
-            Correo: 'kfigueroa@indracompany.com',
-            Password:'IndraCompn',
-            CveEstatus: 'B',
-            Detalle:'El usuario está bloqueado',
-            IdCliente: '259',
-            isAuth:'false'
-        },
-        {
-            Correo: 'tester.indra.aaacesa@gmail.com',Password:'IndraCompany',
-            CveEstatus: 'A',
-            Detalle:'',
-            IdCliente: '258',
-            isAuth:'true'
-        },
-        {
-            Correo: 'admin@demo.com',
-            Password:'demo',
-            CveEstatus: null,
-            Detalle:'El usuario no existe',
-            IdCliente: '',
-            isAuth:''
-        }
-    ];
-
-    loginAuth(nameUser: string, passwUser: string){
-        
-        this.usuario = this.users.filter(x => x.Correo == nameUser)[0];
-        
-
-        if(nameUser == this.usuario['Correo'])
-        {
-            return this.usuario;
-        }
+    public getJSON(_jsonURL): Observable<any> {
+      return this.https.get(_jsonURL)
+       .map((response:any) => response.json());
+    
     }
-    getDetalleUser(id):Observable<any> {
-        this.usuario = {
-            Nombre:"ARMANDO",
-            Paterno:"MADRIGAL",
-            Materno: "HERNANDEZ",
-            CvePerfil:"MAESTRO",
-            TipoCliente:"AA",
-            RazonSocial:"AGENCIA ADUANAL OCAMPO YUDICO SC",
-            ClavePatente:"3763",
-            NumCuentas:"5",
-            IdCliente:"258",
-            GetFotoPerfil:"assets/img/avatars/armando.jpg"
-        }
-        return this.usuario;
-    }
+    
+    service_general(url, parametros): Observable<any> {
+        let headers = new Headers({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        });
+        return this.http.post(this.url + url, parametros);
+      }
 
 }

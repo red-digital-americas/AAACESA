@@ -1,45 +1,59 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoginServices } from '../../services/login.services';
 
 @Component({
   selector: 'app-resetpassword',
   templateUrl: 'resetpassword.component.html',
+  providers: [LoginServices]
 })
 export class ResetpasswordComponent implements OnInit {
-  newPassword1: string;
-  newPassword2: string;
+  newPassword: string;
+  guid: string;
+  mail: string;
+  idcliente:string;
   message: string;
   mostrar= false;
   validar= false;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private loginservice: LoginServices) { }
 
   ngOnInit() {
+      this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.idcliente = params['IdUser'];
+      this.mail = params['Correo'];
+      this.guid = params['token'];
+    })
   }
 
   resetPassword(obj){
     this.validar= true;
     
-      if((this.newPassword1 != undefined) && (this.newPassword2 != undefined)) 
+      if(this.newPassword != undefined) 
       {
-        
-        if(this.newPassword1 != this.newPassword2) 
-        {
-          this.mostrar=false;
-          this.message= "Las contraseñas son diferentes, intentar de nuevo.";
-        }
-        else{
-          this.mostrar=true;
-          this.message= "Contraseña cambiada correctamente, seras redirigido al login.";
-          setTimeout(function(){
-            window.location.href ="login";
-          },3000);
-        }
+        this.loginservice.service_general('AAACESA-Portal/portalclientes/resetPassword',
+          {"reset": {
+              "idCliente": this.idcliente,
+              "correo": this.mail,
+              "guid": this.guid,
+              "password": this.newPassword
+          }}).subscribe((respuesta)=>{
+            this.mostrar=true;
+            if(respuesta.Result == "true")
+            {
+              this.message= "Contraseña cambiada correctamente, seras redirigido al login.";
+              setTimeout(function(){
+                window.location.href ="login";
+              },3000);
+            }
+            else{
+              this.message= "No se pudo cambiar la contraseña, enlace caducado.";
+              setTimeout(function(){
+                window.location.href ="login";
+              },3000);
+            }
+        });
      }
-     else{
-      this.mostrar=false;
-      this.message= "Debes completar ambos campos.";
-     }
-    
   }
-
 }

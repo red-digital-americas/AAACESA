@@ -13,7 +13,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {

@@ -14,21 +14,36 @@
                       <span class="input-group-text"><i class="icon-user"></i></span>
                     </div>
                     <input type="text" class="form-control" 
-                    [(ngModel)]="email" #namelogin="ngModel"
+                    [(ngModel)]="email" #emailUser="ngModel"
                     id="emailUser" name="emailUser" 
-                    placeholder="Email Usuario" autocomplete="Email Usuario" required>
+                    placeholder="Email Usuario" autocomplete="Email Usuario" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                  </div>
+                  <div *ngIf="emailUser.invalid && (emailUser.dirty || emailUser.touched)"
+                        class="alert alert-danger">
+                      <div *ngIf="emailUser?.errors.required">
+                        El Correo es requerido.
+                      </div>
+                      <div *ngIf="emailUser.errors && emailUser?.errors.pattern">
+                        El Correo no es valido (ej. nombre@sitio.com)
+                      </div>
                   </div>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="icon-lock"></i></span>
                     </div>
                     <input type="password" class="form-control" 
-                    [(ngModel)]="password" #passwordxlogin="ngModel"
+                    [(ngModel)]="password" #passwordlogin="ngModel"
                     id="userPassword" name="userPassword" placeholder="Contraseña usuario" autocomplete="Contraseña usuario" required>
+                  </div>
+                  <div *ngIf="passwordlogin.invalid && (passwordlogin.dirty || passwordlogin.touched)"
+                        class="alert alert-danger">
+                      <div *ngIf="passwordlogin?.errors.required">
+                        Contraseña requerida.
+                      </div>
                   </div>
                   <div class="row">
                     <div class="col-6">
-                      <button type="submit"  class="btn btn-primary px-4" (click)="login($event)" >Entrar</button>
+                      <button type="submit"  class="btn btn-primary px-4" (click)="login($event)" [disabled]="loginForm.invalid">Entrar</button>
                     </div>
                     <div class="col-6 text-right">
                       <button type="button" class="btn btn-link px-0" (click)="onRecoveryPassword()" >¿Olvidaste tu contraseña?</button>
@@ -46,18 +61,31 @@
                 </form>
               </div>
               <div class="card-body" [hidden]="!getPasword">
-                  <form>
+                  <form #resetForm="ngForm">
+                    <h3>Recupera tu contraseña</h3>
                       <p class="text-muted">Ingresa el correo registrado en tu cuenta</p>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="cui-envelope-open"></i></span>
                       </div>
                       <input type="text" class="form-control" 
-                      [(ngModel)]="recuperaEmail" #recuperaEmaillogin="ngModel"  id="recuperaEmail" name="recuperaEmail" placeholder="Correo electronico" autocomplete="Correo electronico" required>
+                      [(ngModel)]="recuperaEmail" #recuperaEmaillogin="ngModel"  id="recuperaEmail" name="recuperaEmail" placeholder="Correo electronico" autocomplete="Correo electronico" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
                     </div>
+                    <div *ngIf="recuperaEmaillogin.invalid && (recuperaEmaillogin.dirty || recuperaEmaillogin.touched)"
+                        class="alert alert-danger">
+                      <div *ngIf="recuperaEmaillogin?.errors.required">
+                        El Correo es requerido.
+                      </div>
+                      <div *ngIf="recuperaEmaillogin.errors && recuperaEmaillogin?.errors.pattern">
+                        El Correo no es valido (ej. nombre@sitio.com)
+                      </div>
+                  </div>
                     <div class="row">
                       <div class="col-6">
-                        <a (click)="resetPassword()"  class="btn btn-primary px-4" >Recuperar</a>
+                        <button type="submit" (click)="resetPassword()"  class="btn btn-primary px-4" [disabled]="resetForm.invalid">Recuperar</button>
+                      </div>
+                      <div class="col-6 text-right">
+                        <a href="/login" class="btn btn-link px-0">Regresar</a>
                       </div>
                     </div>
                     <div class="row">

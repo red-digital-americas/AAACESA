@@ -1,0 +1,38 @@
+   
+[{
+    "ClavePatente": "8007",
+    "NumCuentas":"2",
+    "RFC": "BAF901130MN6",
+    "RazonSocial":"TALMA MEXICO SERVICIOS AEROPORTUARIOS SA",
+    "TipoCliente": "RF",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"kfigueroa@indracompany.com",
+                "Password":""
+            }],
+            "CveEstatus":"A",
+            "Detalle":"",
+            "IdCliente":"259",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"ROSAS",
+    "Nombre":"KARINA",
+    "Paterno":"FIGUEROA",
+    "Perfil": [
+        {
+            "CvePerfil":"OPERACION",
+            "DescripcionPerfil":"Generar solicitudes a personal de AAACES",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"PREALERTAS",
+                    "Detalle":"Genera las solicitudes de Prealerta"
+                }]
+            }]
+        }
+    ],
+    "Telefono":"6666666"
+}]

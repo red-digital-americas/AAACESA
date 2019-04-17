@@ -6,6 +6,8 @@ import { NgModule } from '@angular/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { HttpClient } from '@angular/common/http';import { HttpClientModule } from '@angular/common/http';
+import { HttpModule, Http } from '@angular/http';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -20,6 +22,8 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+
+// Providers
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -67,7 +71,9 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    HttpModule,
   ],
   exports: [
   ],
