@@ -14,24 +14,21 @@
 
 // }
 
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import {IOption} from 'ng-select';
+
 import { Http } from '@angular/http';
 
 @Component({
   // templateUrl: 'datatable.component.html'
   templateUrl: 'abandono.component.html',
-  styleUrls: ['./abandono.component.scss']
+  styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
+  '../../../scss/vendors/ng-select/ng-select.scss',
+  './abandono.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 // export class DataTableComponent {
   export class AbandonoComponent {
-
-   // Datepicker
-
-   minDate = '';
-   maxDate = '';
-
-   bsValue: Date = new Date();
-   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
 
   public data;
   public filterQuery = '';

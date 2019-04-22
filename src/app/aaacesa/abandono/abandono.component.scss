@@ -21,3 +21,12 @@ table{
     padding-top: 10%;
     font-size: 0.5em;
 }
+.bs-datepicker {
+    display: flex;
+    align-items: stretch;
+    flex-flow: row wrap;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #aaa;
+    position: relative;
+    z-index: 1;
+}
