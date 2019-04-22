@@ -9,7 +9,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
+// import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
 
 export const routes: Routes = [
   {
@@ -59,6 +59,14 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path: 'previos',
+        // component: AbandonoComponent,
+        loadChildren: './aaacesa/previos/previos.module#PreviosModule'
+        // data: {
+        //   title: 'Abandono'
+        // }
+      },
       {
         path: 'abandono',
         // component: AbandonoComponent,

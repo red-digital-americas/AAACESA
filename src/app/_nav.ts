@@ -11,7 +11,7 @@ export const navItems = [
   },
   {
     name: 'Previos',
-    url: '/theme/typography',
+    url: '/previos',
     icon: 'icon-grid'
   },
   {

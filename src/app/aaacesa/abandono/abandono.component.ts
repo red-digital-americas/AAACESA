@@ -18,6 +18,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import {IOption} from 'ng-select';
 
 import { Http } from '@angular/http';
+// // todo: split
+// import { Injectable } from '@angular/core';
+
+// import { ConfigModel, PagerModel } from '../../models/';
 
 @Component({
   // templateUrl: 'datatable.component.html'
@@ -29,7 +33,10 @@ import { Http } from '@angular/http';
 })
 // export class DataTableComponent {
   export class AbandonoComponent {
-
+  isDropup = true;
+  showBoundaryLinks = true;
+  firstText = 'PRIMERA';
+  lastText = 'ÚLTIMA';
   public data;
   public filterQuery = '';
 
@@ -50,3 +57,27 @@ import { Http } from '@angular/http';
     return a.name.length;
   }
 }
+
+// /** Provides default values for Pagination and pager components */
+// @Injectable()
+// export class PaginationConfig {
+//   main: ConfigModel = {
+//     maxSize: void 0,
+//     itemsPerPage: 10,
+//     boundaryLinks: true,
+//     directionLinks: true,
+//     firstText: 'PRIMERA',
+//     previousText: '< ANTERIOR',
+//     nextText: 'SIGUIENTE >',
+//     lastText: 'ÚLTIMA',
+//     pageBtnClass: '',
+//     rotate: true
+//   };
+//   pager: PagerModel = {
+//     itemsPerPage: 15,
+//     previousText: '< ANTERIOR',
+//     nextText: 'SIGUIENTE >',
+//     pageBtnClass: '',
+//     align: true
+//   };
+// }

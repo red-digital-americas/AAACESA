@@ -75,6 +75,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     ChartsModule,
     FormsModule,
     HttpClientModule,
+// tslint:disable-next-line: deprecation
     HttpModule,
   ],
   exports: [
