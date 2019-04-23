@@ -11,7 +11,7 @@
                 "Correo":"kfigueroa@indracompany.com",
                 "Password":""
             }],
-            "CveEstatus":"A",
+            "CveEstatus":"B",
             "Detalle":"",
             "IdCliente":"259",
             "RecuperaPassword":"",
@@ -35,4 +35,55 @@
         }
     ],
     "Telefono":"6666666"
-}]
+},
+{
+    "ClavePatente": "3763",
+    "NumCuentas":"5",
+    "RFC": "AAO9903043U2",
+    "RazonSocial":"AGENCIA ADUANAL OCAMPO YUDICO SC",
+    "TipoCliente": "AA",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"tester.indra.aaacesa@gmail.com",
+                "Password":""
+            }],
+            "CveEstatus":"A",
+            "Detalle":"",
+            "IdCliente":"258",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"HERNANDEZ",
+    "Nombre":"ARMANDO",
+    "Paterno":"MADRIGAL",
+    "Perfil": [
+        {
+            "CvePerfil":"MAESTRO",
+            "DescripcionPerfil":"-----",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"BITACORAS",
+                    "Detalle":"Bitacoras"
+                },
+                {
+                    "ClaveModulo":"FACTURACION",
+                    "Detalle":"Facturacion"
+                },
+                {
+                    "ClaveModulo":"ADMIN CTAS PORTAL",
+                    "Detalle":"Admin Cuentas Portal"
+                },
+                {
+                    "ClaveModulo":"PREALERTAS",
+                    "Detalle":"Genera las solicitudes de Prealerta"
+                }
+            ]
+            }]
+        }
+    ],
+    "Telefono":"5500000000"
+}
+]

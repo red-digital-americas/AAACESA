@@ -14,7 +14,7 @@ import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -56,7 +56,7 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home'
+      title: ''
     },
     children: [
       {
@@ -66,6 +66,10 @@ export const routes: Routes = [
         // data: {
         //   title: 'Abandono'
         // }
+      },
+      {
+        path: 'adminuser',
+        loadChildren: './aaacesa/admin-user/admin-user.module#AdminUserModule'
       },
       {
         path: 'base',

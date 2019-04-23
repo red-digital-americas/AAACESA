@@ -5,14 +5,14 @@ export const navItems = [
     icon: 'icon-home',
   },
   {
-    name: 'Pre Alertas',
+    name: 'PREALERTAS',
     url: '/theme/colors',
-    icon: 'icon-info'
+    icon: 'icon-info',
   },
   {
     name: 'Previos',
     url: '/theme/typography',
-    icon: 'icon-grid'
+    icon: 'icon-grid',
   },
   {
     name: 'Salidas',
@@ -35,13 +35,13 @@ export const navItems = [
     icon: 'cui-calculator',
   },
   {
-    name: 'Bitácora',
+    name: 'BITACORAS',
     url: '/forms/basic-forms',
     icon: 'icon-note',
   },
   {
-    name: 'Admin de Usuarios',
-    url: '/tables/datatable',
+    name: 'ADMIN CTAS PORTAL',
+    url: '/adminuser',
     icon: 'fa fa-sitemap',
   },
   {

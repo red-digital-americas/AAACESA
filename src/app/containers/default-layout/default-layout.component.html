@@ -7,7 +7,7 @@
   [mobileAsideMenuToggler]="false">
   
   
-  <span class="label label-default d-none d-lg-block">Bienvenido! {{IDUSR.Nombre}}</span>
+  <span class="label label-default d-none d-lg-block">Bienvenido! {{user}}</span>
   
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
@@ -57,7 +57,7 @@
     </li>
     <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <img src="{{avatar}}" class="img-avatar" alt="{{user}}"/>
+        <img src="assets/img/avatars/1.jpg" class="img-avatar" alt="{{user}}"/>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Administrador</strong></div>

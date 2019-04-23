@@ -21,65 +21,51 @@ export class LoginComponent implements OnInit {
   constructor(private loginservice: LoginServices){};
 
   ngOnInit() {
+    if (localStorage.getItem("user") != undefined) {
+      window.location.href = "/";
+    }
+    
   }
   
   login(obj){  
-    
-      this.loginservice.service_general("AAACESA-Portal/portalclientes/autentificacionUsuario",
-          { "itemautenticacion": {
-            "Correo": this.email,
-            "Password": this.password
-          }
-      }).subscribe((value) => {
-          this.validar= true;
-          if(value.isAuth)
-          {
-            this.loginservice.getJSON("assets/user.json").subscribe((response)=>{
-              console.log(response);
-              localStorage.setItem('user', JSON.stringify(response));
-              this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
-                setTimeout(function(){
-                window.location.href ="dashboard";
-             },3000);
-            })
-            // this.loginservice.service_general("AAACESA-Portal/portalclientes/",{}).subscribe((respuesta)=>{
-            //   sessionStorage.setItem('user', JSON.stringify(respuesta));
-            // });
 
-            
-          }
-          else{
-            this.message = value.Detalle;
-          }
-          
-      });
-      // switch(this.loginUser["CveEstatus"]){
-      //   case "A": 
-      //     this.message = "Acceso Correcto";
-      //     this.validar= true;
-      //     this.sesionUser =this.loginservice.getDetalleUser(this.loginUser["IdCliente"]);
-      //       localStorage.setItem("IdCliente",  this.sesionUser["IdCliente"]);
-      //       localStorage.setItem("Nombre",  this.sesionUser["Nombre"]+" "+this.sesionUser["Paterno"]+" "+this.sesionUser["Materno"]);
-      //       localStorage.setItem("CvePerfil",  this.sesionUser["CvePerfil"]);
-      //       localStorage.setItem("TipoCliente",  this.sesionUser["TipoCliente"]);
-      //       localStorage.setItem("RazonSocial",  this.sesionUser["RazonSocial"]);
-      //       localStorage.setItem("ClavePatente",  this.sesionUser["ClavePatente"]);
-      //       localStorage.setItem("NumCuentas",  this.sesionUser["NumCuentas"]);
-      //       localStorage.setItem("isAuth",  "SI");
-      //       localStorage.setItem("avatar",  this.sesionUser["GetFotoPerfil"]);
-      //       window.location.href = "dashboard";
-      //     break;
-      //   case "B": 
-      //     this.message = this.loginUser["Detalle"]+". Favor de validar con el administrador del sistema";
-      //     this.validar= true;
-      //     break;
-      //   case null: 
-      //     this.message = this.loginUser["Detalle"];
-      //     this.validar= true;
-      //     break;
-      //   default: this.message ="Error";
-      //     break;
-      // }
+      // this.loginservice.getJSON("assets/auth.json").subscribe((response)=>{
+      //   console.log(response);
+      //   this.loginservice.getJSON("assets/user.json").subscribe((response)=>{
+      //     console.log(response);
+      //     localStorage.setItem('user', JSON.stringify(response));
+      //     this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
+      //       setTimeout(function(){
+      //       window.location.href ="dashboard";
+      //   },3000);
+      //   });
+      // });
+
+       this.loginservice.service_general("AAACESA-Portal/portalclientes/autentificacionUsuario",
+           { "itemautenticacion": {
+             "Correo": this.email,
+             "Password": this.password
+           }
+       }).subscribe((value) => {
+           this.validar= true;
+           if(value.isAuth)
+           {
+             this.loginservice.service_general("AAACESA-Portal/portalclientes/getCuentasCliente",{
+                   "imtgetCuentacliente": 	{
+                     "IdCliente": value.IdCliente
+                   }
+             }).subscribe((respuesta)=>{
+               localStorage.setItem('user', JSON.stringify(respuesta));
+               this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
+               setTimeout(function(){
+                 window.location.href ="dashboard";
+               },3000);
+             });
+           }
+           else{
+             this.message = value.Detalle;
+           }
+       });
   }
 
   onRecoveryPassword(){

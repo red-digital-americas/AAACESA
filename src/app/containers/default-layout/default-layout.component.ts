@@ -12,24 +12,19 @@ export class DefaultLayoutComponent implements OnInit {
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   public user : string;
+  public modulos : string;
   public avatar : string;
   public IDUSR;
   
 
   ngOnInit() {
-    // if (localStorage.getItem("isAuth") == undefined) {
-    //   window.location.href = "/login";
-    // }
-    // else{
-    //   this.user = localStorage.getItem("Nombre");
-    //   this.avatar = localStorage.getItem("avatar");
-    // }
     if (localStorage.getItem("user") == undefined) {
       this.router.navigate(['/login']);
     }
     else {
-      this.IDUSR = JSON.parse(localStorage.getItem("user"))[0];
+      this.IDUSR = JSON.parse(localStorage.getItem("user"));
       this.user = this.IDUSR.Nombre+" "+this.IDUSR.Paterno+" "+this.IDUSR.Materno;
+      this.modulos= this.IDUSR.perfil['Modulos'];
     }
 
   }
@@ -44,9 +39,10 @@ export class DefaultLayoutComponent implements OnInit {
       attributes: true
     });
   }
-
+   
+  
   closeSession(){
     localStorage.clear();
-    window.location.href = "/login";
+    this.router.navigate(['/login']);
   }
 }
