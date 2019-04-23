@@ -5,14 +5,14 @@ export const navItems = [
     icon: 'icon-home',
   },
   {
-    name: 'PREALERTAS',
-    url: '/theme/colors',
-    icon: 'icon-info',
+    name: 'Pre Alertas',
+    url: '/prealertas',
+    icon: 'icon-info'
   },
   {
     name: 'Previos',
-    url: '/theme/typography',
-    icon: 'icon-grid',
+    url: '/previos',
+    icon: 'icon-grid'
   },
   {
     name: 'Salidas',
