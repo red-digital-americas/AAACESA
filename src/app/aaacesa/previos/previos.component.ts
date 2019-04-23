@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import {IOption} from 'ng-select';
 
 import { Http } from '@angular/http';
@@ -8,16 +8,19 @@ import { Http } from '@angular/http';
   templateUrl: './previos.component.html',
   styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
   '../../../scss/vendors/ng-select/ng-select.scss',
-    './previos.component.scss']
+  './previos.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PreviosComponent implements OnInit {
-
-
+  isDropup = true;
+  showBoundaryLinks = true;
+  firstText = 'PRIMERA';
+  lastText = 'ÚLTIMA';
   public data;
   public filterQuery = '';
 
   constructor(private http: Http) {
-    http.get('assets/abandono.json')
+    http.get('assets/previos.json')
       .subscribe((data) => {
         setTimeout(() => {
           this.data = data.json();

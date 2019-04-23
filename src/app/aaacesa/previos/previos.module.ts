@@ -11,8 +11,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 // Angular 2 Input Mask
 import { TextMaskModule } from 'angular2-text-mask';
 
-// Timepicker
-import { TimepickerModule } from 'ngx-bootstrap';
+// Timepicker & Paginator
+import { TimepickerModule, PaginationModule, PopoverModule } from 'ngx-bootstrap';
 
 // Datepicker
 import { BsDatepickerModule } from 'ngx-bootstrap';
@@ -20,6 +20,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 // Ng2-select
 import { SelectModule } from 'ng-select';
 
+// Dropdowns Component
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PreviosComponent } from './previos.component';
 
 import { PreviosRoutingModule } from './previos-routing.module';
@@ -29,6 +31,7 @@ import { PreviosRoutingModule } from './previos-routing.module';
     PreviosRoutingModule,
     CommonModule,
     DataTableModule,
+    BsDropdownModule.forRoot(),
     FormsModule,
 // tslint:disable-next-line: deprecation
     HttpModule,
@@ -36,6 +39,8 @@ import { PreviosRoutingModule } from './previos-routing.module';
     TextMaskModule,
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    PopoverModule.forRoot(),
     SelectModule
   ],
   declarations: [

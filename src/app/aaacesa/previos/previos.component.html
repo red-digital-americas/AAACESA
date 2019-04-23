@@ -18,7 +18,15 @@
               <div class="col-sm-3">
                   <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
               </div>
-              <div class="col-sm-4 form-group">
+              <div class="col-xs-12 col-12 col-md-3 form-group">
+                <input type="text"
+                class="form-control"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                #dp="bsDatepicker"
+                bsDatepicker [(bsValue)]="bsValue">
+              </div>
+              <div class="col-sm-3 form-group">
                   <div class="input-group">
                       <div class="input-group-prepend">
                          <span class="input-group-text"><i class="fa fa-calendar"></i></span>
@@ -28,46 +36,45 @@
               </div>
             </div>
         </div>
-        <div class="col-md-4 offset-md-8">
+        <div class="col-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-search"></i></span>
+              <span class="buscar-icon input-group-text"><i class="fa fa-search"></i></span>
             </div>
-            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="BUSCAR"/>
+            <input type="text" class="buscar-place form-control" [(ngModel)]="filterQuery" placeholder="BUSCAR"/>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
+
       <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
           <tr>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="masterguide">Guía Master <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="masterguide">Guía Master <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="houseguide">Guía House <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="houseguide">Guía House <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="patente">Patente <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="patente">Patente <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="name">Nombre Completo <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="name">Nombre Completo <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="prevDate">Fecha Previo <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="prevDate">Fecha Previo <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="reference">Referencia <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="reference">Referencia <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="etiqueta">Etiquetado <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="etiqueta">Etiquetado <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="status">Estatus <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="">Acciones <span class="iconfilt"><i class="material-icons">filter_list</i></span> </mfDefaultSorter>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="">Acciones <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
             </th>
           </tr>
         </thead>
@@ -82,25 +89,19 @@
             <td class="text-center">{{item.patente}}</td>
             <td class="text-center">{{item.name}}</td>
             <td class="text-center">{{item.prevDate}}</td>
-            <td class="text-center">{{item.reference}</td>
+            <td class="text-center">{{item.reference}}</td>
             <td class="text-center">{{item.etiqueta}}</td>
             <td class="text-center">{{item.status}}</td>
             <td class="text-center">
-              <a class="btn btn-success" href="#">
-                <i class="fa fa-search-plus"></i>
-              </a>
-              <a class="btn btn-info" href="#">
-                <i class="fa fa-edit"></i>
-              </a>
-              <a class="btn btn-danger" href="#">
-                <i class="fa fa-trash"></i>
+              <a class="btn btn-block btn-outline-light" href="#">
+                <i class="material-icons">add_circle_outline</i><span style="padding-top: 15%;">DETALLE</span>
               </a>
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="6">
+            <td colspan="9">
               <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
             </td>
           </tr>
@@ -110,5 +111,3 @@
   </div>
 </div>
     
-</div>
-</div>

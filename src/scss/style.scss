@@ -114,3 +114,30 @@ small {
 .page-link{
   border-radius: 100% !important;
 }
+.lastfirst{
+  border-radius: 0;
+  background: none;
+  border: none;
+}
+.lastfirst:active{
+  border-radius: 0;
+  background: none;
+  border: none;
+}
+.lastfirst:hover{
+  border-radius: 0;
+  background: none;
+  border: none;
+}
+
+.lastfirst{
+  border-radius: 0;
+  background: none;
+  border: none;
+}
+
+.page-item.disabled .page-link{
+  border-radius: 0;
+  background: none;
+  border: none;
+}

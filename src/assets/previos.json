@@ -1,0 +1,342 @@
+[
+  {
+    "masterguide": "5cbf3677e72713afc222535e",
+    "houseguide": "ed28c5ff-e448-46a9-abf5-640c42d01f47",
+    "patente": "Patente",
+    "name": "Shepard Blake",
+    "prevDate": "Monday, August 7, 2017 2:18 AM",
+    "reference": "fugiat",
+    "etiqueta": "Si",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677f01bd4f118ee1391",
+    "houseguide": "1cf57d48-4490-4e91-b86a-55e62a564711",
+    "patente": "Patente",
+    "name": "Sara Cortez",
+    "prevDate": "Wednesday, March 9, 2016 1:22 AM",
+    "reference": "ipsum",
+    "etiqueta": "Si",
+    "status": "Solicitada"
+  },
+  {
+    "masterguide": "5cbf367777193ee04e1755e3",
+    "houseguide": "b11ead24-e628-4cc0-8f80-80a9ac0159f6",
+    "patente": "Patente",
+    "name": "Campos Winters",
+    "prevDate": "Friday, April 25, 2014 10:27 AM",
+    "reference": "deserunt",
+    "etiqueta": "Si",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677909d20691786124d",
+    "houseguide": "4696cf34-782d-4154-9712-6736824452bf",
+    "patente": "Patente",
+    "name": "Hodge Chase",
+    "prevDate": "Wednesday, August 17, 2016 3:27 PM",
+    "reference": "nostrud",
+    "etiqueta": "Si",
+    "status": "Rechazada"
+  },
+  {
+    "masterguide": "5cbf3677829a6206211e51a6",
+    "houseguide": "3c93842a-c19e-4c29-84e1-cf3abcb18766",
+    "patente": "Patente",
+    "name": "Acevedo Reyes",
+    "prevDate": "Friday, July 28, 2017 4:18 PM",
+    "reference": "sint",
+    "etiqueta": "No",
+    "status": "Rechazada"
+  },
+  {
+    "masterguide": "5cbf3677c47ad6b3a50fb30a",
+    "houseguide": "aab9e405-7426-423c-a4df-cfb773246f51",
+    "patente": "Patente",
+    "name": "Tammi Schneider",
+    "prevDate": "Tuesday, August 22, 2017 5:04 PM",
+    "reference": "irure",
+    "etiqueta": "Si",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677218d08f07ff1b588",
+    "houseguide": "d55fc477-7228-47a0-9125-cddaf3281cfb",
+    "patente": "Patente",
+    "name": "Rice Whitehead",
+    "prevDate": "Friday, March 9, 2018 12:34 AM",
+    "reference": "incididunt",
+    "etiqueta": "Si",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677718a447f5bc45d13",
+    "houseguide": "0a04a547-64a2-4bc4-9691-02b5bbfab17a",
+    "patente": "Patente",
+    "name": "Bennett Moran",
+    "prevDate": "Wednesday, March 12, 2014 8:31 PM",
+    "reference": "commodo",
+    "etiqueta": "No",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf367704faae6395a4d84d",
+    "houseguide": "8c20c493-b2f0-4145-aede-bcfc7355e02c",
+    "patente": "Patente",
+    "name": "Herman Hogan",
+    "prevDate": "Friday, February 12, 2016 10:09 AM",
+    "reference": "ex",
+    "etiqueta": "No",
+    "status": "Abierta"
+  },
+  {
+    "masterguide": "5cbf36778c3fe8d25aeca5f3",
+    "houseguide": "3bec1712-3936-4468-a4f0-0287db0d0bf5",
+    "patente": "Patente",
+    "name": "Sandy Dickson",
+    "prevDate": "Friday, April 4, 2014 10:26 PM",
+    "reference": "exercitation",
+    "etiqueta": "Si",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf36771cd0a5a6c4e2e736",
+    "houseguide": "48cedf00-3392-4b4a-ba3b-d0d72ad82f00",
+    "patente": "Patente",
+    "name": "Beatrice Nieves",
+    "prevDate": "Tuesday, March 18, 2014 1:32 AM",
+    "reference": "nostrud",
+    "etiqueta": "No",
+    "status": "Rechazada"
+  },
+  {
+    "masterguide": "5cbf3677f821cdff0e03a4d9",
+    "houseguide": "21c330df-f7e8-4cf1-bad5-241c029195a6",
+    "patente": "Patente",
+    "name": "Amy Alston",
+    "prevDate": "Monday, July 17, 2017 11:04 PM",
+    "reference": "labore",
+    "etiqueta": "Si",
+    "status": "Finalizada"
+  },
+  {
+    "masterguide": "5cbf3677689aa639844c26a4",
+    "houseguide": "18b19947-542c-47ec-a6fb-56d0e63e722d",
+    "patente": "Patente",
+    "name": "Mona Serrano",
+    "prevDate": "Sunday, October 12, 2014 6:03 PM",
+    "reference": "id",
+    "etiqueta": "Si",
+    "status": "Finalizada"
+  },
+  {
+    "masterguide": "5cbf3677982ea24fb45054e8",
+    "houseguide": "3f67bc7c-ac73-44be-8318-6670a6a5065d",
+    "patente": "Patente",
+    "name": "Allen Morin",
+    "prevDate": "Saturday, October 8, 2016 2:42 AM",
+    "reference": "sunt",
+    "etiqueta": "No",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf3677cc649bf6a0e073ce",
+    "houseguide": "1a40bc59-b54c-4b8c-8058-78cdede8517d",
+    "patente": "Patente",
+    "name": "Adams Zimmerman",
+    "prevDate": "Saturday, October 24, 2015 12:55 AM",
+    "reference": "sint",
+    "etiqueta": "Si",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf36770610cdc7ff06807d",
+    "houseguide": "ff207698-4058-4177-9c63-75eb6f4b4d16",
+    "patente": "Patente",
+    "name": "Jarvis Nixon",
+    "prevDate": "Monday, December 19, 2016 5:37 PM",
+    "reference": "adipisicing",
+    "etiqueta": "Si",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf367746ab0e32926cfd96",
+    "houseguide": "31bcb18b-b4f7-42b5-a030-e871a34942bf",
+    "patente": "Patente",
+    "name": "Milagros Bradley",
+    "prevDate": "Sunday, June 10, 2018 3:13 PM",
+    "reference": "et",
+    "etiqueta": "No",
+    "status": "Abierta"
+  },
+  {
+    "masterguide": "5cbf3677861c6b590d46501a",
+    "houseguide": "fed5f20f-a070-4ec3-ac78-17bb40ded20c",
+    "patente": "Patente",
+    "name": "Peters Peck",
+    "prevDate": "Thursday, October 13, 2016 9:02 PM",
+    "reference": "tempor",
+    "etiqueta": "No",
+    "status": "Finalizada"
+  },
+  {
+    "masterguide": "5cbf36770811f65721a9f12a",
+    "houseguide": "6309904f-5c07-451f-812d-56a6d6ee5145",
+    "patente": "Patente",
+    "name": "Barry Levine",
+    "prevDate": "Saturday, September 2, 2017 9:05 AM",
+    "reference": "laboris",
+    "etiqueta": "Si",
+    "status": "Finalizada"
+  },
+  {
+    "masterguide": "5cbf367789be7e3af041ddb6",
+    "houseguide": "a7691960-e40a-42d2-ade6-0ad6b3b4171e",
+    "patente": "Patente",
+    "name": "Henson Burks",
+    "prevDate": "Saturday, February 10, 2018 4:02 AM",
+    "reference": "aute",
+    "etiqueta": "No",
+    "status": "Abierta"
+  },
+  {
+    "masterguide": "5cbf3677d67b1bebd82788e7",
+    "houseguide": "420f4122-bdf9-444c-908e-976250f56f9d",
+    "patente": "Patente",
+    "name": "Gonzalez Robertson",
+    "prevDate": "Saturday, December 23, 2017 12:07 PM",
+    "reference": "pariatur",
+    "etiqueta": "No",
+    "status": "Abierta"
+  },
+  {
+    "masterguide": "5cbf36770cddcb9f08131c77",
+    "houseguide": "1f218862-daf3-4f45-b015-e1d600918a4e",
+    "patente": "Patente",
+    "name": "Blanca Harris",
+    "prevDate": "Monday, August 29, 2016 9:03 AM",
+    "reference": "dolor",
+    "etiqueta": "No",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677a4095b914692dc34",
+    "houseguide": "9d6c922a-a173-486f-b042-870e0e6da3d6",
+    "patente": "Patente",
+    "name": "Sandoval Talley",
+    "prevDate": "Wednesday, February 15, 2017 3:42 PM",
+    "reference": "aliquip",
+    "etiqueta": "No",
+    "status": "Solicitada"
+  },
+  {
+    "masterguide": "5cbf3677496ed44aa6183409",
+    "houseguide": "f00d96bb-83f1-4a5d-b258-56dad47f87a8",
+    "patente": "Patente",
+    "name": "Chase Lott",
+    "prevDate": "Saturday, October 17, 2015 11:01 PM",
+    "reference": "veniam",
+    "etiqueta": "No",
+    "status": "Finalizada"
+  },
+  {
+    "masterguide": "5cbf367776837105d9d919e9",
+    "houseguide": "b635b382-399c-4dc7-972a-d3c943c6934d",
+    "patente": "Patente",
+    "name": "Margo Bright",
+    "prevDate": "Wednesday, December 23, 2015 12:47 AM",
+    "reference": "voluptate",
+    "etiqueta": "No",
+    "status": "Solicitada"
+  },
+  {
+    "masterguide": "5cbf36772e995116fa4f9d61",
+    "houseguide": "222c1cab-4498-48d5-b327-62befe37ba10",
+    "patente": "Patente",
+    "name": "Elva Casey",
+    "prevDate": "Monday, September 29, 2014 5:24 PM",
+    "reference": "pariatur",
+    "etiqueta": "No",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf3677194c793d6a19e34d",
+    "houseguide": "cbf656e1-8c60-4bae-ad39-a5ba6e5b06dd",
+    "patente": "Patente",
+    "name": "Eliza Salas",
+    "prevDate": "Wednesday, November 9, 2016 8:53 AM",
+    "reference": "Lorem",
+    "etiqueta": "Si",
+    "status": "Solicitada"
+  },
+  {
+    "masterguide": "5cbf3677f0e70380cd4a91d1",
+    "houseguide": "deb9b0ec-3634-4e41-b1f8-a13112fabab1",
+    "patente": "Patente",
+    "name": "Aimee Patrick",
+    "prevDate": "Friday, May 29, 2015 9:15 AM",
+    "reference": "elit",
+    "etiqueta": "No",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf3677f70b6d45cf4162ea",
+    "houseguide": "1ad3cc97-50f1-45ff-a6d6-d4094eadf5ec",
+    "patente": "Patente",
+    "name": "Alyssa Merritt",
+    "prevDate": "Thursday, September 3, 2015 9:15 AM",
+    "reference": "labore",
+    "etiqueta": "No",
+    "status": "Abierta"
+  },
+  {
+    "masterguide": "5cbf36771ba19353dc6b7e9e",
+    "houseguide": "753e7fb7-ec0a-4a49-9cab-9c0447bb28fa",
+    "patente": "Patente",
+    "name": "Joy Aguilar",
+    "prevDate": "Thursday, March 30, 2017 6:11 PM",
+    "reference": "ex",
+    "etiqueta": "Si",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf36770586d8c387e0cb52",
+    "houseguide": "eab7eff6-c041-4bef-b4ec-e0b6445e1cc6",
+    "patente": "Patente",
+    "name": "Elsa Rojas",
+    "prevDate": "Tuesday, April 8, 2014 2:32 PM",
+    "reference": "commodo",
+    "etiqueta": "No",
+    "status": "P.Cliente"
+  },
+  {
+    "masterguide": "5cbf36772d4a2db65abfca56",
+    "houseguide": "2fe17e65-6364-4cf5-9b9f-ec48fbcb9417",
+    "patente": "Patente",
+    "name": "Hendricks Bishop",
+    "prevDate": "Saturday, July 1, 2017 9:43 PM",
+    "reference": "aute",
+    "etiqueta": "Si",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf3677ce028c4c86ce900a",
+    "houseguide": "ea88beda-04a4-43fe-ae41-dd891e2fe65b",
+    "patente": "Patente",
+    "name": "Peterson Guerrero",
+    "prevDate": "Wednesday, January 23, 2019 2:35 PM",
+    "reference": "ea",
+    "etiqueta": "No",
+    "status": "P.AAACESA"
+  },
+  {
+    "masterguide": "5cbf3677dafcbbd1f17e6a6f",
+    "houseguide": "6bc1370b-5107-4f7c-a3ec-8ad38c9240f4",
+    "patente": "Patente",
+    "name": "Odom Fry",
+    "prevDate": "Friday, June 26, 2015 6:34 PM",
+    "reference": "elit",
+    "etiqueta": "Si",
+    "status": "Solicitada"
+  }
+]
