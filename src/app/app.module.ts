@@ -56,7 +56,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent,
+    ResetpasswordComponent,    
     // AbandonoComponent
   ],
   imports: [
@@ -75,6 +75,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     ChartsModule,
     FormsModule,
     HttpClientModule,
+// tslint:disable-next-line: deprecation
     HttpModule,
   ],
   exports: [

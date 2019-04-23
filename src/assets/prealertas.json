@@ -1,0 +1,541 @@
+[
+    {
+      "idPreAlerta": "111111",
+      "masterguide": "5cb752588d6a77e836c05b3a",
+      "houseguide": "a0f9593c-1f90-43d4-9f17-f3ce429ec8b8",
+      "npieces": 6915,
+      "weight": "206.62 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, December 1, 2018 5:11 PM"
+    },
+    {
+      "idPreAlerta": "22222",
+      "masterguide": "5cb75258d7541598ad70a48d",
+      "houseguide": "3ed8f40d-6ba9-4821-9aac-17be942c809c",
+      "npieces": 3422,
+      "weight": "67.69 Kg",
+      "status": "P.AAACESA",
+      "leftDate": "Saturday, January 3, 2015 11:59 PM"
+    },
+    {
+      "idPreAlerta": "333333",
+      "masterguide": "5cb752587ccff4fd6d64ae5e",
+      "houseguide": "35112e5c-87c2-455f-a204-7e59440797c3",
+      "npieces": 3647,
+      "weight": "361.01 Kg",
+      "status": "P.AAACESA",
+      "leftDate": "Monday, December 15, 2014 11:44 AM"
+    },
+    {
+      "masterguide": "5cb75258a1c0822d27740a8d",
+      "houseguide": "4a194568-4ef2-4222-bca5-cd810196b053",
+      "npieces": 4527,
+      "weight": "127.96 Kg",
+      "status": "P.Cliente",
+      "leftDate": "Friday, October 27, 2017 1:10 PM"
+    },
+    {
+      "masterguide": "5cb75258ab92bfd673fc8f04",
+      "houseguide": "26db5223-7757-4dd7-a5b1-89235c9835b4",
+      "npieces": 767,
+      "weight": "275.40 Kg",
+      "status": "Rechazada",
+      "leftDate": "Tuesday, January 23, 2018 3:09 AM"
+    },
+    {
+      "masterguide": "5cb7525863b5856e3798eb7a",
+      "houseguide": "f713b13a-f95b-4874-be0f-60657678041c",
+      "npieces": 4039,
+      "weight": "302.48 Kg",
+      "status": "Rechazada",
+      "leftDate": "Thursday, May 24, 2018 10:11 PM"
+    },
+    {
+      "masterguide": "5cb7525863e094ecc618e442",
+      "houseguide": "c237e366-77be-4102-b88a-ae8d4439acc5",
+      "npieces": 6692,
+      "weight": "342.67 Kg",
+      "status": "Rechazada",
+      "leftDate": "Sunday, October 28, 2018 4:09 PM"
+    },
+    {
+      "masterguide": "5cb752582addf00f8bc19b31",
+      "houseguide": "97a2fa34-daa9-4491-9bca-b274164121c0",
+      "npieces": 7511,
+      "weight": "237.39 Kg",
+      "status": "Finalizada",
+      "leftDate": "Saturday, July 22, 2017 5:39 PM"
+    },
+    {
+      "masterguide": "5cb752582434d653f09770cf",
+      "houseguide": "b198d2eb-df8c-4bc1-ba72-1e2ab44ecba2",
+      "npieces": 8474,
+      "weight": "280.94 Kg",
+      "status": "Finalizada",
+      "leftDate": "Wednesday, September 23, 2015 5:23 PM"
+    },
+    {
+      "masterguide": "5cb75258af96e7ce2709123e",
+      "houseguide": "ae8a0c87-5279-454b-987e-e8d94829d086",
+      "npieces": 2414,
+      "weight": "295.79 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, December 18, 2018 1:04 PM"
+    },
+    {
+      "masterguide": "5cb75258fb5758095d42f757",
+      "houseguide": "eb46b84f-4c3e-4b45-94a8-000f5fbbfb9c",
+      "npieces": 1794,
+      "weight": "135.93 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, May 26, 2017 8:17 AM"
+    },
+    {
+      "masterguide": "5cb75258969ef962932b4344",
+      "houseguide": "6459e3df-af52-489a-a6fe-0d71c0c4aacb",
+      "npieces": 7585,
+      "weight": "85.43 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, November 26, 2018 2:15 PM"
+    },
+    {
+      "masterguide": "5cb75258423975c9f8475e11",
+      "houseguide": "0a47c959-834b-4f2d-9c24-dbf939f92500",
+      "npieces": 5754,
+      "weight": "43.09 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, December 18, 2015 7:07 AM"
+    },
+    {
+      "masterguide": "5cb75258a5185c3d5f433d6d",
+      "houseguide": "3e4b35e5-6519-45e7-9766-89f34784d480",
+      "npieces": 7335,
+      "weight": "6.19 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, January 1, 2015 12:37 AM"
+    },
+    {
+      "masterguide": "5cb75258befe0d4aa677d873",
+      "houseguide": "7cc2621f-2451-4076-982f-83366fc2167e",
+      "npieces": 196,
+      "weight": "369.96 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, April 5, 2015 3:05 AM"
+    },
+    {
+      "masterguide": "5cb75258655428bdece77e71",
+      "houseguide": "9fb37942-ffa1-49c1-946a-e0b6b91ae811",
+      "npieces": 7083,
+      "weight": "23.37 Kg",
+      "status": "Aceptada",
+      "leftDate": "Wednesday, May 7, 2014 4:20 PM"
+    },
+    {
+      "masterguide": "5cb752581d78e32af26a3814",
+      "houseguide": "eb3d7dd6-4e18-441f-835d-a17f5ffd1fec",
+      "npieces": 1153,
+      "weight": "257.00 Kg",
+      "status": "Solicitada",
+      "leftDate": "Saturday, October 13, 2018 12:24 AM"
+    },
+    {
+      "masterguide": "5cb7525813c5dc2a2e59e6ed",
+      "houseguide": "c5e83bc0-de79-42cf-91dc-e56f420fd792",
+      "npieces": 6613,
+      "weight": "268.43 Kg",
+      "status": "Aceptada",
+      "leftDate": "Friday, August 12, 2016 5:44 PM"
+    },
+    {
+      "masterguide": "5cb75258eaa10fd2fddfdf01",
+      "houseguide": "e35dcfbc-cfc1-493a-8463-108df166999e",
+      "npieces": 7570,
+      "weight": "17.25 Kg",
+      "status": "Solicitada",
+      "leftDate": "Tuesday, January 8, 2019 4:36 PM"
+    },
+    {
+      "masterguide": "5cb75258665c962f38eece1e",
+      "houseguide": "6cb6fb98-d604-466a-8d0b-fa75482f2528",
+      "npieces": 9027,
+      "weight": "219.82 Kg",
+      "status": "Aceptada",
+      "leftDate": "Wednesday, August 16, 2017 4:22 PM"
+    },
+    {
+      "masterguide": "5cb75258df1c80ef558dd495",
+      "houseguide": "bf3657a7-5003-4f06-b478-51573a68be9f",
+      "npieces": 976,
+      "weight": "185.96 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, January 25, 2018 9:09 PM"
+    },
+    {
+      "masterguide": "5cb752584321e2e7501567a7",
+      "houseguide": "62fa6243-eff7-461a-bfc0-b9fc290e14e8",
+      "npieces": 1115,
+      "weight": "295.57 Kg",
+      "status": "Solicitada",
+      "leftDate": "Monday, June 22, 2015 1:23 AM"
+    },
+    {
+      "masterguide": "5cb7525858c2445e2ef93b47",
+      "houseguide": "d143530d-a392-41ce-b669-5bd1dfc240c4",
+      "npieces": 2401,
+      "weight": "250.20 Kg",
+      "status": "Solicitada",
+      "leftDate": "Tuesday, August 23, 2016 2:53 AM"
+    },
+    {
+      "masterguide": "5cb752581dd3ccbf73dd535d",
+      "houseguide": "aff7ab74-262e-41ce-a602-f8afc95926ae",
+      "npieces": 1477,
+      "weight": "267.36 Kg",
+      "status": "Solicitada",
+      "leftDate": "Tuesday, July 11, 2017 10:27 PM"
+    },
+    {
+      "masterguide": "5cb75258fb1c1139176dfb54",
+      "houseguide": "94a2aeb4-aaa4-4f4e-92bb-0af7fee0c8c4",
+      "npieces": 8447,
+      "weight": "84.96 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, January 6, 2018 11:20 AM"
+    },
+    {
+      "masterguide": "5cb75258ee9ba896ecf8d7dc",
+      "houseguide": "6b40993c-a6dd-4327-bcea-827fd1ead586",
+      "npieces": 6540,
+      "weight": "4.27 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, September 12, 2016 4:39 PM"
+    },
+    {
+      "masterguide": "5cb75258dac7cce7fd110ee1",
+      "houseguide": "3bcd8ffc-2c85-45d5-b1b0-846a7c6e19b1",
+      "npieces": 9091,
+      "weight": "124.53 Kg",
+      "status": "Aceptada",
+      "leftDate": "Friday, July 31, 2015 12:05 AM"
+    },
+    {
+      "masterguide": "5cb7525823c5337abf93890e",
+      "houseguide": "04ae639e-a153-4218-b0a5-b540535b4616",
+      "npieces": 8178,
+      "weight": "354.47 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, June 25, 2018 12:32 AM"
+    },
+    {
+      "masterguide": "5cb752580c0b4b26dc74d1cb",
+      "houseguide": "40108815-e4f8-4398-a19d-78729719abcc",
+      "npieces": 4889,
+      "weight": "13.45 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, February 27, 2016 1:49 AM"
+    },
+    {
+      "masterguide": "5cb752589b2cb02b62338f4a",
+      "houseguide": "52f2ad16-2544-46a2-991c-a05a43cafe7a",
+      "npieces": 7392,
+      "weight": "23.90 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, March 18, 2017 12:30 AM"
+    },
+    {
+      "masterguide": "5cb752584e891f2301991502",
+      "houseguide": "a203fc24-5e52-4369-b777-56d023864194",
+      "npieces": 9950,
+      "weight": "309.83 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, February 22, 2015 10:24 AM"
+    },
+    {
+      "masterguide": "5cb7525806744ce4266b9368",
+      "houseguide": "3ba4fa84-5792-429c-8392-befa8dbc9964",
+      "npieces": 6939,
+      "weight": "15.82 Kg",
+      "status": "Solicitada",
+      "leftDate": "Sunday, April 16, 2017 11:56 PM"
+    },
+    {
+      "masterguide": "5cb752582e26be427eb07455",
+      "houseguide": "ea798572-782c-4e05-ac9b-eb0e2865fd55",
+      "npieces": 2995,
+      "weight": "167.61 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, December 9, 2014 11:03 AM"
+    },
+    {
+      "masterguide": "5cb7525833077f1070809a0c",
+      "houseguide": "ad7b9d62-35fc-4cc6-ba49-bce5b7fd5707",
+      "npieces": 7724,
+      "weight": "10.67 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, May 29, 2015 3:05 AM"
+    },
+    {
+      "masterguide": "5cb75258c2853f6cbac1b25d",
+      "houseguide": "bc48368c-9c9d-4f49-be38-d5978a3d6164",
+      "npieces": 1281,
+      "weight": "294.25 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, June 3, 2018 9:06 AM"
+    },
+    {
+      "masterguide": "5cb75258044c56fc4be4aa83",
+      "houseguide": "4037e572-288b-42c9-84ea-7b418fa7f05e",
+      "npieces": 8801,
+      "weight": "391.00 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, May 31, 2018 7:10 PM"
+    },
+    {
+      "masterguide": "5cb752583a37b55131b81f65",
+      "houseguide": "057d51e5-0475-4537-bd1b-0fb7d307a700",
+      "npieces": 9996,
+      "weight": "91.62 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, June 16, 2015 1:44 AM"
+    },
+    {
+      "masterguide": "5cb75258d50b46cbe0feb2b1",
+      "houseguide": "17266331-b810-48f1-8f14-d5ffc0c9f8b5",
+      "npieces": 2802,
+      "weight": "226.48 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, July 10, 2015 12:32 PM"
+    },
+    {
+      "masterguide": "5cb75258da5dae7f38f10159",
+      "houseguide": "5eb943d8-0884-4f49-a320-5524460b8f57",
+      "npieces": 1019,
+      "weight": "223.53 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, July 29, 2017 2:23 AM"
+    },
+    {
+      "masterguide": "5cb75258c8fafd172c5c211a",
+      "houseguide": "b178c9c3-acf3-4aa3-8824-4fe2389fc09e",
+      "npieces": 3845,
+      "weight": "315.90 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, August 31, 2014 5:30 AM"
+    },
+    {
+      "masterguide": "5cb75258bd8d26d28889cd36",
+      "houseguide": "0c6b90d1-5830-45ef-999a-a08a09ecf23c",
+      "npieces": 8282,
+      "weight": "51.21 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, August 6, 2015 4:31 PM"
+    },
+    {
+      "masterguide": "5cb75258881d4dadd1d08c0a",
+      "houseguide": "3a0f229d-f389-4aa6-bd6f-b654ad0d97ec",
+      "npieces": 4731,
+      "weight": "102.49 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, April 6, 2014 7:29 PM"
+    },
+    {
+      "masterguide": "5cb752580cac10408c799160",
+      "houseguide": "aad74faa-6c58-4d95-b5b7-1bec2eba264e",
+      "npieces": 9962,
+      "weight": "4.13 Kg",
+      "status": "Solicitada",
+      "leftDate": "Sunday, August 24, 2014 7:29 PM"
+    },
+    {
+      "masterguide": "5cb75258e9e1c3b03c83f261",
+      "houseguide": "2ae7ec92-4bcb-47ab-b898-cc1a0beb37a4",
+      "npieces": 9991,
+      "weight": "277.05 Kg",
+      "status": "Solicitada",
+      "leftDate": "Tuesday, February 21, 2017 4:17 AM"
+    },
+    {
+      "masterguide": "5cb7525832e10fe5ecc0cc1f",
+      "houseguide": "082a15ee-3dc6-407f-8795-8335a2abd024",
+      "npieces": 2187,
+      "weight": "102.86 Kg",
+      "status": "Aceptada",
+      "leftDate": "Saturday, October 1, 2016 4:38 AM"
+    },
+    {
+      "masterguide": "5cb75258a451d6d11e9de151",
+      "houseguide": "3b051737-43b6-42d1-a087-825883dc5a16",
+      "npieces": 1593,
+      "weight": "273.46 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, December 21, 2014 10:03 AM"
+    },
+    {
+      "masterguide": "5cb75258e49928abf7176507",
+      "houseguide": "1d0e93f7-9f27-4c6c-b3da-5b6a2c05209e",
+      "npieces": 301,
+      "weight": "83.86 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, August 12, 2016 10:47 PM"
+    },
+    {
+      "masterguide": "5cb752581afcdf29ef65edb7",
+      "houseguide": "45ac3b77-1c5d-417a-8aea-06f38e74b73e",
+      "npieces": 3735,
+      "weight": "242.37 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, November 5, 2015 9:50 AM"
+    },
+    {
+      "masterguide": "5cb752584d6124c43a2894c6",
+      "houseguide": "a4040f60-92d3-4b75-a6b5-b3fab754d25e",
+      "npieces": 4552,
+      "weight": "337.39 Kg",
+      "status": "Aceptada",
+      "leftDate": "Wednesday, March 22, 2017 2:08 AM"
+    },
+    {
+      "masterguide": "5cb75258a129cb568f4aac87",
+      "houseguide": "74cf0f1e-946f-4355-9583-3ce496919007",
+      "npieces": 4284,
+      "weight": "233.01 Kg",
+      "status": "Solicitada",
+      "leftDate": "Thursday, November 15, 2018 9:05 PM"
+    },
+    {
+      "masterguide": "5cb7525849054e6c6dc0db0c",
+      "houseguide": "0ebccd4f-911d-4a18-99c2-37879d32a601",
+      "npieces": 7603,
+      "weight": "303.22 Kg",
+      "status": "Solicitada",
+      "leftDate": "Friday, February 26, 2016 4:21 PM"
+    },
+    {
+      "masterguide": "5cb75258cca02f604fcf7314",
+      "houseguide": "f0cc0492-3290-4597-bfb8-bccd49e4cfab",
+      "npieces": 6264,
+      "weight": "385.96 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, April 19, 2015 1:52 PM"
+    },
+    {
+      "masterguide": "5cb75258a2f2e8fd2bfdc513",
+      "houseguide": "73e5c87d-ab76-4229-a318-c666b3d34457",
+      "npieces": 8608,
+      "weight": "355.37 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, December 8, 2015 10:32 PM"
+    },
+    {
+      "masterguide": "5cb7525830442011e543f39f",
+      "houseguide": "045a8749-a6e0-4a13-9dbb-0b47fdc90775",
+      "npieces": 1422,
+      "weight": "224.29 Kg",
+      "status": "Aceptada",
+      "leftDate": "Wednesday, December 9, 2015 12:33 AM"
+    },
+    {
+      "masterguide": "5cb75258d3fc02ec793126ee",
+      "houseguide": "d0868621-1b6b-40db-8325-a0d1d7bbfbb9",
+      "npieces": 4201,
+      "weight": "60.27 Kg",
+      "status": "Aceptada",
+      "leftDate": "Sunday, March 13, 2016 5:14 PM"
+    },
+    {
+      "masterguide": "5cb75258cc25e57d9bc2600a",
+      "houseguide": "ff0a54d5-7b02-4495-aa74-83935310458b",
+      "npieces": 3410,
+      "weight": "127.96 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, January 8, 2019 10:12 AM"
+    },
+    {
+      "masterguide": "5cb752588c6403ae4bdd457b",
+      "houseguide": "e74a5ed2-fc00-4039-911d-844ce6ef33a9",
+      "npieces": 4226,
+      "weight": "349.65 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, September 25, 2017 1:00 PM"
+    },
+    {
+      "masterguide": "5cb75258791df89626208ce1",
+      "houseguide": "fb0d93ab-e753-454a-89c1-314bb1ec9b5f",
+      "npieces": 3100,
+      "weight": "263.36 Kg",
+      "status": "Aceptada",
+      "leftDate": "Friday, April 3, 2015 4:24 AM"
+    },
+    {
+      "masterguide": "5cb75258a7bb6bfb7ee9deb0",
+      "houseguide": "042ae911-a3ce-4dbe-8244-23a1d465acae",
+      "npieces": 4286,
+      "weight": "381.44 Kg",
+      "status": "Aceptada",
+      "leftDate": "Friday, September 7, 2018 1:08 PM"
+    },
+    {
+      "masterguide": "5cb75258ddc076336ac1952d",
+      "houseguide": "9d79b8a4-43b9-4819-83a2-8f054b3840e2",
+      "npieces": 5722,
+      "weight": "193.56 Kg",
+      "status": "Solicitada",
+      "leftDate": "Saturday, July 21, 2018 12:09 PM"
+    },
+    {
+      "masterguide": "5cb75258e137c9628b384f4c",
+      "houseguide": "1fb80703-dfcc-4fbe-b5b4-36467ff66197",
+      "npieces": 2383,
+      "weight": "214.52 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, January 7, 2019 11:42 PM"
+    },
+    {
+      "masterguide": "5cb752582c186ba4bf8afa9b",
+      "houseguide": "775c23bf-bd60-4128-924a-f50edd1f5d3a",
+      "npieces": 1477,
+      "weight": "36.39 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, March 20, 2017 10:12 AM"
+    },
+    {
+      "masterguide": "5cb75258ec7d719cc178bd1c",
+      "houseguide": "fb9289ff-231c-45ef-aac4-9cda8f00bff0",
+      "npieces": 1860,
+      "weight": "176.66 Kg",
+      "status": "Aceptada",
+      "leftDate": "Monday, January 19, 2015 8:24 AM"
+    },
+    {
+      "masterguide": "5cb752588557651e366fdc85",
+      "houseguide": "cc1942ba-afe8-4a28-9c6e-8f0cd241ab5f",
+      "npieces": 4615,
+      "weight": "218.49 Kg",
+      "status": "Solicitada",
+      "leftDate": "Monday, September 10, 2018 5:05 AM"
+    },
+    {
+      "masterguide": "5cb752583c9c3438bc193e30",
+      "houseguide": "8482461f-de25-4b00-8682-846d20cbb2d4",
+      "npieces": 8281,
+      "weight": "131.58 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, September 22, 2015 5:22 PM"
+    },
+    {
+      "masterguide": "5cb75258609759e24411e254",
+      "houseguide": "f4eb7041-eced-4770-a671-443725e5e50f",
+      "npieces": 1104,
+      "weight": "150.11 Kg",
+      "status": "Aceptada",
+      "leftDate": "Tuesday, November 3, 2015 12:54 AM"
+    },
+    {
+      "masterguide": "5cb752584bd9ef4bbf2755bc",
+      "houseguide": "3957c6ff-4c48-4f92-a22d-35db1b20d8a5",
+      "npieces": 4434,
+      "weight": "285.75 Kg",
+      "status": "Aceptada",
+      "leftDate": "Friday, March 24, 2017 4:06 PM"
+    }
+  ]

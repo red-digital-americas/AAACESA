@@ -1,0 +1,32 @@
+table{
+    font-size:  0.8em;
+}
+.table th, .table td {
+    border-top: 1px solid #646880;
+}
+.table thead th {
+    border-bottom: 2px solid #646880;
+    border-top: none;
+}
+.page-item.active .page-link {
+    background-color: #ed0e19 !important;
+    border-color: #ed0e19 !important;
+    border-radius: 100% !important;
+}
+.page-link{
+    border-radius: 100% !important;
+}
+
+.iconfilt{
+    padding-top: 10%;
+    font-size: 0.5em;
+}
+.bs-datepicker {
+    display: flex;
+    align-items: stretch;
+    flex-flow: row wrap;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #aaa;
+    position: relative;
+    z-index: 1;
+}
