@@ -63,6 +63,11 @@ export const routes: Routes = [
         path: 'previos',
         // component: AbandonoComponent,
         loadChildren: './aaacesa/previos/previos.module#PreviosModule'
+      },
+      {
+        path: 'prealertas',
+        // component: AbandonoComponent,
+        loadChildren: './aaacesa/prealertas/prealertas.module#PrealertasModule'
         // data: {
         //   title: 'Abandono'
         // }

@@ -56,7 +56,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent,
+    ResetpasswordComponent,    
     // AbandonoComponent
   ],
   imports: [

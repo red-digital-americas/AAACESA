@@ -6,7 +6,7 @@ export const navItems = [
   },
   {
     name: 'Pre Alertas',
-    url: '/theme/colors',
+    url: '/prealertas',
     icon: 'icon-info'
   },
   {
