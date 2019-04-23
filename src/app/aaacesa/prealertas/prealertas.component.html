@@ -24,6 +24,17 @@
             <div class="col-lg-3 mb-1">
               <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
             </div>
+
+            <div class="col-lg-3 mb-1">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>                    
+                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaEstimada" placeholder="Fecha Estimada">                
+              </div>
+            </div>
+
+
             <div class="col-lg-3 mb-1">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -31,7 +42,8 @@
                 </div>
                 <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de fecha">
               </div>
-            </div>
+            </div>            
+
             <!-- <div class="col-lg-1">
               <button (click)="showAdvanceSearch=!showAdvanceSearch" class="btn btn-outline-light btn-circle">+</button>
               <button  (click)="showAdvanceSearch=!showAdvanceSearch" class="btn btn-block btn-link"> <i class="fas fa-plus-circle"></i></button>
@@ -84,7 +96,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--Aceptada"></div>
                 <div class="status-filter__text">
-                  <label (click)="toogleFilters(0)">
+                  <label (click)="applyFilter(0)">
                     <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
                   </label>
                 </div>
@@ -93,7 +105,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--Solicitada"></div>
                 <div class="status-filter__text">
-                  <label (click)="toogleFilters(1)">
+                  <label (click)="applyFilter(1)">
                     <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
                   </label>
                 </div>
@@ -102,7 +114,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
                 <div class="status-filter__text">
-                  <label (click)="toogleFilters(2)">
+                  <label (click)="applyFilter(2)">
                     <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
                   </label>
                 </div>
@@ -111,7 +123,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--PCliente"></div>
                 <div class="status-filter__text">
-                  <label (click)="toogleFilters(3)">
+                  <label (click)="applyFilter(3)">
                     <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
                   </label>
                 </div>
@@ -120,7 +132,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--Rechazada"></div>
                 <div class="status-filter__text">
-                  <label (click)="toogleFilters(4)">
+                  <label (click)="applyFilter(4)">
                     <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
                   </label>
                 </div>
@@ -129,7 +141,7 @@
             <div class="col status-filter">            
               <div class="status-filter__circle status-filter__circle--Finalizada"></div>
               <div class="status-filter__text">
-                <label (click)="toogleFilters(5)" for="finalizadaCheck">
+                <label (click)="applyFilter(5)" for="finalizadaCheck">
                   <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
                 </label>
               </div>
@@ -139,7 +151,7 @@
 
             <div class="col status-filter">                          
               <div class="status-filter__text">
-                <label (click)="toogleFilters(10)" for="todosCheck">
+                <label (click)="applyFilter(10)" for="todosCheck">
                   <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
                 </label>
               </div>
@@ -276,7 +288,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>                    
-                    <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue2">
+                    <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue2">
                   </div>
                 </div>
                 <div class="col-lg-4">
@@ -417,97 +429,232 @@
 
   <!-- Modal Detalle -->
     <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
+
             <div class="modal-header">
-              <h4 class="modal-title">Detalle PreAlerta {{ detailData.idPreAlerta }}</h4>
+              <h6 class="modal-title">Detalle PreAlerta {{ detailData.idPreAlerta }}</h6>
               <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
 
-              <div class="row mb-3">
-                <div class="col">
-                    <h5>Guia Master </h5>
-                  {{detailData.masterguide}}
-                </div>
-                <div class="col">
-                    <h5>Referencia </h5>
-                  12312323
-                </div>
-                <div class="col">
-                    <h5>Estatus</h5>
-                  <div class="col status-filter">            
-                      <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                      <div class="status-filter__text">
-                        <p> {{detailData.status}} </p>
+            <div class="modal-body">
+              <div class="container">              
+                <div class="row">
+
+                  <!--  Start left -->
+                  <div class="col-12 col-md-8">                    
+                    <div class="row mb-1">
+                      <div class="col">
+                        <h5 class="detail-text">Guia Master </h5>
+                        <p class="detail-text">{{detailData.masterguide}}</p>
+                      </div>
+                      
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text btn btn-outline-light">Referencia 12312323</h5>                    
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Estatus</h5>
+                            <div class="col status-filter">            
+                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                        
+                    </div> 
+                
+                    <div class="row mb-1">
+                      <div class="col">
+                        <h5 class="detail-text">Guia House </h5>
+                        <p class="detail-text">{{detailData.houseguide}}</p>
+                      </div>
+
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Piezas </h5>
+                            <p class="detail-text">{{detailData.npieces}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Uso de CFDI</h5>
+                            <p class="detail-text">lorem ipsum</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Peso</h5>
+                            <p class="detail-text">{{detailData.weight}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>   
+                
+                    <div class="row mb-1">
+                      <div class="col">
+                        <h5 class="detail-text">Consiganatario a Facturar</h5> 
+                        <p class="detail-text">lorem ipsum</p>
+                      </div>
+
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Fecha de Arribo</h5>
+                            <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Consolidado</h5>
+                            <p class="detail-text">Si</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Almacen de Origen</h5>
+                            <p class="detail-text">Lorem Ipsum</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                </div>
-              </div> 
-              
-              <div class="row mb-3">
-                <div class="col">
-                    <h5>Guia House </h5>
-                  {{detailData.houseguide}}
-                </div>
-                <div class="col">
-                    <h5>Piezas </h5>
-                  {{detailData.npieces}}
-                </div>
-                <div class="col">
-                    <h5>Uso de CFDI</h5>
-                  lorem ipsum
-                </div>
-                <div class="col">
-                    <h5>Peso</h5>
-                  {{detailData.weight}}
-                </div>
-              </div>   
-              
-              <div class="row mb-3">
-                <div class="col">
-                    <h5>Consiganatario a Facturar</h5> 
-                  lorem ipsum
-                </div>
-                <div class="col">
-                    <h5>Fecha de Arribo</h5>
-                  {{detailData.leftDate | date: 'dd/MM/yy'}}
-                </div>
-                <div class="col">
-                    <h5>Consolidado</h5>
-                  Si
-                </div>
-                <div class="col">
-                    <h5>Almacen de Origen</h5>
-                  Lorem Ipsum
-                </div>
-              </div>
-              
-              <div class="row mb-3">
-                <div class="col">
-                    <h5>Método de Pago</h5>
-                  lorem ipsum
-                </div>
-                <div class="col">
-                    <h5>Rango de Temperatura</h5>
-                  26°
-                </div>                
-              </div>
+                
+                    <div class="row mb-1">
+                      <div class="col">
+                        <h5 class="detail-text">Método de Pago</h5>
+                        <p class="detail-text">lorem ipsum</p>
+                      </div>
 
-              <div class="row mb-3">
-                <div class="col">
-                  <h5>Condicion de Alamacenaje</h5>
-                  Evitar apilar más de 4 cajas
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Rango de Temperatura</h5>
+                            <p class="detail-text">26°</p>
+                          </div>                
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row mb-3">
+                      <div class="col">
+                        <h5 class="detail-text">Condicion de Alamacenaje</h5>
+                        <p class="detail-text">Evitar apilar más de 4 cajas</p>
+                      </div>
+                      <div class="col">
+                        <h5 class="detail-text">Instrucciones de Manejo</h5>
+                        <p class="detail-text">Transferencia y Recolección</p>
+                      </div>                
+                    </div>
+
+                    <div class="row mb-3">                      
+                      <div class="col col-lg-2">
+                        <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                        <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                        <p>Donec pede justo fringilla</p>
+                      </div>                                          
+                    </div>
+
+                  </div>
+                  <!--  End left -->
+
+                  <!-- Start Rigth -->
+                  <div class="col-12 col-md-4">
+                    <div class="row mb-1">
+                      <div class="col-12">
+                        <h6>Estatus Transferencia</h6>                        
+                      </div>                                    
+                      <div class="col-12">
+                        <h5 class="detail-text">Fecha de Solicitud</h5>
+                        <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>                    
+                      </div>    
+
+                      <div class="col-12">
+                        <h6>Transferencia</h6>                        
+                      </div>   
+                      <div class="col-12">   
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                            <div class="status-filter__text">
+                              <p class="detail-text"> {{detailData.status}} </p>
+                            </div>                        
+                          </div>
+                          <div class="col-2">
+                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
+                          </div>
+                        </div>                      
+                      </div>   
+                      <div class="col-12">   
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
+                            <div class="status-filter__text">
+                              <p class="detail-text"> Documentos Disponibles </p>
+                            </div>                        
+                          </div>
+                          <div class="col-2">
+                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
+                          </div>
+                        </div>                      
+                      </div>  
+                      
+                      <div class="col-12">
+                        <h6>Pre Alerta</h6>                        
+                      </div> 
+                      <div class="col-12 mb-3">
+                        <textarea class="form-control" rows="2" placeholder="Comentario"></textarea>                       
+                      </div> 
+                      <div class="col-12 mb-3">
+                        <div class="row justify-content-end">
+                          <div class="col-lg-6 mb-2">
+                            <label for="file-multiple-input">
+                              <div class="btn btn-pill btn-primary">Subir Documento</div>
+                            </label>
+                            <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+                          </div>
+
+                          <div class="col-lg-3 mb-2">
+                            <button class="btn btn-pill btn-primary">Enviar</button>
+                          </div>
+                        </div>                        
+                      </div> 
+
+                      <div class="col-12">   
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                            <div class="status-filter__text">
+                              <p class="detail-text"> {{detailData.status}} </p>
+                            </div>                        
+                          </div>
+                          <div class="col-2">
+                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
+                          </div>
+                          <div class="col-2">
+                            <h5 class="detail-text"><i class="fas fa-file"></i></h5>
+                          </div>
+                        </div>                      
+                      </div>   
+                      <div class="col-12">   
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
+                            <div class="status-filter__text">
+                              <p class="detail-text"> Documentos Disponibles </p>
+                            </div>                        
+                          </div>
+                          <div class="col-2">
+                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
+                          </div>
+                        </div>                      
+                      </div>  
+
+                    </div>
+                  </div>
+                  <!--  End Rigth -->
+
                 </div>
-                <div class="col">
-                  <h5>Instrucciones de Manejo</h5>
-                  Transferencia y Recolección
-                </div>                
-              </div>
-              
-            </div>         
+              </div>                                                                                                
+
+            </div>                                                  
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->

@@ -5,16 +5,18 @@ import { Http } from '@angular/http';
   selector: 'app-prealertas',
   templateUrl: './prealertas.component.html',
   styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
-  '../../../scss/vendors/ng-select/ng-select.scss',
+    '../../../scss/vendors/ng-select/ng-select.scss',
     './prealertas.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None  
 })
 export class PrealertasComponent {
-  // Date Range Picker  
-  bsValue: Date = new Date();
+  public statusEnum = ['Aceptada', 'Solicitada', 'P.AAACESA', 'P.Cliente', 'Rechazada', 'Finalizada'];
+
+  // Date Range Picker    
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   // Date Picker
-  bsValue2: Date = new Date();
+  bsValue2:any = "";
+  bsFechaEstimada:any = "";
 
   public showAdvanceSearch = true;
 
@@ -60,43 +62,54 @@ export class PrealertasComponent {
     this.countStatus.Finalizada = this.data.filter(function (el) {return el.status == 'Finalizada';}).length;    
   }
 
-  public toogleFilters(index: number) {
+  public applyFilter(index: number) {
+    this.filterData = [];
+
     if (index < this.filterStatus.length) {
-      this.filterStatus[index] = !this.filterStatus[index];
+      this.filterData = this.data.filter (function (el) { return  el.status == this.statusEnum[index];}.bind(this));
     } else {
-      for (let num=0; num < this.filterStatus.length; num++){
-        this.filterStatus[num] = true;
-      }
-    }    
-    //console.log(this.filterStatus);
-    this.updateFilters();
+      this.filterData = this.data;      
+    } 
   }
 
-  private updateFilters () {
-    this.filterData = [];    
+  // public toogleFilters(index: number) {    
+  //   if (index < this.filterStatus.length) {
+  //     this.filterStatus[index] = !this.filterStatus[index];
+  //   } else {
+  //     for (let num=0; num < this.filterStatus.length; num++){
+  //       this.filterStatus[num] = true;
+  //     }
+  //   }    
 
-    if (this.filterStatus[0]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Aceptada';}));
-    }  
-    if (this.filterStatus[1]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Solicitada';}));
-    }
-    if (this.filterStatus[2]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.AAACESA';}));
-    }
-    if (this.filterStatus[3]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.Cliente';}));
-    }
-    if (this.filterStatus[4]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Rechazada';}));
-    }
-    if (this.filterStatus[5]){
-      this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
-    }
+  //   //console.log(this.filterStatus);
+  //   this.updateFilters();
+  // }
+
+  // private updateFilters () {
+  //   this.filterData = [];    
+
+  //   if (this.filterStatus[0]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Aceptada';}));
+  //   }  
+  //   if (this.filterStatus[1]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Solicitada';}));
+  //   }
+  //   if (this.filterStatus[2]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.AAACESA';}));
+  //   }
+  //   if (this.filterStatus[3]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.Cliente';}));
+  //   }
+  //   if (this.filterStatus[4]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Rechazada';}));
+  //   }
+  //   if (this.filterStatus[5]){
+  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
+  //   }
                       
-    // this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));    
-    console.log(this.filterData);
-  }
+  //   // this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));    
+  //   // console.log(this.filterData);
+  // }
 
   public verDetalle (id: string) {      
     let tmp;  
