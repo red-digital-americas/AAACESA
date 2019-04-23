@@ -1,9 +1,35 @@
-.dropup .dropdown-menu {
-    transform: none!important;
-  }
-  
+// ng select
+.below{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #646880;
+    border-radius: 15px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.below:focus, :active{
+    outline: none !important;
+}
+.filter input:focus, :active{
+    outline: none !important;
+}
+.filter input{
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+}
+.options{
+    background: #191c37;
+    border-radius: 15px;
+}
+
 table{
-    font-size:  0.75em;
+    font-size:  0.9em;
 }
 .table th, .table td {
     border-top: 1px solid #646880;
@@ -45,31 +71,109 @@ table{
     font-size: 0.75em;   
 }
 
-// .input-group-text {
-// }
-
-.buscar-icon{
-    -webkit-box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    -moz-box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    background: #191c37;
-    border: none; 
-}
-.buscar-place{
-    -webkit-box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    -moz-box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    box-shadow: 7px 7px 3px 0px rgba(25, 28, 55, 0.904);
-    background: #191c37;
-    border: none;
+.btn-prealerta {
+    background: transparent;
+    border-radius: 50px;
+    margin: 2px 2px;
+    color: white;
+    padding: 2px 10px;
 }
 
-// .btn{
-//     line-height: 0;
-//     font-size: small;
-//     padding: 0;
-//     border: none;
-//     display: flex;
-// }
-// .btn-outline-light {
-//     color: #b0b0b0;
-// }
+.btn-circle {
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.u-color-primary {
+    //TODO change to var $color-primary
+    color: #FB600A;
+}
+
+
+// Font size fixes
+.card {
+    font-size: 0.8rem;
+}
+.form-control {
+    font-size: 0.8rem;
+}
+.u-small-text  {
+    font-size: 0.8rem !important;
+}
+.detail-text {
+    font-size: 0.8rem !important;
+    line-height: 1rem;
+}
+
+
+// Fix position for swtich input
+.form-switch {
+    position: absolute;
+    right: 0.5rem;
+}
+
+.modal { overflow-y: auto !important; }
+
+/*Select Input */
+.styled-select {
+    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;    
+    overflow: hidden;    
+
+    & select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}  
+
+/* Status Filters Bar */
+.status-filter {    
+    position: relative;    
+    font-size: .8rem;    
+
+    &:not(:last-child) {
+        border-right: 2px solid white;  
+    }    
+
+    &__number {
+        font-weight: bold;
+    }
+
+    &__text {
+        display: inline-block;
+    }    
+
+    &__check {        
+        margin-left: .5rem;
+    }   
+
+    &__circle {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;                       
+        margin-right: 10px;
+        background-color: white;
+
+        &--Aceptada {
+            background-color: #2ee836;
+        }
+
+        &--Solicitada {
+            background-color: #18EDED;            
+        }
+
+        &--PAAACESA{
+            background-color: #fff500;
+        }
+        &--PCliente{
+            background-color: #ef5500;
+        }
+        &--Rechazada{
+            background-color: #ff0000;
+        }
+        &--Finalizada{
+            background-color: #596df2;
+        }
+    }
+}

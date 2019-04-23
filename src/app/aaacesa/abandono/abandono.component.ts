@@ -33,51 +33,55 @@ import { Http } from '@angular/http';
 })
 // export class DataTableComponent {
   export class AbandonoComponent {
-  isDropup = true;
-  showBoundaryLinks = true;
-  firstText = 'PRIMERA';
-  lastText = 'ÚLTIMA';
-  public data;
-  public filterQuery = '';
+    // Date Picker
+    bsValue2: any = '';
+    bsFechaEstimada: any = '';
 
-  constructor(private http: Http) {
-    http.get('assets/abandono.json')
-      .subscribe((data) => {
-        setTimeout(() => {
-          this.data = data.json();
-        }, 2000);
+    public filterData;
+    public data = [];
+    public detailData = {};
+    public filterQuery = '';
+
+    public filterStatus = [true, true]
+
+    constructor(private http: Http) {
+      http.get('assets/abandono.json')
+        .subscribe((data) => {
+          setTimeout(() => {
+            this.data = data.json();
+            this.filterData = this.data;
+          }, 2000);
+        });
+    }
+
+    public toInt(num: string) {
+      return +num;
+    }
+
+    public sortByWordLength = (a: any) => {
+      return a.name.length;
+    }
+
+    public applyFilter(index: number) {
+      this.filterData = [];
+
+      if (index < this.filterStatus.length) {
+        this.filterData = this.data.filter (function (el) { return  el.status === this.statusEnum[index]; }.bind(this));
+      } else {
+        this.filterData = this.data;
+      }
+    }
+
+    public verDetalle (id: string) {
+      let tmp;
+      tmp = this.data.filter (function (el) {
+        return el.idPreAlerta === id;
       });
+
+      this.detailData = tmp[0];
+      // this.detalleModal.show();
+      console.log(this.detailData);
+    }
+
   }
 
-  public toInt(num: string) {
-    return +num;
-  }
-
-  public sortByWordLength = (a: any) => {
-    return a.name.length;
-  }
-}
-
-// /** Provides default values for Pagination and pager components */
-// @Injectable()
-// export class PaginationConfig {
-//   main: ConfigModel = {
-//     maxSize: void 0,
-//     itemsPerPage: 10,
-//     boundaryLinks: true,
-//     directionLinks: true,
-//     firstText: 'PRIMERA',
-//     previousText: '< ANTERIOR',
-//     nextText: 'SIGUIENTE >',
-//     lastText: 'ÚLTIMA',
-//     pageBtnClass: '',
-//     rotate: true
-//   };
-//   pager: PagerModel = {
-//     itemsPerPage: 15,
-//     previousText: '< ANTERIOR',
-//     nextText: 'SIGUIENTE >',
-//     pageBtnClass: '',
-//     align: true
-//   };
-// }

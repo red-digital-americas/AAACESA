@@ -1,4 +1,47 @@
 
+table{
+    font-size:  0.9em;
+}
+.table th, .table td {
+    border-top: 1px solid #646880;
+    color: #b8bcd6;
+}
+.table thead th {
+    border-bottom: 2px solid #646880;
+    border-top: none;
+    color: #ffffff;
+}
+.page-item.active .page-link {
+    background-color: #ed0e19 !important;
+    border-color: #ed0e19 !important;
+    border-radius: 100% !important;
+    color: #ffffff;
+}
+.page-link{
+    border-radius: 100% !important;
+}
+
+.iconfilt{
+    padding-top: 0%;
+    padding-left: 5%;
+    font-size: 1.3em !important;
+    color: #b8bcd6;
+    transform: translateY(27%);
+}
+.bs-datepicker {
+    display: flex;
+    align-items: stretch;
+    flex-flow: row wrap;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #aaa;
+    position: relative;
+    z-index: 1;
+}
+
+.form-control {
+    font-size: 0.75em;   
+}
+
 .btn-prealerta {
     background: transparent;
     border-radius: 50px;
