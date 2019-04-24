@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalCrea.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #creaUserForm="ngForm">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+            <div *ngIf="nomUser.invalid && (nomUser.dirty || nomUser.touched)"
+                  class="alert alert-danger">
+              <div *ngIf="nomUser?.errors.required">
+                Nombre requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+            <div *ngIf="paternoUser.invalid && (paternoUser.dirty || paternoUser.touched)"
+                  class="alert alert-danger">
+              <div *ngIf="paternoUser?.errors.required">
+                Apellido Paterno requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ml-auto">
+            <input type="text" class="form-control" [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+            <div *ngIf="maternoUser.invalid && (maternoUser.dirty || maternoUser.touched)"
+                  class="alert alert-danger">
+              <div *ngIf="maternoUser?.errors.required">
+                Apellido Materno requerido.
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="row mt-3">
+          <div class="col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
+            <div *ngIf="telefonoUser.invalid && (telefonoUser.dirty || telefonoUser.touched)"
+                  class="alert alert-danger">
+              <div *ngIf="telefonoUser?.errors.required">
+                Teléfono requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly ng-init="rfcUser = 'RFC: EAYF890312MJ7'">
+          </div>
+          <div class="col-md-4">
+              <input type="text" class="form-control" [(ngModel)]="patenteUser" #patUser="ngModel" id="patUser" name="patUser" readonly ng-init="patenteUser='Patente: 31134'">
+          </div>
+      </div>
+      <div class="row mt-3">
+          <div class="col-md-4 styled-select">
+            <select class="form-control">
+              <option value="" selected disabled hidden>Perfil</option>
+              <option value="0">FACTURACION</option>
+              <option value="1">OPERACION</option>
+            </select>
+          </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" autocomplete="Email Usuario" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+          <div *ngIf="emailUser.invalid && (emailUser.dirty || emailUser.touched)" class="alert alert-danger">
+            <div *ngIf="emailUser?.errors.required">
+              El Correo es requerido.
+            </div>
+            <div *ngIf="emailUser.errors && emailUser?.errors.pattern">
+              El Correo no es valido (ej. nombre@sitio.com)
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="mr-5">Subir imagen</label>
+          <label for="file-multiple-input">
+            <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
+          </label>
+          <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
+        </div>
+      </div>
+      <div class="row mt-3 align-items-center">
+        <div class="col text-center">
+          <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="guardaUsuario(templateNested)" [disabled]="creaUserForm.invalid">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-pill btn-default" (click)="modalCrea.hide()">Cerrar</button>
+</div>
+<ng-template #templateNested>
+    <div class="modal-header">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalCrea2.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col">
+            <h3>Gracias</h3><br/>
+            <h4>Se creo el usuario correctamente.</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="modalCrea2.hide()">Entendido</button>
+    </div>
+  </ng-template>

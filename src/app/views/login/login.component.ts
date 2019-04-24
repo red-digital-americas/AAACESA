@@ -5,7 +5,7 @@ import { LoginServices } from '../../services/login.services';
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html',
-  providers: [LoginServices]
+  providers: [LoginServices],
 })
 export class LoginComponent implements OnInit {
   
@@ -28,18 +28,6 @@ export class LoginComponent implements OnInit {
   }
   
   login(obj){  
-
-      // this.loginservice.getJSON("assets/auth.json").subscribe((response)=>{
-      //   console.log(response);
-      //   this.loginservice.getJSON("assets/user.json").subscribe((response)=>{
-      //     console.log(response);
-      //     localStorage.setItem('user', JSON.stringify(response));
-      //     this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
-      //       setTimeout(function(){
-      //       window.location.href ="dashboard";
-      //   },3000);
-      //   });
-      // });
 
        this.loginservice.service_general("AAACESA-Portal/portalclientes/autentificacionUsuario",
            { "itemautenticacion": {

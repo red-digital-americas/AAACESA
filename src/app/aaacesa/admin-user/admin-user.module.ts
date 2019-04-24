@@ -14,7 +14,8 @@ import { AdminUserComponent } from './admin-user.component';
 // Modal Component
 import { ModalModule } from 'ngx-bootstrap';
 import { ModalsComponent } from '../../views/notifications/modals.component';
-import { DetalleUserComponent } from './detalle-user/detalle-user/detalle-user.component';
+import { DetalleUserComponent } from './detalle-user/detalle-user.component';
+import { CrearUserComponent } from './crear-user/crear-user.component';
 
 @NgModule({
   imports: [
@@ -29,8 +30,9 @@ import { DetalleUserComponent } from './detalle-user/detalle-user/detalle-user.c
     AdminUserComponent,
     DataFilterPipe,
     ModalsComponent,
-    DetalleUserComponent
+    DetalleUserComponent,
+    CrearUserComponent
   ],
-  entryComponents: [DetalleUserComponent]
+  entryComponents: [DetalleUserComponent,CrearUserComponent]
 })
 export class AdminUserModule { }
