@@ -83,7 +83,27 @@ table{
     right: 0.5rem;
 }
 
+// Consecutive Modal Fix Scroll
 .modal { overflow-y: auto !important; }
+
+// Border File Icon
+.u-fafile-border .fa-file {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+// Input type="" Fixes
+.no-spinners {
+    -moz-appearance:textfield;
+} 
+.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+// [type="date"]::-webkit-inner-spin-button { display: none;}
+// [type="date"]::-webkit-calendar-picker-indicator { display: none;}
 
 /*Select Input */
 .styled-select {

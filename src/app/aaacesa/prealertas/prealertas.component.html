@@ -19,10 +19,10 @@
         <div class="col-lg-10 mb-1">
           <div class="row">
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+              <input type="text" class="form-control" [(ngModel)]="masterHouseSearch" placeholder="Guía Master"/>
             </div>
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+              <input type="text" class="form-control" [(ngModel)]="masterGuideSearch" placeholder="Guía House"/>
             </div>
 
             <div class="col-lg-3 mb-1">
@@ -67,23 +67,23 @@
         <div class="col-lg-10">
             <div class="row">
               <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Estatus"/>
+                <input type="text" class="form-control" [(ngModel)]="statusSearch" placeholder="Estatus"/>
               </div>
               <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+                <input type="text" class="form-control" [(ngModel)]="referenciaSearch" placeholder="Referencia"/>
               </div>                            
               <div class="col-lg-3 mb-1">
                 <div class="styled-select">
-                  <select class="form-control">
+                  <select class="form-control" [(ngModel)]="instruccionesSearch" >
                     <option value="" selected disabled hidden>Instrucciones de Manejo</option>
                     <option value="0">Opcion 0</option>
                     <option value="1">Opcion 1</option>
                     <option value="2">Opcion 2</option>
                   </select>
-                </div>                               
+                </div>                             
               </div>
               <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Id. Prealerta"/>
+                <input type="text" class="form-control" [(ngModel)]="idPrealertaSearch" placeholder="Id. Prealerta"/>
               </div>              
             </div>
         </div>
@@ -191,18 +191,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of mf.data">
-            <!-- <td>{{item.name}}</td>
-            <td>{{item.email}}</td>
-            <td class="text-right">{{item.age}}</td>
-            <td>{{item.city | uppercase}}</td> -->
-            <!-- <div class="col status-filter">            
-              <div class="status-filter__circle"></div>
-                <div class="status-filter__text">
-                  <p><span class="status-filter__number">1</span> P.AAACESA </p>
-                </div>
-            </div> -->
-
+          <tr *ngFor="let item of mf.data">          
             <td class="text-center">{{item.idPreAlerta}}</td>
             <td class="text-center">{{item.masterguide}}</td>
             <td class="text-center">{{item.houseguide}}</td>
@@ -242,17 +231,24 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">            
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
-            </div>
-            <div class="form-group">            
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
-            </div>      
-            <div class="form-group">  
-              <div class="row justify-content-center">            
-                <button (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+
+            <form #form1="ngForm" novalidate class="needs-validation">
+
+              <div class="form-group">            
+                <input  type="text" class="form-control" placeholder="Guía Master" #masterguide="ngModel" name="masterguide" [(ngModel)]="model.masterguide" required/>                                
+                <div [hidden]="masterguide.valid || masterguide.pristine"> Insertar Guia Master</div>
               </div>
-            </div>                        
+              <div class="form-group">            
+                <input type="text" class="form-control" placeholder="Guía House" #houseguide="ngModel" name="houseguide" [(ngModel)]="model.houseguide" required/>
+                <div [hidden]="houseguide.valid || houseguide.pristine"> Insetar Guia House</div>
+              </div>      
+              <div class="form-group">  
+                <div class="row justify-content-center">            
+                  <button [disabled]="!form1.form.valid" (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+                </div>
+              </div> 
+            
+            </form>                      
           </div>         
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -268,123 +264,140 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">          
-          <div class="form-group">  
-            <div class="row mb-3">            
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencias"/>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Piezas"/>
-              </div>
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Peso"/>
-              </div>              
-            </div>
+        <div class="modal-body">  
 
-            <div class="row mb-3">            
+          <form #form2="ngForm" novalidate class="needs-validation">
+
+            <div class="form-group">  
+              <div class="row mb-3">            
                 <div class="col-lg-4">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                    </div>                    
-                    <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue2">
-                  </div>
+                  <input type="text" class="form-control" placeholder="Referencia" #referencia="ngModel" name="referencia" [(ngModel)]="model.referencia" required />
+                  <div [hidden]="referencia.valid || referencia.pristine"> Insertar Referencia</div>
                 </div>
                 <div class="col-lg-4">
-                  <div class="styled-select">
-                    <select class="form-control">
-                      <option value="" selected disabled hidden>Almacen de Origen</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
-                    </select>
-                  </div> 
+                  <input type="number" class="form-control no-spinners" placeholder="Piezas" #piezas="ngModel" name="piezas" [(ngModel)]="model.piezas" required />
+                  <div [hidden]="piezas.valid || piezas.pristine"> Insertar Piezas</div>
                 </div>
                 <div class="col-lg-4">
-                  <div class="styled-select">
-                    <select class="form-control">
-                      <option value="" selected disabled hidden>Rango de Temperatura</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
-                    </select>
-                  </div> 
+                  <input type="number" class="form-control no-spinners" placeholder="Peso" #peso="ngModel" name="peso" [(ngModel)]="model.peso" required />
+                  <div [hidden]="peso.valid || peso.pristine"> Insertar peso</div>
                 </div>              
               </div>
 
-             <div class="row mb-3">            
-              <div class="col-lg-4">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Consignatario a Facturar"/>
-              </div>
-              <div class="col-lg-4">
-                <div class="styled-select">
-                    <select class="form-control">
+              <div class="row mb-3">            
+                  <div class="col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>                    
+                      <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker #fechaArribo="ngModel" name="fechaArribo" [(ngModel)]="model.fechaArribo" required />                      
+                    </div>
+                    <div [hidden]="fechaArribo.valid || fechaArribo.pristine"> Insertar Fecha de Arribo</div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="styled-select">
+                      <select class="form-control" #almacenOrigen="ngModel" name="almacenOrigen" [(ngModel)]="model.almacenOrigen" required>
+                        <option value="" selected disabled hidden>Almacen de Origen</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div> 
+                    <div [hidden]="almacenOrigen.valid || almacenOrigen.pristine"> Seleccionar Almacen de Origen</div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="styled-select">
+                      <select class="form-control" #rangoTemperatura="ngModel" name="rangoTemperatura" [(ngModel)]="model.rangoTemperatura" required>
+                        <option value="" selected disabled hidden>Rango de Temperatura</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div>
+                    <div [hidden]="rangoTemperatura.valid || rangoTemperatura.pristine"> Seleccionar Rango de Temperatura</div>
+                  </div>              
+                </div>
+
+              <div class="row mb-3">            
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" placeholder="Consignatario a Facturar"  #consignatario="ngModel" name="consignatario" [(ngModel)]="model.consignatario" required/>
+                  <div [hidden]="consignatario.valid || consignatario.pristine"> Insertar Consignatario a Facturar</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="styled-select">
+                    <select class="form-control" #metodoPago="ngModel" name="metodoPago" [(ngModel)]="model.metodoPago" required>
                       <option value="" selected disabled hidden>Método de pago</option>
                       <option value="0">Opcion 0</option>
                       <option value="1">Opcion 1</option>
                       <option value="2">Opcion 2</option>
                     </select>
                   </div> 
-              </div>
-              <div class="col-lg-4">
-                <div class="styled-select">
-                    <select class="form-control">
+                  <div [hidden]="metodoPago.valid || metodoPago.pristine"> Seleccionar Metodo de Pago</div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="styled-select">
+                    <select class="form-control" #usoCFDI="ngModel" name="usoCFDI" [(ngModel)]="model.usoCFDI" required>
                       <option value="" selected disabled hidden>Uso de CFDI</option>
                       <option value="0">Opcion 0</option>
                       <option value="1">Opcion 1</option>
                       <option value="2">Opcion 2</option>
                     </select>
                   </div> 
-              </div>              
-            </div>
-
-             <div class="row mb-3">            
-              <div class="col-lg-6">
-                <div class="styled-select">
-                  <select class="form-control">
-                    <option value="" selected disabled hidden>Condiciones de Almacenes</option>
-                    <option value="0">Opcion 0</option>
-                    <option value="1">Opcion 1</option>
-                    <option value="2">Opcion 2</option>
-                  </select>
-                </div> 
+                  <div [hidden]="usoCFDI.valid || usoCFDI.pristine"> Seleccionar Uso de CFDI </div>
+                </div>              
               </div>
-              <div class="col-lg-6">                    
-                <div class="form-control form-group form-check">
-                  <label for="consolidado" class="form-check-label">Consolidado</label>
-                  <label class="switch switch-pill switch-primary form-switch">                  
-                    <input id="consolidado" type="checkbox" class="switch-input" checked>
-                    <span class="switch-slider"></span>
-                  </label>
-                </div>                
-              </div>                          
-            </div>
 
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="styled-select">
-                  <select class="form-control">
-                    <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                    <option value="0">Recolección</option>
-                    <option value="1">Transferencia</option>
-                    <option value="2">Recolección y Transferencia</option>
-                  </select>
-                </div> 
-              </div>            
-            </div>
+              <div class="row mb-3">            
+                <div class="col-lg-6">
+                  <div class="styled-select">
+                    <select class="form-control"  #condicionesAlmacenes="ngModel" name="condicionesAlmacenes" [(ngModel)]="model.condicionesAlmacenes" required>
+                      <option value="" selected disabled hidden>Condiciones de Almacenes</option>
+                      <option value="0">Opcion 0</option>
+                      <option value="1">Opcion 1</option>
+                      <option value="2">Opcion 2</option>
+                    </select>
+                  </div>
+                  <div [hidden]="condicionesAlmacenes.valid || condicionesAlmacenes.pristine"> Seleccionar Condiciones de Alamacen </div> 
+                </div>
+                <div class="col-lg-6">                    
+                  <div class="form-control form-group form-check">
+                    <label for="consolidado" class="form-check-label">Consolidado</label>
+                    <label class="switch switch-pill switch-primary form-switch">                  
+                      <input id="consolidado" type="checkbox" class="switch-input" name="consolidado" [(ngModel)]="model.consolidado" checked>
+                      <span class="switch-slider"></span>
+                    </label>
+                  </div>                
+                </div>                          
+              </div>
 
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>            
-            </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="styled-select">
+                    <select class="form-control" #instruccionesManejo="ngModel" name="instruccionesManejo" [(ngModel)]="model.instruccionesManejo" required>
+                      <option value="" selected disabled hidden>Instrucciones de Manejo</option>
+                      <option value="0">Recolección</option>
+                      <option value="1">Transferencia</option>
+                      <option value="2">Recolección y Transferencia</option>
+                    </select>
+                  </div>
+                  <div [hidden]="instruccionesManejo.valid || instruccionesManejo.pristine"> Seleccionar Instrucciones de Manejo </div>  
+                </div>            
+              </div>
 
-            <div class="row justify-content-center">            
-              <button (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-            </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <textarea class="form-control" rows="3" name="comentario" [(ngModel)]="model.comentario"></textarea>
+                </div>            
+              </div>
 
-          </div>                        
+              <div class="row justify-content-center">            
+                <button [disabled]="!form2.form.valid" (click)="myModal3.show(); myModal2.hide(); nextStep();" class="btn btn-pill btn-primary">Siguiente</button>
+              </div>
+
+            </div> 
+          
+          </form>
+
         </div>         
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -400,16 +413,30 @@
             </button>
           </div>
           <div class="modal-body">
+
             <p>Subir documentos</p>
             <div class="row mb-5">       
-              <div class="col-lg-2">
-                  <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
+
+              <!-- <div *ngFor="let word2 of words2; let in=index" class="col-sm-3">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="words2[in].value" name="name{{in}}" class="form-control" #name="ngModel" required />                                    
+                </div>                
+              </div> -->
+              
+              <div *ngFor="let file of nFiles; let in=index" class="col-lg-1">                  
+                  <label [for]="file-in">                      
+                      <div style="font-size: 4rem" class=""><i class="fas fa-file"></i></div>                  
+                  </label>                                  
+                  <input (change)="onFileChanged($event, in)" style="display: none;" [id]="file-in" type="file">
               </div>
-              <div class="col-lg-2">
-                  <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
-              </div>
-              <div class="col-lg-2 align-self-center">
-                <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
+
+
+              <!-- <div class="col-lg-1">
+                  <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+                  <div style="font-size: 4rem" class=""><i class="fas fa-file-upload"></i></div>
+              </div> -->
+              <div class="col-lg-1 align-self-center">
+                <button (click)="addDocument()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
               </div>
             </div>
             <div class="form-group">  
@@ -418,14 +445,173 @@
                   <button (click)="myModal3.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
                 </div>
                 <div class="col-lg-2">
-                  <button (click)="myModal3.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+                  <button (click)="myModal3.hide(); confirmationModal.show();" class="btn btn-pill btn-primary">Siguiente</button>
                 </div>
               </div>
-            </div>                        
+            </div>
+
           </div>         
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <!-- Modal Confirmacion Formulario -->
+    <div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h6 class="modal-title">Nueva PreAlerta</h6>
+              <button type="button" class="close" (click)="confirmationModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="container">              
+                <div class="row">
+
+                  <!--  Start left -->
+                  <div class="col-12 col-md-12">                    
+                    <div class="row mb-1">
+                      <div class="col-md-4">
+                        <h5 class="detail-text">Guia Master </h5>
+                        <p class="detail-text">{{model.masterguide}}</p>
+                      </div>
+                      
+                      <div class="col-md-8">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text btn btn-outline-light">Referencia {{model.referencia}}</h5>                    
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Estatus</h5>
+                            <div class="col status-filter">            
+                              <div class="status-filter__circle status-filter__circle--{{model.status | statusPipe }}"></div>
+                              <div class="status-filter__text">
+                                <p> {{model.status}} </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>                        
+                    </div> 
+                
+                    <div class="row mb-1">
+                      <div class="col-md-4">
+                        <h5 class="detail-text">Guia House </h5>
+                        <p class="detail-text">{{model.houseguide}}</p>
+                      </div>
+
+                      <div class="col-md-8">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Piezas </h5>
+                            <p class="detail-text">{{model.piezas}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Uso de CFDI</h5>
+                            <p class="detail-text">{{model.usoCFDI}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Peso</h5>
+                            <p class="detail-text">{{model.peso}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>   
+                
+                    <div class="row mb-1">
+                      <div class="col-md-4">
+                        <h5 class="detail-text">Consiganatario a Facturar</h5> 
+                        <p class="detail-text">{{model.consignatario}}</p>
+                      </div>
+
+                      <div class="col-md-8">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Fecha de Arribo</h5>
+                            <p class="detail-text">{{model.fechaArribo | date: 'dd/MM/yy'}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Consolidado</h5>
+                            <p class="detail-text">{{model.consolidado}}</p>
+                          </div>
+                          <div class="col">
+                            <h5 class="detail-text">Almacen de Origen</h5>
+                            <p class="detail-text">{{model.almacenOrigen}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div class="row mb-1">
+                      <div class="col-md-4">
+                        <h5 class="detail-text">Método de Pago</h5>
+                        <p class="detail-text">{{model.metodoPago}}</p>
+                      </div>
+
+                      <div class="col-md-8">
+                        <div class="row justify-content-end">
+                          <div class="col">
+                            <h5 class="detail-text">Rango de Temperatura</h5>
+                            <p class="detail-text">{{model.rangoTemperatura}}</p>
+                          </div>                
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row mb-3">
+                      <div class="col-md-4">
+                        <h5 class="detail-text">Condicion de Alamacenaje</h5>
+                        <p class="detail-text">{{model.condicionesAlmacenes}}</p>
+                      </div>
+                      <div class="col-md-8">
+                        <h5 class="detail-text">Instrucciones de Manejo</h5>
+                        <p class="detail-text">{{model.instruccionesManejo}}</p>
+                      </div>                
+                    </div>
+
+                    <div class="row mb-3">
+                    
+                        <div *ngFor="let file of model.attachments" class="col col-lg-2">
+                          <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                          <p>{{file.name}}</p>                            
+                          <p>{{file.type}}</p>                            
+                        </div>
+
+                      <!-- <div class="col col-lg-2">
+                        <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+                        <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                        <p>Donec pede justo fringilla</p>
+                      </div>                                           -->
+                      
+                    </div>
+
+                  </div>
+                  <!--  End left -->                 
+
+                </div>
+
+                <div class="form-group">  
+                  <div class="row justify-content-center">
+                    <div class="col-lg-2">
+                      <button (click)="confirmationModal.hide(); myModal3.show();" class="btn btn-pill btn-primary">Regresar</button>
+                    </div>
+                    <div class="col-lg-2">
+                      <button (click)="confirmationModal.hide();" class="btn btn-pill btn-primary">Enviar</button>
+                    </div>
+                  </div>
+                </div> 
+
+              </div>                                                                                                
+
+            </div>                                                  
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
 
   <!-- Modal Detalle -->
     <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
@@ -617,22 +803,34 @@
                         </div>                        
                       </div> 
 
-                      <div class="col-12">   
+                      <div class="col-12 " *ngFor="let data of collapseList; let $index=index;">   
                         <div class="row">
-                          <div class="col-8">
+                          <div class="col-8" (click)="Collaps($index)">                           
                             <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
                             <div class="status-filter__text">
                               <p class="detail-text"> {{detailData.status}} </p>
-                            </div>                        
+                            </div>                            
                           </div>
                           <div class="col-2">
                             <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
                           </div>
-                          <div class="col-2">
+                          <div class="col-1">
                             <h5 class="detail-text"><i class="fas fa-file"></i></h5>
                           </div>
-                        </div>                      
-                      </div>   
+                          <div class="col-1" (click)="Collaps($index)">
+                            <h5 *ngIf="$index !== expandedIndex" class="detail-text"><i class="fas fa-chevron-down"></i></h5>
+                            <h5 *ngIf="$index === expandedIndex" class="detail-text"><i class="fas fa-chevron-up"></i></h5>
+                          </div>
+                          
+                        </div> 
+                        
+                        <div class="row" *ngIf="$index === expandedIndex">
+                          <div class="col-12">
+                            <p class="detail-text">Documentos aprobados</p>
+                          </div>
+                        </div>
+                      </div> 
+
                       <div class="col-12">   
                         <div class="row">
                           <div class="col-8">
@@ -645,8 +843,7 @@
                             <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
                           </div>
                         </div>                      
-                      </div>  
-
+                      </div>                                  
                     </div>
                   </div>
                   <!--  End Rigth -->

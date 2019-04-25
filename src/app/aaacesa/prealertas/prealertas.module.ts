@@ -27,6 +27,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { SelectModule } from 'ng-select';
 //Modal
 import { ModalModule } from 'ngx-bootstrap/modal';
+// Collapse Component
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   imports: [    
@@ -41,7 +43,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     SelectModule,
-    ModalModule
+    ModalModule,
+    CollapseModule.forRoot()
   ],
   declarations: [    
     PrealertasComponent,   
