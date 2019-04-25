@@ -3,18 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { StatusPipe } from './status.pipe';
-
+//////////////////////////
+// Vendors Components
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
-// import { DataTableComponent } from './datatable.component';
-import { PrealertasComponent } from './prealertas.component';
-
-// Routing
-// import { DatatableRoutingModule } from './datatable-routing.module';
-import { PrealertasRoutingModule } from './prealertas-routing.module';
-
-
 // DataTable
 import { DataTableModule } from 'angular2-datatable';
 // Angular 2 Input Mask
@@ -29,6 +20,24 @@ import { SelectModule } from 'ng-select';
 import { ModalModule } from 'ngx-bootstrap/modal';
 // Collapse Component
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+
+/////////////////////
+// Components
+import { PrealertasComponent } from './prealertas.component';
+
+/////////////////////
+// Pipes
+import { StatusPipe } from './status.pipe';
+import { FileIconPipe } from './fileIcon.pipe';
+
+/////////////////////////
+// Routing
+import { PrealertasRoutingModule } from './prealertas-routing.module';
+
+////////////////
+// Services
+import { CatalogosService } from '../../services/catalogos.service';
 
 @NgModule({
   imports: [    
@@ -48,7 +57,11 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
   ],
   declarations: [    
     PrealertasComponent,   
-    StatusPipe 
+    StatusPipe,
+    FileIconPipe
+  ],
+  providers: [
+    CatalogosService
   ]
 })
 export class PrealertasModule { }

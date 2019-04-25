@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
+import { NgForm } from '@angular/forms';
+import { CatalogosService } from '../../services/catalogos.service';
 
 @Component({
   selector: 'app-prealertas',
@@ -10,6 +12,15 @@ import { Http } from '@angular/http';
   encapsulation: ViewEncapsulation.None 
 })
 export class PrealertasComponent {  
+  
+  ///////////////////////
+  // Catalogos para los <select>
+  instruccionesManejoCatalogo = [];
+  almacenOrigenCatalogo = [];
+  rangoTemperaturaCatalogo = [];
+  metodoPagoCatalogo = [];
+  usoCFDICatalogo = [];
+  condicionesAlmacenesCatalogo = [];
 
   ///////////////////////
   // BusquedaSuperior
@@ -24,34 +35,38 @@ export class PrealertasComponent {
   idPrealertaSearch = "";
 
   ///////////////////////
-  // Status Bars
+  // Status Filter Bar
   public statusEnum = ['Aceptada', 'Solicitada', 'P.AAACESA', 'P.Cliente', 'Rechazada', 'Finalizada'];
   public countStatus = {"Aceptada": 0, "Solicitada": 0, "PAAACESA": 0, "PCliente": 0, "Rechazada": 0, "Finalizada": 0}  
   
   ///////////////////////
   // Modals
     // Form Crear Pre Alerta
-    public myModal;
-    public myModal2;
-    public myModal3;  
-    public confirmationModal;
-    // Ver Detalle
-    public detalleModal;
+    // public myModal;
+    // public myModal2;
+    // public myModal3;  
+    // public confirmationModal;
+    // public responseModal;
+    // // Ver Detalle
+    // public detalleModal;
 
   ////////////////////////
   // Data Table
   public filterData;        // Data usada en el DataTable
   public data = [];         // Data original consultada del servicio  
-  public detailData = {};   // Registro con el detalle obtenido  
+  public detailData = {};   // Registro con el detalle obtenido
   
   ////////////////////////
   // Forms    
   model:PreAlertaModel = new PreAlertaModel( 
     '', '','Solicitada', '', null, null, null, '', '', '', '', '', '', true, '', '', []
   );  
-  nFiles = [];
+  nFiles = [];      // Usado para poder añadir mas archivos en la parte del formulario crear Pre Alerta
+  response = "";    // Respuesta al momento de crear Pre Alerta
+  @ViewChild('form1', { read: NgForm }) form1: any;   // Referencia al form de la vista
+  @ViewChild('form2', { read: NgForm }) form2: any;   // Referencia al form2 de la vista
   
-  constructor(private http: Http) {
+  constructor(private http: Http, private catalogosService:CatalogosService) {
 
     http.get('assets/prealertas.json')
       .subscribe((data) => {
@@ -60,7 +75,37 @@ export class PrealertasComponent {
           this.filterData = this.data;
           this.updateCountStatus();
         }, 2000);
-      });           
+      });  
+      
+    this.catalogosService.GetInstruccionesManejo()
+      .subscribe ( 
+        (response:any) => { this.instruccionesManejoCatalogo = response;}, 
+        (errorService) => { console.log(errorService); });
+
+    this.catalogosService.GetAlmacenOrigen()
+      .subscribe ( 
+        (response:any) => { this.almacenOrigenCatalogo = response;}, 
+        (errorService) => { console.log(errorService); });
+
+    this.catalogosService.GetRangoTemperatura()
+      .subscribe ( 
+        (response:any) => { this.rangoTemperaturaCatalogo = response;}, 
+        (errorService) => { console.log(errorService); });
+    
+    this.catalogosService.GetMetodoPago()
+      .subscribe ( 
+        (response:any) => { this.metodoPagoCatalogo = response;}, 
+        (errorService) => { console.log(errorService); }); 
+
+    this.catalogosService.GetUsoCFDI()
+      .subscribe ( 
+        (response:any) => { this.usoCFDICatalogo = response;}, 
+        (errorService) => { console.log(errorService); }); 
+        
+    this.catalogosService.GetCondicionesAlmacenes()
+      .subscribe ( 
+        (response:any) => { this.condicionesAlmacenesCatalogo = response;}, 
+        (errorService) => { console.log(errorService); });                 
   }
 
   public toInt(num: string) {
@@ -120,12 +165,29 @@ export class PrealertasComponent {
       this.model.attachments.push(event.target.files[0]);
     } else {
       this.model.attachments[index] = event.target.files[0];
-    }
-    
+    }    
   }
 
-  nextStep() {
-    console.log (this.model);
+  crearPreAlerta() {
+    //console.log (this.model);    
+    // Servicio para subir el modelo
+    this.response = "0123456";
+    this.form1.reset();
+    this.form2.reset();
+    this.cleanModel();    
+  }
+
+  // saveForm($event: Event) {
+  //   $event.preventDefault();    
+  //   //if (this.form.valid) {
+  //   //   console.log(this.form1.value);
+  //   //   console.log (this.form2.value);              
+  //  }
+
+  private cleanModel () { 
+    this.model = new PreAlertaModel( 
+    '', '','Solicitada', '', null, null, null, '', '', '', '', '', '', true, '', '', []);  
+    this.nFiles = [];
   }
 
 }

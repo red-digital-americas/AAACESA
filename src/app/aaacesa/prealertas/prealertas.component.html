@@ -4,17 +4,13 @@
     <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>
   </div>          
 </div>
+
 <div class="animated fadeIn">
   <div class="card">
-    <!-- <div class="card-header">    
-      <div class="row justify-content-end">  
-        <div class="col-lg-2">
-          <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>
-        </div>          
-      </div>      
-    </div> -->
-
+       
     <div class="card-body">
+
+      <!-- Start Busqueda Superior -->
       <div class="row mb-3">
         <div class="col-lg-10 mb-1">
           <div class="row">
@@ -51,17 +47,10 @@
           </div>
         </div>
 
-        <div class="col-lg-2">
-          <!-- <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>
-            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="BUSCAR"/>
-          </div> -->
-
+        <div class="col-lg-2">        
           <button class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
         </div>
-      </div>
+      </div>      
 
       <div class="row mb-3" *ngIf="showAdvanceSearch">
         <div class="col-lg-10">
@@ -74,11 +63,9 @@
               </div>                            
               <div class="col-lg-3 mb-1">
                 <div class="styled-select">
-                  <select class="form-control" [(ngModel)]="instruccionesSearch" >
+                  <select  class="form-control" [(ngModel)]="instruccionesSearch" >
                     <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                    <option value="0">Opcion 0</option>
-                    <option value="1">Opcion 1</option>
-                    <option value="2">Opcion 2</option>
+                    <option *ngFor='let item of instruccionesManejoCatalogo' [value]="item.value">{{item.text}}</option>
                   </select>
                 </div>                             
               </div>
@@ -88,7 +75,9 @@
             </div>
         </div>
       </div>
+      <!-- End Busqueda Superior -->
 
+      <!-- Start Status Filter Bar -->
       <div class="row mt-5 mb-3">
         <div class="col-lg-10 offset-lg-1">
           <div class="row">
@@ -154,16 +143,16 @@
                 <label (click)="applyFilter(10)" for="todosCheck">
                   <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
                 </label>
-              </div>
-              <!-- <input id="todosCheck" class="status-filter__check" type="checkbox"> -->
+              </div>              
             </div>
 
           </div>
         </div>
       </div>
+      <!-- End Status Filter Bar -->
 
 
-      <!-- <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"> -->
+      <!-- Start Data Table -->
       <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
           <tr>
@@ -205,7 +194,7 @@
                 </div>
               </div>
             </td>
-            <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+            <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a></td>
           </tr>
         </tbody>
         <tfoot>
@@ -216,11 +205,16 @@
           </tr>
         </tfoot>
       </table>
-    </div>
-  </div>
+      <!-- End Data Table -->
+
+    </div> <!-- End Card Body -->
+  </div> <!-- End Card -->
 </div>
 
-  <!-- Modals -->
+<!-- Modals -->
+  <!-- Start Modals Formulario Crear Prealerta -->
+
+  <!-- Start Modal1 Formulario -->
   <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -253,8 +247,9 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <!-- End Modal1 Formulario -->
 
-
+  <!-- Start Modal2 Formulario -->
   <div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -266,7 +261,7 @@
         </div>
         <div class="modal-body">  
 
-          <form #form2="ngForm" novalidate class="needs-validation">
+          <form #form2="ngForm" novalidate class="needs-validation"> 
 
             <div class="form-group">  
               <div class="row mb-3">            
@@ -298,9 +293,7 @@
                     <div class="styled-select">
                       <select class="form-control" #almacenOrigen="ngModel" name="almacenOrigen" [(ngModel)]="model.almacenOrigen" required>
                         <option value="" selected disabled hidden>Almacen de Origen</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
+                        <option *ngFor='let item of almacenOrigenCatalogo' [value]="item.value">{{item.text}}</option>                        
                       </select>
                     </div> 
                     <div [hidden]="almacenOrigen.valid || almacenOrigen.pristine"> Seleccionar Almacen de Origen</div>
@@ -309,9 +302,7 @@
                     <div class="styled-select">
                       <select class="form-control" #rangoTemperatura="ngModel" name="rangoTemperatura" [(ngModel)]="model.rangoTemperatura" required>
                         <option value="" selected disabled hidden>Rango de Temperatura</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
+                        <option *ngFor='let item of rangoTemperaturaCatalogo' [value]="item.value">{{item.text}}</option>                        
                       </select>
                     </div>
                     <div [hidden]="rangoTemperatura.valid || rangoTemperatura.pristine"> Seleccionar Rango de Temperatura</div>
@@ -327,9 +318,7 @@
                   <div class="styled-select">
                     <select class="form-control" #metodoPago="ngModel" name="metodoPago" [(ngModel)]="model.metodoPago" required>
                       <option value="" selected disabled hidden>Método de pago</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
+                      <option *ngFor='let item of metodoPagoCatalogo' [value]="item.value">{{item.text}}</option>                                              
                     </select>
                   </div> 
                   <div [hidden]="metodoPago.valid || metodoPago.pristine"> Seleccionar Metodo de Pago</div>
@@ -338,9 +327,7 @@
                   <div class="styled-select">
                     <select class="form-control" #usoCFDI="ngModel" name="usoCFDI" [(ngModel)]="model.usoCFDI" required>
                       <option value="" selected disabled hidden>Uso de CFDI</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
+                      <option *ngFor='let item of usoCFDICatalogo' [value]="item.value">{{item.text}}</option>                                              
                     </select>
                   </div> 
                   <div [hidden]="usoCFDI.valid || usoCFDI.pristine"> Seleccionar Uso de CFDI </div>
@@ -348,13 +335,11 @@
               </div>
 
               <div class="row mb-3">            
-                <div class="col-lg-6">
+                <div class="col-lg-6">                  
                   <div class="styled-select">
                     <select class="form-control"  #condicionesAlmacenes="ngModel" name="condicionesAlmacenes" [(ngModel)]="model.condicionesAlmacenes" required>
                       <option value="" selected disabled hidden>Condiciones de Almacenes</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
+                      <option *ngFor='let item of condicionesAlmacenesCatalogo' [value]="item.value">{{item.text}}</option>                                              
                     </select>
                   </div>
                   <div [hidden]="condicionesAlmacenes.valid || condicionesAlmacenes.pristine"> Seleccionar Condiciones de Alamacen </div> 
@@ -375,9 +360,10 @@
                   <div class="styled-select">
                     <select class="form-control" #instruccionesManejo="ngModel" name="instruccionesManejo" [(ngModel)]="model.instruccionesManejo" required>
                       <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                      <option value="0">Recolección</option>
+                      <option *ngFor='let item of instruccionesManejoCatalogo' [value]="item.value">{{item.text}}</option>
+                      <!-- <option value="0">Recolección</option>
                       <option value="1">Transferencia</option>
-                      <option value="2">Recolección y Transferencia</option>
+                      <option value="2">Recolección y Transferencia</option> -->
                     </select>
                   </div>
                   <div [hidden]="instruccionesManejo.valid || instruccionesManejo.pristine"> Seleccionar Instrucciones de Manejo </div>  
@@ -391,7 +377,7 @@
               </div>
 
               <div class="row justify-content-center">            
-                <button [disabled]="!form2.form.valid" (click)="myModal3.show(); myModal2.hide(); nextStep();" class="btn btn-pill btn-primary">Siguiente</button>
+                <button [disabled]="!form2.form.valid" (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
               </div>
 
             </div> 
@@ -402,7 +388,9 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <!-- End Modal2 Formulario -->
 
+  <!-- Start Modal3 (Archivos) Formulario -->
   <div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -426,10 +414,10 @@
               <div *ngFor="let file of nFiles; let in=index" class="col-lg-1">                  
                   <label [for]="file-in">                      
                       <div style="font-size: 4rem" class=""><i class="fas fa-file"></i></div>                  
-                  </label>                                  
+                  </label>      
+                  <!-- {{model.attachments[in].name}} -->
                   <input (change)="onFileChanged($event, in)" style="display: none;" [id]="file-in" type="file">
               </div>
-
 
               <!-- <div class="col-lg-1">
                   <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
@@ -454,8 +442,9 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <!-- End Modal3 (Archivos) Formulario -->
 
-    <!-- Modal Confirmacion Formulario -->
+    <!-- Start Modal Confirmacion Formulario -->
     <div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -572,20 +561,11 @@
                       </div>                
                     </div>
 
-                    <div class="row mb-3">
-                    
+                    <div class="row mb-3">                
                         <div *ngFor="let file of model.attachments" class="col col-lg-2">
-                          <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                          <p>{{file.name}}</p>                            
-                          <p>{{file.type}}</p>                            
-                        </div>
-
-                      <!-- <div class="col col-lg-2">
-                        <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-                        <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                        <p>Donec pede justo fringilla</p>
-                      </div>                                           -->
-                      
+                          <h1 style="font-size: 5rem"><i class="fas {{file.name | fileIconPipe}}"></i></h1>
+                          <p class="detail-text break-word">{{file.name}}</p>                                                                                               
+                        </div>                      
                     </div>
 
                   </div>
@@ -599,7 +579,7 @@
                       <button (click)="confirmationModal.hide(); myModal3.show();" class="btn btn-pill btn-primary">Regresar</button>
                     </div>
                     <div class="col-lg-2">
-                      <button (click)="confirmationModal.hide();" class="btn btn-pill btn-primary">Enviar</button>
+                      <button  (click)="confirmationModal.hide(); crearPreAlerta(); responseModal.show();" class="btn btn-pill btn-primary">Enviar</button>                      
                     </div>
                   </div>
                 </div> 
@@ -610,7 +590,35 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+    <!-- End Modal Confirmacion Formulario -->
 
+    <!-- Start Modal Response Crear PreAlerta -->
+    <div bsModal #responseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header">              
+              <button type="button" class="close" (click)="responseModal.hide();" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+          <div class="modal-body">
+            <div class="container">              
+              <div class="row">                
+                <div class="col-12 col-md-12">                                                          
+                  <h5 class="detail-text">Gracias</h5>
+                  <p class="detail-text">Tu solicitud de pre alerta con No. ID. {{response}} se envio de forma satisfactoria</p>                    
+                </div>                                                                                                             
+              </div>
+            </div>                                                                                                
+
+          </div>                                                  
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- End Modal Response Crear PreAlerta -->    
+  <!-- End Modals Formulario Crear Prealerta -->
 
 
   <!-- Modal Detalle -->
@@ -731,8 +739,7 @@
                     </div>
 
                     <div class="row mb-3">                      
-                      <div class="col col-lg-2">
-                        <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                      <div class="col col-lg-2">                        
                         <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
                         <p>Donec pede justo fringilla</p>
                       </div>                                          
