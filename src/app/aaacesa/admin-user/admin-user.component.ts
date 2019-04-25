@@ -42,7 +42,8 @@ export class AdminUserComponent implements OnInit {
       initialState: {
         cveCliente: idCliente,
         title: "Detalle de Usuario",
-      }
+      },
+      class: 'modal-lg'
     });
     this.modalRef.content.closeBtnName = 'Close';
     
@@ -52,7 +53,9 @@ export class AdminUserComponent implements OnInit {
     this.modalCrea = this.modalService.show(CrearUserComponent,{
       initialState: {
         title: "Alta de Usuario",
-      }
+        idAdminUSer: this.userData.Autenticacion['IdCliente']
+      },
+      class: 'modal-lg'
     });
     this.modalCrea.content.closeBtnName = 'Close';
   }

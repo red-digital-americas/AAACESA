@@ -71,13 +71,13 @@ export class PrealertasComponent {
     return a.name.length;
   }
 
-  public updateCountStatus () {    
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.status == 'Aceptada';}).length; 
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.status == 'Solicitada';}).length;
-    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.status == 'P.AAACESA';}).length;
-    this.countStatus.PCliente = this.data.filter(function (el) {return el.status == 'P.Cliente';}).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.status == 'Rechazada';}).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.status == 'Finalizada';}).length;    
+  public updateCountStatus () {
+    this.countStatus.Aceptada = this.data.filter(function (el) {return el.status === 'Aceptada'; }).length;
+    this.countStatus.Solicitada = this.data.filter(function (el) {return el.status === 'Solicitada'; }).length;
+    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.status === 'P.AAACESA'; }).length;
+    this.countStatus.PCliente = this.data.filter(function (el) {return el.status === 'P.Cliente'; }).length;
+    this.countStatus.Rechazada = this.data.filter(function (el) {return el.status === 'Rechazada'; }).length;
+    this.countStatus.Finalizada = this.data.filter(function (el) {return el.status === 'Finalizada'; }).length;
   }
 
   public applyFilter(index: number) {
@@ -87,14 +87,14 @@ export class PrealertasComponent {
     if (index < this.statusEnum.length) {
       this.filterData = this.data.filter (function (el) { return  el.status == this.statusEnum[index];}.bind(this));
     } else {
-      this.filterData = this.data;      
-    } 
+      this.filterData = this.data;
+    }
   }
   
   public verDetalle (id: string) {      
     let tmp;  
     tmp = this.data.filter (function (el) {
-      return el.idPreAlerta == id;
+      return el.idPreAlerta === id;
     });
     
     this.detailData = tmp[0];    

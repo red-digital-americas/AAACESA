@@ -21,7 +21,7 @@
 .filter input{
     background: transparent !important;
     border: none !important;
-    color: #ffffff !important;
+    color: #212649 !important;
 }
 .options{
     background: #191c37;
@@ -33,12 +33,12 @@ table{
 }
 .table th, .table td {
     border-top: 1px solid #646880;
-    color: #b8bcd6;
+    color: #07080f;
 }
 .table thead th {
     border-bottom: 2px solid #646880;
     border-top: none;
-    color: #ffffff;
+    color: #212649;
 }
 .page-item.active .page-link {
     background-color: #ed0e19 !important;
@@ -132,7 +132,7 @@ table{
     font-size: .8rem;    
 
     &:not(:last-child) {
-        border-right: 2px solid white;  
+        border-right: 2px solid #212649;  
     }    
 
     &__number {
@@ -176,4 +176,33 @@ table{
             background-color: #596df2;
         }
     }
+}
+
+// Detalle
+.referencia{
+    color: #212649;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 0.4rem;
+    background-color: transparent;
+    border: 1px solid #f3f4f5;
+    padding: 0.1em;
+    margin: 1em;
+    padding-top: 0.3em;
+    width: 80%;
+}
+
+.cardborder{
+    border: 2px solid #0c0d1a;
+    border-radius: 0.7em;
+    box-shadow: 3px 4px 3px #0c0d1a;
+}
+.dividerb{
+    border-top: 1px solid #0c0d1a;
+}
+
+.mat-expansion-panel-header, .mat-expansion-panel-header.mat-expanded ,.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover{
+    background-color: #e0e2ff !important;
+    border-bottom: 1px solid #0c0d1a;
 }
