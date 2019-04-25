@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   templateUrl: 'collapses.component.html'
 })
 export class CollapsesComponent {
+  panelOpenState = false;
 
   constructor() { }
 
@@ -16,5 +18,7 @@ export class CollapsesComponent {
   expanded(event: any): void {
     // console.log(event);
   }
+
+  
 
 }

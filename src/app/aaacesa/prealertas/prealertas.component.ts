@@ -7,16 +7,16 @@ import { Http } from '@angular/http';
   styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
     '../../../scss/vendors/ng-select/ng-select.scss',
     './prealertas.component.scss'],
-  encapsulation: ViewEncapsulation.None  
+  encapsulation: ViewEncapsulation.None
 })
 export class PrealertasComponent {
   public statusEnum = ['Aceptada', 'Solicitada', 'P.AAACESA', 'P.Cliente', 'Rechazada', 'Finalizada'];
 
-  // Date Range Picker    
+  // Date Range Picker
   bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
   // Date Picker
-  bsValue2:any = "";
-  bsFechaEstimada:any = "";
+  bsValue2: any = '';
+  bsFechaEstimada: any = '';
 
   public showAdvanceSearch = true;
 
@@ -25,8 +25,8 @@ export class PrealertasComponent {
   public detailData = {};
   public filterQuery = '';
 
-  public countStatus = {"Aceptada": 0, "Solicitada": 0, "PAAACESA": 0, "PCliente": 0, "Rechazada": 0, "Finalizada": 0}
-  public filterStatus = [true, true, true, true, true, true]
+  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0};
+  public filterStatus = [true, true, true, true, true, true];
 
   // Modal
   public myModal;
@@ -42,7 +42,7 @@ export class PrealertasComponent {
           this.filterData = this.data;
           this.updateCountStatus();
         }, 2000);
-      });          
+      });
   }
 
   public toInt(num: string) {
@@ -53,44 +53,44 @@ export class PrealertasComponent {
     return a.name.length;
   }
 
-  public updateCountStatus () {    
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.status == 'Aceptada';}).length; 
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.status == 'Solicitada';}).length;
-    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.status == 'P.AAACESA';}).length;
-    this.countStatus.PCliente = this.data.filter(function (el) {return el.status == 'P.Cliente';}).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.status == 'Rechazada';}).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.status == 'Finalizada';}).length;    
+  public updateCountStatus () {
+    this.countStatus.Aceptada = this.data.filter(function (el) {return el.status === 'Aceptada'; }).length;
+    this.countStatus.Solicitada = this.data.filter(function (el) {return el.status === 'Solicitada'; }).length;
+    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.status === 'P.AAACESA'; }).length;
+    this.countStatus.PCliente = this.data.filter(function (el) {return el.status === 'P.Cliente'; }).length;
+    this.countStatus.Rechazada = this.data.filter(function (el) {return el.status === 'Rechazada'; }).length;
+    this.countStatus.Finalizada = this.data.filter(function (el) {return el.status === 'Finalizada'; }).length;
   }
 
   public applyFilter(index: number) {
     this.filterData = [];
 
     if (index < this.filterStatus.length) {
-      this.filterData = this.data.filter (function (el) { return  el.status == this.statusEnum[index];}.bind(this));
+      this.filterData = this.data.filter (function (el) { return  el.status === this.statusEnum[index]; }.bind(this));
     } else {
-      this.filterData = this.data;      
-    } 
+      this.filterData = this.data;
+    }
   }
 
-  // public toogleFilters(index: number) {    
+  // public toogleFilters(index: number) {
   //   if (index < this.filterStatus.length) {
   //     this.filterStatus[index] = !this.filterStatus[index];
   //   } else {
   //     for (let num=0; num < this.filterStatus.length; num++){
   //       this.filterStatus[num] = true;
   //     }
-  //   }    
+  //   }
 
   //   //console.log(this.filterStatus);
   //   this.updateFilters();
   // }
 
   // private updateFilters () {
-  //   this.filterData = [];    
+  //   this.filterData = [];
 
   //   if (this.filterStatus[0]){
   //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Aceptada';}));
-  //   }  
+  //   }
   //   if (this.filterStatus[1]){
   //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Solicitada';}));
   //   }
@@ -106,21 +106,21 @@ export class PrealertasComponent {
   //   if (this.filterStatus[5]){
   //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
   //   }
-                      
-  //   // this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));    
+
+  //   // this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
   //   // console.log(this.filterData);
   // }
 
-  public verDetalle (id: string) {      
-    let tmp;  
+  public verDetalle (id: string) {
+    let tmp;
     tmp = this.data.filter (function (el) {
-      return el.idPreAlerta == id;
+      return el.idPreAlerta === id;
     });
-    
+
     this.detailData = tmp[0];
-    //this.detalleModal.show();
+    // this.detalleModal.show();
     console.log(this.detailData);
-    
+
     // var newArray = homes.filter(function (el) {
     //   return el.price <= 1000 &&
     //          el.sqft >= 500 &&

@@ -235,18 +235,36 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group">            
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
-              </div>
-              <div class="form-group">            
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
-              </div>      
-              <div class="form-group">  
-                <div class="row justify-content-center">            
-                  <button (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+              <div class="row">
+                <div class="col-sm-6 col-md-12 col-lg-12">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">            
+                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+                          </div>
+                          <div class="form-group">            
+                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+                          </div>      
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                        <div class="form-group">  
+                            <div class="row justify-content-center"> 
+                                <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
+                            </div>
+                            <div class="row justify-content-center">
+                                <button (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
-              </div>                        
-            </div>         
+              </div>
+            </div><!-- /.modal-body -->         
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
@@ -426,7 +444,7 @@
             <div class="modal-content">
   
               <div class="modal-header">
-                <h6 class="modal-title">Detalle PreAlerta {{ detailData.idPreAlerta }}</h6>
+                <h6 class="modal-title">Detalle Previo {{ detailData.idPreAlerta }}</h6>
                 <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -436,166 +454,169 @@
                 <div class="container">              
                   <div class="row">
   
-                    <!--  Start left -->
-                    <div class="col-12 col-md-8">                    
+              
+              <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <!--  Start left -->
+                    <div class="col-sm-8 col-md-8 col-lg-8 cardborder">                    
                       <div class="row mb-1">
-                        <div class="col">
-                          <h5 class="detail-text">Guia Master </h5>
-                          <p class="detail-text">{{detailData.masterguide}}</p>
-                        </div>
-                        
-                        <div class="col">
-                          <div class="row justify-content-end">
-                            <div class="col">
-                              <h5 class="detail-text btn btn-outline-light">Referencia 12312323</h5>                    
+                          <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="detail-text">No. Master </h5>
+                                <p class="detail-text">{{detailData.masterguide}}</p>
+                              </div>
                             </div>
-                            <div class="col">
-                              <h5 class="detail-text">Estatus</h5>
-                              <div class="col status-filter">            
-                                <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                <div class="status-filter__text">
-                                  <p> {{detailData.status}} </p>
-                                </div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="detail-text">No. House </h5>
+                                <p class="detail-text">{{detailData.houseguide}}</p>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="detail-text">Patente </h5>
+                                <p class="detail-text">{{detailData.patente}}</p>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <h5 class="detail-text">Fecha y hora previo </h5>
+                                <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy hh:mm:ss a' }}</p>
                               </div>
                             </div>
                           </div>
-                        </div>                        
-                      </div> 
-                  
-                      <div class="row mb-1">
-                        <div class="col">
-                          <h5 class="detail-text">Guia House </h5>
-                          <p class="detail-text">{{detailData.houseguide}}</p>
-                        </div>
-  
-                        <div class="col">
-                          <div class="row justify-content-end">
-                            <div class="col">
-                              <h5 class="detail-text">Piezas </h5>
-                              <p class="detail-text">{{detailData.npieces}}</p>
-                            </div>
-                            <div class="col">
-                              <h5 class="detail-text">Uso de CFDI</h5>
-                              <p class="detail-text">lorem ipsum</p>
-                            </div>
-                            <div class="col">
-                              <h5 class="detail-text">Peso</h5>
-                              <p class="detail-text">{{detailData.weight}}</p>
+                          
+                          <div class="col-sm-8 col-mf-8 col-lg-8">
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="referencia">
+                                      <h5 class="detail-text">Referencia: {{detailData.reference}}</h5>
+                                    </div>
+                                  </div>
+                              </div>
+                            <div class="row">
+                              <div class="col-sm-6 col-md-6 col-lg-6">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Nombre Completo </h5>
+                                      <p class="detail-text">{{detailData.name}}</p>    
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Piezas </h5>
+                                      <p class="detail-text">{{detailData.npieces}}</p>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Etiquetado </h5>
+                                      <p class="detail-text">{{detailData.etiqueta}}</p>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6 col-md-6 col-lg-6">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">No. Gafete </h5>
+                                      <p class="detail-text">9289178</p>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Peso </h5>
+                                      <p class="detail-text">182993 Kg</p>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Almacén </h5>
+                                      <p class="detail-text">No. 22</p>
+                                    </div>
+                                  </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>   
-                  
-                      <div class="row mb-1">
-                        <div class="col">
-                          <h5 class="detail-text">Consiganatario a Facturar</h5> 
-                          <p class="detail-text">lorem ipsum</p>
-                        </div>
-  
-                        <div class="col">
-                          <div class="row justify-content-end">
-                            <div class="col">
-                              <h5 class="detail-text">Fecha de Arribo</h5>
-                              <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>
-                            </div>
-                            <div class="col">
-                              <h5 class="detail-text">Consolidado</h5>
-                              <p class="detail-text">Si</p>
-                            </div>
-                            <div class="col">
-                              <h5 class="detail-text">Almacen de Origen</h5>
-                              <p class="detail-text">Lorem Ipsum</p>
-                            </div>
+                        <hr class="dividerb">
+                        <div class="row mb-1" style="text-align: center;">
+                          <div class="col-sm-12 col-md-12 col-lg-12">
+                             <div class="row">
+                               <div class="col-sm-4 col-md-4 col-lg-4">
+                                 <div class="row">
+                                    <div class="col status-filter">            
+                                        <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                        <div class="status-filter__text">
+                                          <p> {{detailData.status}} </p>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                   <div class="col">
+                                      <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                                      <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                                      <p>Donec pede justo fringilla</p>
+                                   </div>
+                                 </div>
+                               </div>
+                               <div class="col-sm-4 col-md-4 col-lg-4">
+                                  <div class="row">
+                                     <div class="col status-filter">            
+                                         <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                         <div class="status-filter__text">
+                                           <p> {{detailData.status}} </p>
+                                         </div>
+                                     </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                       <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                                       <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                                       <p>Donec pede justo fringilla</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <div class="row">
+                                       <div class="col status-filter">            
+                                           <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                           <div class="status-filter__text">
+                                             <p> {{detailData.status}} </p>
+                                           </div>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col">
+                                         <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                                         <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                                         <p>Donec pede justo fringilla</p>
+                                      </div>
+                                    </div>
+                                  </div>                         
+                               
+                             </div>
                           </div>
                         </div>
-                      </div>
-                  
-                      <div class="row mb-1">
-                        <div class="col">
-                          <h5 class="detail-text">Método de Pago</h5>
-                          <p class="detail-text">lorem ipsum</p>
-                        </div>
-  
-                        <div class="col">
-                          <div class="row justify-content-end">
-                            <div class="col">
-                              <h5 class="detail-text">Rango de Temperatura</h5>
-                              <p class="detail-text">26°</p>
-                            </div>                
-                          </div>
-                        </div>
-                      </div>
-    
-                      <div class="row mb-3">
-                        <div class="col">
-                          <h5 class="detail-text">Condicion de Alamacenaje</h5>
-                          <p class="detail-text">Evitar apilar más de 4 cajas</p>
-                        </div>
-                        <div class="col">
-                          <h5 class="detail-text">Instrucciones de Manejo</h5>
-                          <p class="detail-text">Transferencia y Recolección</p>
-                        </div>                
-                      </div>
-  
-                      <div class="row mb-3">                      
-                        <div class="col col-lg-2">
-                          <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                          <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                          <p>Donec pede justo fringilla</p>
-                        </div>                                          
-                      </div>
-  
                     </div>
                     <!--  End left -->
+
+              
   
                     <!-- Start Rigth -->
-                    <div class="col-12 col-md-4">
-                      <div class="row mb-1">
-                        <div class="col-12">
-                          <h6>Estatus Transferencia</h6>                        
-                        </div>                                    
-                        <div class="col-12">
-                          <h5 class="detail-text">Fecha de Solicitud</h5>
-                          <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>                    
-                        </div>    
-  
-                        <div class="col-12">
-                          <h6>Transferencia</h6>                        
-                        </div>   
-                        <div class="col-12">   
-                          <div class="row">
-                            <div class="col-8">
-                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                              <div class="status-filter__text">
-                                <p class="detail-text"> {{detailData.status}} </p>
-                              </div>                        
-                            </div>
-                            <div class="col-2">
-                              <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                            </div>
-                          </div>                      
-                        </div>   
-                        <div class="col-12">   
-                          <div class="row">
-                            <div class="col-8">
-                              <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                              <div class="status-filter__text">
-                                <p class="detail-text"> Documentos Disponibles </p>
-                              </div>                        
-                            </div>
-                            <div class="col-2">
-                              <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                            </div>
-                          </div>                      
-                        </div>  
-                        
-                        <div class="col-12">
-                          <h6>Pre Alerta</h6>                        
-                        </div> 
-                        <div class="col-12 mb-3">
-                          <textarea class="form-control" rows="2" placeholder="Comentario"></textarea>                       
-                        </div> 
-                        <div class="col-12 mb-3">
+                    <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h6>Estado</h6>
+                            <h5 class="detail-text">Fecha de Solicitud</h5>
+                            <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                            <hr class="dividerb">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <h6>Previo</h6>
+                            <textarea class="form-control" rows="2" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
                           <div class="row justify-content-end">
                             <div class="col-lg-6 mb-2">
                               <label for="file-multiple-input">
@@ -607,39 +628,58 @@
                             <div class="col-lg-3 mb-2">
                               <button class="btn btn-pill btn-primary">Enviar</button>
                             </div>
-                          </div>                        
-                        </div> 
-  
-                        <div class="col-12">   
-                          <div class="row">
-                            <div class="col-8">
-                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                              <div class="status-filter__text">
-                                <p class="detail-text"> {{detailData.status}} </p>
-                              </div>                        
-                            </div>
-                            <div class="col-2">
-                              <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                            </div>
-                            <div class="col-2">
-                              <h5 class="detail-text"><i class="fas fa-file"></i></h5>
-                            </div>
-                          </div>                      
-                        </div>   
-                        <div class="col-12">   
-                          <div class="row">
-                            <div class="col-8">
-                              <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                              <div class="status-filter__text">
-                                <p class="detail-text"> Documentos Disponibles </p>
-                              </div>                        
-                            </div>
-                            <div class="col-2">
-                              <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                            </div>
-                          </div>                      
-                        </div>  
-  
+                          </div>                          
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                          <!-- Inicio Acordeon -->
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                  <mat-expansion-panel-header>
+                                      <div class="col status-filter">            
+                                          <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                          <div class="status-filter__text">
+                                            <p> {{detailData.status}} </p>
+                                          </div>
+                                          <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                                      </div>                                      
+                                  </mat-expansion-panel-header>
+                              
+                                Documentos Aprobados
+                              
+                                </mat-expansion-panel>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <div class="col status-filter">            
+                                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                            <div class="status-filter__text">
+                                              <p> {{detailData.status}} </p>
+                                            </div>
+                                            <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                                        </div>                                      
+                                    </mat-expansion-panel-header>
+                                
+                                  Documentos Aprobados
+                                
+                                  </mat-expansion-panel>
+                                  <mat-expansion-panel>
+                                      <mat-expansion-panel-header>
+                                          <div class="col status-filter">            
+                                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
+                                              <div class="status-filter__text">
+                                                <p> {{detailData.status}} </p>
+                                              </div>
+                                              <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                                          </div>                                      
+                                      </mat-expansion-panel-header>
+                                  
+                                    Documentos Aprobados
+                                  
+                                  </mat-expansion-panel> 
+                             </mat-accordion>
+                             <!-- Fin Acordeon -->
+                        </div>
                       </div>
                     </div>
                     <!--  End Rigth -->
@@ -651,3 +691,6 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+
+        

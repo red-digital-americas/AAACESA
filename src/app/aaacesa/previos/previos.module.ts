@@ -22,6 +22,9 @@ import { SelectModule } from 'ng-select';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PreviosComponent } from './previos.component';
 
+// Acocordion
+import {MatExpansionModule} from '@angular/material/expansion';
+
 import { PreviosRoutingModule } from './previos-routing.module';
 
 @NgModule({
@@ -37,7 +40,8 @@ import { PreviosRoutingModule } from './previos-routing.module';
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     SelectModule,
-    ModalModule
+    ModalModule,
+    MatExpansionModule
   ],
   declarations: [
     PreviosComponent,

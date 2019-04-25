@@ -12,6 +12,9 @@ import { Http } from '@angular/http';
   encapsulation: ViewEncapsulation.None
 })
 export class PreviosComponent {
+  // Accordion
+  panelOpenState = false;
+
   // ng2-select
   public status: Array<IOption> = [
     {label: 'Aceptada', value: 'Aceptada'},
