@@ -113,14 +113,26 @@ small {
 
 //Links
 .page-item.active .page-link {
-  background-color: #212649 !important;
-  border-color: #212649 !important;
+  background-color: #CD0428 !important;
+  border-color: none !important;
   border-radius: 100% !important;
+  color: #FFF;
 }
-.page-link{
+.page-item .page-link {
   border-radius: 100% !important;
+  background-color: transparent;
+  color: #212649;
+  border-color: #FFF !important;
 }
-
+.page-item .page-link:hover {
+  color: #FFF !important;
+  background-color: #212649;
+  border-color: none !important;
+  
+}
+// .page-link{
+//   border-radius: 100% !important;
+// }
 .page-item.disabled .page-link{
   border-radius: 0;
   background: none;
@@ -129,9 +141,9 @@ small {
 
 //paginador
 
-.pagination li a {
-  background-color:#eaa;
-}
+// .pagination li a {
+  
+// }
 
 .lastfirst{
   border-radius: 0;
