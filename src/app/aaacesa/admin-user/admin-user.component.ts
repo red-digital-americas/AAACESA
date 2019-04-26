@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { ModalDirective, BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginServices } from '../../services/login.services';
@@ -29,6 +29,7 @@ export class AdminUserComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.dataSource.sort = this.sort;
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.numCuentas = this.userData.NumCuentas;
 

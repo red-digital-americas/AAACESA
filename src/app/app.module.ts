@@ -13,7 +13,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -24,6 +23,18 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+// DataTable
+import { DataTableModule } from 'angular2-datatable';
+// Angular 2 Input Mask
+import { TextMaskModule } from 'angular2-text-mask';
+// Timepicker
+import { TimepickerModule } from 'ngx-bootstrap';
+// Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';
+// Ng2-select
+import { SelectModule } from 'ng-select';
+//Modal
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 // Providers
@@ -37,7 +48,8 @@ import {
   AppBreadcrumbModule,
   AppHeaderModule,
   AppFooterModule,
-  AppSidebarModule,
+  AppSidebarModule
+
 } from '@coreui/angular';
 
 // Import routing module
@@ -59,7 +71,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent,    
+    ResetpasswordComponent
     // AbandonoComponent
   ],
   imports: [
@@ -79,7 +91,14 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     FormsModule,
     HttpClientModule,
 // tslint:disable-next-line: deprecation
-    HttpModule
+    HttpModule,
+    DataTableModule,
+    TextMaskModule,
+    TimepickerModule,
+    BsDatepickerModule,
+    SelectModule,
+    ModalModule,
+    BrowserAnimationsModule
   ],
   exports: [
   ],

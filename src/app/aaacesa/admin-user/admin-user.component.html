@@ -1,10 +1,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="container">
-<div class="row justify-content-end" *ngIf="numCuentas > 0">  
+  <div class="row justify-content-end" *ngIf="numCuentas > 0">
     <div class="col-lg-6 col-md-6 col-xs-6 text-right">
       <button (click)="crearUser()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
-    </div>          
-</div>
+    </div>
+  </div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
@@ -13,37 +13,67 @@
     <div class="card-body">
       <div class="row mb-3">
         <div class="col-md-4 offset-md-8">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>
-            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Buscar..."/>
-          </div>
+          <mat-form-field class="input-full-width">
+            <input matInput type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Buscar..." />
+            <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+          </mat-form-field>
         </div>
+      </div>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
       </div>
       <div class="table-responsive">
         <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
           <thead>
             <tr>
-              <th >
+              <th>
                 <mfDefaultSorter by="Nombre">Nombre <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter by="Telefono">Teléfono <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter by="RFC">RFC <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter by="ClavePatente">Patente <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter by="CvePerfil">Perfil <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter>Foto</mfDefaultSorter>
               </th>
-              <th >
+              <th>
                 <mfDefaultSorter by="CveEstatus">Activo <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
               <th>
@@ -61,7 +91,7 @@
                 {{Perfil.CvePerfil}}
               </td>
               <td>
-                  <i class="fa fa-user-circle fa-2x"></i>
+                <i class="fa fa-user-circle fa-2x"></i>
               </td>
               <td>
                 <label class="switch switch-label switch-pill switch-outline-secondary">
@@ -83,7 +113,8 @@
             </tr>
           </tfoot>
         </table>
-      <div class="table-responsive"></div>
+        <div class="table-responsive"></div>
+      </div>
     </div>
   </div>
 </div>
