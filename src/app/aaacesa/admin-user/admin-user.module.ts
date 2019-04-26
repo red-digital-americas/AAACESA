@@ -17,6 +17,12 @@ import { ModalsComponent } from '../../views/notifications/modals.component';
 import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 
+//Material
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +30,11 @@ import { CrearUserComponent } from './crear-user/crear-user.component';
     DataTableModule,
     FormsModule,
     HttpModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule
   ],
   declarations: [
     AdminUserComponent,
