@@ -4,9 +4,7 @@ import { Http } from '@angular/http';
 @Component({
   selector: 'app-salidas',
   templateUrl: './salidas.component.html',
-  styleUrls: ['./salidas.component.scss',
-  '../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
-    '../../../scss/vendors/ng-select/ng-select.scss',],
+  styleUrls: ['./salidas.component.scss'],
   encapsulation: ViewEncapsulation.None 
 })
 export class SalidasComponent {

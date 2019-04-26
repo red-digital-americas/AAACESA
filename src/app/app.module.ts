@@ -13,7 +13,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -62,7 +61,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-import { SalidasComponent } from './aaacesa/salidas/salidas.component';
 // import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
 
 @NgModule({
@@ -73,8 +71,7 @@ import { SalidasComponent } from './aaacesa/salidas/salidas.component';
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent,
-    SalidasComponent, 
+    ResetpasswordComponent
     // AbandonoComponent
   ],
   imports: [
@@ -100,7 +97,8 @@ import { SalidasComponent } from './aaacesa/salidas/salidas.component';
     TimepickerModule,
     BsDatepickerModule,
     SelectModule,
-    ModalModule
+    ModalModule,
+    BrowserAnimationsModule
   ],
   exports: [
   ],

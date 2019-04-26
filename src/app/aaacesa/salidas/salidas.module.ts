@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { StatusPipe } from './status.pipe';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
-
 // import { DataTableComponent } from './datatable.component';
 import { SalidasComponent } from './salidas.component';
 
@@ -14,6 +12,9 @@ import { SalidasComponent } from './salidas.component';
 // import { DatatableRoutingModule } from './datatable-routing.module';
 import { SalidasRoutingModule } from './salidas-routing.module';
 
+
+//Material
+import { MatInputModule } from '@angular/material/input';
 
 // DataTable
 import { DataTableModule } from 'angular2-datatable';
@@ -36,12 +37,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     // tslint:disable-next-line: deprecation
     HttpModule,
-    MatDatepickerModule,
     TextMaskModule,
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     SelectModule,
-    ModalModule
+    ModalModule,
+    MatInputModule
   ],
   declarations: [
     SalidasComponent,
