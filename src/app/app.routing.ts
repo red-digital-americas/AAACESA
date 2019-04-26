@@ -9,7 +9,7 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-// import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
+//import { AaacesaSalidasComponent } from './views/aaacesa-salidas/aaacesa-salidas.component';
 
 export const routes: Routes = [
   {
@@ -99,6 +99,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'salidas',
+        loadChildren: './aaacesa/salidas/salidas.module#SalidasModule'
       },
       {
         path: 'editors',
