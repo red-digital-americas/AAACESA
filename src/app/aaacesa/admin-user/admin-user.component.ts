@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { ModalDirective, BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginServices } from '../../services/login.services';
@@ -32,7 +32,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   selector: 'app-admin-user',
   templateUrl: 'admin-user.component.html',
   styleUrls: ['./admin-user.component.scss'],
-  providers: [LoginServices]
+  providers: []
 })
 export class AdminUserComponent implements OnInit {
 
