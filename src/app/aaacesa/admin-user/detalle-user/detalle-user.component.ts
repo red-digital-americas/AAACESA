@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef } from '@a
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { LoginServices } from '../../../services/login.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import { ApiServices } from '../../../services/api.services';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -35,10 +34,10 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   onChange: any = Function.prototype; // Trascend the onChange event
   onTouched: any = Function.prototype; // Trascend the onTouch event
 
-  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private apiservice: ApiServices) { }
+  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private loginservice: LoginServices) { }
 
   ngOnInit() {
-     this.apiservice.service_general_post("AAACESA-Portal/portalclientes/getCuentasCliente",{
+     this.loginservice.service_general("AAACESA-Portal/portalclientes/getCuentasCliente",{
       "imtgetCuentacliente": 	{
         "IdCliente": this.cveCliente
       }

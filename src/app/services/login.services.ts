@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class LoginServices{
-    public url="http://api.desarrollo.com.mx/api";
+    public url="http://104.130.201.153/";
     
     constructor(private http: HttpClient, private https: Http) { }
 
@@ -20,20 +20,12 @@ export class LoginServices{
     
     }
     
-    service_general_login(url, parametros): Observable<any> {
+    service_general(url, parametros): Observable<any> {
         let headers = new Headers({
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         });
         return this.http.post(this.url + url, parametros);
-    }
-
-    service_general_post(url, parametros): Observable<any> {
-      let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      });
-      return this.http.post(this.url + url, parametros);
-    }
+      }
 
 }

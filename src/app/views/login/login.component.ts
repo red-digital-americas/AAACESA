@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginServices } from '../../services/login.services';
-import { Router } from '@angular/router';
-import { ApiServices } from '../../services/api.services';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html',
-  providers: [LoginServices, ApiServices],
+  providers: [LoginServices],
 })
 export class LoginComponent implements OnInit {
   
@@ -20,33 +18,35 @@ export class LoginComponent implements OnInit {
   loginUser;
   sesionUser;
 
-  constructor(private loginservice: LoginServices, private apiservices: ApiServices, private router: Router){};
+  constructor(private loginservice: LoginServices){};
 
   ngOnInit() {
     if (localStorage.getItem("user") != undefined) {
-      this.router.navigate(['']);
+      window.location.href = "/";
     }
     
   }
   
   login(obj){  
 
-       this.loginservice.service_general_login("/Authentication/Login",
-           { 
-            "Correo": this.email,
-            "Password": this.password
+       this.loginservice.service_general("AAACESA-Portal/portalclientes/autentificacionUsuario",
+           { "itemautenticacion": {
+             "Correo": this.email,
+             "Password": this.password
            }
-        ).subscribe((value) => {
-          //console.log(value.Token);
-          localStorage.setItem("token", value.Token);
+       }).subscribe((value) => {
            this.validar= true;
            if(value.isAuth)
            {
-             this.apiservices.service_general_get("/AdministracionCuentas/GetAccountByID/277").subscribe((respuesta)=>{
+             this.loginservice.service_general("AAACESA-Portal/portalclientes/getCuentasCliente",{
+                   "imtgetCuentacliente": 	{
+                     "IdCliente": value.IdCliente
+                   }
+             }).subscribe((respuesta)=>{
                localStorage.setItem('user', JSON.stringify(respuesta));
                this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
                setTimeout(function(){
-                this.router.navigate(['']);
+                 window.location.href ="dashboard";
                },3000);
              });
            }
@@ -64,21 +64,21 @@ export class LoginComponent implements OnInit {
     this.validar= true;
     if(this.recuperaEmail != undefined)
     {
-      // this.loginservice.service_general_get("AAACESA-Portal/portalclientes/procesoRecupera", {
-      //     "recu": {
-      //       "correo": this.recuperaEmail
-      //     }
-      //   }).subscribe((value) => {
-      //     this.message = value.Mensaje;
-      //     if(value.Mensaje != "El usuario no existe")
-      //     {
-      //       this.message = "Se ha enviado un link al correo proporcionado. Seras redirigido al login";
-      //       setTimeout(function(){
-      //         window.location.href ="login";
-      //       },3000);
-      //     }
+      this.loginservice.service_general("AAACESA-Portal/portalclientes/procesoRecupera", {
+          "recu": {
+            "correo": this.recuperaEmail
+          }
+        }).subscribe((value) => {
+          this.message = value.Mensaje;
+          if(value.Mensaje != "El usuario no existe")
+          {
+            this.message = "Se ha enviado un link al correo proporcionado. Seras redirigido al login";
+            setTimeout(function(){
+              window.location.href ="login";
+            },3000);
+          }
           
-      // });
+      });
     }
     else{
       this.message= "Es necesario ingresar un correo."

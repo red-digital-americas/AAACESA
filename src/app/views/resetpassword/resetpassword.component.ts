@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginServices } from '../../services/login.services';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-resetpassword',
   templateUrl: 'resetpassword.component.html',
   providers: [LoginServices]
 })
@@ -32,7 +32,7 @@ export class ResetpasswordComponent implements OnInit {
     
       if(this.newPassword != undefined) 
       {
-        this.loginservice.service_general_post('AAACESA-Portal/portalclientes/resetPassword',
+        this.loginservice.service_general('AAACESA-Portal/portalclientes/resetPassword',
           {"reset": {
               "idCliente": this.idcliente,
               "correo": this.mail,
