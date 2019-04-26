@@ -9,7 +9,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class LoginServices{
+export class ApiServices
+{
     public url="http://api.desarrollo.com.mx/api";
     
     constructor(private http: HttpClient, private https: Http) { }
@@ -20,20 +21,19 @@ export class LoginServices{
     
     }
     
-    service_general_login(url, parametros): Observable<any> {
-        let headers = new Headers({
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        });
-        return this.http.post(this.url + url, parametros);
+    service_general_get(url): Observable<any> {
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+      headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
+      return this.http.get(this.url + url, { headers: headers });
     }
 
     service_general_post(url, parametros): Observable<any> {
-      let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      });
-      return this.http.post(this.url + url, parametros);
+        let headers = new Headers({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Token': localStorage.getItem("token")
+        });
+        return this.http.post(this.url + url, parametros);
     }
-
 }

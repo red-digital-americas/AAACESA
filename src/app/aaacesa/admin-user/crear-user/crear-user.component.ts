@@ -1,12 +1,12 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { LoginServices } from '../../../services/login.services';
+import { ApiServices } from '../../../services/api.services';
 
 @Component({
   selector: 'app-crear-user',
   templateUrl: './crear-user.component.html',
   styleUrls: ['./crear-user.component.scss'],
-  providers: [LoginServices]
+  providers: [ApiServices]
 })
 export class CrearUserComponent implements OnInit {
 
@@ -23,10 +23,10 @@ export class CrearUserComponent implements OnInit {
   title:        string;
   idAdminUSer;
 
-  constructor(public modalCrea: BsModalRef, private modalService: BsModalService, private loginservice: LoginServices) { }
+  constructor(public modalCrea: BsModalRef, private modalService: BsModalService, private apiservice: ApiServices ) { }
 
   ngOnInit() {
-    this.loginservice.service_general("AAACESA-Portal/portalclientes/getperfil",{
+    this.apiservice.service_general_post("AAACESA-Portal/portalclientes/getperfil",{
       "getperfiles": {
         "idCliente": this.idAdminUSer
     }

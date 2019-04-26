@@ -52,25 +52,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of mf.data">
+            <tr *ngFor="let item of data; let i= index" [attr.data-index]="i">
               <td>{{item.Nombre}} {{item.Paterno}} {{item.Materno}}</td>
               <td>{{item.Telefono}}</td>
               <td>{{item.RFC}}</td>
               <td>{{item.ClavePatente}}</td>
-              <td *ngFor="let Perfil of item.Perfil">
+              <td *ngFor="let Perfil of item.Perfil; let i= index" [attr.data-index]="i">
                 {{Perfil.CvePerfil}}
               </td>
               <td>
                   <i class="fa fa-user-circle fa-2x"></i>
               </td>
-              <td *ngFor="let Autenticacion of item.Autenticacion">
+              <td>
                 <label class="switch switch-label switch-pill switch-outline-secondary">
-                    <input type="checkbox" class="switch-input"  [checked]="Autenticacion.CveEstatus == 'A'">
+                    <input type="checkbox" class="switch-input" >
                     <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
                   </label>
               </td>
-              <td *ngFor=" let Autenticacion of item.Autenticacion">
-                  <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(Autenticacion.IdCliente)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+              <td>
+                  <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(item.Id)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
               <td></td>
             </tr>

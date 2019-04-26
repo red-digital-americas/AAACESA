@@ -6,15 +6,16 @@ import { BsComponentRef } from 'ngx-bootstrap/component-loader/bs-component-ref.
 import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 import { UserData } from '../../models/user.models';
+import { ApiServices } from '../../services/api.services';
 @Component({
   // selector: 'app-admin-user',
   templateUrl: 'admin-user.component.html',
   styleUrls: ['./admin-user.component.scss'],
-  providers: [LoginServices]
+  providers: [LoginServices, ApiServices]
 })
 export class AdminUserComponent implements OnInit {
 
-  public data;
+  public data: any[] = [];
   public userData;
   public numCuentas;
   public filterQuery = '';
@@ -23,19 +24,19 @@ export class AdminUserComponent implements OnInit {
   modalRef: BsModalRef;
   modalCrea: BsModalRef;
   
-  constructor(private http: Http, private modalService: BsModalService) {
-    http.get('assets/user.json')
-      .subscribe((data) => {
-        setTimeout(() => {
-          this.data = data.json();
-        }, 2000);
-      });
+  constructor(private http: Http, private modalService: BsModalService, private apiservice: ApiServices) {
+    
    }
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.numCuentas = this.userData.NumCuentas;
-    console.log(this.numCuentas);
+
+    this.apiservice.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
+      console.log(data);
+      this.data = data;
+    });
+
   }
   detalleUSer(idCliente){
     this.modalRef = this.modalService.show(DetalleUserComponent,{
