@@ -1,0 +1,14 @@
+[
+    {
+        "value": "0",
+        "text": "Normal"
+    },
+    {
+        "value": "1",
+        "text": "Cargar con 2 personas"
+    },
+    {
+        "value": "2",
+        "text": "Fragil"
+    }    
+]

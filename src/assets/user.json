@@ -85,5 +85,178 @@
         }
     ],
     "Telefono":"5500000000"
+},
+{
+    "ClavePatente": "3763",
+    "NumCuentas":"0",
+    "RFC": "AAO9903043U2",
+    "RazonSocial":"AGENCIA ADUANAL OCAMPO YUDICO SC",
+    "TipoCliente": "AA",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"memadrigala@eservicios.indracompany.com",
+                "Password":""
+            }],
+            "CveEstatus":"A",
+            "Detalle":"",
+            "IdCliente":"276",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"ALQUICIRA",
+    "Nombre":"MARCOS EDUARDO",
+    "Paterno":"MADRIGAL",
+    "Perfil": [
+        {
+            "CvePerfil":"OPERACION",
+            "DescripcionPerfil":"Generar solicitudes a personal de AAACES",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"PREALERTAS",
+                    "Detalle":"Genera las solicitudes de Prealerta"
+                }
+            ]
+            }]
+        }
+    ],
+    "Telefono":"777777777"
+},
+{
+    "ClavePatente": "3312",
+    "NumCuentas":"2",
+    "RFC": "MMO911127F32",
+    "RazonSocial":"MONTALVO Y MONTALVO SC",
+    "TipoCliente": "AA",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"rcontreras@aaacesa.com.mx",
+                "Password":""
+            }],
+            "CveEstatus":"B",
+            "Detalle":"",
+            "IdCliente":"2",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"Portocarreño",
+    "Nombre":"Arturo",
+    "Paterno":"Lopez",
+    "Perfil": [
+        {
+            "CvePerfil":"MAESTRO",
+            "DescripcionPerfil":"-----",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"BITACORAS",
+                    "Detalle":"Bitacoras"
+                },
+                {
+                    "ClaveModulo":"FACTURACION",
+                    "Detalle":"Facturacion"
+                },
+                {
+                    "ClaveModulo":"ADMIN CTAS PORTAL",
+                    "Detalle":"Admin Cuentas Portal"
+                },
+                {
+                    "ClaveModulo":"PREALERTAS",
+                    "Detalle":"Genera las solicitudes de Prealerta"
+                }
+            ]
+            }]
+        }
+    ],
+    "Telefono":"51333125"
+},
+{
+    "ClavePatente": "3312",
+    "NumCuentas":"0",
+    "RFC": "MMO911127F32",
+    "RazonSocial":"MONTALVO Y MONTALVO SC",
+    "TipoCliente": "AA",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"raulconhernandezz@yahoo.com.mx",
+                "Password":""
+            }],
+            "CveEstatus":"A",
+            "Detalle":"",
+            "IdCliente":"3",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"Isidoro",
+    "Nombre":"Miguel",
+    "Paterno":"Gonzalez",
+    "Perfil": [
+        {
+            "CvePerfil":"OPERACION",
+            "DescripcionPerfil":"Generar solicitudes a personal de AAACES",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"PREALERTAS",
+                    "Detalle":"Genera las solicitudes de Prealerta"
+                }
+            ]
+            }]
+        }
+    ],
+    "Telefono":"57022734"
+},
+{
+    "ClavePatente": "8014",
+    "NumCuentas":"900",
+    "RFC": "AAF920730F81",
+    "RazonSocial":"AAACESA, ALMACENES FISCALIZADOS, S.A. DE",
+    "TipoCliente": "RF",
+    "Autenticacion": [
+        {
+            "Credenciales":[{
+                "Correo":"frendon@aaacesa.com.mx",
+                "Password":""
+            }],
+            "CveEstatus":"A",
+            "Detalle":"",
+            "IdCliente":"1",
+            "RecuperaPassword":"",
+            "Salt":"",
+            "isAuth":"false"
+        }
+    ],
+    "Materno":"S.A",
+    "Nombre":"AAACESA",
+    "Paterno":"ALMACENES FISCALIZADOS",
+    "Perfil": [
+        {
+            "CvePerfil":"ADMIN",
+            "DescripcionPerfil":"Cuenta de Adminsitración Portal",
+            "Modulos":[{
+                "ModuloPortal": [{
+                    "ClaveModulo":"ADMIN CTAS SIIANET",
+                    "Detalle":"Admin Ctas SIIANET"
+                },
+                {
+                    "ClaveModulo":"ADMIN CTAS PORTAL",
+                    "Detalle":"Admin Cuentas Portal"
+                },
+                {
+                    "ClaveModulo":"BITACORAS",
+                    "Detalle":"Bitacoras"
+                }
+            ]
+            }]
+        }
+    ],
+    "Telefono":"55000000"
 }
+
 ]

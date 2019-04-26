@@ -13,6 +13,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+
 import { AppComponent } from './app.component';
 
 // Import containers

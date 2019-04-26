@@ -1,64 +1,67 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<!-- <p>
-  abandono works!
-</p> -->
+
 <div class="animated fadeIn">
   <div class="card">
-    <!-- <div class="card-header">
-      DataTable
-      <a href="https://coreui.io/pro/angular/" class="badge badge-danger ml-2">CoreUI Pro Component</a>
+    <!-- <div class="card-header">    
+      <div class="row justify-content-end">  
+        <div class="col-lg-2">
+          <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>
+        </div>          
+      </div>      
     </div> -->
+
     <div class="card-body">
       <div class="row mb-3">
-        <div class="col-md-8">
-            <div class="row">
-              <div class="col-sm-3">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
-              </div>
-              <div class="col-sm-3">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
-              </div>
-              <div class="col-sm-4 form-group">
-                  <div class="input-group">
-                      <div class="input-group-prepend">
-                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                      </div>
-                      <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de fecha">
-                    </div>
-              </div>
+        <div class="col-lg-10 mb-1">
+          <div class="row">
+            <div class="col-lg-3 mb-1">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
             </div>
-        </div>
-        <div class="col-md-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="buscar-icon input-group-text"><i class="fa fa-search"></i></span>
+            <div class="col-lg-3 mb-1">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
             </div>
-            <input type="text" class="buscar-place form-control" [(ngModel)]="filterQuery" placeholder="BUSCAR"/>
+
+            <div class="col-lg-4 mb-1">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de Fecha">
+              </div>
+            </div>            
+
           </div>
         </div>
+
+        <div class="col-lg-2">
+          <button class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+        </div>
       </div>
-      <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
+
+
+      <!-- <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"> -->
+      <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead>
-          <tr>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="masterguide">Guía Master <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="houseguide">Guía House <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="npieces">No. de piezas <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="weight">Peso <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="leftDate">Fecha de abandono <i class="iconfilt material-icons">filter_list</i> </mfDefaultSorter>
-            </th>
-          </tr>
+            <tr>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="masterguide">Guía Master <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="houseguide">Guía House <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="npieces">No. de piezas <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="weight">Peso <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+                <th class="text-center" style="width: 20%">
+                  <mfDefaultSorter by="leftDate">Fecha de abandono <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+                </th>
+              </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of mf.data">
@@ -66,12 +69,18 @@
             <td>{{item.email}}</td>
             <td class="text-right">{{item.age}}</td>
             <td>{{item.city | uppercase}}</td> -->
+            <!-- <div class="col status-filter">            
+              <div class="status-filter__circle"></div>
+                <div class="status-filter__text">
+                  <p><span class="status-filter__number">1</span> P.AAACESA </p>
+                </div>
+            </div> -->
             <td class="text-center">{{item.masterguide}}</td>
             <td class="text-center">{{item.houseguide}}</td>
             <td class="text-center">{{item.npieces}}</td>
             <td class="text-center">{{item.weight}}</td>
             <td class="text-center">{{item.status}}</td>
-            <td class="text-center">{{item.leftDate}}</td>
+            <td class="text-center">{{item.leftDate | date: 'dd/MM/yy' }}</td>
           </tr>
         </tbody>
         <tfoot>
@@ -85,4 +94,3 @@
     </div>
   </div>
 </div>
-

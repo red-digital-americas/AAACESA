@@ -82,23 +82,28 @@ small {
   margin: 0;
 }
 
+//Cards
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #212649;
-  background-clip: border-box;
-  border: 1px solid #212649;
-  border-radius: 1px;
+  color: #212649;
+  background-color: #FFF;
+  // background-clip: border-box;
+  border: none;
+  -webkit-box-shadow: 0px 0px 10px 1px #9EA6B1;
+  -moz-box-shadow: 0px 0px 10px 1px #9EA6B1;
+  box-shadow: 0px 0px 10px 1px #9EA6B1; 
+  border-radius: 5px;
 }
 
 .card-header {
   padding: 1rem 1rem;
   margin-bottom: 0;
-  background-color: #212649;
-  border-bottom: 1px solid #212649;
+  background-color: #FFF;
+  border-bottom: none;
 }
 
 .card-body {
@@ -106,14 +111,43 @@ small {
   padding: 1rem;
 }
 
+//Links
 .page-item.active .page-link {
-  background-color: #ed0e19 !important;
-  border-color: #ed0e19 !important;
+  background-color: #CD0428 !important;
+  border-color: none !important;
   border-radius: 100% !important;
+  color: #FFF;
 }
-.page-link{
+.page-item .page-link {
   border-radius: 100% !important;
+  background-color: transparent;
+  color: #212649;
+  border-color: #FFF !important;
 }
+.page-item .page-link:hover {
+  color: #FFF !important;
+  background-color: #212649;
+  border-color: none !important;
+  
+}
+// .page-link{
+//   border-radius: 100% !important;
+// }
+.page-item.disabled .page-link{
+  border-radius: 0;
+  background: none;
+  border: none;
+  color: #191c37;
+}
+
+//paginador
+
+
+.pagination li a {
+  background-color:#212649;
+}
+
+
 .lastfirst{
   border-radius: 0;
   background: none;
@@ -132,8 +166,9 @@ small {
 
 .lastfirst{
   border-radius: 0;
-  background: none;
+  background: none !important;
   border: none;
+  color: #303666;
 }
 
 .page-item.disabled .page-link{
