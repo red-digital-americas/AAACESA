@@ -12,7 +12,7 @@ import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
   selector: 'app-admin-user',
   templateUrl: 'admin-user.component.html',
   styleUrls: ['./admin-user.component.scss'],
-  providers: [LoginServices]
+  providers: []
 })
 export class AdminUserComponent implements OnInit {
 
