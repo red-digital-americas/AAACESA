@@ -1,10 +1,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="container">
-  <div class="row justify-content-end" *ngIf="numCuentas > 0">
+<div class="row justify-content-end" *ngIf="numCuentas > 0">  
     <div class="col-lg-6 col-md-6 col-xs-6 text-right">
       <button (click)="crearUser()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
-    </div>
-  </div>
+    </div>          
+</div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
@@ -81,25 +81,25 @@
         <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
           <thead>
             <tr>
-              <th>
+              <th >
                 <mfDefaultSorter by="Nombre">Nombre <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter by="Telefono">Teléfono <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter by="RFC">RFC <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter by="ClavePatente">Patente <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter by="CvePerfil">Perfil <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter>Foto</mfDefaultSorter>
               </th>
-              <th>
+              <th >
                 <mfDefaultSorter by="CveEstatus">Activo <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
               </th>
               <th>
@@ -117,16 +117,16 @@
                 {{Perfil.CvePerfil}}
               </td>
               <td>
-                <i class="fa fa-user-circle fa-2x"></i>
+                  <i class="fa fa-user-circle fa-2x"></i>
               </td>
               <td *ngFor="let Autenticacion of item.Autenticacion">
                 <label class="switch switch-label switch-pill switch-outline-secondary">
-                  <input type="checkbox" class="switch-input" [checked]="Autenticacion.CveEstatus == 'A'">
-                  <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
-                </label>
+                    <input type="checkbox" class="switch-input"  [checked]="Autenticacion.CveEstatus == 'A'">
+                    <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                  </label>
               </td>
               <td *ngFor=" let Autenticacion of item.Autenticacion">
-                <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(Autenticacion.IdCliente)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+                  <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(Autenticacion.IdCliente)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
               <td></td>
             </tr>
