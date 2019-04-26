@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoginServices } from '../../services/login.services';
+import { ApiServices } from '../../services/api.services';
 
 @Component({
   selector: 'app-resetpassword',
   templateUrl: 'resetpassword.component.html',
-  providers: [LoginServices]
+  providers: [ApiServices]
 })
 export class ResetpasswordComponent implements OnInit {
   newPassword: string;
@@ -16,7 +16,7 @@ export class ResetpasswordComponent implements OnInit {
   mostrar= false;
   validar= false;
 
-  constructor(private route: ActivatedRoute, private loginservice: LoginServices) { }
+  constructor(private route: ActivatedRoute, private apiservices: ApiServices) { }
 
   ngOnInit() {
       this.route.queryParams.subscribe(params => {
@@ -32,7 +32,7 @@ export class ResetpasswordComponent implements OnInit {
     
       if(this.newPassword != undefined) 
       {
-        this.loginservice.service_general('AAACESA-Portal/portalclientes/resetPassword',
+        this.apiservices.service_general_post('AAACESA-Portal/portalclientes/resetPassword',
           {"reset": {
               "idCliente": this.idcliente,
               "correo": this.mail,

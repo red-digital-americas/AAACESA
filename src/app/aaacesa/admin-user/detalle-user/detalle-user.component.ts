@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { LoginServices } from '../../../services/login.services';
+import { ApiServices } from '../../../services/api.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
@@ -12,7 +12,7 @@ const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   selector: 'app-detalle-user',
   templateUrl: './detalle-user.component.html',
   styleUrls: ['./detalle-user.component.scss'],
-  providers: [LoginServices,INLINE_EDIT_CONTROL_VALUE_ACCESSOR]
+  providers: [ApiServices ,INLINE_EDIT_CONTROL_VALUE_ACCESSOR]
 })
 export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   @ViewChild('inlineEditControl') inlineEditControl; // input DOM element
@@ -34,18 +34,14 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   onChange: any = Function.prototype; // Trascend the onChange event
   onTouched: any = Function.prototype; // Trascend the onTouch event
 
-  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private loginservice: LoginServices) { }
+  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private apiservices: ApiServices) { }
 
   ngOnInit() {
-     this.loginservice.service_general("AAACESA-Portal/portalclientes/getCuentasCliente",{
-      "imtgetCuentacliente": 	{
-        "IdCliente": this.cveCliente
-      }
-    }).subscribe((res)=>{
-      console.log(res.Autenticacion.Credenciales['Correo']);
+     this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.cveCliente).subscribe((res)=>{
+      console.log(res);
       this.nomUser = res.Nombre+" "+res.Paterno+" "+res.Materno;
-      this.perfilUser = res.perfil['CvePerfil'];
-      this.mailUser = res.Autenticacion.Credenciales['Correo'];
+      this.perfilUser = res.Perfil['ClavePerfil'];
+      this.mailUser = res.Correo;
       this.telUser = res.Telefono;
     });
   }

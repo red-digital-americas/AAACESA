@@ -47,7 +47,7 @@
           <!-- Perfil Column -->
           <ng-container matColumnDef="perfil">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Perfil </th>
-            <td mat-cell *matCellDef="let element"> {{element.Perfil[0].CvePerfil}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.Perfil.ClavePerfil}} </td>
           </ng-container>
 
           <!-- Activo Column -->
@@ -55,7 +55,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
             <td mat-cell *matCellDef="let element">
               <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">
-                <input type="checkbox" class="switch-input" [checked]="element.Autenticacion[0].CveEstatus == 'A'">
+                <input type="checkbox" class="switch-input" [checked]="element.IsBlocked">
                 <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
               </label>
             </td>

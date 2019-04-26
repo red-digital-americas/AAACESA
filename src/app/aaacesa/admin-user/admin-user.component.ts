@@ -7,12 +7,13 @@ import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 import { UserData } from '../../models/user.models';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { ApiServices } from '../../services/api.services';
 
 @Component({
   selector: 'app-admin-user',
   templateUrl: 'admin-user.component.html',
   styleUrls: ['./admin-user.component.scss'],
-  providers: []
+  providers: [ApiServices]
 })
 export class AdminUserComponent implements OnInit {
 
@@ -35,17 +36,23 @@ export class AdminUserComponent implements OnInit {
   modalRef: BsModalRef;
   modalCrea: BsModalRef;
   
-  constructor(private http: Http, private modalService: BsModalService) {
-    http.get('assets/user.json')
-      .subscribe((data) => {
-        this.dataSource.data = data.json();
-      });
+  constructor(private http: Http, private modalService: BsModalService, private apiserv: ApiServices) {
+    // http.get('assets/user.json')
+    //   .subscribe((data) => {
+    //     this.dataSource.data = data.json();
+    //   });
    }
 
   ngOnInit() {
     
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.numCuentas = this.userData.NumCuentas;
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
+      console.log(data);
+      this.dataSource = data;
+    });
+
+   	  
   }
 
   ngAfterViewInit() {
@@ -69,7 +76,9 @@ export class AdminUserComponent implements OnInit {
     this.modalCrea = this.modalService.show(CrearUserComponent,{
       initialState: {
         title: "Alta de Usuario",
-        idAdminUSer: this.userData.Autenticacion['IdCliente']
+        idAdminUSer: this.userData.Id,
+        patenteUser: this.userData.ClavePatente,
+        rfcUser: this.userData.RFC
       },
       class: 'modal-lg'
     });

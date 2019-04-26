@@ -24,7 +24,6 @@ export class DefaultLayoutComponent implements OnInit {
     else {
       this.IDUSR = JSON.parse(localStorage.getItem("user"));
       this.user = this.IDUSR.Nombre+" "+this.IDUSR.Paterno+" "+this.IDUSR.Materno;
-      this.modulos= this.IDUSR.perfil['Modulos'];
     }
 
   }
