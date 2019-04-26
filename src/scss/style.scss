@@ -143,7 +143,7 @@ small {
 //paginador
 
 
-.pagination li a {
+/*.pagination li a {
   background-color:#212649;
 }
 
@@ -171,3 +171,16 @@ small {
   color: #303666;
 }
 
+.page-item.disabled .page-link{
+  border-radius: 0;
+  background: none;
+  border: none;
+}*/
+
+.input-full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
