@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\aaacesa",
+    "\\app\\aaacesa\\general-summary",
+    "\\app\\aaacesa\\general-table",
+    "\\app\\aaacesa\\prealertas",
+    "\\app\\views",
+    "\\app\\views\\aaacesa-salidas",
+    "\\app\\views\\dashboard",
+    "\\scss"
+  ],
+  "SelectedNode": "\\app\\app.module.ts",
+  "PreviewInSolutionExplorer": false
+}
