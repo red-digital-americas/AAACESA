@@ -23,8 +23,8 @@ export class AdminUserComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   public data;
   public userData;
@@ -46,12 +46,11 @@ export class AdminUserComponent implements OnInit {
     
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.numCuentas = this.userData.NumCuentas;
-
-    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   detalleUSer(idCliente){
