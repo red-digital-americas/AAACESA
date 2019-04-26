@@ -6,7 +6,7 @@ import { BsComponentRef } from 'ngx-bootstrap/component-loader/bs-component-ref.
 import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 import { UserData } from '../../models/user.models';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 
 export interface PeriodicElement {
   name: string;
@@ -29,17 +29,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  // selector: 'app-admin-user',
+  selector: 'app-admin-user',
   templateUrl: 'admin-user.component.html',
   styleUrls: ['./admin-user.component.scss'],
   providers: [LoginServices]
 })
 export class AdminUserComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['nombre', 'telefono', 'rfc', 'patente', 'perfil', 'activo', 'acciones'];
+  dataSource = new MatTableDataSource();
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public data;
   public userData;
@@ -55,6 +60,7 @@ export class AdminUserComponent implements OnInit {
       .subscribe((data) => {
         setTimeout(() => {
           this.data = data.json();
+          this.dataSource.data = data.json();
         }, 2000);
       });
    }
@@ -65,6 +71,11 @@ export class AdminUserComponent implements OnInit {
     this.numCuentas = this.userData.NumCuentas;
     console.log(this.numCuentas);
   }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   detalleUSer(idCliente){
     this.modalRef = this.modalService.show(DetalleUserComponent,{
       initialState: {
