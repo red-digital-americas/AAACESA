@@ -1,14 +1,94 @@
 [
     {
-        "value": "0",
-        "text": "Uso A"
+        "c_UsoCFDI": "-",
+        "Descripcion": "No especificado por cliente"
     },
     {
-        "value": "1",
-        "text": "Uso B"
+        "c_UsoCFDI": "D01",
+        "Descripcion": "Honorarios médicos, dentales y gastos hospitalarios"
     },
     {
-        "value": "2",
-        "text": "Uso C"
-    }    
+        "c_UsoCFDI": "D02",
+        "Descripcion": "Gastos médicos por incapacidad o discapacidad"
+    },
+    {
+        "c_UsoCFDI": "D03",
+        "Descripcion": "Gastos funerales"
+    },
+    {
+        "c_UsoCFDI": "D04",
+        "Descripcion": "Donativos"
+    },
+    {
+        "c_UsoCFDI": "D05",
+        "Descripcion": "Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)"
+    },
+    {
+        "c_UsoCFDI": "D06",
+        "Descripcion": "Aportaciones voluntarias al SAR"
+    },
+    {
+        "c_UsoCFDI": "D07",
+        "Descripcion": "Primas por seguros de gastos médicos"
+    },
+    {
+        "c_UsoCFDI": "D08",
+        "Descripcion": "Gastos de transportación escolar obligatoria"
+    },
+    {
+        "c_UsoCFDI": "D09",
+        "Descripcion": "Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones"
+    },
+    {
+        "c_UsoCFDI": "D10",
+        "Descripcion": "Pagos por servicios educativos (colegiaturas)"
+    },
+    {
+        "c_UsoCFDI": "G01",
+        "Descripcion": "Adquisición de mercancias"
+    },
+    {
+        "c_UsoCFDI": "G02",
+        "Descripcion": "Devoluciones, descuentos o bonificaciones"
+    },
+    {
+        "c_UsoCFDI": "G03",
+        "Descripcion": "Gastos en general"
+    },
+    {
+        "c_UsoCFDI": "I01",
+        "Descripcion": "Construcciones"
+    },
+    {
+        "c_UsoCFDI": "I02",
+        "Descripcion": "Mobiliario y equipo de oficina por inversiones"
+    },
+    {
+        "c_UsoCFDI": "I03",
+        "Descripcion": "Equipo de transporte"
+    },
+    {
+        "c_UsoCFDI": "I04",
+        "Descripcion": "Equipo de computo y accesorios"
+    },
+    {
+        "c_UsoCFDI": "I05",
+        "Descripcion": "Dados, troqueles, moldes, matrices y herramental"
+    },
+    {
+        "c_UsoCFDI": "I06",
+        "Descripcion": "Comunicaciones telefónicas"
+    },
+    {
+        "c_UsoCFDI": "I07",
+        "Descripcion": "Comunicaciones satelitales"
+    },
+    {
+        "c_UsoCFDI": "I08",
+        "Descripcion": "Otra maquinaria y equipo"
+    },
+    {
+        "c_UsoCFDI": "P01",
+        "Descripcion": "Por definir"
+    }
 ]

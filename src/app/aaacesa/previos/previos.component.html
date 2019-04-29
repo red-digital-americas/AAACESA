@@ -5,42 +5,40 @@
   </div>          
 </div>
 <div class="animated fadeIn">
-  <div class="card">
-    <!-- <div class="card-header">    
-      <div class="row justify-content-end">  
-        <div class="col-lg-2">
-          <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>
-        </div>          
-      </div>      
-    </div> -->
+  <div class="card">   
 
     <div class="card-body">
       <div class="row mb-3">
         <div class="col-lg-10 mb-1">
           <div class="row">
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+              <mat-form-field class="input-full-width">
+                <!-- <input matInput (keyup)="applyFilter($event.target.value)" type="text" class="form-control" placeholder="Buscar..." />                 -->
+                <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+              </mat-form-field>                
             </div>
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+              </mat-form-field>
             </div>
 
             <div class="col-lg-3 mb-1">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>                    
-                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaPrevio" placeholder="Fecha Previo">                
+              <div class="input-group">                
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaPrevio" placeholder="Fecha Previo">                
+                  <!-- <mat-icon matPrefix >event</mat-icon> -->
+                </mat-form-field>               
               </div>
             </div>
 
 
             <div class="col-lg-3 mb-1">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>
-                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de Fecha">
+              <div class="input-group">                
+                <mat-form-field class="input-full-width">
+                  <input matInput class="" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de Fecha">
+                  <!-- <mat-icon matSuffix>date_range</mat-icon> -->
+                </mat-form-field>
               </div>
             </div>            
 
@@ -48,7 +46,6 @@
         </div>
 
         <div class="col-lg-2">
-
           <button class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
         </div>
       </div>
@@ -57,19 +54,43 @@
         <div class="col-lg-10">
             <div class="row">
               <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Id Adelanto Previo"/>
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Id Adelanto Previo"/>
+                </mat-form-field>
               </div>
               <div class="col-lg-3 mb-1">
-                  <fieldset class="">
-                      <ng-select class="" placeholder="Estatus" [options]="status" [allowClear]="true"></ng-select>
-                   </fieldset>
+                <mat-form-field class="input-full-width">
+                  <mat-select class="" placeholder="Estatus" #singleSelect>
+                    <mat-option>                      
+                      <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option>Ninguno</mat-option>
+                    <!-- <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus">  -->
+                        <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
+                        {{option.Descripcion}}
+                    </mat-option>
+                  </mat-select>                  
+                </mat-form-field>
+
+                <!-- <mat-form-field class="input-full-width">                    
+                  <input matInput type="text" class="" placeholder="Instrucciones de Manejo" aria-label="Number" [(ngModel)]="instruccionesSearch" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of instruccionesManejoCatalogo | filterSelect: instruccionesSearch" [value]="option"> 
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>  -->
               </div>                            
               <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Patente"/>
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Patente"/>
+                </mat-form-field>
               </div>
               <div class="col-lg-3 mb-1">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
-                </div>              
+                <mat-form-field class="input-full-width">  
+                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+                </mat-form-field>
+              </div>              
             </div>
         </div>
       </div>
@@ -126,100 +147,88 @@
               <div class="col status-filter">            
                 <div class="status-filter__circle status-filter__circle--Finalizada"></div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(5)" for="finalizadaCheck">
+                  <label (click)="applyFilter(5)">
                     <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
                   </label>
-                </div>
-                <!-- <input style="display: none;" id="finalizadaCheck" #finalizadaCheck class="status-filter__check" type="checkbox">               -->
-                <!-- {{ filterStatus.Finalizada }} -->
+                </div>                
               </div>
   
               <div class="col status-filter">                          
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(10)" for="todosCheck">
+                  <label (click)="applyFilter(10)">
                     <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
                   </label>
-                </div>
-                <!-- <input id="todosCheck" class="status-filter__check" type="checkbox"> -->
+                </div>                
               </div>
   
             </div>
           </div>
         </div>
-  
-  
-        <!-- <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"> -->
-        <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
-          <thead>
-            <tr>
-              <th class="text-center" style="width: 10%">
-                <mfDefaultSorter by="masterguide">Guía Master  <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 10%">
-                <mfDefaultSorter by="houseguide">Guía House <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                <mfDefaultSorter by="patente">Patente <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>  
-              <th class="text-center" style="width: 5%">
-                <mfDefaultSorter by="name">Nombre Completo <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>                       
-              <th class="text-center" style="width: 10%">
-                  <mfDefaultSorter by="prevDate">Fecha Previo <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                  <mfDefaultSorter by="reference">Referencia <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                  <mfDefaultSorter by="etiqueta">Etiquetado <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 30%">
-                <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 30%">
-                <mfDefaultSorter by="">Acciones</mfDefaultSorter>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of mf.data">
-              <!-- <td>{{item.name}}</td>
-              <td>{{item.email}}</td>
-              <td class="text-right">{{item.age}}</td>
-              <td>{{item.city | uppercase}}</td> -->
-              <!-- <div class="col status-filter">            
-                <div class="status-filter__circle"></div>
-                  <div class="status-filter__text">
-                    <p><span class="status-filter__number">1</span> P.AAACESA </p>
-                  </div>
-              </div> -->
-  
-              <td class="text-center">{{item.masterguide}}</td>
-              <td class="text-center">{{item.houseguide}}</td>
-              <td class="text-center">{{item.patente}}</td>
-              <td class="text-center">{{item.name}}</td>            
-              <td class="text-center">{{item.prevDate | date: 'dd/MM/yy' }}</td>
-              <td class="text-center">{{item.reference}}</td>
-              <td class="text-center">{{item.etiqueta}}</td>
-              <td class="text-center"> 
+          
+        
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">                                   
+          
+            <ng-container matColumnDef="Master">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía Master </th>
+              <td mat-cell *matCellDef="let element"> {{element.Master}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="House">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía House </th>
+              <td mat-cell *matCellDef="let element"> {{element.House}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="Patente">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
+              <td mat-cell *matCellDef="let element"> {{element.Patente}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
+              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="FechaPrevio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Previo </th>
+              <td mat-cell *matCellDef="let element"> {{element.FechaPrevio.split(' ')[0]}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Referencia">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Referencia </th>
+              <td mat-cell *matCellDef="let element"> {{element.Referencia}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Etiquetado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Etiquetado </th>
+              <td mat-cell *matCellDef="let element"> {{element.Etiquetado ? 'Sí' : 'No'}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Estatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
+              <td mat-cell *matCellDef="let element"> 
                 <div class="col status-filter">            
-                  <div class="status-filter__circle status-filter__circle--{{item.status | statusPipe }}"></div>
+                  <div class="status-filter__circle status-filter__circle--{{element.Estatus | statusPipe }}"></div>
                   <div class="status-filter__text">
-                    <p> {{ item.status }} </p>
+                    <p> {{ element.Estatus }} </p>
                   </div>
                 </div>
               </td>
-              <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="9">
-                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </ng-container>
+                        
+            <ng-container matColumnDef="Acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element"> 
+                <a (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
-            </tr>
-          </tfoot>
-        </table>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>  
+
       </div>
     </div>
   </div>
@@ -239,15 +248,14 @@
                 <div class="col-sm-6 col-md-12 col-lg-12">
                   <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+                      <div class="form-group">            
+                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+                      </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">            
-                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
-                          </div>
-                          <div class="form-group">            
-                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
-                          </div>      
+                    <div class="col-sm-6 col-md-6 col-lg-6">                      
+                      <div class="form-group">            
+                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+                      </div>      
                     </div>
                   </div>
                   <div class="row">
@@ -444,7 +452,7 @@
             <div class="modal-content">
   
               <div class="modal-header">
-                <h6 class="modal-title">Detalle Previo {{ detailData.idPreAlerta }}</h6>
+                <h6 class="modal-title">Detalle Previo {{ detailData.IdAdelantoPrevios }}</h6>
                 <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -452,237 +460,180 @@
   
               <div class="modal-body">
                 <div class="container">              
-                  <div class="row">
-  
-              
-              <div class="col-sm-12 col-md-12 col-lg-12">
-              <div class="row">
-                <!--  Start left -->
-                    <div class="col-sm-8 col-md-8 col-lg-8 cardborder">                    
-                      <div class="row mb-1">
-                          <div class="col-sm-4 col-md-4 col-lg-4">
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">No. Master </h5>
-                                <p class="detail-text">{{detailData.masterguide}}</p>
+                  <div class="row">                
+
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <div class="row">
+                        <!--  Start left -->
+                        <div class="col-sm-8 col-md-8 col-lg-8 cardborder">                    
+                          <div class="row mb-1">
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+
+                              <div class="row">
+                                <div class="col">
+                                  <h5 class="detail-text">No. Master </h5>
+                                  <p class="detail-text">{{detailData.Master}}</p>
+                                </div>
                               </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">No. House </h5>
-                                <p class="detail-text">{{detailData.houseguide}}</p>
+
+                              <div class="row">
+                                <div class="col">
+                                  <h5 class="detail-text">No. House </h5>
+                                  <p class="detail-text">{{detailData.House}}</p>
+                                </div>
                               </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">Patente </h5>
-                                <p class="detail-text">{{detailData.patente}}</p>
+
+                              <div class="row">
+                                <div class="col">
+                                  <h5 class="detail-text">Patente </h5>
+                                  <p class="detail-text">{{detailData.Patente}}</p>
+                                </div>
                               </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">Fecha y hora previo </h5>
-                                <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy hh:mm:ss a' }}</p>
+                              
+                              <div class="row">
+                                <div class="col">
+                                  <h5 class="detail-text">Fecha y hora previo </h5>
+                                  <p class="detail-text">{{detailData.FechaPrevio }}</p>
+                                </div>
                               </div>
+
                             </div>
-                          </div>
                           
-                          <div class="col-sm-8 col-mf-8 col-lg-8">
+                            <div class="col-sm-8 col-mf-8 col-lg-8">
                               <div class="row">
                                   <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="referencia">
-                                      <h5 class="detail-text">Referencia: {{detailData.reference}}</h5>
+                                      <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>
                                     </div>
                                   </div>
                               </div>
-                            <div class="row">
-                              <div class="col-sm-6 col-md-6 col-lg-6">
+
+                              <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+
                                   <div class="row">
                                     <div class="col">
                                       <h5 class="detail-text">Nombre Completo </h5>
-                                      <p class="detail-text">{{detailData.name}}</p>    
+                                      <p class="detail-text">{{detailData.Nombre}}</p>    
                                     </div>
                                   </div>
+
                                   <div class="row">
                                     <div class="col">
                                       <h5 class="detail-text">Piezas </h5>
-                                      <p class="detail-text">{{detailData.npieces}}</p>
+                                      <p class="detail-text">{{detailData.Piezas}}</p>
                                     </div>
                                   </div>
+
                                   <div class="row">
                                     <div class="col">
                                       <h5 class="detail-text">Etiquetado </h5>
-                                      <p class="detail-text">{{detailData.etiqueta}}</p>
-                                    </div>
-                                  </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6 col-lg-6">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">No. Gafete </h5>
-                                      <p class="detail-text">9289178</p>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Peso </h5>
-                                      <p class="detail-text">182993 Kg</p>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Almacén </h5>
-                                      <p class="detail-text">No. 22</p>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <hr class="dividerb">
-                        <div class="row mb-1" style="text-align: center;">
-                          <div class="col-sm-12 col-md-12 col-lg-12">
-                             <div class="row">
-                               <div class="col-sm-4 col-md-4 col-lg-4">
-                                 <div class="row">
-                                    <div class="col status-filter">            
-                                        <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                        <div class="status-filter__text">
-                                          <p> {{detailData.status}} </p>
-                                        </div>
-                                    </div>
-                                 </div>
-                                 <div class="row">
-                                   <div class="col">
-                                      <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                      <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                      <p>Donec pede justo fringilla</p>
-                                   </div>
-                                 </div>
-                               </div>
-                               <div class="col-sm-4 col-md-4 col-lg-4">
-                                  <div class="row">
-                                     <div class="col status-filter">            
-                                         <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                         <div class="status-filter__text">
-                                           <p> {{detailData.status}} </p>
-                                         </div>
-                                     </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                       <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                       <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                       <p>Donec pede justo fringilla</p>
+                                      <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-sm-4 col-md-4 col-lg-4">
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">No. Gafete </h5>
+                                      <p class="detail-text">{{detailData.NumGafete}}</p>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="detail-text">Peso </h5>
+                                      <p class="detail-text">{{detailData.Peso}} Kg</p>
+                                    </div>
+                                  </div>                                 
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr class="dividerb">
+
+                          <div class="row mb-1" style="text-align: center;">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              
+                              <div class="row">
+                                <div *ngFor="let documento of detailData.Documentos">
+                                  <div class="col-sm-4 col-md-4 col-lg-4">
                                     <div class="row">
-                                       <div class="col status-filter">            
-                                           <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                           <div class="status-filter__text">
-                                             <p> {{detailData.status}} </p>
-                                           </div>
-                                       </div>
+                                        <div class="col status-filter">            
+                                          <div class="status-filter__circle status-filter__circle--{{documento.Estatus | statusPipe }}"></div>
+                                          <div class="status-filter__text"><p> {{documento.Estatus}} </p></div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                      <div class="col">
-                                         <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                         <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                         <p>Donec pede justo fringilla</p>
+                                      <div (click)="openDocument(documento.IdDocumento)" class="col">                                      
+                                          <h1 style="font-size: 5rem"><i class="fas {{documento.NombreDocumento | fileIconPipe}}"></i></h1>
+                                          <p>{{documento.NombreDocumento}}</p>
                                       </div>
                                     </div>
-                                  </div>                         
-                               
-                             </div>
+                                  </div>  
+                                </div>                                                                                                              
+                              </div>
+
+                            </div>
                           </div>
                         </div>
-                    </div>
-                    <!--  End left -->
-
+                        <!--  End left -->
               
-  
-                    <!-- Start Rigth -->
-                    <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h6>Estado</h6>
-                            <h5 class="detail-text">Fecha de Solicitud</h5>
-                            <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                            <hr class="dividerb">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                            <h6>Previo</h6>
-                            <textarea class="form-control" rows="2" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
-                          <div class="row justify-content-end">
-                            <div class="col-lg-6 mb-2">
-                              <label for="file-multiple-input">
-                                <div class="btn btn-pill btn-primary">Subir Documento</div>
-                              </label>
-                              <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+                        <!-- Start Rigth -->
+                        <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
+
+                          <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              <h6>Estado</h6>
+                              <h5 class="detail-text">Fecha de Solicitud</h5>
+                              <p class="detail-text">{{detailData.FechaSolicitud}}</p>
+                              <hr class="dividerb">
                             </div>
-  
-                            <div class="col-lg-3 mb-2">
-                              <button class="btn btn-pill btn-primary">Enviar</button>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                              <h6>Previo</h6>
+
+                              <textarea class="form-control" rows="2" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                              <div class="row justify-content-end">
+                                <div class="col-lg-6 mb-2">
+                                  <label for="file-multiple-input">
+                                    <div class="btn btn-pill btn-primary">Subir Documento</div>
+                                  </label>
+                                  <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+                                </div>
+      
+                                <div class="col-lg-3 mb-2">
+                                  <button class="btn btn-pill btn-primary">Enviar</button>
+                                </div>
+                              </div>                          
                             </div>
-                          </div>                          
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                          <!-- Inicio Acordeon -->
-                            <mat-accordion>
-                                <mat-expansion-panel>
+                          </div>
+
+                          <!-- Seguimiento -->
+                          <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">                                                            
+                              <mat-accordion>
+
+                                <mat-expansion-panel *ngFor="let item of detailData.Seguimiento?.slice().reverse()">
                                   <mat-expansion-panel-header>
-                                      <div class="col status-filter">            
-                                          <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                          <div class="status-filter__text">
-                                            <p> {{detailData.status}} </p>
-                                          </div>
-                                          <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                      </div>                                      
+                                    <div class="col status-filter">            
+                                      <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
+                                      <div class="status-filter__text"><p> {{item.Estatus}} </p></div>
+                                      <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>
+                                    </div>                                      
                                   </mat-expansion-panel-header>
-                              
-                                Documentos Aprobados
-                              
+                                  {{item.Comentarios}}
                                 </mat-expansion-panel>
-                                <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <div class="col status-filter">            
-                                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                            <div class="status-filter__text">
-                                              <p> {{detailData.status}} </p>
-                                            </div>
-                                            <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                        </div>                                      
-                                    </mat-expansion-panel-header>
-                                
-                                  Documentos Aprobados
-                                
-                                  </mat-expansion-panel>
-                                  <mat-expansion-panel>
-                                      <mat-expansion-panel-header>
-                                          <div class="col status-filter">            
-                                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                              <div class="status-filter__text">
-                                                <p> {{detailData.status}} </p>
-                                              </div>
-                                              <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                          </div>                                      
-                                      </mat-expansion-panel-header>
-                                  
-                                    Documentos Aprobados
-                                  
-                                  </mat-expansion-panel> 
-                             </mat-accordion>
-                             <!-- Fin Acordeon -->
+
+                              </mat-accordion>                                
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <!--  End Rigth -->
+                        <!--  End Rigth -->
   
                   </div>
                 </div>                                                                                                

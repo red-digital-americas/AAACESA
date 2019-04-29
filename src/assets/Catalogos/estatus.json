@@ -1,0 +1,30 @@
+[
+    {
+        "IdEstatus": "S",
+        "Descripcion": "Solicitada"
+    },
+    {
+        "IdEstatus": "R",
+        "Descripcion": "Rechazada"
+    },
+    {
+        "IdEstatus": "PC",
+        "Descripcion": "Pendiente Cliente"
+    },
+    {
+        "IdEstatus": "PA",
+        "Descripcion": "Pendiente AAACESA"
+    },
+    {
+        "IdEstatus": "A",
+        "Descripcion": "Aceptada"
+    },
+    {
+        "IdEstatus": "F",
+        "Descripcion": "Finalizada"
+    },
+    {
+        "IdEstatus": "C",
+        "Descripcion": "Cancelada"
+    }
+]

@@ -1,14 +1,18 @@
 [
     {
-        "value": "0",
-        "text": "Fria"
+        "Concepto": "REFRIGERACION",
+        "RangoTemperatura": "2 a 8"
     },
     {
-        "value": "1",
-        "text": "Templada"
+        "Concepto": "CONGELACION",
+        "RangoTemperatura": "-25 a -10"
     },
     {
-        "value": "2",
-        "text": "Calor"
-    }    
+        "Concepto": "SENASICA",
+        "RangoTemperatura": "0 a 4"
+    },
+    {
+        "Concepto": "TEMPERATURA CONTROLADA(TEC)",
+        "RangoTemperatura": "15 a 25"
+    }
 ]

@@ -3,29 +3,39 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { StatusPipe } from './status.pipe';
-
+//////////////////////////
+// Vendors Components
+import { DataTableModule } from 'angular2-datatable';                 // DataTable
+import { TextMaskModule } from 'angular2-text-mask';                  // Angular 2 Input Mask
+import { TimepickerModule } from 'ngx-bootstrap';                     // Timepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';                   // Datepicker
+import { SelectModule } from 'ng-select';                             // Ng2-select
+import { ModalModule } from 'ngx-bootstrap/modal';                    // Modal
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
+// Material
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select'; 
 
 
-// DataTable
-import { DataTableModule } from 'angular2-datatable';
-// Angular 2 Input Mask
-import { TextMaskModule } from 'angular2-text-mask';
-// Timepicker
-import { TimepickerModule } from 'ngx-bootstrap';
-// Datepicker
-import { BsDatepickerModule } from 'ngx-bootstrap';
-// Ng2-select
-import { SelectModule } from 'ng-select';
-// Modal
-import { ModalModule } from 'ngx-bootstrap/modal';
+/////////////////////
+// Components
 import { PreviosComponent } from './previos.component';
 
-// Acocordion
-import {MatExpansionModule} from '@angular/material/expansion';
-
+////////////////
+// Routing
 import { PreviosRoutingModule } from './previos-routing.module';
+
+////////////////
+// Shared
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   imports: [
@@ -41,11 +51,19 @@ import { PreviosRoutingModule } from './previos-routing.module';
     BsDatepickerModule.forRoot(),
     SelectModule,
     ModalModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    SharedModule
   ],
   declarations: [
-    PreviosComponent,
-    StatusPipe
+    PreviosComponent
   ]
 })
 export class PreviosModule { }
