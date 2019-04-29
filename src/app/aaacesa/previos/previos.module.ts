@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { StatusPipe } from './status.pipe';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 // DataTable
@@ -41,7 +42,8 @@ import { PreviosRoutingModule } from './previos-routing.module';
     BsDatepickerModule.forRoot(),
     SelectModule,
     ModalModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatFormFieldModule
   ],
   declarations: [
     PreviosComponent,
