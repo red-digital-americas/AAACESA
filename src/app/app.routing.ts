@@ -73,6 +73,10 @@ export const routes: Routes = [
         // }
       },
       {
+        path: 'salidas',
+        loadChildren: './aaacesa/salidas/salidas.module#SalidasModule'
+      },
+      {
         path: 'abandono',
         // component: AbandonoComponent,
         loadChildren: './aaacesa/abandono/abandono.module#AbandonoModule'

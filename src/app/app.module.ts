@@ -49,7 +49,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-// import { AbandonoComponent } from './aaacesa/abandono/abandono.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +58,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent  
+    ResetpasswordComponent
     // AbandonoComponent
   ],
   imports: [
