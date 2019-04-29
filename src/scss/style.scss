@@ -89,7 +89,7 @@ small {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  color: #212649;
+  color: #122C49;
   background-color: #FFF;
   // background-clip: border-box;
   border: none;
@@ -113,7 +113,7 @@ small {
 
 //Links
 .page-item.active .page-link {
-  background-color: #CD0428 !important;
+  background-color: #CB1630 !important;
   border-color: none !important;
   border-radius: 100% !important;
   color: #FFF;
@@ -121,7 +121,7 @@ small {
 .page-item .page-link {
   border-radius: 100% !important;
   background-color: transparent;
-  color: #212649;
+  color: #183964;
   border-color: #FFF !important;
 }
 .page-item .page-link:hover {
@@ -137,7 +137,7 @@ small {
   border-radius: 0;
   background: none;
   border: none;
-  color: #191c37;
+  color: #183964;
 }
 
 //paginador
