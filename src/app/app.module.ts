@@ -47,7 +47,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
 
 @NgModule({
@@ -76,6 +76,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     TabsModule.forRoot(),
     ChartsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
 // tslint:disable-next-line: deprecation
     HttpModule
