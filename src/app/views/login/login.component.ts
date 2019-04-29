@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginServices } from '../../services/login.services';
-
+import { ApiServices } from '../../services/api.services';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html',
-  providers: [LoginServices],
+  providers: [LoginServices, ApiServices],
 })
 export class LoginComponent implements OnInit {
   
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginUser;
   sesionUser;
 
-  constructor(private loginservice: LoginServices){};
+  constructor(private loginservice: LoginServices, private apiservices: ApiServices){};
 
   ngOnInit() {
     if (localStorage.getItem("user") != undefined) {
@@ -29,31 +29,31 @@ export class LoginComponent implements OnInit {
   
   login(obj){  
 
-       this.loginservice.service_general("AAACESA-Portal/portalclientes/autentificacionUsuario",
-           { "itemautenticacion": {
-             "Correo": this.email,
-             "Password": this.password
-           }
-       }).subscribe((value) => {
-           this.validar= true;
-           if(value.isAuth)
-           {
-             this.loginservice.service_general("AAACESA-Portal/portalclientes/getCuentasCliente",{
-                   "imtgetCuentacliente": 	{
-                     "IdCliente": value.IdCliente
-                   }
-             }).subscribe((respuesta)=>{
-               localStorage.setItem('user', JSON.stringify(respuesta));
-               this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
-               setTimeout(function(){
-                 window.location.href ="dashboard";
-               },3000);
-             });
-           }
-           else{
-             this.message = value.Detalle;
-           }
-       });
+    this.loginservice.service_general_login("/Authentication/Login",
+        { 
+          "Correo": this.email,
+          "Password": this.password
+        }
+      ).subscribe((value) => {
+        console.log(value);
+        this.validar= true;
+        localStorage.setItem('token', value.Token);
+        if(value.isAuth)
+        {
+          this.apiservices.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
+            console.log(respuesta);
+            localStorage.setItem('user', JSON.stringify(respuesta));
+            this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
+            setTimeout(function(){
+              window.location.href ="dashboard";
+            },3000);
+          });
+        }
+        else{
+          this.message = value.Detalle;
+        }
+      }
+    );
   }
 
   onRecoveryPassword(){
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
     this.validar= true;
     if(this.recuperaEmail != undefined)
     {
-      this.loginservice.service_general("AAACESA-Portal/portalclientes/procesoRecupera", {
+      this.apiservices.service_general_post("AAACESA-Portal/portalclientes/procesoRecupera", {
           "recu": {
             "correo": this.recuperaEmail
           }

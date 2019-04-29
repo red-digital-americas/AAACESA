@@ -1,89 +1,80 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="container">
-<div class="row justify-content-end" *ngIf="numCuentas > 0">  
+  <div class="row justify-content-end" *ngIf="numCuentas > 0">
     <div class="col-lg-6 col-md-6 col-xs-6 text-right">
       <button (click)="crearUser()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
-    </div>          
-</div>
+    </div>
+  </div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
-    <div class="card-header">
-    </div>
     <div class="card-body">
       <div class="row mb-3">
         <div class="col-md-4 offset-md-8">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>
-            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Buscar..."/>
-          </div>
+          <mat-form-field class="input-full-width">
+            <input matInput (keyup)="applyFilter($event.target.value)" type="text" class="form-control" placeholder="Buscar..." />
+            <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+          </mat-form-field>
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10">
-          <thead>
-            <tr>
-              <th >
-                <mfDefaultSorter by="Nombre">Nombre <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter by="Telefono">Teléfono <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter by="RFC">RFC <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter by="ClavePatente">Patente <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter by="CvePerfil">Perfil <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter>Foto</mfDefaultSorter>
-              </th>
-              <th >
-                <mfDefaultSorter by="CveEstatus">Activo <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span></mfDefaultSorter>
-              </th>
-              <th>
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of mf.data">
-              <td>{{item.Nombre}} {{item.Paterno}} {{item.Materno}}</td>
-              <td>{{item.Telefono}}</td>
-              <td>{{item.RFC}}</td>
-              <td>{{item.ClavePatente}}</td>
-              <td *ngFor="let Perfil of item.Perfil">
-                {{Perfil.CvePerfil}}
-              </td>
-              <td>
-                  <i class="fa fa-user-circle fa-2x"></i>
-              </td>
-              <td *ngFor="let Autenticacion of item.Autenticacion">
-                <label class="switch switch-label switch-pill switch-outline-secondary">
-                    <input type="checkbox" class="switch-input"  [checked]="Autenticacion.CveEstatus == 'A'">
-                    <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
-                  </label>
-              </td>
-              <td *ngFor=" let Autenticacion of item.Autenticacion">
-                  <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(Autenticacion.IdCliente)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="8">
-                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-              </td>
-            </tr>
-          </tfoot>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <!-- Nombre Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.Nombre}} {{element.Paterno}} {{element.Materno}} </td>
+          </ng-container>
+
+          <!-- Telefono Column -->
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+            <td mat-cell *matCellDef="let element"> {{element.Telefono}} </td>
+          </ng-container>
+
+          <!-- RFC Column -->
+          <ng-container matColumnDef="rfc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> RFC </th>
+            <td mat-cell *matCellDef="let element"> {{element.RFC}} </td>
+          </ng-container>
+
+          <!-- Patente Column -->
+          <ng-container matColumnDef="patente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
+            <td mat-cell *matCellDef="let element"> {{element.ClavePatente}} </td>
+          </ng-container>
+
+          <!-- Perfil Column -->
+          <ng-container matColumnDef="perfil">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Perfil </th>
+            <td mat-cell *matCellDef="let element"> {{element.Perfil.ClavePerfil}} </td>
+          </ng-container>
+
+          <!-- Activo Column -->
+          <ng-container matColumnDef="activo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+            <td mat-cell *matCellDef="let element">
+              <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">
+                <input type="checkbox" class="switch-input" [checked]="element.IsBlocked">
+                <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+              </label>
+            </td>
+          </ng-container>
+
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let element"> <a class="btn btn-ghost-link btn-pill" (click)="detalleUSer(element.Id)" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a> </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      <div class="table-responsive"></div>
+        <mat-paginator [length]="100"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
     </div>
   </div>
 </div>
