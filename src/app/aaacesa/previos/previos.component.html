@@ -1,8 +1,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<div class="row justify-content-end">  
+<div class="row justify-content-end">
   <div class="col-lg-2">
-    <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
-  </div>          
+    <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear
+      Previos</button>
+  </div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
@@ -19,18 +20,19 @@
         <div class="col-lg-10 mb-1">
           <div class="row">
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master" />
             </div>
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House" />
             </div>
 
             <div class="col-lg-3 mb-1">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>                    
-                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaPrevio" placeholder="Fecha Previo">                
+                </div>
+                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaPrevio"
+                  placeholder="Fecha Previo">
               </div>
             </div>
 
@@ -40,9 +42,10 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de Fecha">
+                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue"
+                  placeholder="Rango de Fecha">
               </div>
-            </div>            
+            </div>
 
           </div>
         </div>
@@ -55,642 +58,693 @@
 
       <div class="row mb-3" *ngIf="showAdvanceSearch">
         <div class="col-lg-10">
-            <div class="row">
-              <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Id Adelanto Previo"/>
-              </div>
-              <div class="col-lg-3 mb-1">
-                  <fieldset class="">
-                      <ng-select class="" placeholder="Estatus" [options]="status" [allowClear]="true"></ng-select>
-                   </fieldset>
-              </div>                            
-              <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Patente"/>
-              </div>
-              <div class="col-lg-3 mb-1">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
-                </div>              
+          <div class="row">
+            <div class="col-lg-3 mb-1">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Id Adelanto Previo" />
             </div>
+            <div class="col-lg-3 mb-1">
+              <fieldset class="">
+                <ng-select class="" placeholder="Estatus" [options]="status" [allowClear]="true"></ng-select>
+              </fieldset>
+            </div>
+            <div class="col-lg-3 mb-1">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Patente" />
+            </div>
+            <div class="col-lg-3 mb-1">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia" />
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="row mt-5 mb-3">
-          <div class="col-lg-10 offset-lg-1">
-            <div class="row">
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Aceptada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(0)">
-                      <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
-                    </label>
-                  </div>
-              </div> 
-              
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Solicitada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(1)">
-                      <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
-                    </label>
-                  </div>
+        <div class="col-lg-10 offset-lg-1">
+          <div class="row">
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--Aceptada"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(0)">
+                  <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
+                </label>
               </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(2)">
-                      <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
-                    </label>
-                  </div>
-              </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--PCliente"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(3)">
-                      <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
-                    </label>
-                  </div>
-              </div>
-              
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Rechazada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(4)">
-                      <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
-                    </label>
-                  </div>
-              </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Finalizada"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(5)" for="finalizadaCheck">
-                    <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
-                  </label>
-                </div>
-                <!-- <input style="display: none;" id="finalizadaCheck" #finalizadaCheck class="status-filter__check" type="checkbox">               -->
-                <!-- {{ filterStatus.Finalizada }} -->
-              </div>
-  
-              <div class="col status-filter">                          
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(10)" for="todosCheck">
-                    <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
-                  </label>
-                </div>
-                <!-- <input id="todosCheck" class="status-filter__check" type="checkbox"> -->
-              </div>
-  
             </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--Solicitada"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(1)">
+                  <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
+                </label>
+              </div>
+            </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(2)">
+                  <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
+                </label>
+              </div>
+            </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--PCliente"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(3)">
+                  <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
+                </label>
+              </div>
+            </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--Rechazada"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(4)">
+                  <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
+                </label>
+              </div>
+            </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__circle status-filter__circle--Finalizada"></div>
+              <div class="status-filter__text">
+                <label (click)="applyFilter(5)" for="finalizadaCheck">
+                  <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
+                </label>
+              </div>
+              <!-- <input style="display: none;" id="finalizadaCheck" #finalizadaCheck class="status-filter__check" type="checkbox">               -->
+              <!-- {{ filterStatus.Finalizada }} -->
+            </div>
+
+            <div class="col status-filter">
+              <div class="status-filter__text">
+                <label (click)="applyFilter(10)" for="todosCheck">
+                  <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
+                </label>
+              </div>
+              <!-- <input id="todosCheck" class="status-filter__check" type="checkbox"> -->
+            </div>
+
           </div>
         </div>
-  
-  
-        <!-- <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"> -->
-        <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
-          <thead>
-            <tr>
-              <th class="text-center" style="width: 10%">
-                <mfDefaultSorter by="masterguide">Guía Master  <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 10%">
-                <mfDefaultSorter by="houseguide">Guía House <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                <mfDefaultSorter by="patente">Patente <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>  
-              <th class="text-center" style="width: 5%">
-                <mfDefaultSorter by="name">Nombre Completo <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>                       
-              <th class="text-center" style="width: 10%">
-                  <mfDefaultSorter by="prevDate">Fecha Previo <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                  <mfDefaultSorter by="reference">Referencia <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 5%">
-                  <mfDefaultSorter by="etiqueta">Etiquetado <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 30%">
-                <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
-              </th>
-              <th class="text-center" style="width: 30%">
-                <mfDefaultSorter by="">Acciones</mfDefaultSorter>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of mf.data">
-              <!-- <td>{{item.name}}</td>
+      </div>
+
+
+      <!-- <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="10"> -->
+      <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="masterguide">Guía Master <i
+                  class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="houseguide">Guía House <i
+                  class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 5%">
+              <mfDefaultSorter by="patente">Patente <i class="iconfilt material-icons u-small-text">filter_list</i>
+              </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 5%">
+              <mfDefaultSorter by="name">Nombre Completo <i class="iconfilt material-icons u-small-text">filter_list</i>
+              </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 10%">
+              <mfDefaultSorter by="prevDate">Fecha Previo <i
+                  class="iconfilt material-icons u-small-text">filter_list</i> </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 5%">
+              <mfDefaultSorter by="reference">Referencia <i class="iconfilt material-icons u-small-text">filter_list</i>
+              </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 5%">
+              <mfDefaultSorter by="etiqueta">Etiquetado <i class="iconfilt material-icons u-small-text">filter_list</i>
+              </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 30%">
+              <mfDefaultSorter by="status">Estatus <i class="iconfilt material-icons u-small-text">filter_list</i>
+              </mfDefaultSorter>
+            </th>
+            <th class="text-center" style="width: 30%">
+              <mfDefaultSorter by="">Acciones</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data">
+            <!-- <td>{{item.name}}</td>
               <td>{{item.email}}</td>
               <td class="text-right">{{item.age}}</td>
               <td>{{item.city | uppercase}}</td> -->
-              <!-- <div class="col status-filter">            
+            <!-- <div class="col status-filter">            
                 <div class="status-filter__circle"></div>
                   <div class="status-filter__text">
                     <p><span class="status-filter__number">1</span> P.AAACESA </p>
                   </div>
               </div> -->
-  
-              <td class="text-center">{{item.masterguide}}</td>
-              <td class="text-center">{{item.houseguide}}</td>
-              <td class="text-center">{{item.patente}}</td>
-              <td class="text-center">{{item.name}}</td>            
-              <td class="text-center">{{item.prevDate | date: 'dd/MM/yy' }}</td>
-              <td class="text-center">{{item.reference}}</td>
-              <td class="text-center">{{item.etiqueta}}</td>
-              <td class="text-center"> 
-                <div class="col status-filter">            
-                  <div class="status-filter__circle status-filter__circle--{{item.status | statusPipe }}"></div>
-                  <div class="status-filter__text">
-                    <p> {{ item.status }} </p>
-                  </div>
+
+            <td class="text-center">{{item.masterguide}}</td>
+            <td class="text-center">{{item.houseguide}}</td>
+            <td class="text-center">{{item.patente}}</td>
+            <td class="text-center">{{item.name}}</td>
+            <td class="text-center">{{item.prevDate | date: 'dd/MM/yy' }}</td>
+            <td class="text-center">{{item.reference}}</td>
+            <td class="text-center">{{item.etiqueta}}</td>
+            <td class="text-center">
+              <div class="col status-filter">
+                <div class="status-filter__circle status-filter__circle--{{item.status | statusPipe }}"></div>
+                <div class="status-filter__text">
+                  <p> {{ item.status }} </p>
                 </div>
-              </td>
-              <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="9">
-                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+              </div>
+            </td>
+            <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);"
+                href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
-  
-    <!-- Modals -->
-    <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Nuevo Previo</h4>
-              <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+</div>
+
+<!-- Modals -->
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo Previo</h4>
+        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6 col-md-12 col-lg-12">
+            <div class="row">
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia" />
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master" />
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House" />
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-6 col-md-12 col-lg-12">
-                  <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="row justify-content-center">
+                    <div class="col" style="text-align: right; transform: translateX(-6%);">
+                      <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">            
-                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
-                          </div>
-                          <div class="form-group">            
-                            <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House"/>
-                          </div>      
+                    <div class="col" style="text-align: left; transform: translateX(-1%);">
+                      <div class="linebl"></div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col">
-                        <div class="form-group">  
-                            <div class="row justify-content-center"> 
-                                <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
-                            </div>
-                            <div class="row justify-content-center">
-                                <button (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-                            </div>
-                        </div>
-                    </div>
+                  <div class="row justify-content-center">
+                    <button (click)="myModal2.show(); myModal.hide();"
+                      class="btn btn-pill btn-primary">Siguiente</button>
                   </div>
                 </div>
               </div>
-            </div><!-- /.modal-body -->         
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-  
-  
-    <div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Nueva PreAlerta</h4>
-            <button type="button" class="close" (click)="myModal2.hide()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            </div>
           </div>
-          <div class="modal-body">          
-            <div class="form-group">  
-              <div class="row mb-3">            
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencias"/>
+        </div>
+      </div><!-- /.modal-body -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo Previo</h4>
+        <button type="button" class="close" (click)="myModal2.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="row mb-3">
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Nombre Tramitador" />
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Apellido Paterno" />
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Apellido Materno" />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Patente" />
+            </div>
+            <div class="col-lg-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Piezas"/>
-                </div>
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Peso"/>
-                </div>              
+                <input type="text" placeholder="Fecha y hora" class="form-control" #dp="bsDatepicker"
+                  bsDatepicker [(ngModel)]="bsValue2">
               </div>
-  
-              <div class="row mb-3">            
-                  <div class="col-lg-4">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                      </div>                    
-                      <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue2">
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="styled-select">
-                      <select class="form-control">
-                        <option value="" selected disabled hidden>Almacen de Origen</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
-                      </select>
-                    </div> 
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="styled-select">
-                      <select class="form-control">
-                        <option value="" selected disabled hidden>Rango de Temperatura</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
-                      </select>
-                    </div> 
-                  </div>              
-                </div>
-  
-               <div class="row mb-3">            
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Consignatario a Facturar"/>
-                </div>
-                <div class="col-lg-4">
-                  <div class="styled-select">
-                      <select class="form-control">
-                        <option value="" selected disabled hidden>Método de pago</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
-                      </select>
-                    </div> 
-                </div>
-                <div class="col-lg-4">
-                  <div class="styled-select">
-                      <select class="form-control">
-                        <option value="" selected disabled hidden>Uso de CFDI</option>
-                        <option value="0">Opcion 0</option>
-                        <option value="1">Opcion 1</option>
-                        <option value="2">Opcion 2</option>
-                      </select>
-                    </div> 
-                </div>              
+            </div>
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="N° Gafete Tramitador" />
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-4">
+              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Piezas" />
+            </div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Peso" />
               </div>
-  
-               <div class="row mb-3">            
-                <div class="col-lg-6">
-                  <div class="styled-select">
-                    <select class="form-control">
-                      <option value="" selected disabled hidden>Condiciones de Almacenes</option>
-                      <option value="0">Opcion 0</option>
-                      <option value="1">Opcion 1</option>
-                      <option value="2">Opcion 2</option>
-                    </select>
-                  </div> 
-                </div>
-                <div class="col-lg-6">                    
+          </div>
+
+          <div class="row mb-3">
+              <div class="col-lg-6">
                   <div class="form-control form-group form-check">
-                    <label for="consolidado" class="form-check-label">Consolidado</label>
-                    <label class="switch switch-pill switch-primary form-switch">                  
-                      <input id="consolidado" type="checkbox" class="switch-input" checked>
+                    <label for="consolidado" class="form-check-label">Etiquetado</label>
+                    <label class="switch switch-pill switch-outline-primary-alt form-switch ctrfrsw">
+                      <input id="etiquetado" type="checkbox" class="switch-input" checked>
                       <span class="switch-slider"></span>
                     </label>
-                  </div>                
-                </div>                          
+                  </div>
+                </div>
+            <div class="col-lg-6">
+              <div class="form-control form-group form-check">
+                <label for="consolidado" class="form-check-label">Revalidación</label>
+                <label class="switch switch-pill switch-outline-primary-alt form-switch ctrfrsw">
+                  <input id="revalidacion" type="checkbox" class="switch-input" checked>
+                  <span class="switch-slider"></span>
+                </label>
               </div>
-  
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="styled-select">
-                    <select class="form-control">
-                      <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                      <option value="0">Recolección</option>
-                      <option value="1">Transferencia</option>
-                      <option value="2">Recolección y Transferencia</option>
-                    </select>
-                  </div> 
-                </div>            
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-lg-12">
+                <textarea class="form-control" rows="2" placeholder="Comentario"
+                style="margin-bottom: 1em;"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <div class="row justify-content-center">
+                    <div class="col" style="text-align: right; transform: translateX(8.5%);">
+                      <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
+                    </div>
+                    <div class="col" style="text-align: left;  transform: translateX(-7%);">
+                      <div class="linebl"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-  
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>            
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row justify-content-center">
+              <div class="col-lg-2">
+                <button (click)="myModal2.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
               </div>
-  
-              <div class="row justify-content-center">            
-                <button (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+              <div class="col-lg-2">
+                  <button (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
               </div>
-  
-            </div>                        
-          </div>         
+            </div>
+          </div>
+      </div><!-- /.modal-body -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo Previo</h4>
+        <button type="button" class="close" (click)="myModal3.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Subir documentos: Guaía, Gafete, Etiquetado (mínimo subir un documento)</p>
+        <div class="row mb-5">
+          <div class="col-lg-2">
+            <img width="100px" class="img-thumbnail"
+              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+          </div>
+          <div class="col-lg-2">
+            <img width="100px" class="img-thumbnail"
+              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+          </div>
+          <div class="col-lg-2 align-self-center">
+            <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <div class="row justify-content-center">
+                  <div class="col" style="text-align: right; transform: translateX(20%);">
+                    <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
+                  </div>
+                  <div class="col" style="text-align: left;  transform: translateX(-10%);">
+                    <div class="linebl"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="form-group">
+          <div class="row justify-content-center">
+            <div class="col-lg-2">
+              <button (click)="myModal3.hide(); myModal2.show();" class="btn btn-pill btn-primary">Regresar</button>
+            </div>
+            <div class="col-lg-2">
+              <button [disabled]="" (click)="myModal3.hide(); myModal4.show();" class="btn btn-pill btn-primary">Confirmar</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-body -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal Detalle -->
+<div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h6 class="modal-title">Detalle Previo {{ detailData.idPreAlerta }}</h6>
+        <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+
+
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <!--  Start left -->
+                <div class="col-sm-8 col-md-8 col-lg-8 cardborder">
+                  <div class="row mb-1">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="detail-text">No. Master </h5>
+                          <p class="detail-text">{{detailData.masterguide}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="detail-text">No. House </h5>
+                          <p class="detail-text">{{detailData.houseguide}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="detail-text">Patente </h5>
+                          <p class="detail-text">{{detailData.patente}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="detail-text">Fecha y hora previo </h5>
+                          <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy hh:mm:ss a' }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-8 col-mf-8 col-lg-8">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                          <div class="referencia">
+                            <h5 class="detail-text">Referencia: {{detailData.reference}}</h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">Nombre Completo </h5>
+                              <p class="detail-text">{{detailData.name}}</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">Piezas </h5>
+                              <p class="detail-text">{{detailData.npieces}}</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">Etiquetado </h5>
+                              <p class="detail-text">{{detailData.etiqueta}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">No. Gafete </h5>
+                              <p class="detail-text">9289178</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">Peso </h5>
+                              <p class="detail-text">182993 Kg</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="detail-text">Almacén </h5>
+                              <p class="detail-text">No. 22</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="dividerb">
+                  <div class="row mb-1" style="text-align: center;">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                          <div class="row">
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                              <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                              <p>Donec pede justo fringilla</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                          <div class="row">
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                              <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                              <p>Donec pede justo fringilla</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                          <div class="row">
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                              <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                              <p>Donec pede justo fringilla</p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  End left -->
+
+
+
+                <!-- Start Rigth -->
+                <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <h6>Estado</h6>
+                      <h5 class="detail-text">Fecha de Solicitud</h5>
+                      <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                      <hr class="dividerb">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                      <h6>Previo</h6>
+                      <textarea class="form-control" rows="2" placeholder="Comentario"
+                        style="margin-bottom: 1em;"></textarea>
+                      <div class="row justify-content-end">
+                        <div class="col-lg-6 mb-2">
+                          <label for="file-multiple-input">
+                            <div class="btn btn-pill btn-primary">Subir Documento</div>
+                          </label>
+                          <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input"
+                            type="file">
+                        </div>
+
+                        <div class="col-lg-3 mb-2">
+                            <button [disabled]="" (click)="detalleModal.hide(); graciasModal.show();" class="btn btn-pill btn-primary">Enviar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                      <!-- Inicio Acordeon -->
+                      <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                              <p class="detail-text" style="display: inline; padding-left: 5px;">
+                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                            </div>
+                          </mat-expansion-panel-header>
+
+                          Documentos Aprobados
+
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                              <p class="detail-text" style="display: inline; padding-left: 5px;">
+                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                            </div>
+                          </mat-expansion-panel-header>
+
+                          Documentos Aprobados
+
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <div class="col status-filter">
+                              <div
+                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                              </div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.status}} </p>
+                              </div>
+                              <p class="detail-text" style="display: inline; padding-left: 5px;">
+                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
+                            </div>
+                          </mat-expansion-panel-header>
+
+                          Documentos Aprobados
+
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                      <!-- Fin Acordeon -->
+                    </div>
+                  </div>
+                </div>
+                <!--  End Rigth -->
+
+              </div>
+            </div>
+
+          </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-  
-    <div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Nueva PreAlerta</h4>
-              <button type="button" class="close" (click)="myModal3.hide()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+
+<!-- Modal Gracias -->
+    <div bsModal #graciasModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="graciasModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <button type="button" class="close" (click)="graciasModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-12">
+                Gracias <br>
+                Tus datos fueron actualizados.              
+              </div>
             </div>
-            <div class="modal-body">
-              <p>Subir documentos</p>
-              <div class="row mb-5">       
-                <div class="col-lg-2">
-                    <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
-                </div>
-                <div class="col-lg-2">
-                    <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
-                </div>
-                <div class="col-lg-2 align-self-center">
-                  <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
-                </div>
-              </div>
-              <div class="form-group">  
-                <div class="row justify-content-center">
-                  <div class="col-lg-2">
-                    <button (click)="myModal3.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
-                  </div>
-                  <div class="col-lg-2">
-                    <button (click)="myModal3.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-                  </div>
-                </div>
-              </div>                        
-            </div>         
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-  
-    <!-- Modal Detalle -->
-      <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-  
-              <div class="modal-header">
-                <h6 class="modal-title">Detalle Previo {{ detailData.idPreAlerta }}</h6>
-                <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-  
-              <div class="modal-body">
-                <div class="container">              
-                  <div class="row">
-  
-              
-              <div class="col-sm-12 col-md-12 col-lg-12">
-              <div class="row">
-                <!--  Start left -->
-                    <div class="col-sm-8 col-md-8 col-lg-8 cardborder">                    
-                      <div class="row mb-1">
-                          <div class="col-sm-4 col-md-4 col-lg-4">
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">No. Master </h5>
-                                <p class="detail-text">{{detailData.masterguide}}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">No. House </h5>
-                                <p class="detail-text">{{detailData.houseguide}}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">Patente </h5>
-                                <p class="detail-text">{{detailData.patente}}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                <h5 class="detail-text">Fecha y hora previo </h5>
-                                <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy hh:mm:ss a' }}</p>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div class="col-sm-8 col-mf-8 col-lg-8">
-                              <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <div class="referencia">
-                                      <h5 class="detail-text">Referencia: {{detailData.reference}}</h5>
-                                    </div>
-                                  </div>
-                              </div>
-                            <div class="row">
-                              <div class="col-sm-6 col-md-6 col-lg-6">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Nombre Completo </h5>
-                                      <p class="detail-text">{{detailData.name}}</p>    
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Piezas </h5>
-                                      <p class="detail-text">{{detailData.npieces}}</p>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Etiquetado </h5>
-                                      <p class="detail-text">{{detailData.etiqueta}}</p>
-                                    </div>
-                                  </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6 col-lg-6">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">No. Gafete </h5>
-                                      <p class="detail-text">9289178</p>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Peso </h5>
-                                      <p class="detail-text">182993 Kg</p>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text">Almacén </h5>
-                                      <p class="detail-text">No. 22</p>
-                                    </div>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <hr class="dividerb">
-                        <div class="row mb-1" style="text-align: center;">
-                          <div class="col-sm-12 col-md-12 col-lg-12">
-                             <div class="row">
-                               <div class="col-sm-4 col-md-4 col-lg-4">
-                                 <div class="row">
-                                    <div class="col status-filter">            
-                                        <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                        <div class="status-filter__text">
-                                          <p> {{detailData.status}} </p>
-                                        </div>
-                                    </div>
-                                 </div>
-                                 <div class="row">
-                                   <div class="col">
-                                      <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                      <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                      <p>Donec pede justo fringilla</p>
-                                   </div>
-                                 </div>
-                               </div>
-                               <div class="col-sm-4 col-md-4 col-lg-4">
-                                  <div class="row">
-                                     <div class="col status-filter">            
-                                         <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                         <div class="status-filter__text">
-                                           <p> {{detailData.status}} </p>
-                                         </div>
-                                     </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col">
-                                       <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                       <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                       <p>Donec pede justo fringilla</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-sm-4 col-md-4 col-lg-4">
-                                    <div class="row">
-                                       <div class="col status-filter">            
-                                           <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                           <div class="status-filter__text">
-                                             <p> {{detailData.status}} </p>
-                                           </div>
-                                       </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col">
-                                         <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
-                                         <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                                         <p>Donec pede justo fringilla</p>
-                                      </div>
-                                    </div>
-                                  </div>                         
-                               
-                             </div>
-                          </div>
-                        </div>
-                    </div>
-                    <!--  End left -->
-
-              
-  
-                    <!-- Start Rigth -->
-                    <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12">
-                            <h6>Estado</h6>
-                            <h5 class="detail-text">Fecha de Solicitud</h5>
-                            <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                            <hr class="dividerb">
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                            <h6>Previo</h6>
-                            <textarea class="form-control" rows="2" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
-                          <div class="row justify-content-end">
-                            <div class="col-lg-6 mb-2">
-                              <label for="file-multiple-input">
-                                <div class="btn btn-pill btn-primary">Subir Documento</div>
-                              </label>
-                              <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
-                            </div>
-  
-                            <div class="col-lg-3 mb-2">
-                              <button class="btn btn-pill btn-primary">Enviar</button>
-                            </div>
-                          </div>                          
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                          <!-- Inicio Acordeon -->
-                            <mat-accordion>
-                                <mat-expansion-panel>
-                                  <mat-expansion-panel-header>
-                                      <div class="col status-filter">            
-                                          <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                          <div class="status-filter__text">
-                                            <p> {{detailData.status}} </p>
-                                          </div>
-                                          <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                      </div>                                      
-                                  </mat-expansion-panel-header>
-                              
-                                Documentos Aprobados
-                              
-                                </mat-expansion-panel>
-                                <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <div class="col status-filter">            
-                                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                            <div class="status-filter__text">
-                                              <p> {{detailData.status}} </p>
-                                            </div>
-                                            <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                        </div>                                      
-                                    </mat-expansion-panel-header>
-                                
-                                  Documentos Aprobados
-                                
-                                  </mat-expansion-panel>
-                                  <mat-expansion-panel>
-                                      <mat-expansion-panel-header>
-                                          <div class="col status-filter">            
-                                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                                              <div class="status-filter__text">
-                                                <p> {{detailData.status}} </p>
-                                              </div>
-                                              <p class="detail-text" style="display: inline; padding-left: 5px;">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                                          </div>                                      
-                                      </mat-expansion-panel-header>
-                                  
-                                    Documentos Aprobados
-                                  
-                                  </mat-expansion-panel> 
-                             </mat-accordion>
-                             <!-- Fin Acordeon -->
-                        </div>
-                      </div>
-                    </div>
-                    <!--  End Rigth -->
-  
-                  </div>
-                </div>                                                                                                
-  
-              </div>                                                  
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
-
-        
+          </div>
+        </div><!-- /.modal-body -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

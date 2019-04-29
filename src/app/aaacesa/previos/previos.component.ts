@@ -47,7 +47,9 @@ export class PreviosComponent {
   public myModal;
   public myModal2;
   public myModal3;
+  public myModal4;
   public detalleModal;
+  public graciasModal;
 
   constructor(private http: Http) {
     http.get('assets/previos.json')
