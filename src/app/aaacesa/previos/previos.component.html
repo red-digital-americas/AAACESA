@@ -220,7 +220,7 @@
                 </div>
               </div>
             </td>
-            <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);"
+            <td class="text-center"> <a (click)="detalleM.show(); verDetalle(item.idPreAlerta);"
                 href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
           </tr>
         </tbody>
@@ -409,7 +409,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Subir documentos: Guaía, Gafete, Etiquetado (mínimo subir un documento)</p>
+        <p>Subir documentos: Guía, Gafete, Etiquetado (mínimo subir un documento)</p>
         <div class="row mb-5">
           <div class="col-lg-2">
             <img width="100px" class="img-thumbnail"
@@ -452,15 +452,241 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div bsModal #myModal4="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal4Label"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Nuevo Previo</h4>
+        <button type="button" class="close" (click)="myModal4.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Subir documentos: Guía, Gafete, Etiquetado (mínimo subir un documento)</p>
+        <div class="row mb-5">
+          <div class="col-lg-2">
+            <img width="100px" class="img-thumbnail"
+              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+          </div>
+          <div class="col-lg-2">
+            <img width="100px" class="img-thumbnail"
+              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
+          </div>
+          <div class="col-lg-2 align-self-center">
+            <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <div class="row justify-content-center">
+                  <div class="col" style="text-align: right; transform: translateX(20%);">
+                    <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
+                  </div>
+                  <div class="col" style="text-align: left;  transform: translateX(-10%);">
+                    <div class="linebl"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="form-group">
+          <div class="row justify-content-center">
+            <div class="col-lg-2">
+              <button (click)="myModal4.hide(); myModal4.show();" class="btn btn-pill btn-primary">Regresar</button>
+            </div>
+            <div class="col-lg-2">
+              <button [disabled]="" (click)="myModal4.hide();"  class="btn btn-pill btn-primary">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-body -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div bsModal #myModal5="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal5Label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <button type="button" class="close" (click)="myModal5.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+             <!--  Start left -->
+             <div class="col-sm-8 col-md-8 col-lg-8 cardborder">
+                <div class="row mb-1">
+                  <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="detail-text">No. Master </h5>
+                        <p class="detail-text">{{detailData.masterguide}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="detail-text">No. House </h5>
+                        <p class="detail-text">{{detailData.houseguide}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="detail-text">Patente </h5>
+                        <p class="detail-text">{{detailData.patente}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="detail-text">Fecha y hora previo </h5>
+                        <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy hh:mm:ss a' }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8 col-mf-8 col-lg-8">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="referencia">
+                          <h5 class="detail-text">Referencia: {{detailData.reference}}</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">Nombre Completo </h5>
+                            <p class="detail-text">{{detailData.name}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">Piezas </h5>
+                            <p class="detail-text">{{detailData.npieces}}</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">Etiquetado </h5>
+                            <p class="detail-text">{{detailData.etiqueta}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">No. Gafete </h5>
+                            <p class="detail-text">9289178</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">Peso </h5>
+                            <p class="detail-text">182993 Kg</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="detail-text">Almacén </h5>
+                            <p class="detail-text">No. 22</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="dividerb">
+                <div class="row mb-1" style="text-align: center;">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                      <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="row">
+                          <div class="col status-filter">
+                            <div
+                              class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                            </div>
+                            <div class="status-filter__text">
+                              <p> {{detailData.status}} </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                            <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                            <p>Donec pede justo fringilla</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="row">
+                          <div class="col status-filter">
+                            <div
+                              class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                            </div>
+                            <div class="status-filter__text">
+                              <p> {{detailData.status}} </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                            <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                            <p>Donec pede justo fringilla</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 col-md-4 col-lg-4">
+                        <div class="row">
+                          <div class="col status-filter">
+                            <div
+                              class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
+                            </div>
+                            <div class="status-filter__text">
+                              <p> {{detailData.status}} </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <!-- <img width="100px" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc"> -->
+                            <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
+                            <p>Donec pede justo fringilla</p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--  End left -->
+          </div>
+        </div><!-- /.modal-body -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+
+
 <!-- Modal Detalle -->
-<div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel"
+<div bsModal #detalleM="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleMLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <div class="modal-header">
         <h6 class="modal-title">Detalle Previo {{ detailData.idPreAlerta }}</h6>
-        <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
+        <button type="button" class="close" (click)="detalleM.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -649,7 +875,7 @@
                         </div>
 
                         <div class="col-lg-3 mb-2">
-                            <button [disabled]="" (click)="detalleModal.hide(); graciasModal.show();" class="btn btn-pill btn-primary">Enviar</button>
+                            <button [disabled]="" (click)="detalleM.hide(); graciasM.show();" class="btn btn-pill btn-primary">Enviar</button>
                         </div>
                       </div>
                     </div>
@@ -720,27 +946,35 @@
             </div>
 
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div><!-- /.modal-body -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<!-- Modal Gracias -->
-    <div bsModal #graciasModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="graciasModalLabel"
+
+
+
+<div bsModal #graciasM="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="graciasMLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
+
         <div class="modal-header">
           
-          <button type="button" class="close" (click)="graciasModal.hide()" aria-label="Close">
+          <button type="button" class="close" (click)="graciasM.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-12">
-                Gracias <br>
-                Tus datos fueron actualizados.              
+                <div style="text-align: center; margin-bottom: 5%;">
+                  Gracias <br>
+                  Tus datos fueron actualizados.
+                </div>
               </div>
             </div>
           </div>
@@ -748,3 +982,5 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  
+
