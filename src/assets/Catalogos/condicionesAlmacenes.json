@@ -1,14 +1,242 @@
 [
     {
-        "value": "0",
-        "text": "Condiciones Normales"
+        "CveCondicionalmacenaje": "ACT",
+        "Descripcion": "Active Temperature Controlled System"
     },
     {
-        "value": "1",
-        "text": "Condiciones 2"
+        "CveCondicionalmacenaje": "AOG",
+        "Descripcion": "Aircraft on Ground"
     },
     {
-        "value": "2",
-        "text": "Condiciones 3"
-    }    
+        "CveCondicionalmacenaje": "PEB",
+        "Descripcion": "Animal products for non-human consumption"
+    },
+    {
+        "CveCondicionalmacenaje": "BUP",
+        "Descripcion": "Bulk Unitization Programme, Shipper/Consignee Handled Unit"
+    },
+    {
+        "CveCondicionalmacenaje": "CAO",
+        "Descripcion": "Cargo Aircraft Only"
+    },
+    {
+        "CveCondicionalmacenaje": "CAT",
+        "Descripcion": "Cargo Attendant Accompanying Shipment"
+    },
+    {
+        "CveCondicionalmacenaje": "NSC",
+        "Descripcion": "Cargo Has Not Been Secured Yet for Passenger or All-Cargo Aircraft"
+    },
+    {
+        "CveCondicionalmacenaje": "SHR",
+        "Descripcion": "Secure for Passenger, All-Cargo and All-Mail Aircraft in Accordance with High Risk Requirements"
+    },
+    {
+        "CveCondicionalmacenaje": "COM",
+        "Descripcion": "Company Mail"
+    },
+    {
+        "CveCondicionalmacenaje": "ECP",
+        "Descripcion": "Consignment established with a paper air waybill contract being printed under an e-AWB agreement"
+    },
+    {
+        "CveCondicionalmacenaje": "ECC",
+        "Descripcion": "Consignment established with an electronically concluded cargo contract with no accompanying paper airwaybill"
+    },
+    {
+        "CveCondicionalmacenaje": "CRT",
+        "Descripcion": "Control Room Temperature +15°C to +25°C"
+    },
+    {
+        "CveCondicionalmacenaje": "COL",
+        "Descripcion": "Cool Goods"
+    },
+    {
+        "CveCondicionalmacenaje": "RDS",
+        "Descripcion": "Diagnostic Specimens"
+    },
+    {
+        "CveCondicionalmacenaje": "DIP",
+        "Descripcion": "Diplomatic Mail"
+    },
+    {
+        "CveCondicionalmacenaje": "EAP",
+        "Descripcion": "e-freight Consignment with Accompanying Paper Documents"
+    },
+    {
+        "CveCondicionalmacenaje": "EAW",
+        "Descripcion": "e-freight Consignment with No Accompanying Paper Documents"
+    },
+    {
+        "CveCondicionalmacenaje": "REQ",
+        "Descripcion": "Excepted Quantities of Dangerous Goods"
+    },
+    {
+        "CveCondicionalmacenaje": "RRE",
+        "Descripcion": "Excepted Quantities of Radioactive Materia"
+    },
+    {
+        "CveCondicionalmacenaje": "PES",
+        "Descripcion": "Fish/Seafood"
+    },
+    {
+        "CveCondicionalmacenaje": "PEF",
+        "Descripcion": "Flowers"
+    },
+    {
+        "CveCondicionalmacenaje": "EAT",
+        "Descripcion": "Foodstuffs"
+    },
+    {
+        "CveCondicionalmacenaje": "FRI",
+        "Descripcion": "Frozen Goods Subject to Veterinary/Phytosanitary Inspections"
+    },
+    {
+        "CveCondicionalmacenaje": "FRO",
+        "Descripcion": "Frozen Goods"
+    },
+    {
+        "CveCondicionalmacenaje": "PEP",
+        "Descripcion": "Fruits and Vegetables"
+    },
+    {
+        "CveCondicionalmacenaje": "ATT",
+        "Descripcion": "Goods Attached to Air Waybill"
+    },
+    {
+        "CveCondicionalmacenaje": "PHY",
+        "Descripcion": "Goods subject to phytosanitary inspections"
+    },
+    {
+        "CveCondicionalmacenaje": "GOH",
+        "Descripcion": "Hanging Garments"
+    },
+    {
+        "CveCondicionalmacenaje": "HEG",
+        "Descripcion": "Hatching Eggs"
+    },
+    {
+        "CveCondicionalmacenaje": "HEA",
+        "Descripcion": "Heavy Cargo/150 kilograms and over per piece"
+    },
+    {
+        "CveCondicionalmacenaje": "HUM",
+        "Descripcion": "Human Remains in Coffin"
+    },
+    {
+        "CveCondicionalmacenaje": "PEA",
+        "Descripcion": "Hunting trophies, skin, hide and all articles made from or containing parts of species listed in the CITES (Convention on International Trade in Endangered Species) appendice"
+    },
+    {
+        "CveCondicionalmacenaje": "SCO",
+        "Descripcion": "Cargo Secure forAll-Cargo Aircraft Only"
+    },
+    {
+        "CveCondicionalmacenaje": "SPF",
+        "Descripcion": "Laboratory Animals"
+    },
+    {
+        "CveCondicionalmacenaje": "SPX",
+        "Descripcion": "Cargo Secure for Passenger and All-Cargo Aircraft"
+    },
+    {
+        "CveCondicionalmacenaje": "LIC",
+        "Descripcion": "License Required"
+    },
+    {
+        "CveCondicionalmacenaje": "AVI",
+        "Descripcion": "Live Animal"
+    },
+    {
+        "CveCondicionalmacenaje": "LHO",
+        "Descripcion": "Living Human Organs/Blood"
+    },
+    {
+        "CveCondicionalmacenaje": "MAL",
+        "Descripcion": "Mail"
+    },
+    {
+        "CveCondicionalmacenaje": "PEM",
+        "Descripcion": "Meat"
+    },
+    {
+        "CveCondicionalmacenaje": "MUW",
+        "Descripcion": "Munitions of War"
+    },
+    {
+        "CveCondicionalmacenaje": "NWP",
+        "Descripcion": "Newspapers, Magazines"
+    },
+    {
+        "CveCondicionalmacenaje": "OBX",
+        "Descripcion": "Obnoxious Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "BIG",
+        "Descripcion": "Outsized"
+    },
+    {
+        "CveCondicionalmacenaje": "OHG",
+        "Descripcion": "Overhang Item"
+    },
+    {
+        "CveCondicionalmacenaje": "PAC",
+        "Descripcion": "Passenger and Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "PER",
+        "Descripcion": "Perishable Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "PIL",
+        "Descripcion": "Pharmaceuticals"
+    },
+    {
+        "CveCondicionalmacenaje": "XPS",
+        "Descripcion": "Priority Small Package"
+    },
+    {
+        "CveCondicionalmacenaje": "QRT",
+        "Descripcion": "Quick Ramp Transfer"
+    },
+    {
+        "CveCondicionalmacenaje": "RAC",
+        "Descripcion": "Reserved Air Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "SHL",
+        "Descripcion": "Save Human Life"
+    },
+    {
+        "CveCondicionalmacenaje": "WET",
+        "Descripcion": "Shipments of Wet Material not Packed in Watertight Containers"
+    },
+    {
+        "CveCondicionalmacenaje": "SWP",
+        "Descripcion": "Sporting Weapons"
+    },
+    {
+        "CveCondicionalmacenaje": "SUR",
+        "Descripcion": "Surface Transportation"
+    },
+    {
+        "CveCondicionalmacenaje": "FIL",
+        "Descripcion": "Undeveloped/Unexposed Film"
+    },
+    {
+        "CveCondicionalmacenaje": "VAL",
+        "Descripcion": "Valuable Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "VIC",
+        "Descripcion": "Very Important Cargo"
+    },
+    {
+        "CveCondicionalmacenaje": "VOL",
+        "Descripcion": "Volume"
+    },
+    {
+        "CveCondicionalmacenaje": "VUN",
+        "Descripcion": "Vulnerable Cargo"
+    }
 ]

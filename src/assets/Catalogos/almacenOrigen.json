@@ -1,14 +1,94 @@
 [
     {
-        "value": "0",
-        "text": "Direccion 1"
+        "Clave": "2",
+        "RecintoFiscalizado": "AMERICAN AIRLINES"
     },
     {
-        "value": "1",
-        "text": "Direccion 2"
+        "Clave": "3",
+        "RecintoFiscalizado": "VARIG S.A."
     },
     {
-        "value": "2",
-        "text": "Direccion 3"
-    }    
+        "Clave": "4",
+        "RecintoFiscalizado": "CARGO SERVICE CENTER DE MEXICO"
+    },
+    {
+        "Clave": "5",
+        "RecintoFiscalizado": "BRANIFF AIR FREIGTH AND COMPANY"
+    },
+    {
+        "Clave": "8",
+        "RecintoFiscalizado": "LUFTHANSA CARGO"
+    },
+    {
+        "Clave": "9",
+        "RecintoFiscalizado": "IBERIA DE MEXICO"
+    },
+    {
+        "Clave": "10",
+        "RecintoFiscalizado": "JAPAN AIR INTERNATIONAL SERVICE"
+    },
+    {
+        "Clave": "11",
+        "RecintoFiscalizado": "TAASA"
+    },
+    {
+        "Clave": "13",
+        "RecintoFiscalizado": "AEROVIAS DE MEXICO, S.A. DE C.V."
+    },
+    {
+        "Clave": "15",
+        "RecintoFiscalizado": "COMPAÑÍA MEXICANA DE AVIACION"
+    },
+    {
+        "Clave": "17",
+        "RecintoFiscalizado": "CIA MEXICANA DE AVIACION"
+    },
+    {
+        "Clave": "18",
+        "RecintoFiscalizado": "MEXICO CARGO HANDLING"
+    },
+    {
+        "Clave": "19",
+        "RecintoFiscalizado": "DHL EXPRESS MEXICO"
+    },
+    {
+        "Clave": "20",
+        "RecintoFiscalizado": "TRANSPORTACION MEXICO EXPRESS SA DE CV"
+    },
+    {
+        "Clave": "21",
+        "RecintoFiscalizado": "UNITED PARCEL SERVICE"
+    },
+    {
+        "Clave": "24",
+        "RecintoFiscalizado": "WORLD EXPRESS CARGO DE MEXICO, S.A. DE C.V."
+    },
+    {
+        "Clave": "25",
+        "RecintoFiscalizado": "BRANIFF TRANSPORT CARGA,"
+    },
+    {
+        "Clave": "8003",
+        "RecintoFiscalizado": "VARIG DE MEXICO SA DE CV"
+    },
+    {
+        "Clave": "8006",
+        "RecintoFiscalizado": "CARGO SERVICE CENTER DE MEXICO           SA DE CV"
+    },
+    {
+        "Clave": "8017",
+        "RecintoFiscalizado": "COMPAÑIA MEXICANA DE AVIACION, SA DE CV"
+    },
+    {
+        "Clave": "8018",
+        "RecintoFiscalizado": "LUFTHANSA CARGO SERVICIOS LOGISTICOS     DE MEXICO SA DE CV"
+    },
+    {
+        "Clave": "8020",
+        "RecintoFiscalizado": "TRANSPORTACION MEXICO EXPRESS SA DE CV"
+    },
+    {
+        "Clave": "8023",
+        "RecintoFiscalizado": "AMERICAN AIRLINES DE MEXICO SA DE CV"
+    }
 ]

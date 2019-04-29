@@ -88,6 +88,9 @@ table{
     //TODO change to var $color-primary
     color: #FB600A;
 }
+.u-border-none {
+    border: none;
+}
 
 
 // Font size fixes
@@ -175,6 +178,9 @@ table{
         &--Finalizada{
             background-color: #596df2;
         }
+        &--Cancelada{
+            background-color: #ff0000;
+        }
     }
 }
 
@@ -205,4 +211,16 @@ table{
 .mat-expansion-panel-header, .mat-expansion-panel-header.mat-expanded ,.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover{
     background-color: #e0e2ff !important;
     border-bottom: 1px solid #0c0d1a;
+}
+
+.linebl{
+    background: #191c37;
+    width: 35%;
+    height: 5%;
+    margin-top: 9%;
+    margin-left: -15%;
+}
+
+.ctrfrsw{
+    margin-top: -0.848%;
 }

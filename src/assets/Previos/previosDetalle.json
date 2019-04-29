@@ -1,0 +1,69 @@
+{
+    "IdAdelantoPrevios": "PRV-20190000143",
+    "Master": "729-81976300",
+    "House": "MEX445418",
+    "Nombre": "RODRIGO PRE",
+    "Paterno": "RODRIGUEZ PRV",
+    "Materno": "PERALTA PRV",
+    "Correo": "rodrigo@minimalist.mx",
+    "NumGafete": "2584",
+    "Patente": "1628",
+    "FechaPrevio": "24/04/2019 01:20 PM",
+    "FechaSolicitud": "25/04/2019 11:27:23 a. m.",
+    "Estatus": "Cancelada",
+    "Referencia": "SIN REFERENCIA",
+    "Etiquetado": false,
+    "Piezas": 2,
+    "Peso": 2,
+    "RazonSocial": "1628 - VICENTE RIVERA RAMOS",
+    "EstatusDisponibles": [],
+    "Documentos": [
+        {
+            "IdDocumento": "PRVDOC-20190000038",
+            "Archivo": "",
+            "FechaCreacion": "25/04/2019 11:27 AM",
+            "NombreDocumento": "prueba_previos.pdf",
+            "Estatus": "Solicitada",
+            "FileSize": "1.0701"
+        },
+        {
+            "IdDocumento": "PRVDOC-20190000039",
+            "Archivo": "",
+            "FechaCreacion": "25/04/2019 04:39 PM",
+            "NombreDocumento": "Revalidacion.docx",
+            "Estatus": "Pendiente",
+            "FileSize": "16.3740"
+        },
+        {
+            "IdDocumento": "PRVDOC-20190000049",
+            "Archivo": "",
+            "FechaCreacion": "25/04/2019 04:39 PM",
+            "NombreDocumento": "Revalidacion.docx",
+            "Estatus": "P.AAACESA",
+            "FileSize": "16.3740"
+        }
+    ],
+    "Seguimiento": [
+        {
+            "IdAdelantoPrevios": "PRV-20190000143",
+            "Usuario": "rodrigo@minimalist.mx",
+            "Comentarios": "PRUEBAS",
+            "Estatus": "Solicitada",
+            "Fecha": "25/04/2019 11:27 AM"
+        },
+        {
+            "IdAdelantoPrevios": "PRV-20190000143",
+            "Usuario": "rodrigo@minimalist.mx",
+            "Comentarios": "Cancelación de previo",
+            "Estatus": "Cancelada",
+            "Fecha": "25/04/2019 04:38 PM"
+        },
+        {
+            "IdAdelantoPrevios": "PRV-20190000143",
+            "Usuario": "rodrigo@minimalist.mx",
+            "Comentarios": "Cancelación de previo",
+            "Estatus": "Pendiente AAACESA",
+            "Fecha": "25/04/2019 04:38 PM"
+        }
+    ]
+}

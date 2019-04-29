@@ -1,147 +1,173 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import {IOption} from 'ng-select';
-
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
+import { NgForm } from '@angular/forms';
 
+///////////
+// Material
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+
+///////////
+// API Services 
+import { ApiServices } from '../../services/api.services';
+
+import { PrevioNuevo } from '../../models/previos.model';
 
 @Component({
   templateUrl: './previos.component.html',
   styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
   '../../../scss/vendors/ng-select/ng-select.scss',
   './previos.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [ApiServices]
 })
-export class PreviosComponent {
-  // Accordion
-  panelOpenState = false;
+export class PreviosComponent  {
+  ///////////////////////
+  // Catalogos para los <select>
+  estatusCatalogo = [];
 
-  // ng2-select
-  public status: Array<IOption> = [
-    {label: 'Aceptada', value: 'Aceptada'},
-    {label: 'Solicitada', value: 'Solicitada'},
-    {label: 'P.AAACESA', value: 'P.AAACESA'},
-    {label: 'P.Cliente', value: 'P.Cliente'},
-    {label: 'Rechazada', value: 'Rechazada'},
-    {label: 'Finalizada', value: 'Finalizada'}
-  ];
+  ///////////////////////
+  // BusquedaSuperior
+  showAdvanceSearch = true; // Don't Change
+  masterHouseSearch = "";
+  masterGuideSearch = "";
+  fechaPrevioSearch:any = "";    
+  rangoFechaSearch: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  idPrevioSearch = "";
+  estatusSearch = "";
+  patenteSearch = "";
+  referenciaSearch = "";
+  
+  ///////////////////////
+  // Mat Table
+  displayedColumns: string[] = ['Master', 'House', 'Patente', 'Nombre', 'FechaPrevio', 'Referencia', 'Etiquetado', 'Estatus', 'Acciones'];  
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  public statusEnum = ['Aceptada', 'Solicitada', 'P.AAACESA', 'P.Cliente', 'Rechazada', 'Finalizada'];
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;     
+    this.dataSource.sortingDataAccessor = (item, property) => {      
+      switch (property) {     
+        case 'FechaPrevio': {              
+          let f = item['FechaPrevio'].split(' ')[0];                // 07/05/2019 12:00 PM          
+          f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
+          console.log(f);
+          let newDate = new Date(f);
+          console.log(newDate);
+          return newDate;
+        }
+        default: { return item[property];} 
+      }
+    };
+  }
 
-  // Date Range Picker
-  bsRangeValue: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+
+  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
+  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0}; 
+  
   // Date Picker
   bsValue2: any = '';
-  bsFechaPrevio: any = '';
-
-  public showAdvanceSearch = true;
+  bsFechaPrevio: any = '';  
 
   public filterData;
   public data = [];
   public detailData = {};
   public filterQuery = '';
 
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0};
-  public filterStatus = [true, true, true, true, true, true];
+  ////////////////////////
+  // Forms    
+  model:PrevioNuevo = new PrevioNuevo();    
+  nFiles = [];      // Usado para poder añadir mas archivos en la parte del formulario crear Pre Alerta
+  response = "";    // Respuesta al momento de crear Pre Alerta
+  @ViewChild('form1', { read: NgForm }) form1: any;   // Referencia al form de la vista
+  @ViewChild('form2', { read: NgForm }) form2: any;   // Referencia al form2 de la vista
 
-  // Modal
-  public myModal;
-  public myModal2;
-  public myModal3;
-  public detalleModal;
-
-  constructor(private http: Http) {
-    http.get('assets/previos.json')
+  constructor(private http: Http, private apiService:ApiServices) {
+    http.get('assets/Previos/previos.json')
       .subscribe((data) => {
-        setTimeout(() => {
           this.data = data.json();
           this.filterData = this.data;
+          this.dataSource.data = this.filterData;
           this.updateCountStatus();
-        }, 2000);
-      });
-  }
+      });      
 
-  public toInt(num: string) {
-    return +num;
-  }
-
-  public sortByWordLength = (a: any) => {
-    return a.name.length;
+    this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
+      .subscribe ( 
+      (response:any) => { this.estatusCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });
   }
 
   public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.status === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.status === 'Solicitada'; }).length;
-    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.status === 'P.AAACESA'; }).length;
-    this.countStatus.PCliente = this.data.filter(function (el) {return el.status === 'P.Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.status === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.status === 'Finalizada'; }).length;
+    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
+    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
+    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
+    this.countStatus.PCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
+    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
+    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
   }
 
   public applyFilter(index: number) {
-    this.filterData = [];
+    this.dataSource.data = [];
 
-    if (index < this.filterStatus.length) {
-      this.filterData = this.data.filter (function (el) { return  el.status === this.statusEnum[index]; }.bind(this));
+    if (index < this.statusEnum.length) {
+      this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
     } else {
-      this.filterData = this.data;
+      this.dataSource.data = this.data;
     }
+  }  
+
+  public verDetalle (id: string) {    
+    
+      id = "PRV-20190000143";
+      id = "PRV-20190000142";
+      this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
+      .subscribe ( 
+      (response:any) => { this.detailData = response;}, 
+      (errorService) => { console.log(errorService); });
+
+      // this.http.get('assets/Previos/previosDetalle.json')
+      //   .subscribe((data) => { this.detailData = data.json(); console.log(this.detailData);});    
   }
 
-  // public toogleFilters(index: number) {
-  //   if (index < this.filterStatus.length) {
-  //     this.filterStatus[index] = !this.filterStatus[index];
-  //   } else {
-  //     for (let num=0; num < this.filterStatus.length; num++){
-  //       this.filterStatus[num] = true;
-  //     }
-  //   }
+  public openDocument (idDocumento) {    
+    this.apiService.service_general_get(`/AdelantoPrevios/GetDocumentById/${idDocumento}`)
+      .subscribe ( 
+      (response:any) => {         
+        var element = document.createElement('a');
+        element.style.display = 'none';
+        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);              
+                
+        // element.setAttribute('target','_blank');
+        element.setAttribute('download', response.NombreDocumento);
 
-  //   //console.log(this.filterStatus);
-  //   this.updateFilters();
-  // }
+        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      
+        ////// Alternative
+        // window.open("data:application/pdf,base64ssdfasdf;", "_blank";
+      }, 
+      (errorService) => { console.log(errorService); });
 
-  // private updateFilters () {
-  //   this.filterData = [];
+    // this.http.get('assets/Previos/getDocumento.json')
+    //   .subscribe((data) => {         
+    //     let f = data.json().Archivo.split('data:application/pdf;');
+    //     // window.open(data.json().Archivo, "_blank");
+    //     window.open("data:application/pdf;" + encodeURI(f[1]));
+    //   });    
+  }
 
-  //   if (this.filterStatus[0]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Aceptada';}));
-  //   }
-  //   if (this.filterStatus[1]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Solicitada';}));
-  //   }
-  //   if (this.filterStatus[2]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.AAACESA';}));
-  //   }
-  //   if (this.filterStatus[3]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'P.Cliente';}));
-  //   }
-  //   if (this.filterStatus[4]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Rechazada';}));
-  //   }
-  //   if (this.filterStatus[5]){
-  //     this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
-  //   }
+  
 
-  //   // this.filterData = this.filterData.concat(this.data.filter (function (el) { return  el.status == 'Finalizada';}));
-  //   // console.log(this.filterData);
-  // }
 
-  public verDetalle (id: string) {
-    let tmp;
-    tmp = this.data.filter (function (el) {
-      return el.idPreAlerta === id;
-    });
-
-    this.detailData = tmp[0];
-    // this.detalleModal.show();
-    console.log(this.detailData);
-
-    // var newArray = homes.filter(function (el) {
-    //   return el.price <= 1000 &&
-    //          el.sqft >= 500 &&
-    //          el.num_of_beds >=2 &&
-    //          el.num_of_baths >= 2.5;
-    // });
+  private fileToBase64 (file) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
 }
