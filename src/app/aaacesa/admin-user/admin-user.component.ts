@@ -37,18 +37,15 @@ export class AdminUserComponent implements OnInit {
   modalCrea: BsModalRef;
   
   constructor(private http: Http, private modalService: BsModalService, private apiserv: ApiServices) {
-    // http.get('assets/user.json')
-    //   .subscribe((data) => {
-    //     this.dataSource.data = data.json();
-    //   });
    }
 
   ngOnInit() {
     
     this.userData = JSON.parse(localStorage.getItem("user"));
-    this.numCuentas = this.userData.NumCuentas;
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasDisponibles').subscribe((numCuentas) => {
+      this.numCuentas = numCuentas;
+    });
     this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-      console.log(data);
       this.dataSource = data;
     });
 
@@ -75,10 +72,10 @@ export class AdminUserComponent implements OnInit {
   crearUser(){
     this.modalCrea = this.modalService.show(CrearUserComponent,{
       initialState: {
-        title: "Alta de Usuario",
+        title: "Nuevo Usuario",
         idAdminUSer: this.userData.Id,
-        patenteUser: this.userData.ClavePatente,
-        rfcUser: this.userData.RFC
+        patenteUser: "Patente: "+this.userData.ClavePatente,
+        rfcUser: "RFC: "+this.userData.RFC
       },
       class: 'modal-lg'
     });

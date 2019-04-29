@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule
   ],
   declarations: [
     AdminUserComponent,

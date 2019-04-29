@@ -1,87 +1,56 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-abandono',
-//   templateUrl: './abandono.component.html',
-//   styleUrls: ['./abandono.component.scss']
-// })
-// export class AbandonoComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
-import { Component, ViewEncapsulation } from '@angular/core';
-import {IOption} from 'ng-select';
+import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
 
 import { Http } from '@angular/http';
-// // todo: split
-// import { Injectable } from '@angular/core';
-
-// import { ConfigModel, PagerModel } from '../../models/';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { ApiServices } from '../../services/api.services';
 
 @Component({
-  // templateUrl: 'datatable.component.html'
   templateUrl: 'abandono.component.html',
-  styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
-  '../../../scss/vendors/ng-select/ng-select.scss',
-  './abandono.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  providers: [ApiServices]
 })
 // export class DataTableComponent {
-  export class AbandonoComponent {
-    // Date Picker
-    bsValue2: any = '';
-    bsFechaEstimada: any = '';
+export class AbandonoComponent implements OnInit {
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns: string[] = ['nombre', 'telefono', 'rfc', 'patente', 'perfil', 'activo', 'acciones'];
+  dataSource = new MatTableDataSource();
+  public data;
+  public userData;
+  public numCuentas;
+  public filterQuery = '';
+  public myModal;
+  public detalle;
+  
+  constructor(private http: Http, private apiserv: ApiServices) {
+   }
 
-    public filterData;
-    public data = [];
-    public detailData = {};
-    public filterQuery = '';
-
-    public filterStatus = [true, true]
-
-    constructor(private http: Http) {
-      http.get('assets/abandono.json')
-        .subscribe((data) => {
-          setTimeout(() => {
-            this.data = data.json();
-            this.filterData = this.data;
-          }, 2000);
-        });
-    }
-
-    public toInt(num: string) {
-      return +num;
-    }
-
-    public sortByWordLength = (a: any) => {
-      return a.name.length;
-    }
-
-    public applyFilter(index: number) {
-      this.filterData = [];
-
-      if (index < this.filterStatus.length) {
-        this.filterData = this.data.filter (function (el) { return  el.status === this.statusEnum[index]; }.bind(this));
-      } else {
-        this.filterData = this.data;
-      }
-    }
-
-    public verDetalle (id: string) {
-      let tmp;
-      tmp = this.data.filter (function (el) {
-        return el.idPreAlerta === id;
-      });
-
-      this.detailData = tmp[0];
-      // this.detalleModal.show();
-      console.log(this.detailData);
-    }
-
+  ngOnInit() {
+    this.userData = JSON.parse(localStorage.getItem("user"));
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasDisponibles').subscribe((numCuentas) => {
+      this.numCuentas = numCuentas;
+    });
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
+      this.dataSource = data;
+    });
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  public toInt(num: string) {
+    return +num;
+  }
+
+  public sortByWordLength = (a: any) => {
+    return a.name.length;
+  }
+
+}
 
