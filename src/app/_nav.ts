@@ -12,12 +12,12 @@ export const navItems = [
   {
     name: 'Previos',
     url: '/previos',
-    icon: 'icon-grid'
+    icon: 'cui-task'
   },
   {
     name: 'Salidas',
     url: '/base/cards',
-    icon: 'fa fa-external-link',
+    icon: 'icon-direction',
   },
   {
     name: 'Exportación',
@@ -35,19 +35,19 @@ export const navItems = [
     icon: 'cui-calculator',
   },
   {
-    name: 'BITACORAS',
+    name: 'Bitácoras',
     url: '/forms/basic-forms',
     icon: 'icon-note',
   },
   {
-    name: 'ADMIN CTAS PORTAL',
+    name: 'Admin de usuarios',
     url: '/adminuser',
     icon: 'fa fa-sitemap',
   },
   {
     name: 'Abandono',
     url: '/abandono',
-    icon: 'icon-list',
+    icon: 'icon-grid',
   },
   {
     divider: true
