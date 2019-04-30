@@ -60,17 +60,16 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'calculadora',
+        loadChildren: './aaacesa/calculadora/calculadora.module#CalculadoraModule'
+      },
+      {
         path: 'previos',
-        // component: AbandonoComponent,
         loadChildren: './aaacesa/previos/previos.module#PreviosModule'
       },
       {
         path: 'prealertas',
-        // component: AbandonoComponent,
         loadChildren: './aaacesa/prealertas/prealertas.module#PrealertasModule'
-        // data: {
-        //   title: 'Abandono'
-        // }
       },
       {
         path: 'salidas',

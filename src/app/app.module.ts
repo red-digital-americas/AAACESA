@@ -50,6 +50,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
     // AbandonoComponent
   ],
   imports: [
