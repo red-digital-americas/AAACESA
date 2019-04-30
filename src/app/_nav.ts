@@ -5,6 +5,11 @@ export const navItems = [
     icon: 'icon-home',
   },
   {
+    name: 'Mercancía',
+    url: '/mercancias',
+    icon: 'icon-basket-loaded'
+  },
+  {
     name: 'Pre Alertas',
     url: '/prealertas',
     icon: 'icon-info'

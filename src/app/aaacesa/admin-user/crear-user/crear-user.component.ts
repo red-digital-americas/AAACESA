@@ -18,6 +18,7 @@ export class CrearUserComponent implements OnInit {
   rfcUser:      string;
   patenteUser:  string;
   perfilUser:   string;
+  getPerfilUser:   string;
   mailUser:     string;
   fotoUser:     string;
   modalCrea2:   BsModalRef;
@@ -27,12 +28,9 @@ export class CrearUserComponent implements OnInit {
   constructor(public modalCrea: BsModalRef, private modalService: BsModalService, private apiservices: ApiServices) { }
 
   ngOnInit() {
-    this.apiservices.service_general_post("AAACESA-Portal/portalclientes/getperfil",{
-      "getperfiles": {
-        "idCliente": this.idAdminUSer
-    }
-    }).subscribe((res)=>{
-      this.perfilUser = res;
+    this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
+      console.log(res)
+      this.getPerfilUser = res;
     });
   }
 

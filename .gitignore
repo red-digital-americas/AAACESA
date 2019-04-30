@@ -48,3 +48,5 @@ Thumbs.db
 package.json
 *.config
 *.sqlite
+src/.vs/src/v15/.suo
+src/.vs/slnx.sqlite-journal

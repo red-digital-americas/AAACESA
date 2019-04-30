@@ -9,67 +9,72 @@
       <div class="container">
         <div class="row">
             <div class="col-md-4">
-              <input type="text" class="form-control" [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
-              <div *ngIf="nomUser.invalid && (nomUser.dirty || nomUser.touched)"
-                    class="alert alert-danger">
-                <div *ngIf="nomUser?.errors.required">
-                  Nombre requerido.
-                </div>
-              </div>
+              <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+              </mat-form-field>
+              <mat-error *ngIf="nomUser.hasError('required')">
+                El Nombre es requerido
+              </mat-error>
             </div>
             <div class="col-md-4">
-              <input type="text" class="form-control" [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
-              <div *ngIf="paternoUser.invalid && (paternoUser.dirty || paternoUser.touched)"
-                    class="alert alert-danger">
-                <div *ngIf="paternoUser?.errors.required">
-                  Apellido Paterno requerido.
-                </div>
-              </div>
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+              </mat-form-field>
+              <mat-error *ngIf="paternoUser.hasError('required')">
+                El Apellido paterno es requerido
+              </mat-error>
             </div>
             <div class="col-md-4 ml-auto">
-              <input type="text" class="form-control" [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
-              <div *ngIf="maternoUser.invalid && (maternoUser.dirty || maternoUser.touched)"
-                    class="alert alert-danger">
-                <div *ngIf="maternoUser?.errors.required">
-                  Apellido Materno requerido.
-                </div>
-              </div>
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+              </mat-form-field>
+              <mat-error *ngIf="maternoUser.hasError('required')">
+                El Apellido materno es requerido
+              </mat-error>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-4">
-              <input type="text" class="form-control" [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
-              <div *ngIf="telefonoUser.invalid && (telefonoUser.dirty || telefonoUser.touched)"
-                    class="alert alert-danger">
-                <div *ngIf="telefonoUser?.errors.required">
-                  Teléfono requerido.
-                </div>
-              </div>
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
+              </mat-form-field>
+              <mat-error *ngIf="telefonoUser.hasError('required')">
+                El Teléfono es requerido
+              </mat-error>
             </div>
             <div class="col-md-4">
-              <input type="text" class="form-control" [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly ng-init="rfcUser = 'RFC: EAYF890312MJ7'">
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly>
+              </mat-form-field>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" [(ngModel)]="patenteUser" #patUser="ngModel" id="patUser" name="patUser" readonly ng-init="patenteUser='Patente: 31134'">
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput [(ngModel)]="patenteUser" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
+              </mat-form-field>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-4 styled-select" >
-              <select class="form-control">
-                <option value="" selected disabled hidden>Perfil</option>
-                <option *ngFor="let rol of perfilUser" value= {{rol.CvePerfil}}>{{rol.CvePerfil}} : {{ rol.DescripcionPerfil}} </option>
-              </select>
+            <div class="col-md-4 styled-select">
+              <mat-form-field class="input-full-width">
+                <select matNativeControl [(ngModel)]="perfilUser" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
+                  <option label="--Selecciona el perfil --"></option>
+                  <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
+                </select>
+                <mat-error *ngIf="selPerfilUser.hasError('required')">
+                  El perfil es requerido
+                </mat-error>
+              </mat-form-field>
             </div>
           <div class="col-md-4">
-            <input type="text" class="form-control" [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" autocomplete="Email Usuario" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-            <div *ngIf="emailUser.invalid && (emailUser.dirty || emailUser.touched)" class="alert alert-danger">
-              <div *ngIf="emailUser?.errors.required">
-                El Correo es requerido.
-              </div>
-              <div *ngIf="emailUser.errors && emailUser?.errors.pattern">
-                El Correo no es valido (ej. nombre@sitio.com)
-              </div>
-            </div>
+            <mat-form-field class="input-full-width">
+            <input type="text" matInput  [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+            <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
+              Ingrese un correo valido
+            </mat-error>
+            <mat-error *ngIf="emailUser.hasError('required')">
+                El Correo es requerido
+            </mat-error>
+            </mat-form-field> 
           </div>
           <div class="col-md-4">
             <label class="mr-5">Subir imagen</label>

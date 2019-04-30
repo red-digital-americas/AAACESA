@@ -1,7 +1,7 @@
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
+      <ng-template matStepLabel>Nueva Salida - Paso 1</ng-template>
       <mat-form-field>
         <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
       </mat-form-field>
@@ -12,9 +12,32 @@
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
+      <ng-template matStepLabel>Nueva Salida - Paso 2</ng-template>
       <mat-form-field>
         <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="threeFormGroup">
+    <form [formGroup]="threeFormGroup">
+      <ng-template matStepLabel>Nueva Salida - Paso 3</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="threeCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourFormGroup">
+    <form [formGroup]="fourFormGroup">
+      <ng-template matStepLabel>Nueva Salida - Paso 4</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="fourCtrl" required>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -23,7 +46,7 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
+    <ng-template matStepLabel>Terminar </ng-template>
     You are now done.
     <div>
       <button mat-button matStepperPrevious>Back</button>
