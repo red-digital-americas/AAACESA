@@ -1,7 +1,7 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { Http } from '@angular/http';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatTabChangeEvent } from '@angular/material';
 import { ApiServices } from '../../services/api.services';
 
 @Component({
@@ -9,11 +9,13 @@ import { ApiServices } from '../../services/api.services';
   providers: [ApiServices]
 })
 // export class DataTableComponent {
-export class AbandonoComponent implements OnInit {
+export class AbandonoComponent implements OnInit, AfterViewInit {
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['nombre', 'telefono', 'rfc', 'patente', 'perfil', 'activo', 'acciones'];
+  @ViewChild('tabGroup') tabGroup;
+
+  displayedColumns: string[] = ['Master', 'House', 'Piezas', 'Peso', 'FechaAbandono'];
   dataSource = new MatTableDataSource();
   public data;
   public userData;
@@ -21,27 +23,33 @@ export class AbandonoComponent implements OnInit {
   public filterQuery = '';
   public myModal;
   public detalle;
-  
-  constructor(private http: Http, private apiserv: ApiServices) {
-   }
+
+  constructor(private http: Http, private apiserv: ApiServices) {   }
 
   ngOnInit() {
-    this.userData = JSON.parse(localStorage.getItem("user"));
-    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasDisponibles').subscribe((numCuentas) => {
-      this.numCuentas = numCuentas;
+    this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {
+      this.dataSource.data = data;
     });
-    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-      this.dataSource = data;
-    });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.dataSource.data = [];
+    if(tabChangeEvent.index == 0)
+    {
+      this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {
+        this.dataSource.data = data;
+      });
+    }
+    else{
+      this.apiserv.service_general_get('/Abandono/GetNotificacion').subscribe((res) => {
+        this.dataSource.data = res;
+      });
+    }
   }
 
   public toInt(num: string) {

@@ -41,4 +41,11 @@ export class ApiServices {
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
     return this.http.post(this.url + url, parametros, { headers: headers });
   }
+
+  service_general_put(url, parametros): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
+    return this.http.put(this.url + url, parametros, { headers: headers });
+  }
 }
