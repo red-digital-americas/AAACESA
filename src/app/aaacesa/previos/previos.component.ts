@@ -10,7 +10,7 @@ import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 // API Services 
 import { ApiServices } from '../../services/api.services';
 
-import { PrevioNuevo } from '../../models/previos.model';
+import { PrevioNuevo, PrevioBusqueda } from '../../models/previos.model';
 
 @Component({
   templateUrl: './previos.component.html',
@@ -28,14 +28,11 @@ export class PreviosComponent  {
   ///////////////////////
   // BusquedaSuperior
   showAdvanceSearch = true; // Don't Change
-  masterHouseSearch = "";
-  masterGuideSearch = "";
-  fechaPrevioSearch:any = "";    
-  rangoFechaSearch: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
-  idPrevioSearch = "";
-  estatusSearch = "";
-  patenteSearch = "";
-  referenciaSearch = "";
+  busquedaModel:PrevioBusqueda = new PrevioBusqueda();  
+  fechaPrevioSearch:Date = null;
+  estatusSearch:any = "";
+  // rangoFechaSearch: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  rangoFechaSearch:any = [];
   
   ///////////////////////
   // Mat Table
@@ -52,7 +49,7 @@ export class PreviosComponent  {
         case 'FechaPrevio': {              
           let f = item['FechaPrevio'].split(' ')[0];                // 07/05/2019 12:00 PM          
           f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
-          console.log(f);
+          //console.log(f);
           let newDate = new Date(f);
           console.log(newDate);
           return newDate;
@@ -64,7 +61,7 @@ export class PreviosComponent  {
 
 
   public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0}; 
+  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
   
   // Date Picker
   bsValue2: any = '';
@@ -82,15 +79,10 @@ export class PreviosComponent  {
   response = "";    // Respuesta al momento de crear Pre Alerta
   @ViewChild('form1', { read: NgForm }) form1: any;   // Referencia al form de la vista
   @ViewChild('form2', { read: NgForm }) form2: any;   // Referencia al form2 de la vista
+  
 
-  constructor(private http: Http, private apiService:ApiServices) {
-    http.get('assets/Previos/previos.json')
-      .subscribe((data) => {
-          this.data = data.json();
-          this.filterData = this.data;
-          this.dataSource.data = this.filterData;
-          this.updateCountStatus();
-      });      
+  constructor(private http: Http, private apiService:ApiServices) {            
+    this.buscarPrevios();
 
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
       .subscribe ( 
@@ -105,6 +97,7 @@ export class PreviosComponent  {
     this.countStatus.PCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
     this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
     this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
+    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
   }
 
   public applyFilter(index: number) {
@@ -117,10 +110,59 @@ export class PreviosComponent  {
     }
   }  
 
+  public buscarPrevios () {    
+    // Estatus seleccionado "Niguno"
+    if (typeof this.busquedaModel.Estatus === "undefined"){
+      this.busquedaModel.Estatus = "";
+    }
+        
+    // FechaPrevio
+    if (this.fechaPrevioSearch != null){
+      let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
+      f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
+      this.busquedaModel.FechaPrevio = f; 
+    } else {
+      this.busquedaModel.FechaPrevio = "";
+    }
+
+    // FechaInicial - FechaFinal
+    if (this.rangoFechaSearch != null) {
+      if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){      
+        let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
+        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        this.busquedaModel.FechaInicial = f;
+        f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
+        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        this.busquedaModel.FechaFinal = f;            
+      }    
+    } else {    
+      this.busquedaModel.FechaInicial = "";
+      this.busquedaModel.FechaFinal = "";
+    }    
+
+    this.apiService.service_general_get_with_params('/AdelantoPrevios/Busqueda', this.busquedaModel)
+      .subscribe ( 
+      (response:any) => {                 
+        this.data = response;
+        // this.filterData = this.data;
+        this.dataSource.data = this.data;
+        this.updateCountStatus();
+      }, 
+      (errorService) => { console.log(errorService); });
+
+    // http.get('assets/Previos/previos.json')
+    //   .subscribe((data) => {
+    //       this.data = data.json();
+    //       this.filterData = this.data;
+    //       this.dataSource.data = this.filterData;
+    //       this.updateCountStatus();
+    //   });  
+  }
+
   public verDetalle (id: string) {    
     
-      id = "PRV-20190000143";
-      id = "PRV-20190000142";
+      // id = "PRV-20190000143";
+      // id = "PRV-20190000142";
       this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
       .subscribe ( 
       (response:any) => { this.detailData = response;}, 
@@ -130,7 +172,8 @@ export class PreviosComponent  {
       //   .subscribe((data) => { this.detailData = data.json(); console.log(this.detailData);});    
   }
 
-  public openDocument (idDocumento) {    
+  public openDocument (idDocumento) {   
+    console.log(idDocumento); 
     this.apiService.service_general_get(`/AdelantoPrevios/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
