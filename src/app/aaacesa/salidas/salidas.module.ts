@@ -16,6 +16,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+
+//Vendor
+import { BsDatepickerModule } from 'ngx-bootstrap';                   // Datepicker
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
+
+// Shared
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +47,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatPaginatorModule,
     SalidasRoutingModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    BsDatepickerModule.forRoot(),
+    NgxMatSelectSearchModule,
+    MatSelectModule,
+    SharedModule
   ]
 })
 export class SalidasModule { }

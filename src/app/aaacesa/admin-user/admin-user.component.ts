@@ -20,19 +20,16 @@ export class AdminUserComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'telefono', 'rfc', 'patente', 'perfil', 'activo', 'acciones'];
   dataSource = new MatTableDataSource();
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public data;
   public userData;
-  public numCuentas;
+  public numCuentas: boolean = false;
   public filterQuery = '';
   public myModal;
   public detalle;
+  public rolUser : boolean = false;
   modalRef: BsModalRef;
   modalCrea: BsModalRef;
   
@@ -42,11 +39,16 @@ export class AdminUserComponent implements OnInit {
   ngOnInit() {
     
     this.userData = JSON.parse(localStorage.getItem("user"));
-    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasDisponibles').subscribe((numCuentas) => {
-      this.numCuentas = numCuentas;
+
+    if((this.userData.Perfil['ClavePerfil'] == "MAESTRO" ) || (this.userData.Perfil['ClavePerfil'] == "ADMIN") )
+      this.rolUser = true;
+    this.rolUser = this.userData.Perfil['ClavePerfil'];
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasDisponibles').subscribe((cuentas) => {
+      if(cuentas > 0)
+        this.numCuentas = true;
     });
     this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.data = data;
     });
 
    	  
@@ -55,6 +57,12 @@ export class AdminUserComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource.filter);
   }
 
   detalleUSer(idCliente){
