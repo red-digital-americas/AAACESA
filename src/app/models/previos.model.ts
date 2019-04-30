@@ -6,7 +6,7 @@ export class PrevioBusqueda {
     public Patente:string = "";    
     public Master:string = "";    
     public House:string = "";    
-    public FechaSolicitud:string = "";    
+    public FechaPrevio:string = "";    
     public Estatus:string = "";    
     public Referencia:string = "";    
 }

@@ -55,7 +55,7 @@ export class SalidasComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreateSalidaComponent, {
-      width: '800px',
+      width: '95%',
       data: { name: this.name, animal: this.animal }
     });
 
@@ -76,6 +76,8 @@ export class DialogCreateSalidaComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  threeFormGroup: FormGroup;
+  fourFormGroup: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<DialogCreateSalidaComponent>,
@@ -87,6 +89,12 @@ export class DialogCreateSalidaComponent implements OnInit {
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
+    });
+    this.threeFormGroup = this._formBuilder.group({
+      threeCtrl: ['', Validators.required]
+    });
+    this.fourFormGroup = this._formBuilder.group({
+      fourCtrl: ['', Validators.required]
     });
   }
 
