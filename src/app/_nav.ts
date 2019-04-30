@@ -21,7 +21,7 @@ export const navItems = [
   },
   {
     name: 'Salidas',
-    url: '/base/cards',
+    url: '/salidas',
     icon: 'icon-direction',
   },
   {
