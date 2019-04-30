@@ -1,9 +1,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<div class="row justify-content-end">
+<div class="row justify-content-end">  
   <div class="col-lg-2">
-    <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear
-      Previos</button>
-  </div>
+    <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
+  </div>          
 </div>
 <div class="animated fadeIn">
   <div class="card">   
@@ -15,19 +14,19 @@
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
                 <!-- <input matInput (keyup)="applyFilter($event.target.value)" type="text" class="form-control" placeholder="Buscar..." />                 -->
-                <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Guía Master"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Master" placeholder="Guía Master"/>
               </mat-form-field>                
             </div>
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Guía House"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
               </mat-form-field>
             </div>
 
             <div class="col-lg-3 mb-1">
               <div class="input-group">                
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaPrevio" placeholder="Fecha Previo">                
+                  <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                
                   <!-- <mat-icon matPrefix >event</mat-icon> -->
                 </mat-form-field>               
               </div>
@@ -37,17 +36,17 @@
             <div class="col-lg-3 mb-1">
               <div class="input-group">                
                 <mat-form-field class="input-full-width">
-                  <input matInput class="" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de Fecha">
+                  <input matInput class="" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
                   <!-- <mat-icon matSuffix>date_range</mat-icon> -->
                 </mat-form-field>
               </div>
-            </div>
+            </div>            
 
           </div>
         </div>
 
         <div class="col-lg-2">
-          <button class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+          <button (click)="buscarPrevios()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
         </div>
       </div>
 
@@ -56,19 +55,19 @@
             <div class="row">
               <div class="col-lg-3 mb-1">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Id Adelanto Previo"/>
+                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" placeholder="Id Adelanto Previo"/>
                 </mat-form-field>
               </div>
               <div class="col-lg-3 mb-1">
                 <mat-form-field class="input-full-width">
-                  <mat-select class="" placeholder="Estatus" #singleSelect>
+                  <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
                     <mat-option>                      
                       <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                     </mat-option>
                     <mat-option>Ninguno</mat-option>
                     <!-- <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus">  -->
-                        <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
-                        {{option.Descripcion}}
+                    <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
+                      {{option.Descripcion}}
                     </mat-option>
                   </mat-select>                  
                 </mat-form-field>
@@ -84,56 +83,65 @@
               </div>                            
               <div class="col-lg-3 mb-1">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Patente"/>
+                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" placeholder="Patente"/>
                 </mat-form-field>
               </div>
               <div class="col-lg-3 mb-1">
                 <mat-form-field class="input-full-width">  
-                  <input matInput type="text" class="" [(ngModel)]="filterQuery" placeholder="Referencia"/>
+                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
                 </mat-form-field>
               </div>              
             </div>
-          </div>
         </div>
       </div>
 
       <div class="row mt-5 mb-3">
-        <div class="col-lg-10 offset-lg-1">
-          <div class="row">
-
-            <div class="col status-filter">
-              <div class="status-filter__circle status-filter__circle--Aceptada"></div>
-              <div class="status-filter__text">
-                <label (click)="applyFilter(0)">
-                  <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
-                </label>
+          <div class="col-lg-10 offset-lg-1">
+            <div class="row">
+  
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--Aceptada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(0)">
+                      <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
+                    </label>
+                  </div>
+              </div> 
+              
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--Solicitada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(1)">
+                      <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
+                    </label>
+                  </div>
               </div>
-            </div>
-
-            <div class="col status-filter">
-              <div class="status-filter__circle status-filter__circle--Solicitada"></div>
-              <div class="status-filter__text">
-                <label (click)="applyFilter(1)">
-                  <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
-                </label>
+  
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(2)">
+                      <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
+                    </label>
+                  </div>
               </div>
-            </div>
-
-            <div class="col status-filter">
-              <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-              <div class="status-filter__text">
-                <label (click)="applyFilter(2)">
-                  <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
-                </label>
+  
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--PCliente"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(3)">
+                      <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
+                    </label>
+                  </div>
               </div>
-            </div>
-
-            <div class="col status-filter">
-              <div class="status-filter__circle status-filter__circle--PCliente"></div>
-              <div class="status-filter__text">
-                <label (click)="applyFilter(3)">
-                  <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
-                </label>
+              
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--Rechazada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(4)">
+                      <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
+                    </label>
+                  </div>
               </div>
   
               <div class="col status-filter">            
@@ -144,6 +152,15 @@
                   </label>
                 </div>                
               </div>
+
+              <div class="col status-filter">            
+                <div class="status-filter__circle status-filter__circle--Cancelada"></div>
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(6)">
+                    <p><span class="status-filter__number">{{ countStatus.Cancelada }}</span> Cancelada </p>
+                  </label>
+                </div>                
+              </div>
   
               <div class="col status-filter">                          
                 <div class="status-filter__text">
@@ -151,20 +168,9 @@
                     <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
                   </label>
                 </div>                
-              </div>
-              <!-- <input style="display: none;" id="finalizadaCheck" #finalizadaCheck class="status-filter__check" type="checkbox">               -->
-              <!-- {{ filterStatus.Finalizada }} -->
+              </div>              
+  
             </div>
-
-            <div class="col status-filter">
-              <div class="status-filter__text">
-                <label (click)="applyFilter(10)" for="todosCheck">
-                  <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
-                </label>
-              </div>
-              <!-- <input id="todosCheck" class="status-filter__check" type="checkbox"> -->
-            </div>
-
           </div>
         </div>
           
@@ -275,238 +281,172 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-6 col-lg-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía Master" />
+            </div><!-- /.modal-body -->         
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+  
+  
+    <div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Nueva PreAlerta</h4>
+            <button type="button" class="close" (click)="myModal2.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">          
+            <div class="form-group">  
+              <div class="row mb-3">            
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Referencias"/>
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Guía House" />
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Piezas"/>
                 </div>
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Peso"/>
+                </div>              
               </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <div class="row justify-content-center">
-                    <div class="col" style="text-align: right; transform: translateX(-6%);">
-                      <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
-                    </div>
-                    <div class="col" style="text-align: left; transform: translateX(-1%);">
-                      <div class="linebl"></div>
+  
+              <div class="row mb-3">            
+                  <div class="col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                      </div>                    
+                      <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsValue2">
                     </div>
                   </div>
-                  <div class="row justify-content-center">
-                    <button (click)="myModal2.show(); myModal.hide();"
-                      class="btn btn-pill btn-primary">Siguiente</button>
+                  <div class="col-lg-4">
+                    <div class="styled-select">
+                      <select class="form-control">
+                        <option value="" selected disabled hidden>Almacen de Origen</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div> 
                   </div>
+                  <div class="col-lg-4">
+                    <div class="styled-select">
+                      <select class="form-control">
+                        <option value="" selected disabled hidden>Rango de Temperatura</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div> 
+                  </div>              
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div><!-- /.modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-<div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Nuevo Previo</h4>
-        <button type="button" class="close" (click)="myModal2.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <div class="row mb-3">
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Nombre Tramitador" />
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Apellido Paterno" />
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Apellido Materno" />
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Patente" />
-            </div>
-            <div class="col-lg-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+  
+               <div class="row mb-3">            
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Consignatario a Facturar"/>
                 </div>
-                <input type="text" placeholder="Fecha y hora" class="form-control" #dp="bsDatepicker"
-                  bsDatepicker [(ngModel)]="bsValue2">
+                <div class="col-lg-4">
+                  <div class="styled-select">
+                      <select class="form-control">
+                        <option value="" selected disabled hidden>Método de pago</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div> 
+                </div>
+                <div class="col-lg-4">
+                  <div class="styled-select">
+                      <select class="form-control">
+                        <option value="" selected disabled hidden>Uso de CFDI</option>
+                        <option value="0">Opcion 0</option>
+                        <option value="1">Opcion 1</option>
+                        <option value="2">Opcion 2</option>
+                      </select>
+                    </div> 
+                </div>              
               </div>
-            </div>
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="N° Gafete Tramitador" />
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-lg-4">
-              <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Piezas" />
-            </div>
-            <div class="col-lg-4">
-                <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Peso" />
-              </div>
-          </div>
-
-          <div class="row mb-3">
-              <div class="col-lg-6">
+  
+               <div class="row mb-3">            
+                <div class="col-lg-6">
+                  <div class="styled-select">
+                    <select class="form-control">
+                      <option value="" selected disabled hidden>Condiciones de Almacenes</option>
+                      <option value="0">Opcion 0</option>
+                      <option value="1">Opcion 1</option>
+                      <option value="2">Opcion 2</option>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-lg-6">                    
                   <div class="form-control form-group form-check">
-                    <label for="consolidado" class="form-check-label">Etiquetado</label>
-                    <label class="switch switch-pill switch-outline-primary-alt form-switch ctrfrsw">
-                      <input id="etiquetado" type="checkbox" class="switch-input" checked>
+                    <label for="consolidado" class="form-check-label">Consolidado</label>
+                    <label class="switch switch-pill switch-primary form-switch">                  
+                      <input id="consolidado" type="checkbox" class="switch-input" checked>
                       <span class="switch-slider"></span>
                     </label>
-                  </div>
+                  </div>                
+                </div>                          
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="styled-select">
+                    <select class="form-control">
+                      <option value="" selected disabled hidden>Instrucciones de Manejo</option>
+                      <option value="0">Recolección</option>
+                      <option value="1">Transferencia</option>
+                      <option value="2">Recolección y Transferencia</option>
+                    </select>
+                  </div> 
+                </div>            
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>            
+              </div>
+  
+              <div class="row justify-content-center">            
+                <button (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
+              </div>
+  
+            </div>                        
+          </div>         
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  
+    <div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Nueva PreAlerta</h4>
+              <button type="button" class="close" (click)="myModal3.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Subir documentos</p>
+              <div class="row mb-5">       
+                <div class="col-lg-2">
+                    <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
                 </div>
-            <div class="col-lg-6">
-              <div class="form-control form-group form-check">
-                <label for="consolidado" class="form-check-label">Revalidación</label>
-                <label class="switch switch-pill switch-outline-primary-alt form-switch ctrfrsw">
-                  <input id="revalidacion" type="checkbox" class="switch-input" checked>
-                  <span class="switch-slider"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-lg-12">
-                <textarea class="form-control" rows="2" placeholder="Comentario"
-                style="margin-bottom: 1em;"></textarea>
-            </div>
-          </div>
-
-          <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <div class="row justify-content-center">
-                    <div class="col" style="text-align: right; transform: translateX(8.5%);">
-                      <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
-                    </div>
-                    <div class="col" style="text-align: left;  transform: translateX(-7%);">
-                      <div class="linebl"></div>
-                    </div>
-                  </div>
+                <div class="col-lg-2">
+                    <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">              
+                </div>
+                <div class="col-lg-2 align-self-center">
+                  <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
                 </div>
               </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row justify-content-center">
-              <div class="col-lg-2">
-                <button (click)="myModal2.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
-              </div>
-              <div class="col-lg-2">
-                  <button (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-              </div>
-            </div>
-          </div>
-      </div><!-- /.modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Nuevo Previo</h4>
-        <button type="button" class="close" (click)="myModal3.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Subir documentos: Guía, Gafete, Etiquetado (mínimo subir un documento)</p>
-        <div class="row mb-5">
-          <div class="col-lg-2">
-            <img width="100px" class="img-thumbnail"
-              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-          </div>
-          <div class="col-lg-2">
-            <img width="100px" class="img-thumbnail"
-              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-          </div>
-          <div class="col-lg-2 align-self-center">
-            <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col">
-              <div class="form-group">
+              <div class="form-group">  
                 <div class="row justify-content-center">
-                  <div class="col" style="text-align: right; transform: translateX(20%);">
-                    <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
+                  <div class="col-lg-2">
+                    <button (click)="myModal3.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
                   </div>
-                  <div class="col" style="text-align: left;  transform: translateX(-10%);">
-                    <div class="linebl"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        <div class="form-group">
-          <div class="row justify-content-center">
-            <div class="col-lg-2">
-              <button (click)="myModal3.hide(); myModal2.show();" class="btn btn-pill btn-primary">Regresar</button>
-            </div>
-            <div class="col-lg-2">
-              <button [disabled]="" (click)="myModal3.hide(); myModal4.show();" class="btn btn-pill btn-primary">Confirmar</button>
-            </div>
-          </div>
-        </div>
-      </div><!-- /.modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div bsModal #myModal4="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal4Label"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Nuevo Previo</h4>
-        <button type="button" class="close" (click)="myModal4.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Subir documentos: Guía, Gafete, Etiquetado (mínimo subir un documento)</p>
-        <div class="row mb-5">
-          <div class="col-lg-2">
-            <img width="100px" class="img-thumbnail"
-              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-          </div>
-          <div class="col-lg-2">
-            <img width="100px" class="img-thumbnail"
-              src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-          </div>
-          <div class="col-lg-2 align-self-center">
-            <button class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
-          </div>
-        </div>
-        <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <div class="row justify-content-center">
-                  <div class="col" style="text-align: right; transform: translateX(20%);">
-                    <h1 style="font-size: 2rem"><i class="fas fa-plane-departure"></i></h1>
-                  </div>
-                  <div class="col" style="text-align: left;  transform: translateX(-10%);">
-                    <div class="linebl"></div>
+                  <div class="col-lg-2">
+                    <button (click)="myModal3.hide();" class="btn btn-pill btn-primary">Siguiente</button>
                   </div>
                 </div>
               </div>                        
@@ -534,7 +474,9 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                       <div class="row">
                         <!--  Start left -->
-                        <div class="col-sm-8 col-md-8 col-lg-8 cardborder">                    
+                        <div class="col-sm-8 col-md-8 col-lg-8">    
+                          <div class="card">
+                            <div class="card-body">
                           <div class="row mb-1">
                             <div class="col-sm-4 col-md-4 col-lg-4">
 
@@ -624,13 +566,13 @@
                           <hr class="dividerb">
 
                           <div class="row mb-1" style="text-align: center;">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
+                            <!-- <div class="col-sm-12 col-md-12 col-lg-12"> -->
                               
-                              <div class="row">
+                              <!-- <div class="row"> -->
                                 <div *ngFor="let documento of detailData.Documentos">
                                   <div class="col-sm-4 col-md-4 col-lg-4">
                                     <div class="row">
-                                        <div class="col status-filter">            
+                                        <div class="col-lg-12 status-filter">            
                                           <div class="status-filter__circle status-filter__circle--{{documento.Estatus | statusPipe }}"></div>
                                           <div class="status-filter__text"><p> {{documento.Estatus}} </p></div>
                                         </div>
@@ -638,20 +580,22 @@
                                     <div class="row">
                                       <div (click)="openDocument(documento.IdDocumento)" class="col">                                      
                                           <h1 style="font-size: 5rem"><i class="fas {{documento.NombreDocumento | fileIconPipe}}"></i></h1>
-                                          <p>{{documento.NombreDocumento}}</p>
+                                          <p>{{documento.NombreDocumento}}</p>                                                                                    
                                       </div>
                                     </div>
                                   </div>  
                                 </div>                                                                                                              
-                              </div>
+                              <!-- </div> -->
 
-                            </div>
+                            <!-- </div> -->
                           </div>
+                          </div> <!-- card-body -->                
+                        </div> <!-- card -->                
                         </div>
                         <!--  End left -->
               
                         <!-- Start Rigth -->
-                        <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
+                        <div class="col-sm-4 col-md-4 col-lg-4 card">
 
                           <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
@@ -705,142 +649,12 @@
                         <!--  End Rigth -->
   
                   </div>
-                </div>
-                <!--  End left -->
-
-
-
-                <!-- Start Rigth -->
-                <div class="col-sm-4 col-md-4 col-lg-4 cardborder">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                      <h6>Estado</h6>
-                      <h5 class="detail-text">Fecha de Solicitud</h5>
-                      <p class="detail-text">{{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                      <hr class="dividerb">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                      <h6>Previo</h6>
-                      <textarea class="form-control" rows="2" placeholder="Comentario"
-                        style="margin-bottom: 1em;"></textarea>
-                      <div class="row justify-content-end">
-                        <div class="col-lg-6 mb-2">
-                          <label for="file-multiple-input">
-                            <div class="btn btn-pill btn-primary">Subir Documento</div>
-                          </label>
-                          <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input"
-                            type="file">
-                        </div>
-
-                        <div class="col-lg-3 mb-2">
-                            <button [disabled]="" (click)="detalleM.hide(); graciasM.show();" class="btn btn-pill btn-primary">Enviar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                      <!-- Inicio Acordeon -->
-                      <mat-accordion>
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header>
-                            <div class="col status-filter">
-                              <div
-                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
-                              </div>
-                              <div class="status-filter__text">
-                                <p> {{detailData.status}} </p>
-                              </div>
-                              <p class="detail-text" style="display: inline; padding-left: 5px;">
-                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                            </div>
-                          </mat-expansion-panel-header>
-
-                          Documentos Aprobados
-
-                        </mat-expansion-panel>
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header>
-                            <div class="col status-filter">
-                              <div
-                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
-                              </div>
-                              <div class="status-filter__text">
-                                <p> {{detailData.status}} </p>
-                              </div>
-                              <p class="detail-text" style="display: inline; padding-left: 5px;">
-                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                            </div>
-                          </mat-expansion-panel-header>
-
-                          Documentos Aprobados
-
-                        </mat-expansion-panel>
-                        <mat-expansion-panel>
-                          <mat-expansion-panel-header>
-                            <div class="col status-filter">
-                              <div
-                                class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}">
-                              </div>
-                              <div class="status-filter__text">
-                                <p> {{detailData.status}} </p>
-                              </div>
-                              <p class="detail-text" style="display: inline; padding-left: 5px;">
-                                {{detailData.prevDate | date: 'dd/MM/yy'}}</p>
-                            </div>
-                          </mat-expansion-panel-header>
-
-                          Documentos Aprobados
-
-                        </mat-expansion-panel>
-                      </mat-accordion>
-                      <!-- Fin Acordeon -->
-                    </div>
-                  </div>
-                </div>
-                <!--  End Rigth -->
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div><!-- /.modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-
-
-<div bsModal #graciasM="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="graciasMLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          
-          <button type="button" class="close" (click)="graciasM.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-12">
-                <div style="text-align: center; margin-bottom: 5%;">
-                  Gracias <br>
-                  Tus datos fueron actualizados.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- /.modal-body -->
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+                </div>                                                                                                
   
+              </div>                                                  
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
+
+        

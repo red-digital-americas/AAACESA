@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 // DataTable
 import { DataTableModule } from 'angular2-datatable';
 import { HttpModule } from '@angular/http';
-import { DataFilterPipe } from './datafilterpipe';
 import { FormsModule } from '@angular/forms';
 
 
@@ -24,6 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -38,14 +38,14 @@ import { MatSelectModule } from '@angular/material';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ],
   declarations: [
     AdminUserComponent,
-    DataFilterPipe,
     ModalsComponent,
     DetalleUserComponent,
-    CrearUserComponent
+    CrearUserComponent,
   ],
   entryComponents: [DetalleUserComponent,CrearUserComponent]
 })
