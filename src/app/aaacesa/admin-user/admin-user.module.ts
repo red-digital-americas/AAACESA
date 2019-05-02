@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatDialogModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -39,7 +39,8 @@ import { SharedModule } from '../shared/shared.module';
     MatSortModule,
     MatPaginatorModule,
     MatSelectModule,
-    SharedModule
+    SharedModule,
+    MatDialogModule
   ],
   declarations: [
     AdminUserComponent,

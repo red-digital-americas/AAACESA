@@ -59,7 +59,6 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     LoginComponent,
     RegisterComponent,
     ResetpasswordComponent
-    // AbandonoComponent
   ],
   imports: [
     BrowserModule,
