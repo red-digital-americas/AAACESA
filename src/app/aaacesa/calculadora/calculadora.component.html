@@ -34,11 +34,13 @@
                     </mat-form-field> 
                     
                     <mat-form-field class="input-full-width">
-                      <input matInput class="form-control" placeholder="Peso: 590 kg" required>
+                      <input matInput type="number" class="form-control" placeholder="Peso: 590 kg" required>
                     </mat-form-field>   
       
                     <mat-form-field class="input-full-width">
-                      <input matInput class="form-control" placeholder="Valor aduana">
+                      <input matInput type="number" class="form-control" placeholder="$ 0.00" placeholder="Valor aduana">
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix>.00</span>
                     </mat-form-field>    
     
                     <mat-form-field class="input-full-width">
@@ -58,7 +60,7 @@
                     <div class="input-full-width form-group form-check">                    
                       <label for="cadena" class="form-check-label">Cadena Fría</label>
                         <label class="switch switch-pill switch-primary form-switch">                  
-                          <input id="cadena " type="checkbox" class="switch-input" (click)="frio=!frio">
+                          <input id="cadena" [(ngModel)]="frio" type="checkbox" class="switch-input">
                           <span class="switch-slider"></span>
                         </label>
                     </div>
@@ -104,102 +106,33 @@
           <div class="row">
             <h6>Cálculo de Maniobras</h6>
           </div>
-          <div class="row">
-              <div class="col-6">
-                Almacenaje
+          <ng-template ngFor let-calculo [ngForOf]="calculos" let-i="index">
+              <div *ngIf="!frio" class="row">
+                  <div class="col-6">
+                    {{calculo}}
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field class="alined">
+                      <input matInput type="number" class="form-control" placeholder="0" disabled>
+                      <span matPrefix>$&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
               </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
+          </ng-template>
+          <ng-template ngFor let-calcfrio [ngForOf]="calcfrios" let-i="index">
+              <div *ngIf="frio" class="row">
+                  <div class="col-6">
+                    {{calcfrio}}
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field class="alined">                   
+                      <input matInput type="number" class="form-control" placeholder="0" disabled>
+                      <span matPrefix>$&nbsp;</span><span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
               </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Manejo por valor *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Maniobras *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Congelación *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Temperatura controlada *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Maniobras previo *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              Costo de congelación
-            </div>
-            <div class="col-6">
-              <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-             <div class="col-6">
-               Costo custodia
-             </div>
-             <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-6">
-               Costo maniobra
-             </div>
-             <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-             </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                Subtotal *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div class="col-6">
-                IVA *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
-          <div *ngIf="frio" class="row">
-              <div  class="col-6">
-                Total *
-              </div>
-              <div class="col-6">
-                <mat-form-field class="alined"><input matInput type="text" class="form-control"></mat-form-field>
-              </div>
-          </div>
+          </ng-template>          
         </div>
       </div>
     </div>

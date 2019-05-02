@@ -24,6 +24,10 @@ export class CalculadoraComponent implements OnInit {
   tyc =  false;
   frio = false;
 
+  calculos = ['Almacenaje', 'Costo de congelación', 'Costo custodia', 'Costo maniobra'];
+// tslint:disable-next-line: max-line-length
+  calcfrios = ['Almacenaje', 'Manejo por valor', 'Maniobras', 'Refrigeración', 'Congelación', 'Temperatura controlada', 'Maniobras previo', 'Subtotal', 'IVA', 'Total'];
+
   options: FormGroup;
 
   constructor(fb: FormBuilder) {
