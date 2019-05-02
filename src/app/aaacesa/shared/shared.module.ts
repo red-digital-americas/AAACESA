@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FileIconPipe } from './fileIcon.pipe';
 import { StatusPipe } from './status.pipe';
 import { FilterSelectPipe } from './filterSelect.pipe';
+import { DataFilterPipe } from './datafilterpipe';
 
 @NgModule({
   imports: [        
@@ -12,12 +13,14 @@ import { FilterSelectPipe } from './filterSelect.pipe';
   declarations: [    
     FileIconPipe,
     StatusPipe,
-    FilterSelectPipe
+    FilterSelectPipe,
+    DataFilterPipe
   ],
   exports: [
     FileIconPipe,
     StatusPipe,
-    FilterSelectPipe
+    FilterSelectPipe,
+    DataFilterPipe
   ]
 })
 export class SharedModule { }

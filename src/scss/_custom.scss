@@ -1,7 +1,7 @@
 // Here you can add other styles
 .app-header{
     background-color: #30376A;
-    z-index: 1019;
+    z-index: 1000;
     height: 68px;
     border-bottom: none;
     box-shadow: 0 5px 5px #282c52; 
@@ -12,7 +12,7 @@
     height: 55px;
 }
 .header-fixed .app-header {
-    z-index: 1019;
+    z-index: 1000;
 }
 
 .header-fixed .app-body {

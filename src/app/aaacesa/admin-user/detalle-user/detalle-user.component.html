@@ -1,98 +1,74 @@
-      <div class="modal-header">
-          <h4 class="modal-title pull-left">{{title}}</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="container clearfix">
-            <form #detailUserForm="ngForm">
-              <div class="row">
-                <div class="col-lg-2">
-                    <i class="fa fa-user-circle fa-4x"></i>
-                    <div>
-                      
+<div class="container clearfix">
+  <div class="col-md-12">
+    <div class="row">
+      <form #detailUserForm="ngForm">
+        <div class="row">
+          <div class="col-lg-2">
+              <i class="fa fa-user-circle fa-4x"></i>
+              <div>
+                
+              </div>
+          </div>
+          <div class="col-lg-10">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
+                <div *ngIf="editing">
+                  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Nombre Completo</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
                     </div>
+                    <input #inlineEditControl [required]="required" (blur)="onBlur($event)" #nomCUser="ngModel" [name]="value" [(ngModel)]="value" [type]="type" [placeholder]="nomUser" />
+                  </div>
                 </div>
-                <div class="col-lg-10">
-                  <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" >
-                      <div *ngIf="editing">
-                        <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Nombre Completo</label>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="icon-user"></i></span>
-                          </div>
-                          <input #inlineEditControl class="form-control" [required]="required" (blur)="onBlur($event)" #nomCUser="ngModel" [name]="value" [(ngModel)]="value" [type]="type" [placeholder]="nomUser" />
-                        </div>
-                      </div>
-                      <div *ngIf="!editing">
-                        <div title="Click to edit" (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit">
-                          Nombre Completo
-                          <i class="cui-pencil"></i>
-                          {{value}}&nbsp;
-                        </div>
-                        <label class="block bold">{{nomUser}}</label>
-                      </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Correo</label>
-                      <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ellipsis">{{mailUser}}</label>
-                    </div>
+                <div *ngIf="!editing">
+                  <div title="Click to edit" (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit">
+                    Nombre Completo
+                    <i class="cui-pencil"></i>
+                    {{value}}&nbsp;
                   </div>
-                  <div class="row">&nbsp;</div>
-                  <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Perfil</label>
-                      <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ellipsis">{{perfilUser}}</label>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                      <div *ngIf="editing">
-                        <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Teléfono</label>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="icon-phone"></i></span>
-                          </div>
-                          <input #inlineEditControl class="form-control" [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value" [type]="type" [placeholder]="telUser" />
-                        </div>
-                      </div>
-                      <div *ngIf="!editing">
-                        <div title="Click para editar" (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit">
-                            Teléfono
-                          <i class="cui-pencil"></i>
-                          {{value}}&nbsp;
-                        </div>
-                        <label class="block bold">{{telUser}}</label>
-                      </div>
-                    </div>
-                  </div>
+                  <label class="block bold">{{nomUser}}</label>
                 </div>
               </div>
-            </form>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Correo</label>
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ellipsis">{{mailUser}}</label>
+              </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Perfil</label>
+                <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ellipsis">{{perfilUser}}</label>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div *ngIf="editing">
+                  <label class="col-xs-12 col-sm-12 col-md-12 col-lg-12">Teléfono</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-phone"></i></span>
+                    </div>
+                    <input #inlineEditControl class="form-control" [required]="required" (blur)="onBlur($event)" [name]="value" [(ngModel)]="value" [type]="type" [placeholder]="telUser" />
+                  </div>
+                </div>
+                <div *ngIf="!editing">
+                  <div title="Click para editar" (click)="edit(value)" (focus)="edit(value);" tabindex="0" class="inline-edit">
+                      Teléfono
+                    <i class="cui-pencil"></i>
+                    {{value}}&nbsp;
+                  </div>
+                  <label class="block bold">{{telUser}}</label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-pill btn-default" (click)="modalRef.hide()">Cerrar</button>
-          <button *ngIf="editing" type="button" class="btn btn-pill btn-primary" (click)="actualiza(templateNested)">Actualizar</button>
-        </div>
-
-<ng-template #templateNested>
-  <div class="modal-header">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col">
-          <h3>Gracias</h3><br/>
-          <h4>Los datos se actualizaron correctamente.</h4>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
-  <div class="modal-footer">
-    <button *ngIf="modalRef" type="button" class="btn btn-danger" (click)="modalRef2.hide()">Entendido</button>
+  <div class="row">
+    <div class="col align-self-center">
+      <button *ngIf="editing" type="button" class="btn btn-pill btn-primary" (click)="actualiza()">Actualizar</button>
+    </div>
   </div>
-</ng-template>
+</div>

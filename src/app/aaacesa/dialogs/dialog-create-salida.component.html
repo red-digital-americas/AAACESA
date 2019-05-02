@@ -2,11 +2,32 @@
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Nueva Salida - Paso 1</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+      <div class="row" style="margin-bottom:15px">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" class="" [(ngModel)]="nueva_salida.Master" formControlName="firstCtrl" placeholder="Guía Master" />
+              </mat-form-field>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" class="" [(ngModel)]="nueva_salida.House" formControlName="firstCtrl" placeholder="Guía House" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          uuuu
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <mat-form-field class="input-full-width">
+            <input matInput type="text" class="" [(ngModel)]="nueva_salida.Referencia" formControlName="firstCtrl" placeholder="Guía House" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 offset-md-5">
+        <button mat-button matStepperNext class="btn btn-block btn-outline-primary">Siguiente</button>
       </div>
     </form>
   </mat-step>

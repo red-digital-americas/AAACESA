@@ -6,7 +6,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AbandonoComponent } from './abandono.component';
 
 import { AbandonoRoutingModule } from './abandono-routing.module';
-import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule } from '@angular/material';
+import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatInputModule } from '@angular/material';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,14 +16,15 @@ import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIc
     FormsModule,
     HttpModule,
     MatDatepickerModule,
+    MatInputModule,
     MatTabsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    SharedModule
   ],
   declarations: [
-    // DataTableComponent,
     AbandonoComponent,
   ]
 })

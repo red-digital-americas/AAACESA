@@ -1,122 +1,99 @@
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">{{title}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalCrea.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #creaUserForm="ngForm">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
-              </mat-form-field>
-              <mat-error *ngIf="nomUser.hasError('required')">
-                El Nombre es requerido
-              </mat-error>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
-              </mat-form-field>
-              <mat-error *ngIf="paternoUser.hasError('required')">
-                El Apellido paterno es requerido
-              </mat-error>
-            </div>
-            <div class="col-md-4 ml-auto">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
-              </mat-form-field>
-              <mat-error *ngIf="maternoUser.hasError('required')">
-                El Apellido materno es requerido
-              </mat-error>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
-              </mat-form-field>
-              <mat-error *ngIf="telefonoUser.hasError('required')">
-                El Teléfono es requerido
-              </mat-error>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput [(ngModel)]="patenteUser" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
-              </mat-form-field>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-4 styled-select">
-              <mat-form-field class="input-full-width">
-                <select matNativeControl [(ngModel)]="perfilUser" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
-                  <option label="--Selecciona el perfil --"></option>
-                  <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
-                </select>
-                <mat-error *ngIf="selPerfilUser.hasError('required')">
-                  El perfil es requerido
+<div class="container mt-3 mb-5">
+  <div class="row">
+    <div class="col">
+      <form #creaUserForm="ngForm">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+                </mat-form-field>
+                <mat-error *ngIf="nomUser.hasError('required')">
+                  El Nombre es requerido
                 </mat-error>
-              </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+                </mat-form-field>
+                <mat-error *ngIf="paternoUser.hasError('required')">
+                  El Apellido paterno es requerido
+                </mat-error>
+              </div>
+              <div class="col-md-4 ml-auto">
+                <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+                </mat-form-field>
+                <mat-error *ngIf="maternoUser.hasError('required')">
+                  El Apellido materno es requerido
+                </mat-error>
+              </div>
+          </div>
+          <div class="row mt-3">
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
+                </mat-form-field>
+                <mat-error *ngIf="telefonoUser.hasError('required')">
+                  El Teléfono es requerido
+                </mat-error>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly>
+                <span matPrefix>RFC:&nbsp;</span>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                <input type="text" matInput [(ngModel)]="patenteUser" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
+                <span matPrefix>Patente:&nbsp;</span>
+                </mat-form-field>
+              </div>
+          </div>
+          <div class="row mt-3">
+              <div class="col-md-4 styled-select">
+                <mat-form-field class="input-full-width">
+                  <select matNativeControl [(ngModel)]="perfilUser" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
+                    <option label="--Selecciona el perfil --"></option>
+                    <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
+                  </select>
+                  <mat-error *ngIf="selPerfilUser.hasError('required')">
+                    El perfil es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+              <input type="text" matInput  [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+              <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
+                Ingrese un correo valido
+              </mat-error>
+              <mat-error *ngIf="emailUser.hasError('required')">
+                  El Correo es requerido
+              </mat-error>
+              </mat-form-field> 
             </div>
-          <div class="col-md-4">
-            <mat-form-field class="input-full-width">
-            <input type="text" matInput  [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-            <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
-              Ingrese un correo valido
-            </mat-error>
-            <mat-error *ngIf="emailUser.hasError('required')">
-                El Correo es requerido
-            </mat-error>
-            </mat-form-field> 
+            <div class="col-md-4">
+              <label class="mr-5">Subir imagen</label>
+              <label for="file-multiple-input">
+                <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
+              </label>
+              <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+            </div>
           </div>
-          <div class="col-md-4">
-            <label class="mr-5">Subir imagen</label>
-            <label for="file-multiple-input">
-              <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
-            </label>
-            <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+          <div class="row">
+            <div class="col">
+              <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
+          <div class="row mt-3 align-items-center">
+            <div class="col text-center">
+              <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="guardaUsuario()" [disabled]="creaUserForm.invalid">Enviar</button>
+            </div>
           </div>
         </div>
-        <div class="row mt-3 align-items-center">
-          <div class="col text-center">
-            <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="guardaUsuario(templateNested)" [disabled]="creaUserForm.invalid">Enviar</button>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-pill btn-default" (click)="modalCrea.hide()">Cerrar</button>
-  </div>
-<ng-template #templateNested>
-    <div class="modal-header">
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalCrea2.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col">
-            <h3>Gracias</h3><br/>
-            <h4>Se creo el usuario correctamente.</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="modalCrea2.hide()">Entendido</button>
-    </div>
-  </ng-template>
+</div>

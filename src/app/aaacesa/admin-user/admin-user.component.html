@@ -1,6 +1,5 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="container">
-  <div class="row justify-content-end" *ngIf="numCuentas > 0">
+  <div class="row justify-content-end" *ngIf="numCuentas && rolUser">
     <div class="col-lg-6 col-md-6 col-xs-6 text-right">
       <button (click)="crearUser()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
     </div>
@@ -12,13 +11,13 @@
       <div class="row mb-3">
         <div class="col-md-4 offset-md-8">
           <mat-form-field class="input-full-width">
-            <input matInput (keyup)="applyFilter($event.target.value)" type="text" class="form-control" placeholder="Buscar..." />
+            <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
             <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
           </mat-form-field>
         </div>
       </div>
       <div class="table-responsive">
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
 
           <!-- Nombre Column -->
           <ng-container matColumnDef="nombre">
@@ -55,7 +54,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
             <td mat-cell *matCellDef="let element">
               <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">
-                <input type="checkbox" class="switch-input" [checked]="element.IsBlocked">
+                <input type="checkbox" class="switch-input" [checked]="!element.IsBlocked" (change)="changed($event, element.Id)">
                 <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
               </label>
             </td>
