@@ -1,16 +1,19 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 
 ///////////
 // API Services 
 import { ApiServices } from '../../services/api.services';
 
-import { PrevioNuevo, PrevioBusqueda } from '../../models/previos.model';
+///////////
+// Modelos Previos
+import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento } from '../../models/previos.model';
+
 
 @Component({
   templateUrl: './previos.component.html',
@@ -30,17 +33,23 @@ export class PreviosComponent  {
   showAdvanceSearch = true; // Don't Change
   busquedaModel:PrevioBusqueda = new PrevioBusqueda();  
   fechaPrevioSearch:Date = null;
-  estatusSearch:any = "";
-  // rangoFechaSearch: any = [new Date(2017, 7, 4), new Date(2017, 7, 20)];
+  estatusSearch:any = "";  
   rangoFechaSearch:any = [];
   
   ///////////////////////
-  // Mat Table
-  displayedColumns: string[] = ['Master', 'House', 'Patente', 'Nombre', 'FechaPrevio', 'Referencia', 'Etiquetado', 'Estatus', 'Acciones'];  
-  dataSource = new MatTableDataSource();
+  // Status Filter Bar
+  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
+  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+
+  ///////////////////////
+  // Mat Table  
+  public data = [];                         // Data original consultada del servicio  
+  public detailData = {};                   // Registro con el detalle obtenido
+  dataSource = new MatTableDataSource();    // Data usada en la Mat Table
+
+  displayedColumns: string[] = ['Master', 'House', 'Patente', 'Nombre', 'FechaPrevio', 'Referencia', 'Etiquetado', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;     
@@ -57,31 +66,9 @@ export class PreviosComponent  {
         default: { return item[property];} 
       }
     };
-  }
-
-
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
-  
-  // Date Picker
-  bsValue2: any = '';
-  bsFechaPrevio: any = '';  
-
-  public filterData;
-  public data = [];
-  public detailData = {};
-  public filterQuery = '';
-
-  ////////////////////////
-  // Forms    
-  model:PrevioNuevo = new PrevioNuevo();    
-  nFiles = [];      // Usado para poder añadir mas archivos en la parte del formulario crear Pre Alerta
-  response = "";    // Respuesta al momento de crear Pre Alerta
-  @ViewChild('form1', { read: NgForm }) form1: any;   // Referencia al form de la vista
-  @ViewChild('form2', { read: NgForm }) form2: any;   // Referencia al form2 de la vista
-  
-
-  constructor(private http: Http, private apiService:ApiServices) {            
+  }            
+    
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog) {            
     this.buscarPrevios();
 
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
@@ -143,8 +130,7 @@ export class PreviosComponent  {
     this.apiService.service_general_get_with_params('/AdelantoPrevios/Busqueda', this.busquedaModel)
       .subscribe ( 
       (response:any) => {                 
-        this.data = response;
-        // this.filterData = this.data;
+        this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
       }, 
@@ -153,8 +139,7 @@ export class PreviosComponent  {
     // http.get('assets/Previos/previos.json')
     //   .subscribe((data) => {
     //       this.data = data.json();
-    //       this.filterData = this.data;
-    //       this.dataSource.data = this.filterData;
+    //       this.dataSource.data = this.data;
     //       this.updateCountStatus();
     //   });  
   }
@@ -199,18 +184,120 @@ export class PreviosComponent  {
     //   });    
   }
 
-  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCreatePreviosComponent, {
+      // width: '95%',        
+      disableClose: true,
+      data: { }      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');      
+    });
+  } 
+}
 
 
-  private fileToBase64 (file) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      console.log(reader.result);
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
+//////////////////////////
+// Stepper
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: '../dialogs/dialog-create-previos.component.html',
+  providers: [FormBuilder]
+})
+export class DialogCreatePreviosComponent implements OnInit {
+
+  isLinear = true;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+    
+  model:PrevioNuevo = new PrevioNuevo();  
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogCreatePreviosComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      masterCtrl: ['', Validators.required],
+      houseCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      nombreCtrl: ['', Validators.required],
+      paternoCtrl: ['', Validators.required],
+      maternoCtrl: ['', Validators.required],
+      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      fechaPrevioCtrl: ['', Validators.required],
+      numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      etiquetadoCtrl: [false, Validators.required],
+      comentarioCtrl: [''],    
+    });
+    
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  //////////////////////////////////
+  // Forms Logic - Crear Pre Alerta      
+  stepClick(event) {
+    // console.log(event)
+    if (event.selectedIndex === 3){
+      this.guardarFirstForm();
+    }
+  }
+
+  guardarFirstForm () {
+    // console.log(this.firstFormGroup.value);
+    // console.log(this.secondFormGroup.value);
+    this.model.Master = this.firstFormGroup.value.masterCtrl;
+    this.model.House = this.firstFormGroup.value.houseCtrl;
+    this.model.Nombre = this.secondFormGroup.value.nombreCtrl;
+    this.model.Paterno = this.secondFormGroup.value.paternoCtrl;
+    this.model.Materno = this.secondFormGroup.value.maternoCtrl;
+    this.model.Patente = this.secondFormGroup.value.patenteCtrl;
+    this.model.FechaPrevio = this.secondFormGroup.value.fechaPrevioCtrl;
+    this.model.NumGafete = this.secondFormGroup.value.numGafeteCtrl;
+    this.model.Piezas = this.secondFormGroup.value.piezasCtrl;
+    this.model.Peso = this.secondFormGroup.value.pesoCtrl;
+    this.model.Etiquetado = this.secondFormGroup.value.etiquetadoCtrl;
+    if (this.secondFormGroup.value.comentarioCtrl == "") {      
+      this.model.Seguimiento = [];
+    } else {
+      let seg:Seguimiento = new Seguimiento();
+      seg.Comentarios = this.secondFormGroup.value.comentarioCtrl;
+      let segArray:Seguimiento[] = [seg];
+      this.model.Seguimiento = segArray;
+    }
+
+    // console.log(this.model);
+  }
+
+  removeDocument (index) { this.model.Documentos.splice(index, 1); }
+
+  onFileChanged(event) {    
+    for (let i = 0; i < event.target.files.length; i++) {
+      if (event.target.files[i].type != "application/pdf") { continue; }
+      if(this.model.Documentos.filter(
+        documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
+      {continue;}
+
+      let newDocumento = new Documento();
+      newDocumento.NombreDocumento = event.target.files[i].name;
+
+      let reader = new FileReader();    
+      reader.readAsDataURL(event.target.files[i]);
+      reader.onload = () => {
+        // console.log(reader.result);
+        newDocumento.Archivo = reader.result.slice(28).toString();        
+        this.model.Documentos.push(newDocumento);
+      };
+      reader.onerror = (error) => {
+        console.log(error);        
+      };                    
+   }
+  }
 }

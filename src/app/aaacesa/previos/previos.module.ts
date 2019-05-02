@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //////////////////////////
 // Vendors Components
@@ -22,11 +22,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select'; 
+import { MatStepperModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 /////////////////////
 // Components
-import { PreviosComponent } from './previos.component';
+import { PreviosComponent, DialogCreatePreviosComponent } from './previos.component';
 
 ////////////////
 // Routing
@@ -43,7 +46,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     DataTableModule,
     FormsModule,
-// tslint:disable-next-line: deprecation
+    ReactiveFormsModule,
     HttpModule,
     MatDatepickerModule,
     TextMaskModule,
@@ -60,10 +63,17 @@ import { SharedModule } from '../shared/shared.module';
     MatAutocompleteModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    MatDialogModule,
+    MatStepperModule,
+    MatSlideToggleModule,
     SharedModule
   ],
   declarations: [
-    PreviosComponent
+    PreviosComponent,
+    DialogCreatePreviosComponent
+  ],
+  entryComponents: [
+    DialogCreatePreviosComponent
   ]
 })
 export class PreviosModule { }

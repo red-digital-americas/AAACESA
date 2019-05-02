@@ -35,8 +35,8 @@ export class PrevioNuevo {
     public Etiquetado:boolean = false;
     public Piezas:number;    
     public Peso:number;    
-    public Seguimiento:Seguimiento []; 
-    public Documentos:Documento [];
+    public Seguimiento:Seguimiento [] = []; 
+    public Documentos:Documento [] = [];
 }
 
 //////////////
