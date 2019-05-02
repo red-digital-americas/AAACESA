@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //Vendor
 import { BsDatepickerModule } from 'ngx-bootstrap';                   // Datepicker
@@ -51,6 +52,7 @@ import { SharedModule } from '../shared/shared.module';
     BsDatepickerModule.forRoot(),
     NgxMatSelectSearchModule,
     MatSelectModule,
+    MatSnackBarModule,
     SharedModule
   ]
 })
