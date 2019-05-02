@@ -6,7 +6,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CalculadoraComponent } from './calculadora.component';
 
 import { CalculadoraRoutingModule } from './calculadora-routing.module';
-import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule } from '@angular/material';
+// tslint:disable-next-line: max-line-length
+import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,7 +20,10 @@ import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIc
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   declarations: [
     CalculadoraComponent,
