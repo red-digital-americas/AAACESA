@@ -55,16 +55,10 @@
                         <!-- <mat-icon matPrefix >event</mat-icon> -->
                     </mat-form-field>
                     
-                    <!-- <mat-form-field>
-                        <mat-label class="switch switch-pill switch-primary form-switch">Consolidado</mat-label>
-                        <input class="switch-input" checked>
-                          <span class="switch-slider"></span>
-                    </mat-form-field> -->
-                    
                     <div class="input-full-width form-group form-check">                    
-                      <label for="consolidado" class="form-check-label">Cadena Fría</label>
+                      <label for="cadena" class="form-check-label">Cadena Fría</label>
                         <label class="switch switch-pill switch-primary form-switch">                  
-                          <input id="cadena " type="checkbox" class="switch-input" checked>
+                          <input id="cadena " type="checkbox" class="switch-input" (click)="frio=!frio">
                           <span class="switch-slider"></span>
                         </label>
                     </div>
