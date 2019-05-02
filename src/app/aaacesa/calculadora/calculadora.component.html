@@ -5,7 +5,7 @@
         <div class="col-sm-12 col-md-8 col-lg-8">
           <div class="row">
             <p>Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</p>
-            <h4>Ingresa los datos solicitados a continuación.</h4>
+            <h6>Ingresa los datos solicitados a continuación.</h6>
           </div>
           <div class="row justify-content-center">
             <div class="col-sm-12 col-md-6 col-lg-6">                
@@ -22,43 +22,84 @@
                     </mat-select>                  
                   </mat-form-field> -->              
               <div class="input-group">
-                <mat-form-field class="input-full-width">
+                <mat-form-field>
                   <mat-select>
+                      <mat-label>CVE / Tipo Entrada</mat-label>
                       <mat-option>
-                          <input matInput class="form-control" placeholder="CVE / Tipo Entrada">
+                          <input matInput class="form-control input-full-width" placeholder="CVE / Tipo Entrada">
                       </mat-option>
                   </mat-select>
                 </mat-form-field> 
                 
-                <mat-form-field class="input-full-width">
-                  <input matInput class="form-control" placeholder="Peso: 590 kg" required>
+                <mat-form-field>
+                  <input matInput class="form-control input-full-width" placeholder="Peso: 590 kg" required>
                 </mat-form-field>   
   
-                <mat-form-field class="input-full-width">
-                  <input matInput class="form-control" placeholder="Valor aduana">
+                <mat-form-field>
+                  <input matInput class="form-control input-full-width" placeholder="Valor aduana">
                 </mat-form-field>    
 
-                <mat-form-field class="input-full-width">
+                <mat-form-field>
                   <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                  <input matInput type="text" class="form-control" placeholder="Fecha de Entrada">                
+                  <input matInput type="text" class="form-control" placeholder="Fecha de Entrada">
+                  <mat-icon>calendar_today</mat-icon>               
                   <!-- <mat-icon matPrefix >event</mat-icon> -->
                 </mat-form-field>
 
-                <mat-form-field class="input-full-width">
+                <mat-form-field>
                     <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                    <input matInput type="text" class="form-control" placeholder="Fecha de Salida">                
+                    <input matInput type="text" class="form-control input-full-width" placeholder="Fecha de Salida">
+                    <mat-icon>calendar_today</mat-icon>              
                     <!-- <mat-icon matPrefix >event</mat-icon> -->
                 </mat-form-field>
                 
-                <div class="form-control form-group form-check">
-                    <label for="consolidado" class="form-check-label">Consolidado</label>
+                <!-- <mat-form-field>
+                    <mat-label class="switch switch-pill switch-primary form-switch">Consolidado</mat-label>
+                    <input class="switch-input" checked>
+                      <span class="switch-slider"></span>
+                </mat-form-field> -->
+                
+                <div class="input-full-width form-control form-group form-check">                    
+                  <label for="consolidado" class="form-check-label">Consolidado</label>
                     <label class="switch switch-pill switch-primary form-switch">                  
                       <input id="consolidado" type="checkbox" class="switch-input" checked>
                       <span class="switch-slider"></span>
                     </label>
-                </div>   
+                </div>
+                <mat-checkbox class="input-full-width">Términos y condiciones</mat-checkbox> 
+                
+                <button mat-raised-button class="btn btn-pill btn-primary">CALCULAR</button>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="row">
+            <h6>Cálculo de Maniobras</h6>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              Costo de congelación
+            </div>
+            <div class="col-6">
+              <mat-form-field class="form-control input-full-width"></mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col-6">
+               Costo custodia
+             </div>
+             <div class="col-6">
+               <mat-form-field class="form-control input-full-width"></mat-form-field>
+             </div>
+          </div>
+          <div class="row">
+             <div class="col-6">
+               Costo maniobra
+             </div>
+             <div class="col-6">
+               <mat-form-field class="form-control input-full-width"></mat-form-field>
+             </div>
           </div>
         </div>
       </div>

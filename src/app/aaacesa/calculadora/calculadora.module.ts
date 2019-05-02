@@ -7,7 +7,7 @@ import { CalculadoraComponent } from './calculadora.component';
 
 import { CalculadoraRoutingModule } from './calculadora-routing.module';
 // tslint:disable-next-line: max-line-length
-import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
+import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatCheckboxModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -23,7 +23,9 @@ import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIc
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   declarations: [
     CalculadoraComponent,
