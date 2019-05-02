@@ -36,7 +36,7 @@ export const navItems = [
   },
   {
     name: 'Cálculo Maniobras',
-    url: '/plugins/calendar',
+    url: '/calculadora',
     icon: 'cui-calculator',
   },
   {

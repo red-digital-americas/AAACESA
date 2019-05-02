@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, ViewEncapsulation } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiServices } from '../../services/api.services';
@@ -8,23 +8,34 @@ export interface DialogData {
   name: string;
 }
 
+export interface Salidas {
+  IdAdelantoSalidas: string,
+  Master: string,
+  House: string,
+  Correo: string,
+  RFCFacturar: string,
+  Pedimento: string,
+  FechaCreacion: string,
+  Estatus: string
+}
+
+
 @Component({
   selector: 'app-salidas',
   templateUrl: './salidas.component.html',
-  styleUrls: ['./salidas.component.scss'],
+  styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
+              '../../../scss/vendors/ng-select/ng-select.scss',
+    './salidas.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [ApiServices]
 })
 export class SalidasComponent implements OnInit {
 
-  displayedColumns: string[] = ['Master', 'House', 'Pedimento', 'RFC', 'Fecha', 'Estatus', 'Acciones'];
-  dataSource = new MatTableDataSource();
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
+  displayedColumns: string[] = ['Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaCreacion', 'Estatus', 'Acciones'];
+  dataSource: MatTableDataSource<Salidas>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  estatusCatalogo = [];
 
   public data;
   animal: string;
@@ -43,15 +54,29 @@ export class SalidasComponent implements OnInit {
       "Estatus": "",
       "Referencia": ""
     }).subscribe((data) => {
-      console.log(data);
-      this.dataSource = data;
-    });
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      });
+
+    this.apiservices.service_general_get('/Catalogos/GetCatalogoEstatus')
+      .subscribe(
+        (response: any) => { this.estatusCatalogo = response; },
+        (errorService) => { console.log(errorService); });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+
+  //ngAfterViewInit() {
+  //  this.dataSource.paginator = this.paginator;
+  //  this.dataSource.sort = this.sort;
+  //}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreateSalidaComponent, {
