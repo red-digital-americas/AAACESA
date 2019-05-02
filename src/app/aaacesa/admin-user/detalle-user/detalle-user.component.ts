@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef, Inject } from '@angular/core';
 import { ApiServices } from '../../../services/api.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -26,7 +26,7 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   mailUser;
   telUser;
   
-  modalRef2: BsModalRef;
+  // modalRef2: BsModalRef;
 
   private _value: string = ''; // Private variable for input value
   preValue: string = ''; // The value before clicking to edit
@@ -34,10 +34,10 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   onChange: any = Function.prototype; // Trascend the onChange event
   onTouched: any = Function.prototype; // Trascend the onTouch event
 
-  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private apiservices: ApiServices) { }
+  constructor(private apiservices: ApiServices, private dialogRef: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-     this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.cveCliente).subscribe((res)=>{
+     this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.data.cveCliente).subscribe((res)=>{
       console.log(res);
       this.nomUser = res.Nombre+" "+res.Paterno+" "+res.Materno;
       this.perfilUser = res.Perfil['ClavePerfil'];
@@ -47,9 +47,9 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   }
 
   actualiza(template: TemplateRef<any>) {
-    this.modalRef2 = this.modalService.show(template, { class: 'second' });
-    this.modalRef.hide();
-    this.modalRef = null;
+    // this.modalRef2 = this.modalService.show(template, { class: 'second' });
+    // this.modalRef.hide();
+    // this.modalRef = null;
   }
 
 

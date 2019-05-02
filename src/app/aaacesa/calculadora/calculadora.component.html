@@ -1,0 +1,67 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-sm-12 col-md-8 col-lg-8">
+          <div class="row">
+            <p>Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</p>
+            <h4>Ingresa los datos solicitados a continuación.</h4>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6 col-lg-6">                
+                <!-- <mat-form-field class="input-full-width">
+                    <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
+                      <mat-option>                      
+                        <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                      </mat-option>
+                      <mat-option>Ninguno</mat-option>
+                      
+                      <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
+                        {{option.Descripcion}}
+                      </mat-option>
+                    </mat-select>                  
+                  </mat-form-field> -->              
+              <div class="input-group">
+                <mat-form-field class="input-full-width">
+                  <mat-select>
+                      <mat-option>
+                          <input matInput class="form-control" placeholder="CVE / Tipo Entrada">
+                      </mat-option>
+                  </mat-select>
+                </mat-form-field> 
+                
+                <mat-form-field class="input-full-width">
+                  <input matInput class="form-control" placeholder="Peso: 590 kg" required>
+                </mat-form-field>   
+  
+                <mat-form-field class="input-full-width">
+                  <input matInput class="form-control" placeholder="Valor aduana">
+                </mat-form-field>    
+
+                <mat-form-field class="input-full-width">
+                  <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
+                  <input matInput type="text" class="form-control" placeholder="Fecha de Entrada">                
+                  <!-- <mat-icon matPrefix >event</mat-icon> -->
+                </mat-form-field>
+
+                <mat-form-field class="input-full-width">
+                    <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
+                    <input matInput type="text" class="form-control" placeholder="Fecha de Salida">                
+                    <!-- <mat-icon matPrefix >event</mat-icon> -->
+                </mat-form-field>
+                
+                <div class="form-control form-group form-check">
+                    <label for="consolidado" class="form-check-label">Consolidado</label>
+                    <label class="switch switch-pill switch-primary form-switch">                  
+                      <input id="consolidado" type="checkbox" class="switch-input" checked>
+                      <span class="switch-slider"></span>
+                    </label>
+                </div>   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
