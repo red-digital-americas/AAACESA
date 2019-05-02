@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef, Inject } from '@angular/core';
 import { ApiServices } from '../../../services/api.services';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserData } from '../../../models/user.models';
 
 @Component({
   selector: 'app-crear-user',
@@ -11,48 +12,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CrearUserComponent implements OnInit {
 
-  nombreUser:   string;
-  aPaternoUser: string;
-  aMaternoUser: string;
-  telUser:      string;
-  rfcUser:      string = this.data.rfcUser;
-  patenteUser:  string = this.data.patenteUser;
-  razonSocUser:  string = this.data.razonSocUser;
-  perfilUser:   string;
   getPerfilUser:   string;
-  mailUser:     string;
-  fotoUser:     string;
-  tipoUser:     string = this.data.tipoUser;
-  numCuentUser: string="";
   idAdminUSer;
+  public crearUser: UserData= new UserData();
 
-  constructor(private apiservices: ApiServices,private dialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private apiservices: ApiServices,private dialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar ) { }
 
   ngOnInit() {
+    this.crearUser.RFC = this.data.rfcUser;
+    this.crearUser.RazonSocial = this.data.razonSocUser;
+    this.crearUser.ClavePatente = this.data.patenteUser;
+    this.crearUser.TipoCliente = this.data.tipoUser;
     this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
       this.getPerfilUser = res;
     });
   }
 
-  guardaUsuario(obj) {
-    console.log(this.data.patenteUser);
-    this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta",
-      {
-        "ClavePatente" : this.data.patenteUser,
-        "TipoCliente" : this.data.tipoUser,
-        "RazonSocial" : this.data.razonSocUser,
-        "RFC" : this.data.rfcUser,
-        "NumCuentas" : this.numCuentUser,
-        "Correo" : this.mailUser,
-        "Nombre" : this.nombreUser,
-        "Paterno" : this.aPaternoUser,
-        "Materno" : this.aMaternoUser,
-        "Telefono" : this.telUser,
-        "Perfil" : {
-          "ClavePerfil" : this.perfilUser
-        }
-      }
-    ).subscribe((value) => {
+  guardaUsuario() {
+    console.log(this.crearUser);
+    this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
       console.log(value);
     }, 
     (err: HttpErrorResponse) => { 
@@ -65,8 +43,19 @@ export class CrearUserComponent implements OnInit {
     });
   }
 
-  login(obj){
-    console.log("Creado");
+  validar_campos(event) {
+    for (var i = 0; i < event.length; i++) {
+      console.log(event[i].name);
+      if (!event[i].valid) {
+        $("#" + event[i].name).focus();
+        break;
+      }
+    }
+    this.snackBar.open("Algunos campos necesitan ser revisados", "", {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
 }

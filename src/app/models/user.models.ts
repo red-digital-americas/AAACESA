@@ -11,21 +11,22 @@ export class UserAuth {
 
   export class UserData {
     constructor() { }
+    public ClavePatente: string ="";
+    public TipoCliente: string ="";
+    public RazonSocial: string ="";
+    public RFC: string ="";
+    public NumCuentas: string ="";
+    public Correo: string ="";
     public Nombre: string ="";
     public Paterno: string ="";
     public Materno: string ="";
-    public CvePerfil: string ="";
-    public TipoCliente: string ="";
-    public RazonSocial: string ="";
-    public ClavePatente: string ="";
-    public NumCuentas: string ="";
-    public Modulos: ModulosUser[]=[];
+    public Telefono: string ="";
+    public Perfil: PerfilUser[]=[];
   }
 
-  export class ModulosUser{
+  export class PerfilUser{
     constructor() { }
-    public ClaveModulo: string ="";
-    public Detalle: string ="";
+    public ClavePerfil: string ="";
   }
 
   export class UserFoto {
