@@ -21,7 +21,8 @@ import { ApiServices } from '../../services/api.services';
 
 export class CalculadoraComponent implements OnInit {
   fechaPrevioSearch:Date = null;
-  tyc: false;
+  tyc =  false;
+  frio = false;
 
   options: FormGroup;
 
