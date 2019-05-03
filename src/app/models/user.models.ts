@@ -21,11 +21,10 @@ export class UserAuth {
     public Paterno: string ="";
     public Materno: string ="";
     public Telefono: string ="";
-    public Perfil: PerfilUser[]=[];
+    public Perfil: PerfilUser= new PerfilUser();
   }
 
   export class PerfilUser{
-    constructor() { }
     public ClavePerfil: string ="";
   }
 

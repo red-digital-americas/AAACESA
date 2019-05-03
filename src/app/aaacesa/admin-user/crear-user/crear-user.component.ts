@@ -3,6 +3,8 @@ import { ApiServices } from '../../../services/api.services';
 import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserData } from '../../../models/user.models';
+import { AbstractControl } from '@angular/forms';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-crear-user',
@@ -11,10 +13,22 @@ import { UserData } from '../../../models/user.models';
   providers: [ApiServices]
 })
 export class CrearUserComponent implements OnInit {
-
+  //Perfil Admin
+  rolAdminUSer:string=this.data.rolAdmin;
+  visible: boolean=false;
+  rfcVisible:boolean=false;
+  RFCcliente;
+  getRFCcliente;
+  //Crear Usuario
   getPerfilUser:   string;
-  idAdminUSer;
+  final: boolean=false;
+  mensaje="";
+  public rfcCliente:string;
   public crearUser: UserData= new UserData();
+
+  public phoneModel = '';
+  public phoneMask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
 
   constructor(private apiservices: ApiServices,private dialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar ) { }
 
@@ -23,22 +37,39 @@ export class CrearUserComponent implements OnInit {
     this.crearUser.RazonSocial = this.data.razonSocUser;
     this.crearUser.ClavePatente = this.data.patenteUser;
     this.crearUser.TipoCliente = this.data.tipoUser;
+    
+    this.visible=(this.rolAdminUSer=='ADMIN')?true:false;
     this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
       this.getPerfilUser = res;
     });
   }
 
+  crearUserByAdmin(){
+    
+  }
+
+  buscaRFCUsuario(){
+    console.log(this.rfcCliente);
+    this.rfcVisible=true;
+    // this.apiservices.service_general_get("/Catalogos/GetClientes"+this.rfcCliente).subscribe((res)=>{
+    //   console.log(res);
+    //   this.getRFCcliente  = res;
+    // });
+  }
+
   guardaUsuario() {
-    console.log(this.crearUser);
+    this.crearUser.Telefono =  this.crearUser.Telefono.replace(/\D+/g, '');
     this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
-      console.log(value);
+        this.final= (value.Result)?true:false;
+        this.mensaje = value.Description
     }, 
     (err: HttpErrorResponse) => { 
       console.log(err.error);
       if (err.error instanceof Error) {
-        console.error('An error occurred:', err.error.message);
+        this.sendAlert('Error:'+ err.error.message);
       } else {
-        console.error(`Backend returned code ${err.status}, body was: ${err.error}`);
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
       }
     });
   }
@@ -51,7 +82,11 @@ export class CrearUserComponent implements OnInit {
         break;
       }
     }
-    this.snackBar.open("Algunos campos necesitan ser revisados", "", {
+    this.sendAlert("Algunos campos necesitan ser revisados");
+  }
+
+  sendAlert(mensaje:string){
+    this.snackBar.open(mensaje, "", {
       duration: 5000,
       verticalPosition: 'bottom',
       horizontalPosition: 'right'
