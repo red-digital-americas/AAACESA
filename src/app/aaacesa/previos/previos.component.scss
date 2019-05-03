@@ -130,72 +130,71 @@ table{
 }  
 
 /* Status Filters Bar */
-.status-filter {    
-    position: relative;    
-    font-size: .8rem;    
+// .status-filter {    
+//     position: relative;    
+//     font-size: .8rem;    
 
-    &:not(:last-child) {
-        border-right: 2px solid #212649;  
-    }    
+//     &:not(:last-child) {
+//         border-right: 2px solid #212649;  
+//     }    
 
-    &__number {
-        font-weight: bold;
-    }
+//     &__number {
+//         font-weight: bold;
+//     }
 
-    &__text {
-        display: inline-block;
-    }    
+//     &__text {
+//         display: inline-block;
+//     }    
 
-    &__check {        
-        margin-left: .5rem;
-    }   
+//     &__check {        
+//         margin-left: .5rem;
+//     }   
 
-    &__circle {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;                       
-        margin-right: 10px;
-        background-color: white;
+//     &__circle {
+//         display: inline-block;
+//         width: 10px;
+//         height: 10px;
+//         border-radius: 50%;                       
+//         margin-right: 10px;
+//         background-color: white;
 
-        &--Aceptada {
-            background-color: #2ee836;
-        }
+//         &--Aceptada {
+//             background-color: #2ee836;
+//         }
 
-        &--Solicitada {
-            background-color: #18EDED;            
-        }
+//         &--Solicitada {
+//             background-color: #18EDED;            
+//         }
 
-        &--PAAACESA{
-            background-color: #fff500;
-        }
-        &--PCliente{
-            background-color: #ef5500;
-        }
-        &--Rechazada{
-            background-color: #ff0000;
-        }
-        &--Finalizada{
-            background-color: #596df2;
-        }
-        &--Cancelada{
-            background-color: #ff0000;
-        }
-    }
-}
+//         &--PendienteAAACESA{
+//             background-color: #fff500;
+//         }
+//         &--PendienteCliente{
+//             background-color: #ef5500;
+//         }
+//         &--Rechazada{
+//             background-color: #ff0000;
+//         }
+//         &--Finalizada{
+//             background-color: #596df2;
+//         }
+//         &--Cancelada{
+//             background-color: #ff0000;
+//         }
+//     }
+// }
 
 // Detalle
 .referencia{
     color: #212649;
     display: inline-block;
     text-align: left;
-    vertical-align: middle;
-    border-radius: 0.4rem;
+    vertical-align: middle;    
     background-color: transparent;
-    border: 1px solid #f3f4f5;
-    padding: 0.1em;
+    border-bottom: 1px solid #212649;
+    // padding: 0.1em;
     margin: 1em;
-    padding-top: 0.3em;
+    // padding-top: 0.3em;
     width: 80%;
 }
 

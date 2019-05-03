@@ -7,6 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StatusPipe implements PipeTransform {
 
   transform(status: string): any {
-    return status.replace('.', "");
+    return status.replace('.', "").replace(' ', '');
   }
 }
