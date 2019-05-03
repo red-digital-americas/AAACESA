@@ -21,7 +21,12 @@ import { ApiServices } from '../../services/api.services';
 
 export class CalculadoraComponent implements OnInit {
   fechaPrevioSearch:Date = null;
-  tyc: false;
+  tyc =  false;
+  frio = false;
+
+  calculos = ['Almacenaje', 'Costo de congelación', 'Costo custodia', 'Costo maniobra'];
+// tslint:disable-next-line: max-line-length
+  calcfrios = ['Almacenaje', 'Manejo por valor', 'Maniobras', 'Refrigeración', 'Congelación', 'Temperatura controlada', 'Maniobras previo', 'Subtotal', 'IVA', 'Total'];
 
   options: FormGroup;
 
