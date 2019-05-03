@@ -1,99 +1,160 @@
-<div class="container mt-3 mb-5">
-  <div class="row">
-    <div class="col">
-      <form #creaUserForm="ngForm">
-        <div class="container">
-          <div class="row">
+<h2 mat-dialog-title>Nuevo Usuario</h2>
+<mat-dialog-content class="mat-typography" *ngIf="!visible">
+  <div class="container mt-3 mb-5" *ngIf="!final">
+    <div class="row">
+      <div class="col">
+        <form #creaUserForm="ngForm">
+          <div class="container">
+            <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
-                  <input type="text" matInput [(ngModel)]="nombreUser" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+                  <input matInput type="text" [(ngModel)]="crearUser.Nombre" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+                  <mat-error *ngIf="nomUser.dirty || nomUser.pristine">
+                    El campo Nombre es <strong>requerido</strong>
+                  </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="nomUser.hasError('required')">
-                  El Nombre es requerido
-                </mat-error>
               </div>
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="aPaternoUser" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+                  <input type="text" matInput [(ngModel)]="crearUser.Paterno" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+                  <mat-error *ngIf="paternoUser.dirty || paternoUser.pristine">
+                    El campo Paterno es <strong>requerido</strong>
+                  </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="paternoUser.hasError('required')">
-                  El Apellido paterno es requerido
-                </mat-error>
               </div>
               <div class="col-md-4 ml-auto">
                 <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="aMaternoUser" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+                  <input type="text" matInput [(ngModel)]="crearUser.Materno" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+                  <mat-error *ngIf="maternoUser.dirty || maternoUser.pristine">
+                    El campo Materno es <strong>requerido</strong>
+                  </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="maternoUser.hasError('required')">
-                  El Apellido materno es requerido
-                </mat-error>
               </div>
-          </div>
-          <div class="row mt-3">
+            </div>
+            <div class="row mt-3">
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="telUser" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono" required>
-                </mat-form-field>
-                <mat-error *ngIf="telefonoUser.hasError('required')">
-                  El Teléfono es requerido
-                </mat-error>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="rfcUser" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly>
-                <span matPrefix>RFC:&nbsp;</span>
+                  <input type="text" matInput [(ngModel)]="crearUser.Telefono" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono"  [textMask]="{mask: phoneMask, guide: false, modelClean: true}" pattern="^\(?([0-9]{3})\)?[ ]?([0-9]{3})[-]?([0-9]{4})$" required>
+                  <mat-error *ngIf="telefonoUser.dirty || telefonoUser.pristine">
+                    El campo Teléfono es <strong>requerido</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
-                <input type="text" matInput [(ngModel)]="patenteUser" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
-                <span matPrefix>Patente:&nbsp;</span>
+                  <input type="text" matInput [(ngModel)]="crearUser.RFC" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly value="rfcUser" >
+                  <span matPrefix>RFC:&nbsp;</span>
                 </mat-form-field>
               </div>
-          </div>
-          <div class="row mt-3">
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput [(ngModel)]="crearUser.ClavePatente" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
+                  <span matPrefix>Patente:&nbsp;</span>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-3">
               <div class="col-md-4 styled-select">
                 <mat-form-field class="input-full-width">
-                  <select matNativeControl [(ngModel)]="perfilUser" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
+                  <select matNativeControl [(ngModel)]="crearUser.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
                     <option label="--Selecciona el perfil --"></option>
                     <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
                   </select>
                   <mat-error *ngIf="selPerfilUser.hasError('required')">
-                    El perfil es requerido
+                    El campo Perfil es <strong>requerido</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
-            <div class="col-md-4">
-              <mat-form-field class="input-full-width">
-              <input type="text" matInput  [(ngModel)]="mailUser" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-              <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
-                Ingrese un correo valido
-              </mat-error>
-              <mat-error *ngIf="emailUser.hasError('required')">
-                  El Correo es requerido
-              </mat-error>
-              </mat-form-field> 
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput  [(ngModel)]="crearUser.Correo" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                  <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
+                    El formato del campo es <strong>incorrecto</strong>
+                  </mat-error>
+                  <mat-error *ngIf="emailUser.hasError('required')">
+                    El campo Correo es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field> 
+              </div>
+              <div class="col-md-4">
+                <label class="mr-5">Subir imagen</label>
+                <label for="file-multiple-input">
+                  <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
+                </label>
+                <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+              </div>
             </div>
-            <div class="col-md-4">
-              <label class="mr-5">Subir imagen</label>
-              <label for="file-multiple-input">
-                <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
-              </label>
-              <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
+            <!-- <div class="row">
+              <div class="col">
+                <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
+              </div>
+            </div> -->
+            <div class="row mt-3 align-items-center">
+              <div class="col text-center">
+                <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm._directives)">Enviar</button>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col">
-              <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
-            </div>
-          </div>
-          <div class="row mt-3 align-items-center">
-            <div class="col text-center">
-              <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="guardaUsuario()" [disabled]="creaUserForm.invalid">Enviar</button>
-            </div>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+  <div class="container mt-3 mb-5" *ngIf="final">
+    <div class="row">
+      <div class="col">
+        {{ mensaje }}
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-content class="mat-typography" *ngIf="visible">
+  <div class="container mt-3 mb-5" *ngIf="!final">
+    <form #buscaUserForm="ngForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="input-full-width">
+              <input matInput type="text" [(ngModel)]="rfcCliente" #rfcCli="ngModel" id="rfcCli" name="rfcCli" placeholder="RFC del Cliente" required>
+              <mat-error *ngIf="rfcCli.dirty || rfcCli.pristine">
+                El campo RFC es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col text-center">
+            <button type="submit"  class="btn btn-md btn-pill btn-link" (click)="buscaUserForm.valid ? buscaRFCUsuario() : validar_campos(buscaUserForm._directives)">Buscar</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" *ngIf="rfcVisible">
+            <mat-form-field class="input-full-width">
+              <select matNativeControl [(ngModel)]="RFCcliente" #selgetRFCc="ngModel" name="selgetRFCc" id="selgetRFCc" required placeholder="Seleccione un cliente">
+                <option label="--Selecciona un cliente --"></option>
+                <option *ngFor="let item of getRFCcliente" [value]="item.ClavePerfil">{{item.ClavePerfil}} : {{ item.DescripcionPerfil}} </option>
+              </select>
+              <mat-error *ngIf="selgetRFCc.hasError('required')">
+                El campo RFC Cliente es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col text-center">
+            <button type="submit"  class="btn btn-md btn-pill btn-link" (click)="crearUserByAdmin()" >Enviar</button>
+          </div>
+        </div>
+        <div class="row mt-3 align-items-center">
+          
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="container mt-3 mb-5" *ngIf="final">
+    <div class="row">
+      <div class="col">
+        {{ mensaje }}
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-dialog-close class="btn btn-pill btn-primary">Cancelar</button>
+  <!-- <button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+</mat-dialog-actions>

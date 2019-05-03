@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CalculadoraComponent,
     data: {
-      title: 'Calculadora'
+      title: 'Calculo de Maniobras'
     }
   }
 ];
