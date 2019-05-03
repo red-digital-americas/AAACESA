@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 import { MatSort, MatTableDataSource, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 import { ApiServices } from '../../services/api.services';
+import { UserData } from '../../models/user.models';
 
 @Component({
   selector: 'app-admin-user',
@@ -14,8 +14,8 @@ import { ApiServices } from '../../services/api.services';
 })
 export class AdminUserComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'telefono', 'rfc', 'patente', 'perfil', 'activo', 'acciones'];
-  dataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['Nombre', 'Telefono', 'RFC', 'ClavePatente', 'ClavePerfil', 'IsBlocked', 'acciones'];
+  dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,10 +27,8 @@ export class AdminUserComponent implements OnInit {
   public myModal;
   public detalle;
   public rolUser : boolean = false;
-  modalRef: BsModalRef;
-  modalCrea: BsModalRef;
   
-  constructor(private http: Http, private modalService: BsModalService, private apiserv: ApiServices, private dialog: MatDialog,public snackBar: MatSnackBar ) {
+  constructor(private http: Http, private apiserv: ApiServices, private dialog: MatDialog,public snackBar: MatSnackBar ) {
    }
 
   ngOnInit() {
@@ -45,20 +43,20 @@ export class AdminUserComponent implements OnInit {
         this.numCuentas = true;
     });
     this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-      this.dataSource.data = data;
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
+  
   applyFilter(filterValue: string) {
-    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filter);
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+
 
   changed(evt, IdCliente){
 
@@ -89,19 +87,12 @@ export class AdminUserComponent implements OnInit {
     const dialogRef = this.dialog.open(CrearUserComponent,{
       width: '95%',
        data: {
-        rolAdmin: this.userData.Perfil,
+         rolAdmin: this.userData.Perfil['ClavePerfil'],
          patenteUser: this.userData.ClavePatente,
          rfcUser: this.userData.RFC,
          tipoUser: this.userData.TipoCliente,
          razonSocUser: this.userData.RazonSocial
        }
-      // data: {
-      //   rolAdmin: "ADMIN",
-      //   patenteUser: 3781,
-      //   rfcUser: "XXXXXXXXXX",
-      //   tipoUser:  "AA",
-      //   razonSocUser: "VICENTE RIVERA RAMOS"
-      // }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.sendAlert("La tabla se actualizó");

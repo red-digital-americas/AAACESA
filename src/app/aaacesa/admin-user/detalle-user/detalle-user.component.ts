@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef, Inject } 
 import { ApiServices } from '../../../services/api.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { UserData } from '../../../models/user.models';
 
 const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -15,8 +16,10 @@ const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
   providers: [ApiServices ,INLINE_EDIT_CONTROL_VALUE_ACCESSOR]
 })
 export class DetalleUserComponent implements ControlValueAccessor, OnInit {
-  @ViewChild('inlineEditControl') inlineEditControl; // input DOM element
+  @ViewChild('nomUser') inlineEditControl; // input DOM element
   @Input() nomUser: string = '';  // Label value for input element
+  @Input() apatUser: string = '';  // Label value for input element
+  @Input() amatUser: string = '';  // Label value for input element
   @Input() perfilUser: string = '';  // Label value for input element
   @Input() type: string = 'text'; // The type of input element
   @Input() required: boolean = false; // Is input requried?
@@ -25,6 +28,8 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
   cveCliente: string;
   mailUser;
   telUser;
+
+  public actualizaUser: UserData= new UserData();
   
   // modalRef2: BsModalRef;
 
@@ -38,15 +43,19 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
 
   ngOnInit() {
      this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.data.cveCliente).subscribe((res)=>{
-      console.log(res);
       this.nomUser = res.Nombre+" "+res.Paterno+" "+res.Materno;
+      this.actualizaUser.Nombre= res.Nombre;
+      this.actualizaUser.Paterno= res.Paterno;
+      this.actualizaUser.Materno= res.Materno;
       this.perfilUser = res.Perfil['ClavePerfil'];
       this.mailUser = res.Correo;
       this.telUser = res.Telefono;
     });
   }
 
-  actualiza(template: TemplateRef<any>) {
+  actualiza() {
+    console.log(this.actualizaUser);
+
     // this.modalRef2 = this.modalService.show(template, { class: 'second' });
     // this.modalRef.hide();
     // this.modalRef = null;
@@ -86,9 +95,11 @@ export class DetalleUserComponent implements ControlValueAccessor, OnInit {
 
   // Start the editting process for the input element
   edit(value) {
+
     if (this.disabled) {
       return;
     }
+    console.log(value);
     this.preValue = value;
     this.editing = true;
   }

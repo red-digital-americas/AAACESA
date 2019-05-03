@@ -155,14 +155,14 @@ table{
 }
 
 /*Select Input */
-.styled-select {
-    overflow: hidden;    
-    & select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
-}  
+// .styled-select {
+//     overflow: hidden;    
+//     & select {
+//         -webkit-appearance: none;
+//         -moz-appearance: none;
+//         appearance: none;
+//     }
+// }  
 
 /* Status Filters Bar */
 .status-filter {    
