@@ -4,7 +4,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 
 ///////////
 // API Services 
@@ -39,7 +39,7 @@ export class PreviosComponent  {
   ///////////////////////
   // Status Filter Bar
   public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PAAACESA': 0, 'PCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
 
   ///////////////////////
   // Mat Table  
@@ -80,8 +80,8 @@ export class PreviosComponent  {
   public updateCountStatus () {
     this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
     this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
+    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
+    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
     this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
     this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
     this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
@@ -192,7 +192,13 @@ export class PreviosComponent  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');      
+      console.log('The dialog was closed');   
+      console.log(result);
+      if (result === "true") {
+        // console.log("resultado true");
+        this.buscarPrevios();
+      }      
+      // this.buscarPrevios();
     });
   } 
 }
@@ -203,7 +209,7 @@ export class PreviosComponent  {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: '../dialogs/dialog-create-previos.component.html',
-  providers: [FormBuilder]
+  providers: [FormBuilder, ApiServices]
 })
 export class DialogCreatePreviosComponent implements OnInit {
 
@@ -212,14 +218,19 @@ export class DialogCreatePreviosComponent implements OnInit {
   secondFormGroup: FormGroup;
     
   model:PrevioNuevo = new PrevioNuevo();  
+  successResponse = false;
+  processingCreation = false;
+  responseMessage = "";
 
   constructor(
     public dialogRef: MatDialogRef<DialogCreatePreviosComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,
+    private apiService:ApiServices,
+    public snackBar: MatSnackBar ) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      masterCtrl: ['', Validators.required],
+      masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
@@ -237,20 +248,39 @@ export class DialogCreatePreviosComponent implements OnInit {
     
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  closeDialog(msj:string): void {    
+    this.dialogRef.close(msj);
   }
 
   //////////////////////////////////
   // Forms Logic - Crear Pre Alerta      
-  stepClick(event) {
-    // console.log(event)
+  stepClick(event) {    
+    console.log(event);
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
   }
 
-  guardarFirstForm () {
+  validarCampos(index) {   
+    console.log(index) ;
+    if(!this.firstFormGroup.valid && index === 0) {  
+      this.showAlert("Algunos campos necesitan ser revisados");    
+    } 
+    else if(!this.secondFormGroup.valid && index === 1) {  
+      this.showAlert("Algunos campos necesitan ser revisados");    
+    }    
+  }
+
+  private showAlert (msj:string) {
+    this.snackBar.open(msj, "", {
+      duration: 4000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }
+
+  guardarFirstForm () {    
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);
     this.model.Master = this.firstFormGroup.value.masterCtrl;
@@ -259,23 +289,55 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.model.Paterno = this.secondFormGroup.value.paternoCtrl;
     this.model.Materno = this.secondFormGroup.value.maternoCtrl;
     this.model.Patente = this.secondFormGroup.value.patenteCtrl;
-    this.model.FechaPrevio = this.secondFormGroup.value.fechaPrevioCtrl;
+    
+    let f = this.secondFormGroup.value.fechaPrevioCtrl.toISOString();       // 2019-11-23        
+    f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
+    this.model.FechaPrevio = f;    
+
     this.model.NumGafete = this.secondFormGroup.value.numGafeteCtrl;
     this.model.Piezas = this.secondFormGroup.value.piezasCtrl;
     this.model.Peso = this.secondFormGroup.value.pesoCtrl;
     this.model.Etiquetado = this.secondFormGroup.value.etiquetadoCtrl;
-    if (this.secondFormGroup.value.comentarioCtrl == "") {      
-      this.model.Seguimiento = [];
-    } else {
-      let seg:Seguimiento = new Seguimiento();
-      seg.Comentarios = this.secondFormGroup.value.comentarioCtrl;
-      let segArray:Seguimiento[] = [seg];
-      this.model.Seguimiento = segArray;
+    if (this.secondFormGroup.value.comentarioCtrl == "") {            
+      this.model.Seguimiento[0].Comentarios = "";
+    } else {      
+      this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    // console.log(this.model);
+    console.log(this.model);    
+    // console.log(this.model.FechaPrevio);    
   }
 
+  crearPrevio () {
+    if (this.processingCreation) { return; }
+    
+    this.processingCreation = true;
+    this.apiService.service_general_post(`/AdelantoPrevios/CrearAdelantoPrevios`, this.model)
+      .subscribe ( 
+      (response:any) => { 
+        console.log(response); 
+        if (response.Result) {
+          // this.dialogRef.close("true");
+          this.successResponse = true;
+          this.responseMessage = response.Description;          
+        } else {
+          this.showAlert(response.Description);
+        }
+        this.processingCreation = false;
+      }, 
+      (errorService) => { 
+        console.log(errorService);         
+
+        if(errorService.error.Description == undefined) {
+          this.showAlert(errorService.error);  
+        } else {
+          this.showAlert(errorService.error.Description);
+        }        
+        this.processingCreation = false;
+      });
+  }
+
+  /////// Paso3 - Subir Archivos
   removeDocument (index) { this.model.Documentos.splice(index, 1); }
 
   onFileChanged(event) {    

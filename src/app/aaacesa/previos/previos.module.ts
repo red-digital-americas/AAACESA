@@ -25,6 +25,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatStepperModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 /////////////////////
@@ -66,6 +67,7 @@ import { SharedModule } from '../shared/shared.module';
     MatDialogModule,
     MatStepperModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
     SharedModule
   ],
   declarations: [
