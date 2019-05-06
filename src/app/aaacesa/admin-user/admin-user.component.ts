@@ -42,11 +42,9 @@ export class AdminUserComponent implements OnInit {
       if(cuentas > 0)
         this.numCuentas = true;
     });
-    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+
+    this.getCuentasAsocUser()
+    
   }
   
   applyFilter(filterValue: string) {
@@ -78,8 +76,13 @@ export class AdminUserComponent implements OnInit {
       width: '95%',
       data: { 
         cveCliente: idCliente,
-         title: "Detalle de Usuario"
+        title: "Detalle de Usuario",
+        tipoPerfil: this.rolUser
        }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.sendAlert("La tabla se actualizó correctamente");
+      this.getCuentasAsocUser();    
     });
   }
 
@@ -96,9 +99,7 @@ export class AdminUserComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.sendAlert("La tabla se actualizó");
-      this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
-        this.dataSource.data = data;
-      });     
+      this.getCuentasAsocUser();
     });
   }
 
@@ -109,4 +110,13 @@ export class AdminUserComponent implements OnInit {
       horizontalPosition: 'right'
     });
   }
+
+  getCuentasAsocUser(){
+    this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
 }

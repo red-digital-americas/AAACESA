@@ -1,12 +1,12 @@
 // Variable overrides
 // Generales
-$body-bg:    #FFFF;
-$body-color:  	#212649;
+$body-bg:    #F9F9F9;
+$body-color:  	#183964;
 $font-size-base: 1rem;
 $sidebar-width: 100px;
 
 // Breadcrumb
-$breadcrumb-active-color: #D00A2A;
+$breadcrumb-active-color: #D31E28;
 $breadcrumb-bg: transparent;
 $breadcrumb-divider: none;
 
@@ -19,28 +19,26 @@ $modal-footer-border-color: #FFFF;
 
 //Forms
 $input-bg: transparent;
-$input-color: #191C37;
+$input-color: #183964;
 // $input-border-color: #646880;
 // $input-border-radius: 15px;
 $input-placeholder-color: #646880;
 $input-focus-border-color:#B2B3C0;
 $input-focus-box-shadow: #B2B3C0;
- $input-disabled-bg: transparent;
+$input-disabled-bg: transparent;
 $input-group-addon-bg: transparent;
 $input-group-addon-color:#646880;
 
 
 //Dropdowns
-$dropdown-bg: #191C37;
+$dropdown-bg: #183964;
 $dropdown-border-color: none;
-$dropdown-divider-bg: #191C37;
-$dropdown-link-hover-bg:#212649;
+$dropdown-divider-bg:#646880;
+$dropdown-header-color: #FFFF;
+$dropdown-link-hover-bg:#131529;
+$dropdown-link-active-bg:#131529;
+$dropdown-link-active-color:#646880;
 
-$dropdown-header-color: #191C37;
-
-//table
-$table-head-color: #646880;
-$table-dark-bg: #646880;
 
 
 $theme-colors:(
@@ -49,6 +47,6 @@ $theme-colors:(
     succes: #0AA010,
     info: #18EDED,
     warning: #E2DA0C,
-    danger: #CB1630,
+    danger: #D31E28,
     link:#183964
 );
