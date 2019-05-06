@@ -1,32 +1,32 @@
 // ng select
-.below{
-    display: block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    font-size: 0.8rem;
-    font-weight: 400;
-    line-height: 1.5;
-    background-color: transparent;
-    background-clip: padding-box;
-    border: 1px solid #646880;
-    border-radius: 15px;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-.below:focus, :active{
-    outline: none !important;
-}
-.filter input:focus, :active{
-    outline: none !important;
-}
-.filter input{
-    background: transparent !important;
-    border: none !important;
-    color: #212649 !important;
-}
-.options{
-    background: #191c37;
-    border-radius: 15px;
-}
+// .below{
+//     display: block;
+//     width: 100%;
+//     height: calc(1.5em + 0.75rem + 2px);
+//     font-size: 0.8rem;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     background-color: transparent;
+//     background-clip: padding-box;
+//     border: 1px solid #646880;
+//     border-radius: 15px;
+//     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+// }
+// .below:focus, :active{
+//     outline: none !important;
+// }
+// .filter input:focus, :active{
+//     outline: none !important;
+// }
+// .filter input{
+//     background: transparent !important;
+//     border: none !important;
+//     color: #212649 !important;
+// }
+// .options{
+//     background: #191c37;
+//     border-radius: 15px;
+// }
 
 table{
     font-size:  0.9em;
@@ -128,61 +128,6 @@ table{
         appearance: none;
     }
 }  
-
-/* Status Filters Bar */
-// .status-filter {    
-//     position: relative;    
-//     font-size: .8rem;    
-
-//     &:not(:last-child) {
-//         border-right: 2px solid #212649;  
-//     }    
-
-//     &__number {
-//         font-weight: bold;
-//     }
-
-//     &__text {
-//         display: inline-block;
-//     }    
-
-//     &__check {        
-//         margin-left: .5rem;
-//     }   
-
-//     &__circle {
-//         display: inline-block;
-//         width: 10px;
-//         height: 10px;
-//         border-radius: 50%;                       
-//         margin-right: 10px;
-//         background-color: white;
-
-//         &--Aceptada {
-//             background-color: #2ee836;
-//         }
-
-//         &--Solicitada {
-//             background-color: #18EDED;            
-//         }
-
-//         &--PendienteAAACESA{
-//             background-color: #fff500;
-//         }
-//         &--PendienteCliente{
-//             background-color: #ef5500;
-//         }
-//         &--Rechazada{
-//             background-color: #ff0000;
-//         }
-//         &--Finalizada{
-//             background-color: #596df2;
-//         }
-//         &--Cancelada{
-//             background-color: #ff0000;
-//         }
-//     }
-// }
 
 // Detalle
 .referencia{

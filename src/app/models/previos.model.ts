@@ -45,6 +45,11 @@ export class PrevioSeguimiento {
     constructor() { }    
     IdAdelantoPrevios:string;
     Estatus:string;
-    Comentarios:string;
-    Documentos:Documento[];
+    Comentarios:string = "";
+    Documentos:Documento[] = [];
+
+    cleanSeguimiento() {
+        this.Comentarios = "";
+        this.Documentos = [];
+    }
 }

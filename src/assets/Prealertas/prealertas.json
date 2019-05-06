@@ -1,0 +1,50 @@
+[
+    {
+        "IdPrealerta": "PRE-20190000509",
+        "GuiaMaster": "139-11650133",
+        "GuiaHouse": "CDG810683",
+        "InstruccionesManejo": "SOLO TRANSFERIR",
+        "FechaArribo": "15/05/2019",
+        "Estatus": "Solicitada"
+    },
+    {
+        "IdPrealerta": "PRE-20190000508",
+        "GuiaMaster": "020-84587871",
+        "GuiaHouse": "TYO500569727",
+        "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+        "FechaArribo": "15/05/2019",
+        "Estatus": "Solicitada"
+    },
+    {
+        "IdPrealerta": "PRE-20190000507",
+        "GuiaMaster": "873-11887713",
+        "GuiaHouse": "NEC38441045",
+        "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+        "FechaArribo": "15/05/2019",
+        "Estatus": "Solicitada"
+    },
+    {
+        "IdPrealerta": "PRE-20190000506",
+        "GuiaMaster": "873-11887713",
+        "GuiaHouse": "NEC38441045",
+        "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+        "FechaArribo": "12/05/2019",
+        "Estatus": "Solicitada"
+    },
+    {
+        "IdPrealerta": "PRE-20190000505",
+        "GuiaMaster": "873-11887713",
+        "GuiaHouse": "NEC38441045",
+        "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+        "FechaArribo": "15/04/2019",
+        "Estatus": "Cancelada"
+    },
+    {
+        "IdPrealerta": "PRE-20190000504",
+        "GuiaMaster": "873-11887713",
+        "GuiaHouse": "NEC38441045",
+        "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+        "FechaArribo": "15/05/2018",
+        "Estatus": "Solicitada"
+    }
+]

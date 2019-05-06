@@ -12,6 +12,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';                   // Datepic
 import { SelectModule } from 'ng-select';                             // Ng2-select
 import { ModalModule } from 'ngx-bootstrap/modal';                    // Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
+import { ngfModule } from 'angular-file';
+
 // Material
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -52,7 +54,7 @@ import { SharedModule } from '../shared/shared.module';
     MatDatepickerModule,
     TextMaskModule,
     TimepickerModule.forRoot(),
-    BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),          
     SelectModule,
     ModalModule,
     MatExpansionModule,
@@ -68,6 +70,7 @@ import { SharedModule } from '../shared/shared.module';
     MatStepperModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    ngfModule,
     SharedModule
   ],
   declarations: [

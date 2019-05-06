@@ -1,0 +1,46 @@
+{
+    "IdPrealerta": "PRE-20190000505",
+    "GuiaMaster": "873-11887713",
+    "GuiaHouse": "NEC38441045",
+    "AlmacenOrigen": "AMERICAN AIRLINES",
+    "FechaArribo": "15/05/2019 14:30",
+    "CondicionAlmacenaje": "Live Animal",
+    "Consignatario": "+Kotas S.A de C.V",
+    "FechaCreacion": "29/04/2019 11:48 AM",
+    "InstruccionesManejo": "RECOLECTAR Y TRANSFERIR",
+    "NumCliente": "1628 - VICENTE RIVERA RAMOS",
+    "Peso": 150,
+    "Piezas": 4,
+    "RangoTemperatura": "ZONA SECA",
+    "CorreoCliente": "ihernandez@aaacesa.com.mx",
+    "Referencia": "044134652",
+    "Consolidado": false,
+    "MetodoPago": "Pago en parcialidades o diferido",
+    "UsoCFDI": "Gastos en general",
+    "Estatus": "Cancelada",
+    "EstatusDisponibles": ["Pendiente AAAACESA", "Cancelada"],
+    "Documentos": [
+        {
+            "IdDocumento": "PREDOC-20190000213",
+            "Archivo": "",
+            "FechaCreacion": "29/04/2019 03:40:51 p. m.",
+            "NombreDocumento": "Guia.pdf"
+        }
+    ],
+    "Seguimiento": [
+        {
+            "IdPrealerta": "PRE-20190000505",
+            "Usuario": "ihernandez@aaacesa.com.mx",
+            "Comentarios": "PRUEBAS PREALERTAS",
+            "Estatus": "Solicitada",
+            "Fecha": "29/04/2019 11:48:25"
+        },
+        {
+            "IdPrealerta": "PRE-20190000505",
+            "Usuario": "ihernandez@aaacesa.com.mx",
+            "Comentarios": "Prueba REST Seguimiento prealertas",
+            "Estatus": "Cancelada",
+            "Fecha": "29/04/2019 15:40:29"
+        }
+    ]
+}

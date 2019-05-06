@@ -1,8 +1,21 @@
-<h2 mat-dialog-title>Nuevo Previo</h2>
+<!-- <h2 mat-dialog-title>Nuevo Previo</h2> -->
+<div mat-dialog-title>
+  <div class="row justify-content-between">
+    <div class="col">
+        <h5>Nuevo Previo</h5>
+    </div>  
+    <div class="col">
+      <button mat-dialog-close type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <mat-dialog-content class="mat-typography">
   <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-    <!-- <ng-template matStepLabel>Paso 1</ng-template> -->
+    <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
 
     <div class="container mt-3">
       <form [formGroup]="firstFormGroup">                
@@ -11,17 +24,17 @@
               <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-6">                
                   <mat-form-field class="input-full-width">         
-                    <input matInput type="text" formControlName="masterCtrl" placeholder="Guía Master"/> 
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>
-                    <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.pattern">
+                    <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.pattern">
                       Debe ser una Guia Master
                     </mat-error>    
                   </mat-form-field>                              
 
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" formControlName="houseCtrl" placeholder="Guía House"/>  
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" placeholder="Guía House"/>  
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>   
@@ -29,7 +42,7 @@
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" placeholder="Referencia"/>                      
+                    <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
                   </mat-form-field>                 
                 </div>
               </div>          
@@ -45,12 +58,11 @@
     </div>
       
     </mat-step>
-    <mat-step (click)="validarCampos(0)" [stepControl]="secondFormGroup">
-      
-      <form [formGroup]="secondFormGroup">
-        <!-- <ng-template matStepLabel>Paso 2</ng-template> -->
-
+    <mat-step [stepControl]="secondFormGroup">
+      <!-- <ng-template matStepLabel>Información complementaria</ng-template> -->
+              
         <div class="container mt-3">
+          <form [formGroup]="secondFormGroup">
             <div class="row mb-3">            
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
@@ -96,28 +108,34 @@
                       <mat-error *ngIf="secondFormGroup.get('fechaPrevioCtrl').errors?.required">
                         Este campo es obligatorio
                       </mat-error> 
-                    </mat-form-field>      
-
-                    <!-- <mat-form-field class="input-full-width">                      
-                      <input matInput type="time" placeholder="Fecha">                                                        
-                    </mat-form-field> -->
-
-                    <!-- <timepicker></timepicker>  -->
+                    </mat-form-field>                                              
                   </div>
-                  <div class="col-lg-4">
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="text" formControlName="numGafeteCtrl" placeholder="No. Gafete"/>
-                      <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.required">
-                        Este campo es obligatorio
-                      </mat-error> 
-                      <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.pattern">
-                        Debe ser un numero
-                      </mat-error> 
+
+                  <div class="col-lg-4">                    
+                    <mat-form-field style="width: 49%;" >
+                      <input matInput type="number" formControlName="horaPrevioCtrl" style="text-align:center;" min="0" max="23" placeholder="Hrs" />
                     </mat-form-field>
-                  </div>              
+                    <strong style="font-size:1rem;">:</strong>
+                    <mat-form-field style="width: 49%;">
+                      <input matInput type="number" formControlName="minutoPrevioCtrl" style="text-align:center;" min="0" max="59"  placeholder="Mins" />
+                    </mat-form-field>
+                  </div>
+
               </div>
 
-              <div class="row mb-3">            
+              <div class="row mb-3">   
+                <div class="col-lg-4">
+                  <mat-form-field class="input-full-width">
+                    <input matInput type="text" formControlName="numGafeteCtrl" placeholder="No. Gafete"/>
+                    <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.required">
+                      Este campo es obligatorio
+                    </mat-error> 
+                    <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.pattern">
+                      Debe ser un numero
+                    </mat-error> 
+                  </mat-form-field>
+                </div>    
+
                 <div class="col-lg-4">  
                   <mat-form-field class="input-full-width">
                     <input matInput type="text" formControlName="piezasCtrl" placeholder="Piezas"/>
@@ -149,43 +167,64 @@
                   </mat-form-field>
                 </div>            
               </div>
+            </form>
 
-        </div>
-
-        <div>
-          <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>
-        </div>
-      </form>
-      
-    </mat-step>
-    <mat-step>      
-        <!-- <ng-template matStepLabel>Paso 3</ng-template> -->
-        <p>Subir documentos</p>
-            <div class="row mb-5">       
-                            
-              <div *ngFor="let documento of model.Documentos; let in=index" class="col-lg-2">    
-                <div>
-                  <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
-                  <div style="font-size: 4rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
-                  <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
-                </div>                                                                      
+            <div class="row mt-5">
+              <div class="col-lg-12 text-center">
+                <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+                <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
               </div>
+            </div>
+        </div>
+                
+    </mat-step>
 
-              <div class="col-lg-1 align-self-center">
+    <mat-step [completed]="model.Documentos?.length >= 1" >      
+      <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
+
+      <div class="container mt-3">
+        <p>Subir documentos: Guia Master, Guia House, Gafete, Etiquetado<small> (mínimo subir un documento)</small></p>  
+        
+        <div class="row mb-5">                     
+          <div class="col-lg-12 mb-3">
+            <div ngfDrop selectable="1" multiple="1"
+              [(files)]="files"
+              accept = ".pdf"                                                           
+              (filesChange) = "dropInputChange($event)"
+              class="my-drop-zone"
+            >
+            Arrastra / Selecciona tus archivos
+            </div>                                    
+          </div>  
+
+          <div *ngFor="let documento of model.Documentos; let in=index" class="col-lg-2">    
+            <div>
+              <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
+              <div style="font-size: 4rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+              <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+            </div>                                                                      
+          </div>
+
+              <!-- <div class="col-lg-1 align-self-center">
                 <input (change)="onFileChanged($event)" style="display: none;" id="fileInput" type="file" multiple>
                 <label for="fileInput">
                   <div class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></div>
                 </label>
-              </div>
-            </div>              
-      
-      <div class="row mt-5">
-        <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
-      </div>      
+              </div> -->                                      
+        </div>              
+                      
+        <div class="row mt-5">
+          <div class="col-lg-12 text-center">
+            <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+          </div>
+        </div>
+
+      </div>          
     </mat-step>
 
     <mat-step>      
-        <!-- <ng-template matStepLabel>Paso 4</ng-template> -->
+        <!-- <ng-template matStepLabel>Resumen</ng-template> -->
 
         <div class="container">              
                 <div class="row">
@@ -198,10 +237,11 @@
                         <p class="detail-text">{{model.Master}}</p>
                       </div>
                       
-                      <div class="col-md-8">
+                      <div class="col-md-4">
                         <div class="row justify-content-end">
                           <div class="col">
-                            <h5 class="detail-text">Referencia Sin Referencia</h5>                    
+                            <!-- <h5 class="detail-text referencia">Referencia: Sin Referencia</h5>  -->
+                            <h5 class="detail-text referencia">Referencia: {{ this.firstFormGroup.get('referenciaCtrl').value }}</h5>                             
                           </div>                          
                         </div>
                       </div>                        
@@ -214,7 +254,7 @@
                       </div>
 
                       <div class="col-md-4">
-                        <h5 class="detail-text">Nombre</h5>
+                        <h5 class="detail-text">Nombre Completo</h5>
                         <p class="detail-text">{{model.Nombre}} {{model.Paterno}} {{model.Materno}}</p>
                       </div>
 
@@ -241,7 +281,7 @@
                       </div>
                     </div>
                 
-                    <div class="row mb-1">
+                    <div class="row mb-3">
                       <div class="col-md-4">
                         <h5 class="detail-text">Fecha y Hora</h5> 
                         <p class="detail-text">{{model.FechaPrevio}}</p>
@@ -249,11 +289,13 @@
                       </div>
                       <div class="col-md-4">
                         <h5 class="detail-text">Etiquetado</h5>
-                        <p class="detail-text">{{model.Etiquetado ? 'Sí' : 'No'}}</p>
+                        <h6 class="detail-text">{{model.Etiquetado ? 'Sí' : 'No'}}</h6>
                       </div>                                           
                     </div>
+
+                    <hr class="dividerb">
                   
-                    <div class="row mb-3">                
+                    <div class="row mt-5 mb-3">                
                         <div *ngFor="let file of model.Documentos" class="col col-lg-2">
                           <h1 style="font-size: 5rem"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
                           <p style="word-break: break-all;" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
@@ -265,13 +307,14 @@
 
                 </div>
 
-              </div>
-        
-        <div>        
-          <button matStepperPrevious class="btn btn-pill btn-primary mr-3">Regresar</button>
-          <button (click)="crearPrevio()" class="btn btn-pill btn-primary">Siguiente</button>
-        </div>
-      
+                <div class="row mt-5">
+                  <div class="col-lg-12 text-center">
+                    <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+                    <button (click)="crearPrevio()" class="btn btn-pill btn-primary">Enviar</button>
+                  </div>
+                </div>
+
+            </div>                      
     </mat-step>    
   </mat-horizontal-stepper>
 
@@ -292,7 +335,7 @@
   </div>
 
 </mat-dialog-content>
-<mat-dialog-actions *ngIf="!successResponse" align="end">
-  <button mat-dialog-close class="btn btn-pill btn-primary">Cancelar</button>  
+<!-- <mat-dialog-actions *ngIf="!successResponse" align="end"> -->
+  <!-- <button mat-dialog-close class="btn btn-pill btn-primary">Cancelar</button>   -->
   <!-- <button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-</mat-dialog-actions>
+<!-- </mat-dialog-actions> -->

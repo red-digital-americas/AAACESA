@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="row justify-content-end">  
-  <div class="col-lg-2">
-    <button (click)="myModal.show()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>
+  <div class="col-lg-12 text-right">
+    <button (click)="openDialog()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>    
   </div>          
 </div>
 
@@ -12,140 +12,160 @@
 
       <!-- Start Busqueda Superior -->
       <div class="row mb-3">
-        <div class="col-lg-10 mb-1">
+        <div class="col-lg-9">
           <div class="row">
             <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="masterHouseSearch" placeholder="Guía Master"/>
-            </div>
-            <div class="col-lg-3 mb-1">
-              <input type="text" class="form-control" [(ngModel)]="masterGuideSearch" placeholder="Guía House"/>
-            </div>
-
-            <div class="col-lg-3 mb-1">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>                    
-                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [(ngModel)]="bsFechaEstimada" placeholder="Fecha Estimada">                
-              </div>
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.Master" placeholder="Guia Master"/>
+              </mat-form-field>
             </div>
 
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guia House"/>
+              </mat-form-field>
+            </div>
 
             <div class="col-lg-3 mb-1">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>
-                <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" placeholder="Rango de fecha">
-              </div>
-            </div>            
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                
+              </mat-form-field>
+            </div>
 
-            <!-- <div class="col-lg-1">
-              <button (click)="showAdvanceSearch=!showAdvanceSearch" class="btn btn-outline-light btn-circle">+</button>
-              <button  (click)="showAdvanceSearch=!showAdvanceSearch" class="btn btn-block btn-link"> <i class="fas fa-plus-circle"></i></button>
-            </div> -->
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
+              </mat-form-field>
+            </div>
           </div>
-        </div>
 
-        <div class="col-lg-2">        
-          <button class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
-        </div>
-      </div>      
-
-      <div class="row mb-3" *ngIf="showAdvanceSearch">
-        <div class="col-lg-10">
-            <div class="row">
-              <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="statusSearch" placeholder="Estatus"/>
-              </div>
-              <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="referenciaSearch" placeholder="Referencia"/>
-              </div>                            
-              <div class="col-lg-3 mb-1">
-                <div class="styled-select">
-                  <select  class="form-control" [(ngModel)]="instruccionesSearch" >
-                    <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                    <option *ngFor='let item of instruccionesManejoCatalogo' [value]="item.value">{{item.text}}</option>
-                  </select>
-                </div>                             
-              </div>
-              <div class="col-lg-3 mb-1">
-                <input type="text" class="form-control" [(ngModel)]="idPrealertaSearch" placeholder="Id. Prealerta"/>
-              </div>              
+          <div class="row">
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.Consignatario" placeholder="Consignatario"/>
+              </mat-form-field>
             </div>
+
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <mat-select [(ngModel)]="busquedaModel.ClaveInstruccionManejo" class="" placeholder="Instrucciones de Manejo" #singleSelect>
+                  <mat-option>                      
+                    <ngx-mat-select-search [(ngModel)]="instruccionesManejoSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option>Ninguno</mat-option>                    
+                  <mat-option *ngFor="let option of instruccionesManejoCatalogo | filterSelect: instruccionesManejoSearch" [value]="option.value"> 
+                    {{option.value}} - {{option.text}}
+                  </mat-option>
+                </mat-select>                  
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.IdPrealerta" placeholder="Id Prealerta"/>
+              </mat-form-field>
+            </div>
+          </div>
+
         </div>
-      </div>
+
+        <div class="col-lg-3">
+          <div class="row justify-content-start">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+              <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+              <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+            </div>
+          </div>
+        </div>    
+      </div>      
       <!-- End Busqueda Superior -->
 
       <!-- Start Status Filter Bar -->
-      <div class="row mt-5 mb-3">
-        <div class="col-lg-10 offset-lg-1">
-          <div class="row">
+      <div class="container">      
+        <div class="row justify-content-center mt-5 mb-3">
+          <div class="col-lg-12">
+            <div class="row align-items-center">
 
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--Aceptada"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(0)">
-                    <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
-                  </label>
-                </div>
-            </div> 
-            
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--Solicitada"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(1)">
-                    <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
-                  </label>
-                </div>
-            </div>
-
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(2)">
-                    <p><span class="status-filter__number">{{ countStatus.PAAACESA }}</span> P.AAACESA </p>
-                  </label>
-                </div>
-            </div>
-
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--PCliente"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(3)">
-                    <p><span class="status-filter__number">{{ countStatus.PCliente }}</span> P.Cliente </p>
-                  </label>
-                </div>
-            </div>
-            
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--Rechazada"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(4)">
-                    <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
-                  </label>
-                </div>
-            </div>
-
-            <div class="col status-filter">            
-              <div class="status-filter__circle status-filter__circle--Finalizada"></div>
-              <div class="status-filter__text">
-                <label (click)="applyFilter(5)" for="finalizadaCheck">
-                  <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
-                </label>
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--Aceptada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(0)">
+                      <span class="status-filter__number">({{ countStatus.Aceptada }})</span> Aceptada
+                    </label>
+                  </div>
+              </div> 
+              
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--Solicitada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(1)">
+                      <span class="status-filter__number">({{ countStatus.Solicitada }})</span> Solicitada
+                    </label>
+                  </div>
               </div>
-              <!-- <input style="display: none;" id="finalizadaCheck" #finalizadaCheck class="status-filter__check" type="checkbox">               -->
-              <!-- {{ filterStatus.Finalizada }} -->
-            </div>
 
-            <div class="col status-filter">                          
-              <div class="status-filter__text">
-                <label (click)="applyFilter(10)" for="todosCheck">
-                  <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
-                </label>
-              </div>              
-            </div>
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--PendienteAAACESA"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(2)">
+                      <span class="status-filter__number">({{ countStatus.PendienteAAACESA }})</span> P.AAACESA
+                    </label>
+                  </div>
+              </div>
 
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--PendienteCliente"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(3)">
+                      <span class="status-filter__number">({{ countStatus.PendienteCliente }})</span> P.Cliente
+                    </label>
+                  </div>
+              </div>
+              
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--Rechazada"></div>
+                  <div class="status-filter__text">
+                    <label (click)="applyFilter(4)">
+                      <span class="status-filter__number">({{ countStatus.Rechazada }})</span> Rechazada
+                    </label>
+                  </div>
+              </div>
+
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--Finalizada"></div>
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(5)" for="finalizadaCheck">
+                    <span class="status-filter__number">({{ countStatus.Finalizada }})</span> Finalizada
+                  </label>
+                </div>              
+              </div>
+
+              <div class="col text-center status-filter">            
+                <div class="status-filter__circle status-filter__circle--Cancelada"></div>
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(6)">
+                    <span class="status-filter__number">({{ countStatus.Cancelada }})</span> Cancelada
+                  </label>
+                </div>                
+              </div>
+
+              <div class="col text-center status-filter">                          
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(10)" for="todosCheck">
+                    <span class="status-filter__number">({{data.length}})</span> Todos
+                  </label>
+                </div>              
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -153,473 +173,65 @@
 
 
       <!-- Start Data Table -->
-      <table class="table table-striped" [mfData]="filterData" #mf="mfDataTable" [mfRowsOnPage]="10">
-        <thead>
-          <tr>
-            <th class="text-center" style="width: 10%">
-              <mfDefaultSorter by="masterguide">Id Prealerta <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 10%">
-              <mfDefaultSorter by="masterguide">Guía Master <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 10%">
-              <mfDefaultSorter by="houseguide">Guía House <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-            </th>  
-            <th class="text-center" style="width: 20%">
-              <mfDefaultSorter by="houseguide">Instrucciones de manejo <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-            </th>                       
-            <th class="text-center" style="width: 10%">
-                <mfDefaultSorter by="leftDate">Fecha de arribo <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-              </th>
-            <th class="text-center" style="width: 15%">
-              <mfDefaultSorter by="status">Estatus <span class="iconfilt"><i class="material-icons u-small-text">filter_list</i></span> </mfDefaultSorter>
-            </th>
-            <th class="text-center" style="width: 10%">
-              <mfDefaultSorter by="leftDate">Acciones</mfDefaultSorter>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of mf.data">          
-            <td class="text-center">{{item.idPreAlerta}}</td>
-            <td class="text-center">{{item.masterguide}}</td>
-            <td class="text-center">{{item.houseguide}}</td>
-            <td class="text-center"> Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>            
-            <td class="text-center">{{item.leftDate | date: 'dd/MM/yy' }}</td>
-            <td class="text-center"> 
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--{{item.status | statusPipe }}"></div>
-                <div class="status-filter__text">
-                  <p> {{ item.status }} </p>
+      <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">                                   
+          
+            <ng-container matColumnDef="IdPrealerta">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Prealerta </th>
+              <td mat-cell *matCellDef="let element"> {{element.IdPrealerta}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="GuiaMaster">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía Master </th>
+              <td mat-cell *matCellDef="let element"> {{element.GuiaMaster}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="GuiaHouse">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía House </th>
+              <td mat-cell *matCellDef="let element"> {{element.GuiaHouse}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="InstruccionesManejo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrucciones Manejo</th>
+              <td mat-cell *matCellDef="let element"> {{element.InstruccionesManejo}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="FechaArribo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Arribo </th>
+              <td mat-cell *matCellDef="let element"> {{element.FechaArribo.split(' ')[0]}} </td>
+            </ng-container>
+                        
+            <ng-container matColumnDef="Estatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
+              <td mat-cell *matCellDef="let element"> 
+                <div class="col status-filter">            
+                  <div class="status-filter__circle status-filter__circle--{{element.Estatus | statusPipe }}"></div>
+                  <!-- <div class="status-filter__text">
+                    <p> {{ element.Estatus }} </p>
+                  </div> -->
                 </div>
-              </div>
-            </td>
-            <td class="text-center"> <a (click)="detalleModal.show(); verDetalle(item.idPreAlerta);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="6">
-              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+              </td>
+            </ng-container>
+                        
+            <ng-container matColumnDef="Acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element"> 
+                <a class="btn btn-pill btn-ghost-link" (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div> 
       <!-- End Data Table -->
 
     </div> <!-- End Card Body -->
   </div> <!-- End Card -->
 </div>
 
-<!-- Modals -->
-  <!-- Start Modals Formulario Crear Prealerta -->
-
-  <!-- Start Modal1 Formulario -->
-  <div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Nueva PreAlerta</h4>
-            <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <form #form1="ngForm" novalidate class="needs-validation">
-
-              <div class="form-group">            
-                <input  type="text" class="form-control" placeholder="Guía Master" #masterguide="ngModel" name="masterguide" [(ngModel)]="model.masterguide" required/>                                
-                <div [hidden]="masterguide.valid || masterguide.pristine"> Insertar Guia Master</div>
-              </div>
-              <div class="form-group">            
-                <input type="text" class="form-control" placeholder="Guía House" #houseguide="ngModel" name="houseguide" [(ngModel)]="model.houseguide" required/>
-                <div [hidden]="houseguide.valid || houseguide.pristine"> Insetar Guia House</div>
-              </div>      
-              <div class="form-group">  
-                <div class="row justify-content-center">            
-                  <button [disabled]="!form1.form.valid" (click)="myModal2.show(); myModal.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-                </div>
-              </div> 
-            
-            </form>                      
-          </div>         
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- End Modal1 Formulario -->
-
-  <!-- Start Modal2 Formulario -->
-  <div bsModal #myModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal2Label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Nueva PreAlerta</h4>
-          <button type="button" class="close" (click)="myModal2.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">  
-
-          <form #form2="ngForm" novalidate class="needs-validation"> 
-
-            <div class="form-group">  
-              <div class="row mb-3">            
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" placeholder="Referencia" #referencia="ngModel" name="referencia" [(ngModel)]="model.referencia" required />
-                  <div [hidden]="referencia.valid || referencia.pristine"> Insertar Referencia</div>
-                </div>
-                <div class="col-lg-4">
-                  <input type="number" class="form-control no-spinners" placeholder="Piezas" #piezas="ngModel" name="piezas" [(ngModel)]="model.piezas" required />
-                  <div [hidden]="piezas.valid || piezas.pristine"> Insertar Piezas</div>
-                </div>
-                <div class="col-lg-4">
-                  <input type="number" class="form-control no-spinners" placeholder="Peso" #peso="ngModel" name="peso" [(ngModel)]="model.peso" required />
-                  <div [hidden]="peso.valid || peso.pristine"> Insertar peso</div>
-                </div>              
-              </div>
-
-              <div class="row mb-3">            
-                  <div class="col-lg-4">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                      </div>                    
-                      <input type="text" placeholder="Fecha Estimada de Arribo" class="form-control" #dp="bsDatepicker" bsDatepicker #fechaArribo="ngModel" name="fechaArribo" [(ngModel)]="model.fechaArribo" required />                      
-                    </div>
-                    <div [hidden]="fechaArribo.valid || fechaArribo.pristine"> Insertar Fecha de Arribo</div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="styled-select">
-                      <select class="form-control" #almacenOrigen="ngModel" name="almacenOrigen" [(ngModel)]="model.almacenOrigen" required>
-                        <option value="" selected disabled hidden>Almacen de Origen</option>
-                        <option *ngFor='let item of almacenOrigenCatalogo' [value]="item.value">{{item.text}}</option>                        
-                      </select>
-                    </div> 
-                    <div [hidden]="almacenOrigen.valid || almacenOrigen.pristine"> Seleccionar Almacen de Origen</div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="styled-select">
-                      <select class="form-control" #rangoTemperatura="ngModel" name="rangoTemperatura" [(ngModel)]="model.rangoTemperatura" required>
-                        <option value="" selected disabled hidden>Rango de Temperatura</option>
-                        <option *ngFor='let item of rangoTemperaturaCatalogo' [value]="item.value">{{item.text}}</option>                        
-                      </select>
-                    </div>
-                    <div [hidden]="rangoTemperatura.valid || rangoTemperatura.pristine"> Seleccionar Rango de Temperatura</div>
-                  </div>              
-                </div>
-
-              <div class="row mb-3">            
-                <div class="col-lg-4">
-                  <input type="text" class="form-control" placeholder="Consignatario a Facturar"  #consignatario="ngModel" name="consignatario" [(ngModel)]="model.consignatario" required/>
-                  <div [hidden]="consignatario.valid || consignatario.pristine"> Insertar Consignatario a Facturar</div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="styled-select">
-                    <select class="form-control" #metodoPago="ngModel" name="metodoPago" [(ngModel)]="model.metodoPago" required>
-                      <option value="" selected disabled hidden>Método de pago</option>
-                      <option *ngFor='let item of metodoPagoCatalogo' [value]="item.value">{{item.text}}</option>                                              
-                    </select>
-                  </div> 
-                  <div [hidden]="metodoPago.valid || metodoPago.pristine"> Seleccionar Metodo de Pago</div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="styled-select">
-                    <select class="form-control" #usoCFDI="ngModel" name="usoCFDI" [(ngModel)]="model.usoCFDI" required>
-                      <option value="" selected disabled hidden>Uso de CFDI</option>
-                      <option *ngFor='let item of usoCFDICatalogo' [value]="item.value">{{item.text}}</option>                                              
-                    </select>
-                  </div> 
-                  <div [hidden]="usoCFDI.valid || usoCFDI.pristine"> Seleccionar Uso de CFDI </div>
-                </div>              
-              </div>
-
-              <div class="row mb-3">            
-                <div class="col-lg-6">                  
-                  <div class="styled-select">
-                    <select class="form-control"  #condicionesAlmacenes="ngModel" name="condicionesAlmacenes" [(ngModel)]="model.condicionesAlmacenes" required>
-                      <option value="" selected disabled hidden>Condiciones de Almacenes</option>
-                      <option *ngFor='let item of condicionesAlmacenesCatalogo' [value]="item.value">{{item.text}}</option>                                              
-                    </select>
-                  </div>
-                  <div [hidden]="condicionesAlmacenes.valid || condicionesAlmacenes.pristine"> Seleccionar Condiciones de Alamacen </div> 
-                </div>
-                <div class="col-lg-6">                    
-                  <div class="form-control form-group form-check">
-                    <label for="consolidado" class="form-check-label">Consolidado</label>
-                    <label class="switch switch-pill switch-primary form-switch">                  
-                      <input id="consolidado" type="checkbox" class="switch-input" name="consolidado" [(ngModel)]="model.consolidado" checked>
-                      <span class="switch-slider"></span>
-                    </label>
-                  </div>                
-                </div>                          
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="styled-select">
-                    <select class="form-control" #instruccionesManejo="ngModel" name="instruccionesManejo" [(ngModel)]="model.instruccionesManejo" required>
-                      <option value="" selected disabled hidden>Instrucciones de Manejo</option>
-                      <option *ngFor='let item of instruccionesManejoCatalogo' [value]="item.value">{{item.text}}</option>
-                      <!-- <option value="0">Recolección</option>
-                      <option value="1">Transferencia</option>
-                      <option value="2">Recolección y Transferencia</option> -->
-                    </select>
-                  </div>
-                  <div [hidden]="instruccionesManejo.valid || instruccionesManejo.pristine"> Seleccionar Instrucciones de Manejo </div>  
-                </div>            
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <textarea class="form-control" rows="3" name="comentario" [(ngModel)]="model.comentario"></textarea>
-                </div>            
-              </div>
-
-              <div class="row justify-content-center">            
-                <button [disabled]="!form2.form.valid" (click)="myModal3.show(); myModal2.hide();" class="btn btn-pill btn-primary">Siguiente</button>
-              </div>
-
-            </div> 
-          
-          </form>
-
-        </div>         
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-  <!-- End Modal2 Formulario -->
-
-  <!-- Start Modal3 (Archivos) Formulario -->
-  <div bsModal #myModal3="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Nueva PreAlerta</h4>
-            <button type="button" class="close" (click)="myModal3.hide()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <p>Subir documentos</p>
-            <div class="row mb-5">       
-
-              <!-- <div *ngFor="let word2 of words2; let in=index" class="col-sm-3">
-                <div class="form-group">
-                  <input type="text" [(ngModel)]="words2[in].value" name="name{{in}}" class="form-control" #name="ngModel" required />                                    
-                </div>                
-              </div> -->
-              
-              <div *ngFor="let file of nFiles; let in=index" class="col-lg-1">                  
-                  <label [for]="file-in">                      
-                      <div style="font-size: 4rem" class=""><i class="fas fa-file"></i></div>                  
-                  </label>      
-                  <!-- {{model.attachments[in].name}} -->
-                  <input (change)="onFileChanged($event, in)" style="display: none;" [id]="file-in" type="file">
-              </div>
-
-              <!-- <div class="col-lg-1">
-                  <img width="100px" class="img-thumbnail" src="http://pngimages.net/sites/default/files/file-png-image-59234.png" alt="doc">
-                  <div style="font-size: 4rem" class=""><i class="fas fa-file-upload"></i></div>
-              </div> -->
-              <div class="col-lg-1 align-self-center">
-                <button (click)="addDocument()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i></button>
-              </div>
-            </div>
-            <div class="form-group">  
-              <div class="row justify-content-center">
-                <div class="col-lg-2">
-                  <button (click)="myModal3.hide(); myModal.show();" class="btn btn-pill btn-primary">Regresar</button>
-                </div>
-                <div class="col-lg-2">
-                  <button (click)="myModal3.hide(); confirmationModal.show();" class="btn btn-pill btn-primary">Siguiente</button>
-                </div>
-              </div>
-            </div>
-
-          </div>         
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- End Modal3 (Archivos) Formulario -->
-
-    <!-- Start Modal Confirmacion Formulario -->
-    <div bsModal #confirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-
-            <div class="modal-header">
-              <h6 class="modal-title">Nueva PreAlerta</h6>
-              <button type="button" class="close" (click)="confirmationModal.hide()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-              <div class="container">              
-                <div class="row">
-
-                  <!--  Start left -->
-                  <div class="col-12 col-md-12">                    
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <h5 class="detail-text">Guia Master </h5>
-                        <p class="detail-text">{{model.masterguide}}</p>
-                      </div>
-                      
-                      <div class="col-md-8">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <h5 class="detail-text btn btn-outline-light">Referencia {{model.referencia}}</h5>                    
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Estatus</h5>
-                            <div class="col status-filter">            
-                              <div class="status-filter__circle status-filter__circle--{{model.status | statusPipe }}"></div>
-                              <div class="status-filter__text">
-                                <p> {{model.status}} </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>                        
-                    </div> 
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <h5 class="detail-text">Guia House </h5>
-                        <p class="detail-text">{{model.houseguide}}</p>
-                      </div>
-
-                      <div class="col-md-8">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <h5 class="detail-text">Piezas </h5>
-                            <p class="detail-text">{{model.piezas}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Uso de CFDI</h5>
-                            <p class="detail-text">{{model.usoCFDI}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Peso</h5>
-                            <p class="detail-text">{{model.peso}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>   
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <h5 class="detail-text">Consiganatario a Facturar</h5> 
-                        <p class="detail-text">{{model.consignatario}}</p>
-                      </div>
-
-                      <div class="col-md-8">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <h5 class="detail-text">Fecha de Arribo</h5>
-                            <p class="detail-text">{{model.fechaArribo | date: 'dd/MM/yy'}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Consolidado</h5>
-                            <p class="detail-text">{{model.consolidado}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Almacen de Origen</h5>
-                            <p class="detail-text">{{model.almacenOrigen}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <h5 class="detail-text">Método de Pago</h5>
-                        <p class="detail-text">{{model.metodoPago}}</p>
-                      </div>
-
-                      <div class="col-md-8">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <h5 class="detail-text">Rango de Temperatura</h5>
-                            <p class="detail-text">{{model.rangoTemperatura}}</p>
-                          </div>                
-                        </div>
-                      </div>
-                    </div>
-  
-                    <div class="row mb-3">
-                      <div class="col-md-4">
-                        <h5 class="detail-text">Condicion de Alamacenaje</h5>
-                        <p class="detail-text">{{model.condicionesAlmacenes}}</p>
-                      </div>
-                      <div class="col-md-8">
-                        <h5 class="detail-text">Instrucciones de Manejo</h5>
-                        <p class="detail-text">{{model.instruccionesManejo}}</p>
-                      </div>                
-                    </div>
-
-                    <div class="row mb-3">                
-                        <div *ngFor="let file of model.attachments" class="col col-lg-2">
-                          <h1 style="font-size: 5rem"><i class="fas {{file.name | fileIconPipe}}"></i></h1>
-                          <p class="detail-text break-word">{{file.name}}</p>                                                                                               
-                        </div>                      
-                    </div>
-
-                  </div>
-                  <!--  End left -->                 
-
-                </div>
-
-                <div class="form-group">  
-                  <div class="row justify-content-center">
-                    <div class="col-lg-2">
-                      <button (click)="confirmationModal.hide(); myModal3.show();" class="btn btn-pill btn-primary">Regresar</button>
-                    </div>
-                    <div class="col-lg-2">
-                      <button  (click)="confirmationModal.hide(); crearPreAlerta(); responseModal.show();" class="btn btn-pill btn-primary">Enviar</button>                      
-                    </div>
-                  </div>
-                </div> 
-
-              </div>                                                                                                
-
-            </div>                                                  
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-    <!-- End Modal Confirmacion Formulario -->
-
-    <!-- Start Modal Response Crear PreAlerta -->
-    <div bsModal #responseModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-          <div class="modal-header">              
-              <button type="button" class="close" (click)="responseModal.hide();" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-          <div class="modal-body">
-            <div class="container">              
-              <div class="row">                
-                <div class="col-12 col-md-12">                                                          
-                  <h5 class="detail-text">Gracias</h5>
-                  <p class="detail-text">Tu solicitud de pre alerta con No. ID. {{response}} se envio de forma satisfactoria</p>                    
-                </div>                                                                                                             
-              </div>
-            </div>                                                                                                
-
-          </div>                                                  
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- End Modal Response Crear PreAlerta -->    
-  <!-- End Modals Formulario Crear Prealerta -->
-
+<!-- Modals -->  
 
   <!-- Modal Detalle -->
     <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
@@ -627,7 +239,7 @@
           <div class="modal-content">
 
             <div class="modal-header">
-              <h6 class="modal-title">Detalle PreAlerta {{ detailData.idPreAlerta }}</h6>
+              <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
               <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -638,220 +250,225 @@
                 <div class="row">
 
                   <!--  Start left -->
-                  <div class="col-12 col-md-8">                    
-                    <div class="row mb-1">
-                      <div class="col">
-                        <h5 class="detail-text">Guia Master </h5>
-                        <p class="detail-text">{{detailData.masterguide}}</p>
-                      </div>
-                      
-                      <div class="col">
-                        <div class="row justify-content-end">
+                  <div class="col-12 col-lg-8">                    
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row mb-1">
+
+                          <!-- <div class="col-12 mb-4">
+                            <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
+                          </div> -->
+
                           <div class="col">
-                            <h5 class="detail-text btn btn-outline-light">Referencia 12312323</h5>                    
+                            <h5 class="detail-text">Guia Master </h5>
+                            <p class="detail-text">{{detailData.GuiaMaster}}</p>
                           </div>
+                          
                           <div class="col">
-                            <h5 class="detail-text">Estatus</h5>
-                            <div class="col status-filter">            
-                              <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                              <div class="status-filter__text">
-                                <p> {{detailData.status}} </p>
+                            <div class="row justify-content-end">
+                              <div class="col">
+                                <h5 class="detail-text btn btn-outline-light">Referencia: {{detailData.Referencia}}</h5>                    
+                              </div>
+                              <div class="col">
+                                <h5 class="detail-text">Estatus</h5>
+                                <div class="col status-filter">            
+                                  <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                                  <div class="status-filter__text">
+                                    <p> {{detailData.Estatus}} </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>                        
+                        </div> 
+                    
+                        <div class="row mb-1">
+                          <div class="col">
+                            <h5 class="detail-text">Guia House </h5>
+                            <p class="detail-text">{{detailData.GuiaHouse}}</p>
+                          </div>
+
+                          <div class="col">
+                            <div class="row justify-content-end">
+                              <div class="col">
+                                <h5 class="detail-text">Piezas </h5>
+                                <p class="detail-text">{{detailData.Piezas}}</p>
+                              </div>
+                              <div class="col">
+                                <h5 class="detail-text">Uso de CFDI</h5>
+                                <p class="detail-text">{{detailData.UsoCFDI}}</p>
+                              </div>
+                              <div class="col">
+                                <h5 class="detail-text">Peso</h5>
+                                <p class="detail-text">{{detailData.Peso}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>   
+                    
+                        <div class="row mb-1">
+                          <div class="col">
+                            <h5 class="detail-text">Consiganatario a Facturar</h5> 
+                            <p class="detail-text">{{detailData.Consignatario}}</p>
+                          </div>
+
+                          <div class="col">
+                            <div class="row justify-content-end">
+                              <div class="col">
+                                <h5 class="detail-text">Fecha de Arribo</h5>
+                                <p class="detail-text">{{detailData.FechaArribo}}</p>
+                              </div>
+                              <div class="col">
+                                <h5 class="detail-text">Consolidado</h5>
+                                <p class="detail-text">{{detailData.Consolidado ? 'Sí' : 'No' }}</p>
+                              </div>
+                              <div class="col">
+                                <h5 class="detail-text">Almacen de Origen</h5>
+                                <p class="detail-text">{{detailData.AlmacenOrigen}}</p>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>                        
-                    </div> 
-                
-                    <div class="row mb-1">
-                      <div class="col">
-                        <h5 class="detail-text">Guia House </h5>
-                        <p class="detail-text">{{detailData.houseguide}}</p>
-                      </div>
+                    
+                        <div class="row mb-1">
+                          <div class="col">
+                            <h5 class="detail-text">Método de Pago</h5>
+                            <p class="detail-text">{{detailData.MetodoPago}}</p>
+                          </div>
 
-                      <div class="col">
-                        <div class="row justify-content-end">
                           <div class="col">
-                            <h5 class="detail-text">Piezas </h5>
-                            <p class="detail-text">{{detailData.npieces}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Uso de CFDI</h5>
-                            <p class="detail-text">lorem ipsum</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Peso</h5>
-                            <p class="detail-text">{{detailData.weight}}</p>
+                            <div class="row justify-content-end">
+                              <div class="col">
+                                <h5 class="detail-text">Rango de Temperatura</h5>
+                                <p class="detail-text">{{detailData.RangoTemperatura}}</p>
+                              </div>                
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>   
-                
-                    <div class="row mb-1">
-                      <div class="col">
-                        <h5 class="detail-text">Consiganatario a Facturar</h5> 
-                        <p class="detail-text">lorem ipsum</p>
-                      </div>
-
-                      <div class="col">
-                        <div class="row justify-content-end">
+      
+                        <div class="row mb-3">
                           <div class="col">
-                            <h5 class="detail-text">Fecha de Arribo</h5>
-                            <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>
+                            <h5 class="detail-text">Condicion de Alamacenaje</h5>
+                            <p class="detail-text">{{detailData.CondicionAlmacenaje}}</p>
                           </div>
                           <div class="col">
-                            <h5 class="detail-text">Consolidado</h5>
-                            <p class="detail-text">Si</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Almacen de Origen</h5>
-                            <p class="detail-text">Lorem Ipsum</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                      <div class="col">
-                        <h5 class="detail-text">Método de Pago</h5>
-                        <p class="detail-text">lorem ipsum</p>
-                      </div>
-
-                      <div class="col">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <h5 class="detail-text">Rango de Temperatura</h5>
-                            <p class="detail-text">26°</p>
+                            <h5 class="detail-text">Instrucciones de Manejo</h5>
+                            <p class="detail-text">{{detailData.InstruccionesManejo}}</p>
                           </div>                
                         </div>
-                      </div>
-                    </div>
-  
-                    <div class="row mb-3">
-                      <div class="col">
-                        <h5 class="detail-text">Condicion de Alamacenaje</h5>
-                        <p class="detail-text">Evitar apilar más de 4 cajas</p>
-                      </div>
-                      <div class="col">
-                        <h5 class="detail-text">Instrucciones de Manejo</h5>
-                        <p class="detail-text">Transferencia y Recolección</p>
-                      </div>                
-                    </div>
 
-                    <div class="row mb-3">                      
-                      <div class="col col-lg-2">                        
-                        <h1 style="font-size: 5rem"><i class="fas fa-file"></i></h1>
-                        <p>Donec pede justo fringilla</p>
-                      </div>                                          
-                    </div>
+                        <hr class="dividerb">
 
+                        <div class="row mb-3">                
+                          <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">                        
+                            <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
+                            <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+                          </div>                      
+                        </div>
+                      </div> <!-- End Card-Body-->
+                    </div> <!-- End Card-->
                   </div>
                   <!--  End left -->
 
-                  <!-- Start Rigth -->
-                  <div class="col-12 col-md-4">
-                    <div class="row mb-1">
-                      <div class="col-12">
-                        <h6>Estatus Transferencia</h6>                        
-                      </div>                                    
-                      <div class="col-12">
-                        <h5 class="detail-text">Fecha de Solicitud</h5>
-                        <p class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</p>                    
-                      </div>    
+                  <!-- Start Rigth -->                  
+                  <div class="col-12 col-lg-4">
+                    <div class="card">
+                      <div class="card-body">                      
+                        <div class="row mb-1">
+                          <!-- <div class="col-12 mb-2">
+                            <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div> -->
 
-                      <div class="col-12">
-                        <h6>Transferencia</h6>                        
-                      </div>   
-                      <div class="col-12">   
-                        <div class="row">
-                          <div class="col-8">
-                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                            <div class="status-filter__text">
-                              <p class="detail-text"> {{detailData.status}} </p>
-                            </div>                        
-                          </div>
-                          <div class="col-2">
-                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                          </div>
-                        </div>                      
-                      </div>   
-                      <div class="col-12">   
-                        <div class="row">
-                          <div class="col-8">
-                            <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                            <div class="status-filter__text">
-                              <p class="detail-text"> Documentos Disponibles </p>
-                            </div>                        
-                          </div>
-                          <div class="col-2">
-                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                          </div>
-                        </div>                      
-                      </div>  
-                      
-                      <div class="col-12">
-                        <h6>Pre Alerta</h6>                        
-                      </div> 
-                      <div class="col-12 mb-3">
-                        <textarea class="form-control" rows="2" placeholder="Comentario"></textarea>                       
-                      </div> 
-                      <div class="col-12 mb-3">
-                        <div class="row justify-content-end">
-                          <div class="col-lg-6 mb-2">
-                            <label for="file-multiple-input">
-                              <div class="btn btn-pill btn-primary">Subir Documento</div>
-                            </label>
-                            <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
-                          </div>
-
-                          <div class="col-lg-3 mb-2">
-                            <button class="btn btn-pill btn-primary">Enviar</button>
-                          </div>
-                        </div>                        
-                      </div> 
-
-                      <div class="col-12 " *ngFor="let data of collapseList; let $index=index;">   
-                        <div class="row">
-                          <div class="col-8" (click)="Collaps($index)">                           
-                            <div class="status-filter__circle status-filter__circle--{{detailData.status | statusPipe }}"></div>
-                            <div class="status-filter__text">
-                              <p class="detail-text"> {{detailData.status}} </p>
-                            </div>                            
-                          </div>
-                          <div class="col-2">
-                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
-                          </div>
-                          <div class="col-1">
-                            <h5 class="detail-text"><i class="fas fa-file"></i></h5>
-                          </div>
-                          <div class="col-1" (click)="Collaps($index)">
-                            <h5 *ngIf="$index !== expandedIndex" class="detail-text"><i class="fas fa-chevron-down"></i></h5>
-                            <h5 *ngIf="$index === expandedIndex" class="detail-text"><i class="fas fa-chevron-up"></i></h5>
-                          </div>
-                          
-                        </div> 
-                        
-                        <div class="row" *ngIf="$index === expandedIndex">
                           <div class="col-12">
-                            <p class="detail-text">Documentos aprobados</p>
-                          </div>
-                        </div>
-                      </div> 
+                            <h6>Estatus Transferencia</h6>                        
+                          </div>                                    
+                          <div class="col-12">
+                            <h5 class="detail-text">Fecha de Solicitud</h5>
+                            <p class="detail-text">{{detailData.FechaCreacion}}</p>                    
+                          </div>    
 
-                      <div class="col-12">   
-                        <div class="row">
-                          <div class="col-8">
-                            <div class="status-filter__circle status-filter__circle--PAAACESA"></div>
-                            <div class="status-filter__text">
-                              <p class="detail-text"> Documentos Disponibles </p>
-                            </div>                        
+                          <!-- <div class="col-12">
+                            <h6>Transferencia</h6>                        
+                          </div>   
+                          <div class="col-12">   
+                            <div class="row justify-content-start">
+                              <div class="col-7 text-left">
+                                <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                                <div class="status-filter__text">
+                                  <p class="detail-text"> Recolectado </p>
+                                </div>                        
+                              </div>
+                              <div class="col-4 text-left">
+                                <h5 class="detail-text">16/03/2019</h5>                        
+                              </div>
+                            </div>                      
+                          </div>                              -->
+                          
+                          <div class="col-12">
+                            <hr class="dividerb">
+                          </div>                           
+
+                          <div class="col-12">
+                            <h6>Pre Alerta</h6>                        
+                          </div>                                                                 
+
+                          <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
+                            <mat-form-field class="input-full-width">         
+                              <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                            </mat-form-field>
+
+                            <div class="row justify-content-end">
+                              <div class="col-lg mb-1 text-right">
+                                <label for="file-multiple-input">
+                                  <div class="btn btn-pill btn-primary">Subir Documento</div>
+                                </label>
+                                <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
+                              </div>                                
+                            </div>
+                            
+                            <div class="row mb-3">                
+                              <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col col-lg-3">                                      
+                                <div>
+                                  <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
+                                  <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+                                  <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+                                </div>                                                                                                                                                          
+                              </div>                      
+                            </div>                              
                           </div>
-                          <div class="col-2">
-                            <h5 class="detail-text">{{detailData.leftDate | date: 'dd/MM/yy'}}</h5>                        
+
+                          <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <div class="row justify-content-end">
+                              <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
+                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado.split(' ')[0]}}</button>
+                              </div>
+                            </div>                                
                           </div>
-                        </div>                      
-                      </div>                                  
-                    </div>
+
+                          <!-- Seguimiento -->                          
+                          <div class="col-sm-12 col-md-12 col-lg-12 mb-3">                                                            
+                            <mat-accordion>
+
+                              <mat-expansion-panel *ngFor="let item of detailData.Seguimiento?.slice().reverse()">
+                                <mat-expansion-panel-header>
+                                  <div class="col status-filter">            
+                                    <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
+                                    <div class="status-filter__text"><p> {{item.Estatus}} </p></div>
+                                    <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>                                      
+                                  </div>                                                                                                              
+                                </mat-expansion-panel-header>
+                                <p class="detail-text">{{item.Usuario}}</p>
+                                <p class="detail-text">{{item.Comentarios}}</p>                                  
+                              </mat-expansion-panel>
+
+                            </mat-accordion>                                
+                          </div>
+                                                                                    
+                        </div>
+                      </div> <!-- End Card-Body -->
+                    </div> <!-- End Card -->
                   </div>
                   <!--  End Rigth -->
 

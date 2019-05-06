@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="row justify-content-end">  
   <div class="col-lg-2">
-    <button (click)="openDialog()" class="btn btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
+    <button (click)="openDialog()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
   </div>          
 </div>
 <div class="animated fadeIn">
@@ -218,9 +218,9 @@
               <td mat-cell *matCellDef="let element"> 
                 <div class="col status-filter">            
                   <div class="status-filter__circle status-filter__circle--{{element.Estatus | statusPipe }}"></div>
-                  <div class="status-filter__text">
+                  <!-- <div class="status-filter__text">
                     <p> {{ element.Estatus }} </p>
-                  </div>
+                  </div> -->
                 </div>
               </td>
             </ng-container>
@@ -228,7 +228,7 @@
             <ng-container matColumnDef="Acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
               <td mat-cell *matCellDef="let element"> 
-                <a (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+                <a class="btn btn-pill btn-ghost-link" (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
             </ng-container>
 
@@ -299,9 +299,19 @@
                           
                             <div class="col-sm-8 col-mf-8 col-lg-8">
                               <div class="row">
-                                  <div class="col-sm-12 col-md-12 col-lg-12">
+                                  <div class="col-sm-12 col-md-12 col-lg-8">
                                     <div class="referencia">
                                       <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12 col-md-12 col-lg-4">                                    
+                                    <h5 class="detail-text">Estatus:</h5>
+                                    <div class="col status-filter">            
+                                      <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                                      <div class="status-filter__text">
+                                        <p> {{ detailData.Estatus }} </p>
+                                      </div>
                                     </div>
                                   </div>
                               </div>
@@ -382,23 +392,43 @@
                           </div>
 
                           <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
                               <h6>Previo</h6>
-
-                              <textarea class="form-control" rows="2" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                            </div>
+                            
+                            <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
+                              <mat-form-field class="input-full-width">         
+                                <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                              </mat-form-field>
                               <div class="row justify-content-end">
-                                <div class="col-lg-6 mb-2">
+                                <div class="col-lg mb-1 text-right">
                                   <label for="file-multiple-input">
                                     <div class="btn btn-pill btn-primary">Subir Documento</div>
                                   </label>
-                                  <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
-                                </div>
-      
-                                <div class="col-lg-3 mb-2">
-                                  <button class="btn btn-pill btn-primary">Enviar</button>
-                                </div>
-                              </div>                          
+                                  <input (change)="onFileChanged()" style="display: none;" id="file-multiple-input" multiple="" type="file">
+                                </div>                                
+                              </div>
+
+                              <!-- <div class="col-lg"> -->
+                                  <div class="row mb-3">                
+                                    <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col col-lg-3">                                      
+                                      <div>
+                                        <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
+                                        <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+                                        <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+                                      </div>                                                                                                                                                          
+                                    </div>                      
+                                  </div>
+                                <!-- </div> -->
+
                             </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                              <div class="row justify-content-end">
+                                <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
+                                  <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado.split(' ')[0]}}</button>
+                                </div>
+                              </div>                                
+                            </div>                                                      
                           </div>
 
                           <!-- Seguimiento -->
@@ -411,10 +441,11 @@
                                     <div class="col status-filter">            
                                       <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
                                       <div class="status-filter__text"><p> {{item.Estatus}} </p></div>
-                                      <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>
-                                    </div>                                      
+                                      <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>                                      
+                                    </div>                                                                                                              
                                   </mat-expansion-panel-header>
-                                  {{item.Comentarios}}
+                                  <p class="detail-text">{{item.Usuario}}</p>
+                                  <p class="detail-text">{{item.Comentarios}}</p>                                  
                                 </mat-expansion-panel>
 
                               </mat-accordion>                                

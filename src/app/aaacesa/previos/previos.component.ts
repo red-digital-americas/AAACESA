@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angula
 import { Http } from '@angular/http';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { ngfModule, ngf } from "angular-file" // DragInput
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
@@ -12,7 +14,7 @@ import { ApiServices } from '../../services/api.services';
 
 ///////////
 // Modelos Previos
-import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento } from '../../models/previos.model';
+import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento, PrevioSeguimiento } from '../../models/previos.model';
 
 
 @Component({
@@ -66,9 +68,16 @@ export class PreviosComponent  {
         default: { return item[property];} 
       }
     };
-  }            
-    
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog) {            
+  } 
+  
+  ///////////////////////////////
+  // Seguimiento
+  modelSeguimiento:PrevioSeguimiento = new PrevioSeguimiento();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LOGIC SECTION    
+
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {            
     this.buscarPrevios();
 
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
@@ -77,6 +86,8 @@ export class PreviosComponent  {
       (errorService) => { console.log(errorService); });
   }
 
+  //////////////////////////
+  // Status Filter Bar Logic
   public updateCountStatus () {
     this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
     this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
@@ -145,7 +156,7 @@ export class PreviosComponent  {
   }
 
   public verDetalle (id: string) {    
-    
+    this.modelSeguimiento.cleanSeguimiento();
       // id = "PRV-20190000143";
       // id = "PRV-20190000142";
       this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
@@ -155,6 +166,76 @@ export class PreviosComponent  {
 
       // this.http.get('assets/Previos/previosDetalle.json')
       //   .subscribe((data) => { this.detailData = data.json(); console.log(this.detailData);});    
+  }
+
+
+  ///////////////////////////////
+  // Update Seguimiento
+  public updateSeguimiento (estado:string) {
+    this.modelSeguimiento.IdAdelantoPrevios = this.detailData['IdAdelantoPrevios'];
+    this.modelSeguimiento.Estatus = estado;
+    // console.log(this.modelSeguimiento);  
+    
+    this.apiService.service_general_put(`/AdelantoPrevios/UpdateSeguimiento`, this.modelSeguimiento)
+      .subscribe ( 
+      (response:any) => { 
+        console.log(response); 
+        if (response.Result) {          
+          // this.successResponse = true;
+          // this.responseMessage = response.Description;          
+          this.showAlert(response.Description);
+
+          this.verDetalle(this.detailData['IdAdelantoPrevios']);
+          this.buscarPrevios();
+        } else {
+          this.showAlert(response.Description);
+        }
+        // this.processingCreation = false;
+      }, 
+      (errorService) => { 
+        console.log(errorService);         
+
+        if(errorService.error.Description == undefined) {
+          this.showAlert(errorService.error);  
+        } else {
+          this.showAlert(errorService.error.Description);
+        }        
+        // this.processingCreation = false;
+      });
+
+  }
+
+  removeDocument (index) { this.modelSeguimiento.Documentos.splice(index, 1); }
+
+  onFileChanged(event) {    
+    for (let i = 0; i < event.target.files.length; i++) {
+      if (event.target.files[i].type != "application/pdf") { continue; }
+      if(this.modelSeguimiento.Documentos.filter(
+        documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
+      {continue;}
+
+      let newDocumento = new Documento();
+      newDocumento.NombreDocumento = event.target.files[i].name;
+
+      let reader = new FileReader();    
+      reader.readAsDataURL(event.target.files[i]);
+      reader.onload = () => {
+        // console.log(reader.result);
+        newDocumento.Archivo = reader.result.slice(28).toString();        
+        this.modelSeguimiento.Documentos.push(newDocumento);
+      };
+      reader.onerror = (error) => {
+        console.log(error);        
+      };                    
+   }
+  }
+
+  private showAlert (msj:string) {
+    this.snackBar.open(msj, "", {
+      duration: 4000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
   public openDocument (idDocumento) {   
@@ -204,8 +285,10 @@ export class PreviosComponent  {
 }
 
 
-//////////////////////////
-// Stepper
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Crear Previo Stepper - Dialog Component
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: '../dialogs/dialog-create-previos.component.html',
@@ -217,11 +300,28 @@ export class DialogCreatePreviosComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
     
+  daterangepickerOptions = {
+    startDate: '09/01/2017',
+    endDate: '09/02/2017',
+    format: 'DD/MM/YYYY',
+    singleDatePicker: true,
+    showDropdowns: true,
+    timePicker: true
+  }
+
   model:PrevioNuevo = new PrevioNuevo();  
+  files;                    // Arreglo usado por el dragInputFiles
+  referencia = "";          // Referencia que se utiliza para llenar Master/House
   successResponse = false;
   processingCreation = false;
   responseMessage = "";
 
+  dropInputChange(event) {
+    console.log(event);
+    console.log("drop change");
+    this.onFileChanged(event);
+  }
+  
   constructor(
     public dialogRef: MatDialogRef<DialogCreatePreviosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,
@@ -231,7 +331,8 @@ export class DialogCreatePreviosComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required]
+      houseCtrl: ['', Validators.required],
+      referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
       nombreCtrl: ['', Validators.required],
@@ -239,6 +340,8 @@ export class DialogCreatePreviosComponent implements OnInit {
       maternoCtrl: ['', Validators.required],
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaPrevioCtrl: ['', Validators.required],
+      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
+      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
       numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
@@ -253,14 +356,14 @@ export class DialogCreatePreviosComponent implements OnInit {
   }
 
   //////////////////////////////////
-  // Forms Logic - Crear Pre Alerta      
+  // Forms Logic - Crear Pre Alerta         
+  // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
-    console.log(event);
-
+    // console.log(event);
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
-  }
+  }  
 
   validarCampos(index) {   
     console.log(index) ;
@@ -269,7 +372,7 @@ export class DialogCreatePreviosComponent implements OnInit {
     } 
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
-    }    
+    }       
   }
 
   private showAlert (msj:string) {
@@ -280,7 +383,27 @@ export class DialogCreatePreviosComponent implements OnInit {
     });
   }
 
+  //////////////////////
+  // Paso 1
+  checkReferencia() {    
+    //Consultar servicios        
+    if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
+      this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
+      this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+    } else {
+      this.firstFormGroup.get('masterCtrl').setValue('');
+      this.firstFormGroup.get('houseCtrl').setValue('');
+    }
+  }
+
+  cleanReferencia() {        
+    this.firstFormGroup.get('referenciaCtrl').setValue('');          
+  }
+
+
   guardarFirstForm () {    
+    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
+
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);
     this.model.Master = this.firstFormGroup.value.masterCtrl;
@@ -291,7 +414,21 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.model.Patente = this.secondFormGroup.value.patenteCtrl;
     
     let f = this.secondFormGroup.value.fechaPrevioCtrl.toISOString();       // 2019-11-23        
-    f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
+    // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
+    f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;
+
+    if (this.secondFormGroup.value.horaPrevioCtrl < 10){
+      f = `${f} 0${this.secondFormGroup.value.horaPrevioCtrl}`;
+    } else {
+      f = `${f} ${this.secondFormGroup.value.horaPrevioCtrl}`;
+    }
+
+    if (this.secondFormGroup.value.minutoPrevioCtrl < 10) {
+      f = `${f}:0${this.secondFormGroup.value.minutoPrevioCtrl}`;
+    } else {
+      f = `${f}:${this.secondFormGroup.value.minutoPrevioCtrl}`;
+    }
+
     this.model.FechaPrevio = f;    
 
     this.model.NumGafete = this.secondFormGroup.value.numGafeteCtrl;
@@ -338,20 +475,22 @@ export class DialogCreatePreviosComponent implements OnInit {
   }
 
   /////// Paso3 - Subir Archivos
-  removeDocument (index) { this.model.Documentos.splice(index, 1); }
+  removeDocument (index) { 
+    this.model.Documentos.splice(index, 1);     
+  }
 
   onFileChanged(event) {    
-    for (let i = 0; i < event.target.files.length; i++) {
-      if (event.target.files[i].type != "application/pdf") { continue; }
+    for (let i = 0; i < event.length; i++) {
+      if (event[i].type != "application/pdf") { continue; }
       if(this.model.Documentos.filter(
-        documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
+        documento => documento.NombreDocumento.includes(event[i].name)).length > 0)
       {continue;}
 
       let newDocumento = new Documento();
-      newDocumento.NombreDocumento = event.target.files[i].name;
+      newDocumento.NombreDocumento = event[i].name;
 
       let reader = new FileReader();    
-      reader.readAsDataURL(event.target.files[i]);
+      reader.readAsDataURL(event[i]);
       reader.onload = () => {
         // console.log(reader.result);
         newDocumento.Archivo = reader.result.slice(28).toString();        
@@ -361,5 +500,6 @@ export class DialogCreatePreviosComponent implements OnInit {
         console.log(error);        
       };                    
    }
+   this.files = [];
   }
 }
