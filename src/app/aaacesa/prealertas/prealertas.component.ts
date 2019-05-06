@@ -61,7 +61,7 @@ export class PrealertasComponent {
           f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
           //console.log(f);
           let newDate = new Date(f);
-          console.log(newDate);
+          // console.log(newDate);
           return newDate;
         }
         default: { return item[property];} 
@@ -76,7 +76,7 @@ export class PrealertasComponent {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private catalogosService:CatalogosService) {
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
     this.buscaPrealertasNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
@@ -230,7 +230,7 @@ export class PrealertasComponent {
   }
 
   public openDocument (idDocumento) {   
-    console.log(idDocumento); 
+    // console.log(idDocumento); 
     this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
@@ -310,8 +310,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogCreatePrealertasComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder,
     private apiService:ApiServices,
-    public snackBar: MatSnackBar,
-    private catalogosService:CatalogosService ) {
+    public snackBar: MatSnackBar) {
 
       this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
@@ -355,6 +354,8 @@ export class DialogCreatePrealertasComponent implements OnInit {
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaArriboCtrl: ['', Validators.required],
+      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
+      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
       rangoTemperaturaCtrl: ['', Validators.required],
@@ -422,10 +423,21 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.model.MetodoPago = this.secondFormGroup.value.metodoPagoCtrl;
     this.model.UsoCFDI = this.secondFormGroup.value.usoCFDICtrl;
     
-    let f = this.secondFormGroup.value.fechaArriboCtrl.toISOString();       // 2019-11-23        
-    // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
-    f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;
-    
+    let f = this.secondFormGroup.value.fechaArriboCtrl.toISOString();       // 2019-11-23            
+    f = `${f.slice(8,10)}/${f.slice(5,7)}/${f.slice(0,4)}`;
+
+    if (this.secondFormGroup.value.horaPrevioCtrl < 10){
+      f = `${f} 0${this.secondFormGroup.value.horaPrevioCtrl}`;
+    } else {
+      f = `${f} ${this.secondFormGroup.value.horaPrevioCtrl}`;
+    }
+
+    if (this.secondFormGroup.value.minutoPrevioCtrl < 10) {
+      f = `${f}:0${this.secondFormGroup.value.minutoPrevioCtrl}`;
+    } else {
+      f = `${f}:${this.secondFormGroup.value.minutoPrevioCtrl}`;
+    }
+
     this.model.FechaArribo = f;    
     
     if (this.secondFormGroup.value.comentarioCtrl == "") {            
@@ -434,15 +446,15 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    console.log(this.model);    
+    // console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 
-  crearPrevio () {
+  crearPrealerta () {
     if (this.processingCreation) { return; }
     
     this.processingCreation = true;
-    this.apiService.service_general_post(`/AdelantoPrevios/CrearAdelantoPrevios`, this.model)
+    this.apiService.service_general_post(`/Prealertas/CrearPrealerta`, this.model)
       .subscribe ( 
       (response:any) => { 
         console.log(response); 

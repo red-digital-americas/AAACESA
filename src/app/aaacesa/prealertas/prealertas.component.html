@@ -94,7 +94,7 @@
           <div class="col-lg-12">
             <div class="row align-items-center">
 
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Aceptada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(0)">
@@ -103,7 +103,7 @@
                   </div>
               </div> 
               
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Solicitada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(1)">
@@ -112,7 +112,7 @@
                   </div>
               </div>
 
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--PendienteAAACESA"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(2)">
@@ -121,7 +121,7 @@
                   </div>
               </div>
 
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--PendienteCliente"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(3)">
@@ -130,7 +130,7 @@
                   </div>
               </div>
               
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Rechazada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(4)">
@@ -139,7 +139,7 @@
                   </div>
               </div>
 
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Finalizada"></div>
                 <div class="status-filter__text">
                   <label (click)="applyFilter(5)" for="finalizadaCheck">
@@ -148,7 +148,7 @@
                 </div>              
               </div>
 
-              <div class="col text-center status-filter">            
+              <div class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Cancelada"></div>
                 <div class="status-filter__text">
                   <label (click)="applyFilter(6)">
@@ -157,7 +157,7 @@
                 </div>                
               </div>
 
-              <div class="col text-center status-filter">                          
+              <div class="col mb-1 text-center status-filter">                          
                 <div class="status-filter__text">
                   <label (click)="applyFilter(10)" for="todosCheck">
                     <span class="status-filter__number">({{data.length}})</span> Todos
@@ -178,7 +178,7 @@
           
             <ng-container matColumnDef="IdPrealerta">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Prealerta </th>
-              <td mat-cell *matCellDef="let element"> {{element.IdPrealerta}} </td>
+              <td mat-cell *matCellDef="let element">{{element.IdPrealerta}}</td>
             </ng-container>
           
             <ng-container matColumnDef="GuiaMaster">
@@ -250,27 +250,55 @@
                 <div class="row">
 
                   <!--  Start left -->
-                  <div class="col-12 col-lg-8">                    
+                  <div class="col-12 col-lg-7 col-xl-8">                    
                     <div class="card">
                       <div class="card-body">
                         <div class="row mb-1">
 
-                          <!-- <div class="col-12 mb-4">
-                            <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
-                          </div> -->
+                          <!-- Start Left Inside -->
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">                                                                            
+                            <!-- <div class="col-12 mb-4">
+                              <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
+                            </div> -->
 
-                          <div class="col">
-                            <h5 class="detail-text">Guia Master </h5>
-                            <p class="detail-text">{{detailData.GuiaMaster}}</p>
-                          </div>
-                          
-                          <div class="col">
+                            <div class="col-12">
+                              <h5 class="detail-text text-muted">Guia Master </h5>
+                              <p class="detail-text">{{detailData.GuiaMaster}}</p>
+                            </div>
+
+                            <div class="col-12">
+                              <h5 class="detail-text text-muted">Guia House </h5>
+                              <p class="detail-text">{{detailData.GuiaHouse}}</p>
+                            </div>
+
+                            <div class="col-12">
+                              <h5 class="detail-text text-muted">Consiganatario a Facturar</h5> 
+                              <p class="detail-text">{{detailData.Consignatario}}</p>
+                            </div>
+
+                            <div class="col">
+                              <h5 class="detail-text text-muted">Método de Pago</h5>
+                              <p class="detail-text">{{detailData.MetodoPago}}</p>
+                            </div>
+
+                            <div class="col">
+                              <h5 class="detail-text text-muted">Condicion de Alamacenaje</h5>
+                              <p class="detail-text">{{detailData.CondicionAlmacenaje}}</p>
+                            </div>                                                      
+                          </div>  
+                          <!-- End Left Inside -->
+
+                          <!-- Start Right Inside -->
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
+
                             <div class="row justify-content-end">
-                              <div class="col">
-                                <h5 class="detail-text btn btn-outline-light">Referencia: {{detailData.Referencia}}</h5>                    
+                              <div class="col-xs-12 col-sm-12 col-lg-8">
+                                <div class="referencia">
+                                  <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>                    
+                                </div>
                               </div>
-                              <div class="col">
-                                <h5 class="detail-text">Estatus</h5>
+                              <div class="col-xs-12 col-sm-12 col-lg-4">
+                                <h5 class="detail-text text-muted">Estatus</h5>
                                 <div class="col status-filter">            
                                   <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
                                   <div class="status-filter__text">
@@ -279,83 +307,55 @@
                                 </div>
                               </div>
                             </div>
-                          </div>                        
-                        </div> 
-                    
-                        <div class="row mb-1">
-                          <div class="col">
-                            <h5 class="detail-text">Guia House </h5>
-                            <p class="detail-text">{{detailData.GuiaHouse}}</p>
-                          </div>
 
-                          <div class="col">
-                            <div class="row justify-content-end">
-                              <div class="col">
-                                <h5 class="detail-text">Piezas </h5>
+                            <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-lg-2">
+                                <h5 class="detail-text text-muted">Piezas </h5>
                                 <p class="detail-text">{{detailData.Piezas}}</p>
                               </div>
-                              <div class="col">
-                                <h5 class="detail-text">Uso de CFDI</h5>
-                                <p class="detail-text">{{detailData.UsoCFDI}}</p>
-                              </div>
-                              <div class="col">
-                                <h5 class="detail-text">Peso</h5>
+
+                              <div class="col-xs-12 col-sm-12 col-lg-2">
+                                <h5 class="detail-text text-muted">Peso</h5>
                                 <p class="detail-text">{{detailData.Peso}}</p>
                               </div>
-                            </div>
-                          </div>
-                        </div>   
-                    
-                        <div class="row mb-1">
-                          <div class="col">
-                            <h5 class="detail-text">Consiganatario a Facturar</h5> 
-                            <p class="detail-text">{{detailData.Consignatario}}</p>
-                          </div>
 
-                          <div class="col">
-                            <div class="row justify-content-end">
-                              <div class="col">
-                                <h5 class="detail-text">Fecha de Arribo</h5>
+                              <div class="col-xs-12 col-sm-12 col-lg-8">
+                                <h5 class="detail-text text-muted">Uso de CFDI</h5>
+                                <p class="detail-text">{{detailData.UsoCFDI}}</p>
+                              </div>                              
+                            </div>
+
+                            <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-lg-4">
+                                <h5 class="detail-text text-muted">Fecha de Arribo</h5>
                                 <p class="detail-text">{{detailData.FechaArribo}}</p>
                               </div>
-                              <div class="col">
-                                <h5 class="detail-text">Consolidado</h5>
+                              <div class="col-xs-12 col-sm-12 col-lg-4">
+                                <h5 class="detail-text text-muted">Consolidado</h5>
                                 <p class="detail-text">{{detailData.Consolidado ? 'Sí' : 'No' }}</p>
                               </div>
-                              <div class="col">
-                                <h5 class="detail-text">Almacen de Origen</h5>
+                              <div class="col-xs-12 col-sm-12 col-lg-4">
+                                <h5 class="detail-text text-muted">Almacen de Origen</h5>
                                 <p class="detail-text">{{detailData.AlmacenOrigen}}</p>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                    
-                        <div class="row mb-1">
-                          <div class="col">
-                            <h5 class="detail-text">Método de Pago</h5>
-                            <p class="detail-text">{{detailData.MetodoPago}}</p>
-                          </div>
 
-                          <div class="col">
-                            <div class="row justify-content-end">
-                              <div class="col">
-                                <h5 class="detail-text">Rango de Temperatura</h5>
+                            <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-lg-6">
+                                <h5 class="detail-text text-muted">Rango de Temperatura</h5>
                                 <p class="detail-text">{{detailData.RangoTemperatura}}</p>
-                              </div>                
+                              </div>   
+                              
+                              <div class="col-xs-12 col-sm-12 col-lg-6">
+                                <h5 class="detail-text text-muted">Instrucciones de Manejo</h5>
+                                <p class="detail-text">{{detailData.InstruccionesManejo}}</p>
+                              </div>   
                             </div>
+                            
                           </div>
-                        </div>
-      
-                        <div class="row mb-3">
-                          <div class="col">
-                            <h5 class="detail-text">Condicion de Alamacenaje</h5>
-                            <p class="detail-text">{{detailData.CondicionAlmacenaje}}</p>
-                          </div>
-                          <div class="col">
-                            <h5 class="detail-text">Instrucciones de Manejo</h5>
-                            <p class="detail-text">{{detailData.InstruccionesManejo}}</p>
-                          </div>                
-                        </div>
+                          <!-- End Right Inside -->
+                          
+                        </div>                                                                                                                                                                 
 
                         <hr class="dividerb">
 
@@ -371,7 +371,7 @@
                   <!--  End left -->
 
                   <!-- Start Rigth -->                  
-                  <div class="col-12 col-lg-4">
+                  <div class="col-12 col-lg-5 col-xl-4">
                     <div class="card">
                       <div class="card-body">                      
                         <div class="row mb-1">

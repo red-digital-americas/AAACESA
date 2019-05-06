@@ -20,9 +20,9 @@
     <div class="container mt-3">
       <form [formGroup]="firstFormGroup">                
           <div class="row">
-            <div class="col-sm-6 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-12 col-lg-12">
               <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-6">                
+                <div class="col-sm-12 col-md-6 col-lg-6">                
                   <mat-form-field class="input-full-width">         
                     <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
@@ -40,7 +40,7 @@
                     </mat-error>   
                   </mat-form-field> 
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">                                                
+                <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
                     <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
                   </mat-form-field>                 
@@ -233,7 +233,7 @@
                   <div class="col-12 col-md-12">                    
                     <div class="row mb-1">
                       <div class="col-md-4">
-                        <h5 class="detail-text">Guia Master </h5>
+                        <h5 class="detail-text text-muted">Guia Master </h5>
                         <p class="detail-text">{{model.Master}}</p>
                       </div>
                       
@@ -249,46 +249,46 @@
                 
                     <div class="row mb-1">
                       <div class="col-md-4">
-                        <h5 class="detail-text">Guia House</h5>
+                        <h5 class="detail-text text-muted">Guia House</h5>
                         <p class="detail-text">{{model.House}}</p>
                       </div>
 
                       <div class="col-md-4">
-                        <h5 class="detail-text">Nombre Completo</h5>
+                        <h5 class="detail-text text-muted">Nombre Completo</h5>
                         <p class="detail-text">{{model.Nombre}} {{model.Paterno}} {{model.Materno}}</p>
                       </div>
 
                       <div class="col-md-4">
-                        <h5 class="detail-text">No. Gafete</h5>
+                        <h5 class="detail-text text-muted">No. Gafete</h5>
                         <p class="detail-text">{{model.NumGafete}}</p>
                       </div>
                     </div>   
                 
                     <div class="row mb-1">
                       <div class="col-md-4">
-                        <h5 class="detail-text">Patente</h5> 
+                        <h5 class="detail-text text-muted">Patente</h5> 
                         <p class="detail-text">{{model.Patente}}</p>
                       
                       </div>
                       <div class="col-md-4">
-                        <h5 class="detail-text">Piezas </h5>
+                        <h5 class="detail-text text-muted">Piezas </h5>
                         <p class="detail-text">{{model.Piezas}}</p>
                       </div>
                       
                       <div class="col-md-4">
-                        <h5 class="detail-text">Peso</h5>
+                        <h5 class="detail-text text-muted">Peso</h5>
                         <p class="detail-text">{{model.Peso}}</p>
                       </div>
                     </div>
                 
                     <div class="row mb-3">
                       <div class="col-md-4">
-                        <h5 class="detail-text">Fecha y Hora</h5> 
+                        <h5 class="detail-text text-muted">Fecha y Hora</h5> 
                         <p class="detail-text">{{model.FechaPrevio}}</p>
                       
                       </div>
                       <div class="col-md-4">
-                        <h5 class="detail-text">Etiquetado</h5>
+                        <h5 class="detail-text text-muted">Etiquetado</h5>
                         <h6 class="detail-text">{{model.Etiquetado ? 'Sí' : 'No'}}</h6>
                       </div>                                           
                     </div>
