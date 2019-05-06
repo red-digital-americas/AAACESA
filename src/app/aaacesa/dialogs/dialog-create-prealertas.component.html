@@ -144,8 +144,8 @@
                         <ngx-mat-select-search formControlName="metodoPagoSearchCtrl" [placeholderLabel]="'Método de Pago'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                       </mat-option>
                       <mat-option>Ninguno</mat-option>                    
-                      <mat-option *ngFor="let option of metodoPagoCatalogo | filterSelect: secondFormGroup.get('metodoPagoSearchCtrl').value" [value]="option.value"> 
-                        {{option.value}} - {{option.text}}
+                      <mat-option *ngFor="let option of metodoPagoCatalogo | filterSelect: secondFormGroup.get('metodoPagoSearchCtrl').value" [value]="option.c_MetodoPago"> 
+                        {{option.c_MetodoPago}} - {{option.Descripcion}}
                       </mat-option>
                     </mat-select>                  
                   </mat-form-field>
@@ -194,8 +194,8 @@
                 <div class="col-lg-12">
                   <mat-radio-group formControlName="instruccionesManejoCtrl" aria-label="Select an option">
                     <div class="row mt-3">
-                      <mat-radio-button class="col" *ngFor="let option of instruccionesManejoCatalogo" [value]="option.value">
-                        {{option.text}}
+                      <mat-radio-button class="col" *ngFor="let option of instruccionesManejoCatalogo" [value]="option.ClaveInstruccion">
+                        {{option.ClaveInstruccion}} - {{option.Descripcion}}
                       </mat-radio-button>                    
                     </div>                    
                   </mat-radio-group>

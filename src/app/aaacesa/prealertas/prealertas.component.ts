@@ -78,11 +78,11 @@ export class PrealertasComponent {
   
   constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private catalogosService:CatalogosService) {
     this.buscaPrealertasNueva();    
-      
-    this.catalogosService.GetInstruccionesManejo()
+ 
+    this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
-        (response:any) => { this.instruccionesManejoCatalogo = response;}, 
-        (errorService) => { console.log(errorService); });                 
+      (response:any) => { this.instruccionesManejoCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });
   }
 
   //////////////////////////
@@ -136,22 +136,15 @@ export class PrealertasComponent {
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
     }    
-
-    // this.apiService.service_general_get_with_params('/AdelantoPrevios/Busqueda', this.busquedaModel)
-    //   .subscribe ( 
-    //   (response:any) => {                 
-    //     this.data = response;        
-    //     this.dataSource.data = this.data;
-    //     this.updateCountStatus();
-    //   }, 
-    //   (errorService) => { console.log(errorService); });
-        
-    this.http.get('assets/Prealertas/prealertas.json')
-      .subscribe((data) => {          
-          this.data = data.json();
-          this.dataSource.data = this.data;
-          this.updateCountStatus();
-      });  
+    
+    this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
+      .subscribe ( 
+      (response:any) => {                 
+        this.data = response;        
+        this.dataSource.data = this.data;
+        this.updateCountStatus();
+      }, 
+      (errorService) => { console.log(errorService); });            
   }
 
   buscaPrealertasNueva () {
@@ -164,13 +157,10 @@ export class PrealertasComponent {
   public verDetalle (id: string) {    
     this.modelSeguimiento.cleanSeguimiento();      
     
-    // this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
-    // .subscribe ( 
-    // (response:any) => { this.detailData = response;}, 
-    // (errorService) => { console.log(errorService); });
-
-    this.http.get('assets/Prealertas/prealertasDetalle.json')
-      .subscribe((data) => { this.detailData = data.json(); console.log(this.detailData);});    
+    this.apiService.service_general_get(`/Prealertas/GetDetailsById/${id}`)
+    .subscribe ( 
+    (response:any) => { this.detailData = response;}, 
+    (errorService) => { console.log(errorService); });
   } 
   
   ///////////////////////////////
@@ -180,7 +170,7 @@ export class PrealertasComponent {
     this.modelSeguimiento.Estatus = estado;
     console.log(this.modelSeguimiento);  
     
-    this.apiService.service_general_put(`/AdelantoPrevios/UpdateSeguimiento`, this.modelSeguimiento)
+    this.apiService.service_general_put(`/Prealertas/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
         console.log(response); 
@@ -241,7 +231,7 @@ export class PrealertasComponent {
 
   public openDocument (idDocumento) {   
     console.log(idDocumento); 
-    this.apiService.service_general_get(`/AdelantoPrevios/GetDocumentById/${idDocumento}`)
+    this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
         var element = document.createElement('a');
@@ -323,36 +313,35 @@ export class DialogCreatePrealertasComponent implements OnInit {
     public snackBar: MatSnackBar,
     private catalogosService:CatalogosService ) {
 
-      this.catalogosService.GetInstruccionesManejo()
+      this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
-        (response:any) => { this.instruccionesManejoCatalogo = response;}, 
-        (errorService) => { console.log(errorService); }); 
+      (response:any) => { this.instruccionesManejoCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });
 
-      this.catalogosService.GetAlmacenOrigen()
+      this.apiService.service_general_get('/Catalogos/GetCatalogoAlmacenOrigen')
       .subscribe ( 
-        (response:any) => { this.almacenOrigenCatalogo = response;}, 
-        (errorService) => { console.log(errorService); });
+      (response:any) => { this.almacenOrigenCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });      
 
-    this.catalogosService.GetRangoTemperatura()
+      this.apiService.service_general_get('/Catalogos/GetConceptosCadenaFria')
       .subscribe ( 
-        (response:any) => { this.rangoTemperaturaCatalogo = response;}, 
-        (errorService) => { console.log(errorService); });
-    
-    this.catalogosService.GetMetodoPago()
-      .subscribe ( 
-        (response:any) => { this.metodoPagoCatalogo = response;}, 
-        (errorService) => { console.log(errorService); }); 
+      (response:any) => { this.rangoTemperaturaCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });     
 
-    this.catalogosService.GetUsoCFDI()
+      this.apiService.service_general_get('/Catalogos/GetConceptosMetodoPago')
       .subscribe ( 
-        (response:any) => { this.usoCFDICatalogo = response;}, 
-        (errorService) => { console.log(errorService); }); 
-        
-    this.catalogosService.GetCondicionesAlmacenes()
+      (response:any) => { this.metodoPagoCatalogo = response;}, 
+      (errorService) => { console.log(errorService); });   
+      
+      this.apiService.service_general_get('/Catalogos/GetConceptosUsoCFDI')
       .subscribe ( 
-        (response:any) => { this.condicionesAlmacenesCatalogo = response;}, 
-        (errorService) => { console.log(errorService); });   
+      (response:any) => { this.usoCFDICatalogo = response; }, 
+      (errorService) => { console.log(errorService); });     
 
+      this.apiService.service_general_get('/Catalogos/GetCondicionesAlmacenaje')
+      .subscribe ( 
+      (response:any) => { this.condicionesAlmacenesCatalogo = response; }, 
+      (errorService) => { console.log(errorService); });             
   }
 
   ngOnInit() {
