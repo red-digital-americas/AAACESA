@@ -12,46 +12,46 @@
       <div class="row mb-3">
         <div class="col-md-4 offset-md-8">
           <mat-form-field class="input-full-width">
-            <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
+            <input matInput (keyup)="applyFilter($event.target.value)" type="text" placeholder="Buscar..." />
             <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
           </mat-form-field>
         </div>
       </div>
       <div class="table-responsive">
-        <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
           <!-- Nombre Column -->
-          <ng-container matColumnDef="nombre">
+          <ng-container matColumnDef="Nombre">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
             <td mat-cell *matCellDef="let element"> {{element.Nombre}} {{element.Paterno}} {{element.Materno}} </td>
           </ng-container>
 
           <!-- Telefono Column -->
-          <ng-container matColumnDef="telefono">
+          <ng-container matColumnDef="Telefono">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
             <td mat-cell *matCellDef="let element"> {{element.Telefono}} </td>
           </ng-container>
 
           <!-- RFC Column -->
-          <ng-container matColumnDef="rfc">
+          <ng-container matColumnDef="RFC">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> RFC </th>
             <td mat-cell *matCellDef="let element"> {{element.RFC}} </td>
           </ng-container>
 
           <!-- Patente Column -->
-          <ng-container matColumnDef="patente">
+          <ng-container matColumnDef="ClavePatente">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
             <td mat-cell *matCellDef="let element"> {{element.ClavePatente}} </td>
           </ng-container>
 
           <!-- Perfil Column -->
-          <ng-container matColumnDef="perfil">
+          <ng-container matColumnDef="ClavePerfil">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Perfil </th>
             <td mat-cell *matCellDef="let element"> {{element.Perfil.ClavePerfil}} </td>
           </ng-container>
 
           <!-- Activo Column -->
-          <ng-container matColumnDef="activo">
+          <ng-container matColumnDef="IsBlocked">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
             <td mat-cell *matCellDef="let element">
               <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">

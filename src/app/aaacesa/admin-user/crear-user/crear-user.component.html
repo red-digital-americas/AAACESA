@@ -53,11 +53,11 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-4">
               <div class="col-md-4 styled-select">
                 <mat-form-field class="input-full-width">
                   <select matNativeControl [(ngModel)]="crearUser.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
-                    <option label="--Selecciona el perfil --"></option>
+                    <option label="--Selecciona el perfil --">--Selecciona el perfil --</option>
                     <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
                   </select>
                   <mat-error *ngIf="selPerfilUser.hasError('required')">
@@ -76,13 +76,6 @@
                   </mat-error>
                 </mat-form-field> 
               </div>
-              <div class="col-md-4">
-                <label class="mr-5">Subir imagen</label>
-                <label for="file-multiple-input">
-                  <div class="btn btn-outline-primary btn-lg btn-block"><i class="icon-plus lg"></i></div>
-                </label>
-                <input style="display: none;" id="file-multiple-input" multiple="" name="file-multiple-input" type="file">
-              </div>
             </div>
             <!-- <div class="row">
               <div class="col">
@@ -91,7 +84,7 @@
             </div> -->
             <div class="row mt-3 align-items-center">
               <div class="col text-center">
-                <button type="submit"  class="btn btn-lg btn-pill btn-primary" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm._directives)">Enviar</button>
+                <button type="submit"  class="btn btn-ghost-link btn-pill" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm._directives)">Enviar</button>
               </div>
             </div>
           </div>
@@ -108,7 +101,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-content class="mat-typography" *ngIf="visible">
-  <div class="container mt-3 mb-5" *ngIf="!final">
+  <div class="container mt-3" *ngIf="!final">
     <form #buscaUserForm="ngForm">
       <div class="container">
         <div class="row">
@@ -120,24 +113,24 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div class="col text-center">
-            <button type="submit"  class="btn btn-md btn-pill btn-link" (click)="buscaUserForm.valid ? buscaRFCUsuario() : validar_campos(buscaUserForm._directives)">Buscar</button>
+          <div class="col-md-4 text-left">
+            <button type="submit"  class="btn btn-ghost-link btn-pill" (click)="buscaUserForm.valid ? buscaRFCUsuario() : validar_campos(buscaUserForm._directives)"><i class="fas fa-search"></i>&nbsp;Buscar</button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4" *ngIf="rfcVisible">
+        <div class="row  mt-4"  *ngIf="rfcVisible">
+          <div class="col-md-6">
             <mat-form-field class="input-full-width">
               <select matNativeControl [(ngModel)]="RFCcliente" #selgetRFCc="ngModel" name="selgetRFCc" id="selgetRFCc" required placeholder="Seleccione un cliente">
-                <option label="--Selecciona un cliente --"></option>
-                <option *ngFor="let item of getRFCcliente" [value]="item.ClavePerfil">{{item.ClavePerfil}} : {{ item.DescripcionPerfil}} </option>
+                <option label="--Selecciona un cliente --" [ngValue]="0">--Selecciona un cliente --</option>
+                <option *ngFor="let item of getRFCcliente" [ngValue]="item">Razón:&nbsp;{{item.RazonSocial}}&nbsp;|&nbsp;RFC:&nbsp;{{ item.RFC}} </option>
               </select>
               <mat-error *ngIf="selgetRFCc.hasError('required')">
                 El campo RFC Cliente es <strong>requerido</strong>
               </mat-error>
             </mat-form-field>
           </div>
-          <div class="col text-center">
-            <button type="submit"  class="btn btn-md btn-pill btn-link" (click)="crearUserByAdmin()" >Enviar</button>
+          <div class="col-md-4 text-center">
+            <button type="submit" class="btn btn-ghost-link btn-pill" (click)="crearUserByAdmin(selgetRFCc.value)" >Enviar</button>
           </div>
         </div>
         <div class="row mt-3 align-items-center">

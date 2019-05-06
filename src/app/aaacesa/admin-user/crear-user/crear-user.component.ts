@@ -44,17 +44,19 @@ export class CrearUserComponent implements OnInit {
     });
   }
 
-  crearUserByAdmin(){
-    
+  crearUserByAdmin(selValue){
+    this.crearUser.RFC = this.RFCcliente.RFC;
+    this.crearUser.RazonSocial = this.RFCcliente.RazonSocial;
+    this.crearUser.ClavePatente = this.RFCcliente.ClavePatente;
+    this.crearUser.TipoCliente = this.RFCcliente.TipoCliente;
+    this.visible=false;
   }
 
   buscaRFCUsuario(){
-    console.log(this.rfcCliente);
     this.rfcVisible=true;
-    // this.apiservices.service_general_get("/Catalogos/GetClientes"+this.rfcCliente).subscribe((res)=>{
-    //   console.log(res);
-    //   this.getRFCcliente  = res;
-    // });
+    this.apiservices.service_general_get("/Catalogos/GetClientes/"+this.rfcCliente).subscribe((res)=>{
+      this.getRFCcliente  = res;
+    });
   }
 
   guardaUsuario() {

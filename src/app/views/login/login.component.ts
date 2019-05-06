@@ -35,13 +35,13 @@ export class LoginComponent implements OnInit {
           "Password": this.password
         }
       ).subscribe((value) => {
-        console.log(value);
+        // console.log(value);
         this.validar= true;
         localStorage.setItem('token', value.Token);
         if(value.isAuth)
         {
           this.apiservices.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
-            console.log(respuesta);
+            // console.log(respuesta);
             localStorage.setItem('user', JSON.stringify(respuesta));
             this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
             setTimeout(function(){
