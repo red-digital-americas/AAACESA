@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
         this.message = value;
         if(value != "El usuario no existe")
         {
-          this.loading= true;
+          this.loading= false;
           this.message;
           this.sendAlert(this.message);
           setTimeout(function(){
@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
       });
     }
     else{
-      this.loading= true;
+      this.loading= false;
       this.message
       this.sendAlert(this.message);
     }
