@@ -31,4 +31,12 @@ export class LoginServices{
       return this.http.put(this.url + url, parametros , { headers: headers });
     }
 
+    service_general_get_with_params(url, parametros): Observable<any> {
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+      
+      return this.http.get(this.url + url, { headers: headers, params: parametros });
+    }
+  
+
 }

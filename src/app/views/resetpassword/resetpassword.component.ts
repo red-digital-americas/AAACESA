@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiServices } from '../../services/api.services';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
 import { ErrorStateMatcher } from '@angular/material/core';
+import { LoginServices } from '../../services/login.services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -18,7 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'resetpassword.component.html',
-  providers: [ApiServices]
+  providers: [LoginServices]
 })
 export class ResetpasswordComponent implements OnInit {
   newPassword: string;
@@ -30,12 +31,13 @@ export class ResetpasswordComponent implements OnInit {
   validar= false;
   hide = true;
   confPasw: string;
+  loading:boolean=false;
 
   //Validar Passwords
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private route: ActivatedRoute, private apiservices: ApiServices,public snackBar: MatSnackBar, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private loginservices: LoginServices,public snackBar: MatSnackBar, private fb: FormBuilder) {
     this.form = this.fb.group({
       passwordUser: ['', [Validators.required]],
       passwConfirm: ['',[Validators.required]]
@@ -50,42 +52,59 @@ export class ResetpasswordComponent implements OnInit {
  }
 
   ngOnInit() {
+      // this.loading=true;
       this.route.queryParams.subscribe(params => {
       console.log(params);
       this.idcliente = params['IdUser'];
       this.mail = params['Correo'];
       this.guid = params['token'];
+      // this.loginservices.service_general_get_with_params('/PasswordRecovery/ValidaProcesoRecuperacion',{
+      //   "Correo" : this.mail,
+      //   "Guid" : this.guid,
+      //   "IdCliente" : this.idcliente
+      // }).subscribe((respuesta)=>{
+      //     if(!respuesta)
+      //     {
+      //       this.loading=false;
+      //       this.sendAlert("El link a caducado, seras redirigido");
+      //       setTimeout(function(){
+      //         window.location.href ="login";
+      //       },3000);
+      //     }
+      // });
     })
   }
 
   resetPassword(obj){
-    this.validar= true;
-    
-      if(this.newPassword != undefined) 
-      {
-        this.apiservices.service_general_post('AAACESA-Portal/portalclientes/resetPassword',
-          {"reset": {
-              "idCliente": this.idcliente,
-              "correo": this.mail,
-              "guid": this.guid,
-              "password": this.newPassword
-          }}).subscribe((respuesta)=>{
-            this.mostrar=true;
-            if(respuesta.Result == "true")
-            {
-              this.message= "Contraseña cambiada correctamente, seras redirigido al login.";
-              setTimeout(function(){
-                window.location.href ="login";
-              },3000);
-            }
-            else{
-              this.message= "No se pudo cambiar la contraseña, enlace caducado.";
-              setTimeout(function(){
-                window.location.href ="login";
-              },3000);
-            }
-        });
-     }
+    this.loading= true;
+    if(this.newPassword != undefined) 
+    {
+      this.loginservices.service_general_login('/PasswordRecovery/ResetPassword',
+        {
+          "Correo" : this.mail,
+          "Guid" : this.guid,
+          "IdCliente" : this.idcliente,
+          "Password" : "Testing444c3s4"
+        }).subscribe((respuesta)=>{
+        if(respuesta)
+        {
+          this.loading= false;
+          this.sendAlert("Contraseña cambiada correctamente, serás redirigido al login.");
+          setTimeout(function(){
+            window.location.href ="login";
+          },3000);
+        }
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading= false;
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.sendAlert(error);
+        }
+      });
+    }
   }
 
 
