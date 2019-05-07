@@ -257,24 +257,17 @@ export class PreviosComponent  {
       (response:any) => {         
         var element = document.createElement('a');
         element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);              
-                
+        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
         // element.setAttribute('target','_blank');
         element.setAttribute('download', response.NombreDocumento);
-
         document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        ////// Alternative
-        // window.open("data:application/pdf,base64ssdfasdf;", "_blank";
+        // For browser with no support of download attribute
+        if (typeof element.download == undefined) {
+          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        }  
       }, 
-      (errorService) => { console.log(errorService); });
-
-    // this.http.get('assets/Previos/getDocumento.json')
-    //   .subscribe((data) => {         
-    //     let f = data.json().Archivo.split('data:application/pdf;');
-    //     // window.open(data.json().Archivo, "_blank");
-    //     window.open("data:application/pdf;" + encodeURI(f[1]));
-    //   });    
+      (errorService) => { console.log(errorService); });     
   }
 
   openDialog(): void {
@@ -322,8 +315,8 @@ export class DialogCreatePreviosComponent implements OnInit {
   }
 
   model:PrevioNuevo = new PrevioNuevo();  
-  files;                    // Arreglo usado por el dragInputFiles
-  referencia = "";          // Referencia que se utiliza para llenar Master/House
+  files;                                   // Arreglo usado por el dragInputFiles
+  referencia = "Sin Referencia";          // Referencia que se utiliza para llenar Master/House
   successResponse = false;
   processingCreation = false;
   responseMessage = "";
@@ -402,14 +395,17 @@ export class DialogCreatePreviosComponent implements OnInit {
     if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
       this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
       this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+      this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     } else {
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
+      this.referencia = "Sin Referencia";
     }
   }
 
   cleanReferencia() {        
-    this.firstFormGroup.get('referenciaCtrl').setValue('');          
+    this.firstFormGroup.get('referenciaCtrl').setValue('');  
+    this.referencia = "Sin Referencia";        
   }
 
 

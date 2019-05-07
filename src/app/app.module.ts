@@ -49,8 +49,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-import { FinanzasComponent } from './aaacesa/finanzas/finanzas.component';
-import { FinanzasModule } from './aaacesa/finanzas/finanzas.module';
+import { MatInputModule, MatIconModule, MatSnackBarModule, MatCheckboxModule } from '@angular/material';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -61,8 +62,7 @@ import { FinanzasModule } from './aaacesa/finanzas/finanzas.module';
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent,
-    FinanzasComponent,
+    ResetpasswordComponent
     // AbandonoComponent
   ],
   imports: [
@@ -83,7 +83,12 @@ import { FinanzasModule } from './aaacesa/finanzas/finanzas.module';
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
-    FinanzasModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatSnackBarModule,
+    TextMaskModule,
+    NgxLoadingModule.forRoot({})
   ],
   exports: [
   ],

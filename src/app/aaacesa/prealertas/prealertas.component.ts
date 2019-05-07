@@ -259,8 +259,10 @@ export class PrealertasComponent {
 
         document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        ////// Alternative
-        // window.open("data:application/pdf,base64ssdfasdf;", "_blank";
+        // For browser with no support of download attribute
+        if (typeof element.download == undefined) {
+          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        }  
       }, 
       (errorService) => { console.log(errorService); });     
   }
@@ -286,7 +288,7 @@ export class PrealertasComponent {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Crear Previo Stepper - Dialog Component
+// Crear Prealertas Stepper - Dialog Component
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @Component({

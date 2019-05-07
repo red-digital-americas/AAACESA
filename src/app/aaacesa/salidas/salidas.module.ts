@@ -13,15 +13,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatSelectModule } from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select'; 
+import { MatStepperModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatRadioModule} from '@angular/material/radio'; 
 
 //Vendor
-import { BsDatepickerModule } from 'ngx-bootstrap';                   // Datepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';       // Datepicker
+import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
+import { ngfModule } from 'angular-file';
+import { NgxLoadingModule } from 'ngx-loading';
 
 // Shared
 import { SharedModule } from '../shared/shared.module';
@@ -49,10 +56,17 @@ import { SharedModule } from '../shared/shared.module';
     SalidasRoutingModule,
     MatDialogModule,
     MatStepperModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    MatRadioModule,
+    ModalModule,
     BsDatepickerModule.forRoot(),
     NgxMatSelectSearchModule,
     MatSelectModule,
     MatSnackBarModule,
+    ngfModule,
+    NgxLoadingModule.forRoot({}),
     SharedModule
   ]
 })

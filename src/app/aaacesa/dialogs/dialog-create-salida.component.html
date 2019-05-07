@@ -1,77 +1,305 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Nueva Salida - Paso 1</ng-template>
-      <div class="row" style="margin-bottom:15px">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+<!-- <h2 mat-dialog-title>Nuevo Previo</h2> -->
+
+<ngx-loading [show]="processingCreation"></ngx-loading>  
+<div mat-dialog-title>
+  <div class="row justify-content-between">
+    <div class="col">
+        <h5>Nueva Salida</h5>
+    </div>  
+    <div class="col">
+      <button mat-dialog-close type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<mat-dialog-content class="mat-typography">
+  <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+    <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
+
+    <div class="container mt-3">
+      <form [formGroup]="firstFormGroup">                
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="nueva_salida.Master" formControlName="firstCtrl" placeholder="Guía Master" />
-              </mat-form-field>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">                
+                  <mat-form-field class="input-full-width">         
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" placeholder="Guía Master"/> 
+                    <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
+                      Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.pattern">
+                      Debe ser una Guia Master
+                    </mat-error>    
+                  </mat-form-field>                              
+
+                  <mat-form-field class="input-full-width">    
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" placeholder="Guía House"/>  
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
+                      Este campo es obligatorio
+                    </mat-error>   
+                  </mat-form-field> 
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">                                                
+                  <mat-form-field class="input-full-width">    
+                    <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
+                  </mat-form-field>                 
+                </div>
+              </div>          
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="nueva_salida.House" formControlName="firstCtrl" placeholder="Guía House" />
-              </mat-form-field>
+          </div>   
+
+          <div class="row mt-5">
+            <div class="col-lg-12 text-center">
+              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
             </div>
           </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-          uuuu
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-          <mat-form-field class="input-full-width">
-            <input matInput type="text" class="" [(ngModel)]="nueva_salida.Referencia" formControlName="firstCtrl" placeholder="Guía House" />
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 offset-md-5">
-        <button mat-button matStepperNext class="btn btn-block btn-outline-primary">Siguiente</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Nueva Salida - Paso 2</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="threeFormGroup">
-    <form [formGroup]="threeFormGroup">
-      <ng-template matStepLabel>Nueva Salida - Paso 3</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="threeCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="fourFormGroup">
-    <form [formGroup]="fourFormGroup">
-      <ng-template matStepLabel>Nueva Salida - Paso 4</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="fourCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Terminar </ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      </form>
     </div>
-  </mat-step>
-</mat-horizontal-stepper>
+      
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <!-- <ng-template matStepLabel>Información complementaria</ng-template> -->
+              
+      <div class="container mt-3">
+        <form [formGroup]="secondFormGroup">
+          <div class="row mb-3">            
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" formControlName="rfcFacturarCtrl" placeholder="RFC Facturar"/>
+                  <mat-error *ngIf="secondFormGroup.get('rfcFacturarCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error>  
+                </mat-form-field>
+              </div>
+              
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" class="no-spinners" formControlName="pedimentoCtrl" placeholder="Pedimento"/>
+                  <mat-error *ngIf="secondFormGroup.get('pedimentoCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error> 
+                  <mat-error *ngIf="secondFormGroup.get('pedimentoCtrl').errors?.pattern">
+                    Debe ser un numero
+                  </mat-error> 
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-4">
+                <mat-slide-toggle formControlName="subdivisionCtrl">Subdivisión</mat-slide-toggle>                  
+              </div>
+                          
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" class="no-spinners" formControlName="patenteCtrl" placeholder="Patente"/>
+                  <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error> 
+                  <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.pattern">
+                    Debe ser un numero
+                  </mat-error> 
+                </mat-form-field>
+              </div>
+              
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha estimada de Arribo">
+                  <mat-error *ngIf="secondFormGroup.get('fechaSalidaCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error> 
+                </mat-form-field>                                              
+              </div>
+
+              <div class="col-lg-4">                    
+                <mat-form-field style="width: 49%;" >
+                  <input matInput type="number" formControlName="horaSalidaCtrl" style="text-align:center;" min="0" max="23" placeholder="Hrs" />
+                </mat-form-field>
+                <strong style="font-size:1rem;">:</strong>
+                <mat-form-field style="width: 49%;">
+                  <input matInput type="number" formControlName="minutoSalidaCtrl" style="text-align:center;" min="0" max="59"  placeholder="Mins" />
+                </mat-form-field>
+                </div>                               
+            </div>                                              
+
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <mat-form-field class="input-full-width">
+                  <textarea matInput formControlName="comentarioCtrl" placeholder="Comentario"></textarea>
+                </mat-form-field>
+              </div>            
+            </div>
+          </form>
+
+          <div class="row mt-5">
+            <div class="col-lg-12 text-center">
+              <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+              <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+            </div>
+          </div>
+      </div>
+                
+    </mat-step>
+
+    <mat-step [completed]="model.Documentos?.length >= 1" >      
+      <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
+
+      <div class="container mt-3">
+        <p>Subir documentos: Guia Master, Gafete, Factura y Pedimento<small> (mínimo subir un documento)</small></p>  
+        
+        <div class="row mb-5">                     
+          <div class="col-lg-12 mb-3">
+            <div ngfDrop selectable="1" multiple="1"
+              [(files)]="files"
+              accept = ".pdf"                                                           
+              (filesChange) = "dropInputChange($event)"
+              class="my-drop-zone"
+            >
+            Arrastra / Selecciona tus archivos
+            </div>                                    
+          </div>  
+
+          <div *ngFor="let documento of model.Documentos; let in=index" class="col-lg-2">    
+            <div>
+              <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
+              <div style="font-size: 4rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+              <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+            </div>                                                                      
+          </div>                                                
+        </div>              
+                      
+        <div class="row mt-5">
+          <div class="col-lg-12 text-center">
+            <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+          </div>
+        </div>
+
+      </div>          
+    </mat-step>
+
+    <mat-step>      
+      <!-- <ng-template matStepLabel>Resumen</ng-template> -->
+
+      <div class="container">              
+        <div class="row">
+
+          <!--  Start left -->
+          <div class="col-12">                                
+              <div class="row mb-1">
+
+                  <!-- Start Left Inside -->
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">                                                                            
+                    <!-- <div class="col-12 mb-4">
+                      <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
+                    </div> -->
+
+                    <div class="col-12">
+                      <h5 class="detail-text text-muted">Guia Master </h5>
+                      <p class="detail-text">{{model.Master}}</p>
+                    </div>
+
+                    <div class="col-12">
+                      <h5 class="detail-text text-muted">Guia House </h5>
+                      <p class="detail-text">{{model.House}}</p>
+                    </div>
+
+                    <div class="col-12">
+                      <h5 class="detail-text text-muted">Patente</h5> 
+                      <p class="detail-text">{{model.Patente}}</p>
+                    </div>                                                                             
+                  </div>  
+                  <!-- End Left Inside -->
+
+                  <!-- Start Right Inside -->
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-lg-8">
+                        <div class="referencia">
+                          <h5 class="detail-text">Referencia: {{referencia}}</h5>                    
+                        </div>
+                      </div>
+                      <!-- <div class="col-xs-12 col-sm-12 col-lg-4">
+                        <h5 class="detail-text text-muted">Estatus</h5>
+                        <div class="col status-filter">            
+                          <div class="status-filter__circle status-filter__circle--Solicitada"></div>
+                          <div class="status-filter__text">
+                            <p> Solicitada </p>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-lg-8">
+                        <h5 class="detail-text text-muted">RFC Facturar </h5>
+                        <p class="detail-text">{{model.RFCFacturar}}</p>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                        <h5 class="detail-text text-muted">Pedimento</h5>
+                        <p class="detail-text">{{model.Pedimento}}</p>
+                      </div>                                                        
+                    </div>
+
+                    <div class="row">                              
+                      <div class="col-xs-12 col-sm-12 col-lg-8">
+                        <h5 class="detail-text text-muted">Subdivision</h5>
+                        <p class="detail-text">{{model.Subdivision ? 'Sí' : 'No' }}</p>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                        <h5 class="detail-text text-muted">Fecha Salida</h5>
+                        <p class="detail-text">{{model.FechaSalida}}</p>
+                      </div>
+                    </div>                            
+                  </div>
+                  <!-- End Right Inside -->
+                  
+                </div>                                                                                                                                                                  
+
+                <hr class="dividerb">
+
+                <div class="row mt-5 mb-3">                
+                  <div *ngFor="let file of model.Documentos" class="col col-lg-2">
+                    <h1 style="font-size: 5rem"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
+                    <p style="word-break: break-all;" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+                  </div>                        
+                </div>              
+          </div>
+          <!--  End left -->         
+
+        </div> <!-- End Row -->
+
+        <div class="row mt-5">
+          <div class="col-lg-12 text-center">
+            <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+            <button (click)="crearSalida()" class="btn btn-pill btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+                             
+    </mat-step>    
+  </mat-horizontal-stepper>
+
+  <div *ngIf="successResponse" class="container mt-3">
+    <div class="conatiner">
+      <div class="row">
+        <div class="col-12 text-center">
+          Gracias
+        </div>
+        <div class="col-12 text-center">
+          {{responseMessage}}
+        </div>
+        <div class="col-12 text-center mt-5 ">
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Ok</button>  
+        </div>
+      </div>        
+    </div>
+  </div>
+
+</mat-dialog-content>

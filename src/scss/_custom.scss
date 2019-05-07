@@ -22,11 +22,11 @@
 //sidebar
 .sidebar{
     background-color: #183964;
-    z-index: 1020;
+    z-index: 1000;
     width: 100px !important;
 }
 .sidebar-fixed .sidebar {
-    z-index: 1020;
+    z-index: 1000;
     width: 100px;
 }
 .sidebar .nav-link {
@@ -53,6 +53,11 @@
 .sidebar .nav-link.active .nav-icon {
     color: #ffffff;
 }
+.sidebar-show .main::before, .aside-menu-show .main::before {
+    z-index: 999 !important;
+}
+
+
 //dropdown
 .dropdown-header {
     background: #183964!important;

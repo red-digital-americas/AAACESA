@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UserData } from '../../../models/user.models';
 import { AbstractControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
+import * as jquery from 'jquery';
 
 @Component({
   selector: 'app-crear-user',

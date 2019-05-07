@@ -42,10 +42,6 @@ import { PrealertasComponent, DialogCreatePrealertasComponent } from './prealert
 import { PrealertasRoutingModule } from './prealertas-routing.module';
 
 ////////////////
-// Services
-import { CatalogosService } from '../../services/catalogos.service';
-
-////////////////
 // Shared
 import { SharedModule } from '../shared/shared.module';
 
@@ -89,9 +85,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
   entryComponents: [
     DialogCreatePrealertasComponent
-  ],
-  providers: [
-    CatalogosService
-  ]
+  ]  
 })
 export class PrealertasModule { }
