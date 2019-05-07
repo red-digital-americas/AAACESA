@@ -9,6 +9,18 @@ export class PrevioBusqueda {
     public FechaPrevio:string = "";    
     public Estatus:string = "";    
     public Referencia:string = "";    
+
+    Clean() {
+        this.IdAdelantoPrevio = "";	
+        this.FechaInicial = "";    
+        this.FechaFinal = "";    
+        this.Patente = "";    
+        this.Master = "";    
+        this.House = "";    
+        this.FechaPrevio = "";    
+        this.Estatus = "";    
+        this.Referencia = ""; 
+    }
 }
 
 ////////////////

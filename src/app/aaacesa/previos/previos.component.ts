@@ -15,6 +15,7 @@ import { ApiServices } from '../../services/api.services';
 ///////////
 // Modelos Previos
 import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento, PrevioSeguimiento } from '../../models/previos.model';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 
 @Component({
@@ -26,6 +27,9 @@ import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento, PrevioSeguimiento 
   providers: [ApiServices]
 })
 export class PreviosComponent  {
+
+  loading = false;
+
   ///////////////////////
   // Catalogos para los <select>
   estatusCatalogo = [];
@@ -108,7 +112,9 @@ export class PreviosComponent  {
     }
   }  
 
-  public buscarPrevios () {    
+  public buscarPrevios () { 
+    this.loading = true;
+    
     // Estatus seleccionado "Niguno"
     if (typeof this.busquedaModel.Estatus === "undefined"){
       this.busquedaModel.Estatus = "";
@@ -116,9 +122,10 @@ export class PreviosComponent  {
         
     // FechaPrevio
     if (this.fechaPrevioSearch != null){
-      let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
-      f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
-      this.busquedaModel.FechaPrevio = f; 
+      // let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
+      // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
+      // this.busquedaModel.FechaPrevio = f; 
+      this.busquedaModel.FechaPrevio = moment(this.fechaPrevioSearch).format('YYYYMMDD');
     } else {
       this.busquedaModel.FechaPrevio = "";
     }
@@ -126,12 +133,15 @@ export class PreviosComponent  {
     // FechaInicial - FechaFinal
     if (this.rangoFechaSearch != null) {
       if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){      
-        let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
-        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        this.busquedaModel.FechaInicial = f;
-        f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
-        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        this.busquedaModel.FechaFinal = f;            
+        // let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
+        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        // this.busquedaModel.FechaInicial = f;
+        // f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
+        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        // this.busquedaModel.FechaFinal = f;            
+
+        this.busquedaModel.FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
+        this.busquedaModel.FechaFinal = moment(this.rangoFechaSearch[1]).format('YYYYMMDD');
       }    
     } else {    
       this.busquedaModel.FechaInicial = "";
@@ -144,34 +154,34 @@ export class PreviosComponent  {
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { console.log(errorService); this.loading = false; });   
+  }
 
-    // http.get('assets/Previos/previos.json')
-    //   .subscribe((data) => {
-    //       this.data = data.json();
-    //       this.dataSource.data = this.data;
-    //       this.updateCountStatus();
-    //   });  
+  buscaPreviosNueva () {
+    this.busquedaModel.Clean();
+    this.fechaPrevioSearch = null;
+    this.rangoFechaSearch = [];
+    this.buscarPrevios();
   }
 
   public verDetalle (id: string) {    
+    this.loading = true;
     this.modelSeguimiento.cleanSeguimiento();
-      // id = "PRV-20190000143";
-      // id = "PRV-20190000142";
-      this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
-      .subscribe ( 
-      (response:any) => { this.detailData = response;}, 
-      (errorService) => { console.log(errorService); });
-
-      // this.http.get('assets/Previos/previosDetalle.json')
-      //   .subscribe((data) => { this.detailData = data.json(); console.log(this.detailData);});    
+    this.detailData = {};
+      
+    this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
+    .subscribe ( 
+    (response:any) => { this.detailData = response; this.loading = false;}, 
+    (errorService) => { console.log(errorService); this.loading = false;});
   }
 
 
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    this.loading = true;
     this.modelSeguimiento.IdAdelantoPrevios = this.detailData['IdAdelantoPrevios'];
     this.modelSeguimiento.Estatus = estado;
     // console.log(this.modelSeguimiento);  
@@ -191,6 +201,7 @@ export class PreviosComponent  {
           this.showAlert(response.Description);
         }
         // this.processingCreation = false;
+        this.loading = false;
       }, 
       (errorService) => { 
         console.log(errorService);         
@@ -201,6 +212,7 @@ export class PreviosComponent  {
           this.showAlert(errorService.error.Description);
         }        
         // this.processingCreation = false;
+        this.loading = false;
       });
 
   }
@@ -413,9 +425,11 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.model.Materno = this.secondFormGroup.value.maternoCtrl;
     this.model.Patente = this.secondFormGroup.value.patenteCtrl;
     
-    let f = this.secondFormGroup.value.fechaPrevioCtrl.toISOString();       // 2019-11-23        
+    // let f = this.secondFormGroup.value.fechaPrevioCtrl.toISOString();       // 2019-11-23        
     // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
-    f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;
+    // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;
+
+    let f = moment(this.secondFormGroup.value.fechaPrevioCtrl).format('YYYYMMDD');    
 
     if (this.secondFormGroup.value.horaPrevioCtrl < 10){
       f = `${f} 0${this.secondFormGroup.value.horaPrevioCtrl}`;

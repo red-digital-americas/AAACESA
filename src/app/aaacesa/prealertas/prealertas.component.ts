@@ -8,12 +8,12 @@ import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DAT
 
 ///////////
 // API Services 
-import { CatalogosService } from '../../services/catalogos.service';
 import { ApiServices } from '../../services/api.services';
 
 ///////////
 // Modelos Prealertas
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo } from '../../models/prealertas.model';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-prealertas',
@@ -26,6 +26,8 @@ import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo } fr
 })
 export class PrealertasComponent {  
   
+  loading = false;  
+
   ///////////////////////
   // Catalogos para los <select>
   instruccionesManejoCatalogo = [];  
@@ -108,16 +110,21 @@ export class PrealertasComponent {
   }  
   
   public buscarPrealertas () {    
+    this.loading = true;
+
     // Estatus seleccionado "Niguno"
     if (typeof this.busquedaModel.ClaveInstruccionManejo === "undefined"){
       this.busquedaModel.ClaveInstruccionManejo = "";
     }
         
     // FechaPrevio
-    if (this.fechaPrevioSearch != null){
-      let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
-      f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
-      this.busquedaModel.FechaArribo = f; 
+    if (this.fechaPrevioSearch != null){            
+      // moment().format('YYYY-MM-DD[T]HH:mm:ss.SSS')
+      // console.log( moment(this.fechaPrevioSearch).format('YYYYMMDD'));      
+      // let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
+      // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
+      // this.busquedaModel.FechaArribo = f; 
+      this.busquedaModel.FechaArribo = moment(this.fechaPrevioSearch).format('YYYYMMDD');
     } else {
       this.busquedaModel.FechaArribo = "";
     }
@@ -125,26 +132,30 @@ export class PrealertasComponent {
     // FechaInicial - FechaFinal
     if (this.rangoFechaSearch != null) {
       if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){      
-        let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
-        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        this.busquedaModel.FechaInicial = f;
-        f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
-        f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        this.busquedaModel.FechaFinal = f;            
+        // let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
+        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        // this.busquedaModel.FechaInicial = f;
+        // f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
+        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
+        // this.busquedaModel.FechaFinal = f;            
+
+        this.busquedaModel.FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
+        this.busquedaModel.FechaFinal = moment(this.rangoFechaSearch[1]).format('YYYYMMDD');
       }    
     } else {    
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
     }    
-    
+    console.log(this.busquedaModel);
     this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
       .subscribe ( 
       (response:any) => {                 
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); });            
+      (errorService) => { console.log(errorService); this.loading = false;});            
   }
 
   buscaPrealertasNueva () {
@@ -155,17 +166,20 @@ export class PrealertasComponent {
   }
 
   public verDetalle (id: string) {    
+    this.loading = true;
+    this.detailData = {};
     this.modelSeguimiento.cleanSeguimiento();      
     
     this.apiService.service_general_get(`/Prealertas/GetDetailsById/${id}`)
     .subscribe ( 
-    (response:any) => { this.detailData = response;}, 
-    (errorService) => { console.log(errorService); });
+    (response:any) => { this.detailData = response; this.loading = false;}, 
+    (errorService) => { console.log(errorService); this.loading = false; });
   } 
   
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    this.loading = true;
     this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
     this.modelSeguimiento.Estatus = estado;
     console.log(this.modelSeguimiento);  
@@ -182,6 +196,7 @@ export class PrealertasComponent {
           this.showAlert(response.Description);
         }
         // this.processingCreation = false;
+        this.loading = false;
       }, 
       (errorService) => { 
         console.log(errorService);         
@@ -192,6 +207,7 @@ export class PrealertasComponent {
           this.showAlert(errorService.error.Description);
         }        
         // this.processingCreation = false;
+        this.loading = false;
       });
 
   }
@@ -423,8 +439,9 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.model.MetodoPago = this.secondFormGroup.value.metodoPagoCtrl;
     this.model.UsoCFDI = this.secondFormGroup.value.usoCFDICtrl;
     
-    let f = this.secondFormGroup.value.fechaArriboCtrl.toISOString();       // 2019-11-23            
-    f = `${f.slice(8,10)}/${f.slice(5,7)}/${f.slice(0,4)}`;
+    // let f = this.secondFormGroup.value.fechaArriboCtrl.toISOString();       // 2019-11-23            
+    // f = `${f.slice(8,10)}/${f.slice(5,7)}/${f.slice(0,4)}`;
+    let f = moment(this.secondFormGroup.value.fechaArriboCtrl).format('DD/MM/YYYY');    
 
     if (this.secondFormGroup.value.horaPrevioCtrl < 10){
       f = `${f} 0${this.secondFormGroup.value.horaPrevioCtrl}`;

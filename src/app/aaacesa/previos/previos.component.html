@@ -1,4 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+<ngx-loading [show]="loading"></ngx-loading>      
 <div class="row justify-content-end">  
   <div class="col-lg-2">
     <button (click)="openDialog()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
@@ -9,11 +10,10 @@
 
     <div class="card-body">
       <div class="row mb-3">
-        <div class="col-lg-10 mb-1">
+        <div class="col-lg-9 mb-1">
           <div class="row">
             <div class="col-lg-3 mb-1">
-              <mat-form-field class="input-full-width">
-                <!-- <input matInput (keyup)="applyFilter($event.target.value)" type="text" class="form-control" placeholder="Buscar..." />                 -->
+              <mat-form-field class="input-full-width">                
                 <input matInput type="text" class="" [(ngModel)]="busquedaModel.Master" placeholder="Guía Master"/>
               </mat-form-field>                
             </div>
@@ -41,61 +41,53 @@
                 </mat-form-field>
               </div>
             </div>            
+          </div>
 
+          <div class="row">
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" placeholder="Id Adelanto Previo"/>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
+                  <mat-option>                      
+                    <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option>Ninguno</mat-option>                    
+                  <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
+                    {{option.Descripcion}}
+                  </mat-option>
+                </mat-select>                  
+              </mat-form-field>                
+            </div>                            
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" placeholder="Patente"/>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">  
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
+              </mat-form-field>
+            </div>      
           </div>
         </div>
 
-        <div class="col-lg-2">
-          <button (click)="buscarPrevios()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
-        </div>
-      </div>
-
-      <div class="row mb-3" *ngIf="showAdvanceSearch">
-        <div class="col-lg-10">
-            <div class="row">
-              <div class="col-lg-3 mb-1">
-                <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" placeholder="Id Adelanto Previo"/>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-3 mb-1">
-                <mat-form-field class="input-full-width">
-                  <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
-                    <mat-option>                      
-                      <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option>Ninguno</mat-option>
-                    <!-- <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus">  -->
-                    <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
-                      {{option.Descripcion}}
-                    </mat-option>
-                  </mat-select>                  
-                </mat-form-field>
-
-                <!-- <mat-form-field class="input-full-width">                    
-                  <input matInput type="text" class="" placeholder="Instrucciones de Manejo" aria-label="Number" [(ngModel)]="instruccionesSearch" [matAutocomplete]="auto">
-                  <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of instruccionesManejoCatalogo | filterSelect: instruccionesSearch" [value]="option"> 
-                      {{option}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>  -->
-              </div>                            
-              <div class="col-lg-3 mb-1">
-                <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" placeholder="Patente"/>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-3 mb-1">
-                <mat-form-field class="input-full-width">  
-                  <input matInput type="text" class="" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
-                </mat-form-field>
-              </div>              
+        <div class="col-lg-3">
+          <div class="row justify-content-start">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+              <button (click)="buscarPrevios()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-        </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+              <button (click)="buscaPreviosNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+            </div>
+          </div>
+        </div> 
       </div>
-
-      <div class="row mt-5 mb-3">
+     
+      <!-- <div class="row mt-5 mb-3">
           <div class="col-lg-10 offset-lg-1">
             <div class="row">
   
@@ -172,7 +164,7 @@
   
             </div>
           </div>
-        </div>
+        </div> -->
           
         
         <div class="table-responsive">

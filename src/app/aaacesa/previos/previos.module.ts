@@ -13,6 +13,7 @@ import { SelectModule } from 'ng-select';                             // Ng2-sel
 import { ModalModule } from 'ngx-bootstrap/modal';                    // Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
 import { ngfModule } from 'angular-file';
+import { NgxLoadingModule } from 'ngx-loading';
 
 // Material
 import { MatInputModule } from '@angular/material/input';
@@ -71,6 +72,7 @@ import { SharedModule } from '../shared/shared.module';
     MatSlideToggleModule,
     MatSnackBarModule,
     ngfModule,
+    NgxLoadingModule.forRoot({}),
     SharedModule
   ],
   declarations: [

@@ -13,6 +13,7 @@ import { SelectModule } from 'ng-select';                 // Ng2-select
 import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
 import { ngfModule } from 'angular-file';
+import { NgxLoadingModule } from 'ngx-loading';
 
 ////////////////////////
 // Material
@@ -79,6 +80,7 @@ import { SharedModule } from '../shared/shared.module';
     MatRadioModule,
     NgxMatSelectSearchModule,
     ngfModule,
+    NgxLoadingModule.forRoot({}),
     SharedModule
   ],
   declarations: [    
