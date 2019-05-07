@@ -49,6 +49,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
+import { MatInputModule, MatIconModule, MatSnackBarModule, MatCheckboxModule } from '@angular/material';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -79,7 +82,13 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatSnackBarModule,
+    TextMaskModule,
+    NgxLoadingModule.forRoot({})
   ],
   exports: [
   ],

@@ -1,3 +1,4 @@
+<ngx-loading [show]="loading"></ngx-loading>
 <div class="app-body">
   <main class="main d-flex align-items-center">
     <div class="container">
@@ -9,47 +10,80 @@
                 <form #loginForm="ngForm">
                   <h1>Login</h1>
                   <p class="text-muted">Ingresa a tu cuenta</p>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control" 
-                    [(ngModel)]="email" #emailUser="ngModel"
-                    id="emailUser" name="emailUser" 
-                    placeholder="Email Usuario" autocomplete="Email Usuario" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                  </div>
-                  <div *ngIf="emailUser.invalid && (emailUser.dirty || emailUser.touched)"
-                        class="alert alert-danger">
-                      <div *ngIf="emailUser?.errors.required">
-                        El Correo es requerido.
-                      </div>
-                      <div *ngIf="emailUser.errors && emailUser?.errors.pattern">
-                        El Correo no es valido (ej. nombre@sitio.com)
-                      </div>
-                  </div>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
-                    </div>
-                    <input type="password" class="form-control" 
-                    [(ngModel)]="password" #passwordlogin="ngModel"
-                    id="userPassword" name="userPassword" placeholder="Contraseña usuario" autocomplete="Contraseña usuario" required>
-                  </div>
-                  <div *ngIf="passwordlogin.invalid && (passwordlogin.dirty || passwordlogin.touched)"
-                        class="alert alert-danger">
-                      <div *ngIf="passwordlogin?.errors.required">
-                        Contraseña requerida.
-                      </div>
-                  </div>
                   <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="input-full-width">
+                        <mat-label>Correo</mat-label>
+                        <input class="text-right" type="text" matInput  [(ngModel)]="email" #emailUser="ngModel" id="emailUser" name="emailUser" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                        <span matPrefix><i class="icon-user info"></i> &nbsp;</span>
+                        <mat-error *ngIf="emailUser.dirty || emailUser.pristine">
+                          El formato del campo es <strong>incorrecto</strong>
+                        </mat-error>
+                        <mat-error *ngIf="emailUser.hasError('required')">
+                          El campo Correo es <strong>requerido</strong>
+                        </mat-error>
+                      </mat-form-field> 
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-12">
+                      <mat-form-field class="input-full-width">
+                        <mat-label>Contraseña</mat-label>
+                        <input class="text-right" type="password" matInput  [(ngModel)]="password" #passwordUser="ngModel" id="passwordUser" name="passwordUser" required>
+                        <span matPrefix><i class="icon-lock info"></i> &nbsp;</span>
+                        <mat-error *ngIf="passwordUser.dirty || passwordUser.pristine ||passwordUser.hasError('required')">
+                          El campo Contraseña es <strong>requerido</strong>
+                        </mat-error>
+                      </mat-form-field> 
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-12">
+                      <mat-checkbox color="primary" [(ngModel)]="checked" #checkedU=ngModel id="checkedU" name="checkedU" required></mat-checkbox>&nbsp;
+                      <a href="#" class="link">Acepto Condiciones de uso</a>
+                      <div class="mat-form-field-subscript-wrapper mat-error mt-3" *ngIf="!checked || checkedU.hasError('required')">
+                        * Es necesario Aceptar las <strong>condiciones de uso</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
                     <div class="col-6">
-                      <button type="submit"  class="btn btn-primary px-4" (click)="login($event)" [disabled]="loginForm.invalid" data-style="expand-right">Entrar</button>
+                      <button type="submit"  class="btn btn-ghost-links btn-pill" (click)="loginForm.valid ? login() : validar_campos(loginForm._directives)"><i class="fas fa-unlock"></i>&nbsp;Entrar</button>
                     </div>
                     <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0" (click)="onRecoveryPassword()" >¿Olvidaste tu contraseña?</button>
+                      <button type="button" class="btn btn-link btn-sm danger" (click)="onRecoveryPassword()" >¿Olvidaste tu contraseña?</button>
                     </div>
                   </div>
-                  <div class="row">
+                </form>
+              </div>
+              <div class="card-body" [hidden]="!getPasword">
+                <form #resetForm="ngForm">
+                  <h3>Recupera tu contraseña</h3>
+                    <p class="text-muted">Ingresa el correo registrado en tu cuenta</p>
+                    <div class="row mt-2">
+                      <div class="col-md-12">
+                        <mat-form-field class="input-full-width">
+                          <mat-label>Correo</mat-label>
+                          <input class="text-right" type="text" matInput  [(ngModel)]="recuperaEmail" #recuEmail="ngModel" id="recuEmail" name="recuEmail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                          <span matPrefix><i class="icon-envelope-open"></i> &nbsp;</span>
+                          <mat-error *ngIf="recuEmail.dirty || recuEmail.pristine">
+                            El formato del campo es <strong>incorrecto</strong>
+                          </mat-error>
+                          <mat-error *ngIf="recuEmail.hasError('required')">
+                            El campo Correo es <strong>requerido</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-6">
+                        <a href="/login" class="btn btn-link btn-small"><i class="icon-action-undo"></i>&nbsp;Regresar</a>
+                      </div>
+                      <div class="col-6">
+                        <button type="submit"  class="btn btn-ghost-links btn-pill" (click)="resetForm.valid ? resetPassword() : validar_campos(resetForm._directives)"><i class="icon-paper-plane"></i>&nbsp;Enviar</button>
+                      </div>
+                    </div>
+                    <div class="row">
                     <div class="col-12 text-center">
                         
                         <div *ngIf="validar">
@@ -60,45 +94,6 @@
                   </div>
                 </form>
               </div>
-              <div class="card-body" [hidden]="!getPasword">
-                  <form #resetForm="ngForm">
-                    <h3>Recupera tu contraseña</h3>
-                      <p class="text-muted">Ingresa el correo registrado en tu cuenta</p>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="cui-envelope-open"></i></span>
-                      </div>
-                      <input type="text" class="form-control" 
-                      [(ngModel)]="recuperaEmail" #recuperaEmaillogin="ngModel"  id="recuperaEmail" name="recuperaEmail" placeholder="Correo electronico" autocomplete="Correo electronico" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                    </div>
-                    <div *ngIf="recuperaEmaillogin.invalid && (recuperaEmaillogin.dirty || recuperaEmaillogin.touched)"
-                        class="alert alert-danger">
-                      <div *ngIf="recuperaEmaillogin?.errors.required">
-                        El Correo es requerido.
-                      </div>
-                      <div *ngIf="recuperaEmaillogin.errors && recuperaEmaillogin?.errors.pattern">
-                        El Correo no es valido (ej. nombre@sitio.com)
-                      </div>
-                  </div>
-                    <div class="row">
-                      <div class="col-6">
-                        <button type="submit" (click)="resetPassword()"  class="btn btn-primary px-4" [disabled]="resetForm.invalid">Recuperar</button>
-                      </div>
-                      <div class="col-6 text-right">
-                        <a href="/login" class="btn btn-link px-0">Regresar</a>
-                      </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-12 text-center">
-                        
-                        <div *ngIf="validar">
-                           {{message}}
-                        </div>
-                        
-                    </div>
-                  </div>
-                  </form>
-                </div>
             </div>
             <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
               <div class="card-body text-center">
