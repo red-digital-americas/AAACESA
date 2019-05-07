@@ -322,8 +322,8 @@ export class DialogCreatePreviosComponent implements OnInit {
   }
 
   model:PrevioNuevo = new PrevioNuevo();  
-  files;                    // Arreglo usado por el dragInputFiles
-  referencia = "";          // Referencia que se utiliza para llenar Master/House
+  files;                                   // Arreglo usado por el dragInputFiles
+  referencia = "Sin Referencia";          // Referencia que se utiliza para llenar Master/House
   successResponse = false;
   processingCreation = false;
   responseMessage = "";
@@ -402,14 +402,17 @@ export class DialogCreatePreviosComponent implements OnInit {
     if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
       this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
       this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+      this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     } else {
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
+      this.referencia = "Sin Referencia";
     }
   }
 
   cleanReferencia() {        
-    this.firstFormGroup.get('referenciaCtrl').setValue('');          
+    this.firstFormGroup.get('referenciaCtrl').setValue('');  
+    this.referencia = "Sin Referencia";        
   }
 
 
