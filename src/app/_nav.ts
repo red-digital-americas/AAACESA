@@ -83,6 +83,16 @@ switch(permisos)
       url: '/charts',
       icon: 'icon-chart'
     },
+    {
+      name: 'Previos',
+      url: '/previos',
+      icon: 'cui-task'
+    },
+    {
+      name: 'Salidas',
+      url: '/salidas',
+      icon: 'icon-direction',
+    },
     // {
     //   name: 'Bitácoras',
     //   url: '/forms/basic-forms',
