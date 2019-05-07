@@ -84,6 +84,10 @@ export const routes: Routes = [
         // }
       },
       {
+        path: 'finanzas',
+        loadChildren: './aaacesa/finanzas/finanzas.module#FinanzasModule'
+      },
+      {
         path: 'adminuser',
         loadChildren: './aaacesa/admin-user/admin-user.module#AdminUserModule'
       },

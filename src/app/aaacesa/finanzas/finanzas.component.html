@@ -1,0 +1,254 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4 offset-md-8">
+          <mat-form-field class="input-full-width">
+            <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
+            <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Facturas">
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+
+              <!-- Nombre Column -->
+              <ng-container matColumnDef="Master">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
+                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
+              </ng-container>
+
+              <!-- House Column -->
+              <ng-container matColumnDef="House">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
+                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
+              </ng-container>
+
+              <!-- Folio Column -->
+              <ng-container matColumnDef="Folio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+              </ng-container>
+
+              <!-- Tipo Column -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+              </ng-container>
+
+              <!-- Valor Column -->
+              <ng-container matColumnDef="Valor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              </ng-container>
+
+              <!-- Pedimento Column -->
+              <ng-container matColumnDef="Pedimento">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
+                </ng-container>
+
+                <!-- FechaDeEmision Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaDeEmision}} </td>
+                </ng-container>
+
+                <!-- Descargar Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+        <mat-tab label="Notas de crédito">
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+
+              <!-- Nombre Column -->
+              <ng-container matColumnDef="Master">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
+                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
+              </ng-container>
+
+              <!-- House Column -->
+              <ng-container matColumnDef="House">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
+                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
+              </ng-container>
+
+              <!-- Folio Column -->
+              <ng-container matColumnDef="Folio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+              </ng-container>
+
+              <!-- Tipo Column -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+              </ng-container>
+
+              <!-- Valor Column -->
+              <ng-container matColumnDef="Valor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              </ng-container>
+
+              <!-- Pedimento Column -->
+              <ng-container matColumnDef="Pedimento">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
+                </ng-container>
+
+                <!-- FechaDeEmision Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaDeEmision}} </td>
+                </ng-container>
+
+                <!-- Descargar Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Estado de cuenta">
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+
+              <!-- Nombre Column -->
+              <ng-container matColumnDef="Master">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
+                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
+              </ng-container>
+
+              <!-- House Column -->
+              <ng-container matColumnDef="House">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
+                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
+              </ng-container>
+
+              <!-- Folio Column -->
+              <ng-container matColumnDef="Folio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+              </ng-container>
+
+              <!-- Tipo Column -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+              </ng-container>
+
+              <!-- Valor Column -->
+              <ng-container matColumnDef="Valor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              </ng-container>
+
+              <!-- Pedimento Column -->
+              <ng-container matColumnDef="Pedimento">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
+                </ng-container>
+
+                <!-- FechaDeEmision Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaDeEmision}} </td>
+                </ng-container>
+
+                <!-- Descargar Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Complemento de pago">
+          <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+
+              <!-- Nombre Column -->
+              <ng-container matColumnDef="Master">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
+                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
+              </ng-container>
+
+              <!-- House Column -->
+              <ng-container matColumnDef="House">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
+                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
+              </ng-container>
+
+              <!-- Folio Column -->
+              <ng-container matColumnDef="Folio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+              </ng-container>
+
+              <!-- Tipo Column -->
+              <ng-container matColumnDef="Tipo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
+              </ng-container>
+
+              <!-- Valor Column -->
+              <ng-container matColumnDef="Valor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              </ng-container>
+
+              <!-- Pedimento Column -->
+              <ng-container matColumnDef="Pedimento">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
+                </ng-container>
+
+                <!-- FechaDeEmision Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaDeEmision}} </td>
+                </ng-container>
+
+                <!-- Descargar Column -->
+              <ng-container matColumnDef="FechaDeEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

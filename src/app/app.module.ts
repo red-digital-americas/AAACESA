@@ -49,6 +49,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
+import { FinanzasComponent } from './aaacesa/finanzas/finanzas.component';
+import { FinanzasModule } from './aaacesa/finanzas/finanzas.module';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     LoginComponent,
     RegisterComponent,
     ResetpasswordComponent,
+    FinanzasComponent,
     // AbandonoComponent
   ],
   imports: [
@@ -79,7 +82,8 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    FinanzasModule
   ],
   exports: [
   ],
