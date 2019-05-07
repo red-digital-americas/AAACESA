@@ -53,6 +53,11 @@
 .sidebar .nav-link.active .nav-icon {
     color: #ffffff;
 }
+.sidebar-show .main::before, .aside-menu-show .main::before {
+    z-index: 999 !important;
+}
+
+
 //dropdown
 .dropdown-header {
     background: #183964!important;
