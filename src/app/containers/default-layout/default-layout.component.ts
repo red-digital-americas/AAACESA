@@ -12,9 +12,9 @@ export class DefaultLayoutComponent implements OnInit {
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   public user : string;
-  public modulos : string;
-  public avatar : string;
+  public rolUser : string;
   public IDUSR;
+  date;
   
 
   ngOnInit() {
@@ -24,6 +24,7 @@ export class DefaultLayoutComponent implements OnInit {
      else {
        this.IDUSR = JSON.parse(localStorage.getItem("user"));
        this.user = this.IDUSR.Nombre+" "+this.IDUSR.Paterno+" "+this.IDUSR.Materno;
+       this.rolUser = JSON.parse(localStorage.getItem("rol"));
      }
 
   }

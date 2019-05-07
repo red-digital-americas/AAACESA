@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
         if(value.isAuth)
         {
           this.apiservices.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
-            // console.log(respuesta);
             localStorage.setItem('user', JSON.stringify(respuesta));
+            localStorage.setItem('rol', JSON.stringify(respuesta.Perfil.ClavePerfil));
             this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
             setTimeout(function(){
               window.location.href ="dashboard";
@@ -64,24 +64,19 @@ export class LoginComponent implements OnInit {
     this.validar= true;
     if(this.recuperaEmail != undefined)
     {
-      this.apiservices.service_general_post("AAACESA-Portal/portalclientes/procesoRecupera", {
-          "recu": {
-            "correo": this.recuperaEmail
-          }
-        }).subscribe((value) => {
-          this.message = value.Mensaje;
-          if(value.Mensaje != "El usuario no existe")
-          {
-            this.message = "Se ha enviado un link al correo proporcionado. Seras redirigido al login";
-            setTimeout(function(){
-              window.location.href ="login";
-            },3000);
-          }
-          
+      this.loginservice.service_general_put("/PasswordRecovery/ProcesoRecuperacion", this.recuperaEmail).subscribe((value) => {
+        this.message = value;
+        if(value != "El usuario no existe")
+        {
+          this.message;
+          setTimeout(function(){
+            window.location.href ="login";
+          },3000);
+        }
       });
     }
     else{
-      this.message= "Es necesario ingresar un correo."
+      this.message
     }
   }
  

@@ -1,6 +1,6 @@
 // Here you can add other styles
 .app-header{
-    background-color: #30376A;
+    background-color: #183964;
     z-index: 1000;
     height: 68px;
     border-bottom: none;
@@ -21,7 +21,7 @@
 
 //sidebar
 .sidebar{
-    background-color: #212649;
+    background-color: #183964;
     z-index: 1020;
     width: 100px !important;
 }
@@ -53,6 +53,10 @@
 .sidebar .nav-link.active .nav-icon {
     color: #ffffff;
 }
+//dropdown
+.dropdown-header {
+    background: #183964!important;
+}
 
 //breadcrum
 .breadcrumb {
@@ -67,20 +71,45 @@ table{
     font-size:  0.9em;
 }
 .table th, .table td {
-    border-top: 1px solid #646880;
-    color: #212649;
+    border-top: 1px solid #183964;
+    color: #183964;
 }
 .table thead th {
-    border-bottom: 2px solid #646880;
+    border-bottom: 2px solid #183964;
     border-top: none;
-    color: #212649;
+    color: #183964;
+}
+//Mat Table
+
+.mat-header-cell {
+    color: #183964;
+    font-weight: bold;
+}
+.mat-cell, .mat-footer-cell {
+    color: #183964;
+}
+
+//switch
+
+.switch-outline-secondary .switch-input:checked + .switch-slider {
+    background-color: transparent !important;
+}
+.switch-outline-secondary .switch-input + .switch-slider {
+    background-color: transparent !important;
+    border-color: #4C58A9;
+}
+.switch-slider::before {
+    border-color: #4C58A9;
+}
+.switch-label .switch-slider::after{
+    color: #4C58A9;
 }
 //Mat Dialog
 
 .mat-dialog-container {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     background: #fff;
-    color: #212649 ;
+    color: #183964 ;
 }
 .mat-body, .mat-body-1, .mat-typography{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -117,7 +146,7 @@ table{
 
 .u-color-primary {
     //TODO change to var $color-primary
-    color: #FB600A;
+    color: #D31E28;
 }
 
 
@@ -205,7 +234,7 @@ table{
     font-size: .8rem;    
 
     &:not(:last-child) {
-        border-right: 2px solid #212649;  
+        border-right: 2px solid #183964;  
     }    
 
     &__number {

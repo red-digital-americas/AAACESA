@@ -1,107 +1,105 @@
-import { Component, OnInit, ViewChild, Input, forwardRef, TemplateRef, Inject } from '@angular/core';
+import { Component, OnInit, forwardRef, Inject } from '@angular/core';
 import { ApiServices } from '../../../services/api.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { UserData } from '../../../models/user.models';
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { ActualizaData, ActualizaPerfil } from '../../../models/user.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
-const INLINE_EDIT_CONTROL_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DetalleUserComponent),
-  multi: true
-};
 @Component({
   selector: 'app-detalle-user',
   templateUrl: './detalle-user.component.html',
   styleUrls: ['./detalle-user.component.scss'],
-  providers: [ApiServices ,INLINE_EDIT_CONTROL_VALUE_ACCESSOR]
+  providers: [ApiServices]
 })
-export class DetalleUserComponent implements ControlValueAccessor, OnInit {
-  @ViewChild('nomUser') inlineEditControl; // input DOM element
-  @Input() nomUser: string = '';  // Label value for input element
-  @Input() apatUser: string = '';  // Label value for input element
-  @Input() amatUser: string = '';  // Label value for input element
-  @Input() perfilUser: string = '';  // Label value for input element
-  @Input() type: string = 'text'; // The type of input element
-  @Input() required: boolean = false; // Is input requried?
-  @Input() disabled: boolean = false; // Is input disabled?
-  title: string;
-  cveCliente: string;
-  mailUser;
-  telUser;
+export class DetalleUserComponent implements OnInit {
+  disabled: boolean = false;
+  disablePerfil:boolean=false;
+  getPerfilUser:   string;
+  mensaje: any;
+  final: boolean = false;
 
-  public actualizaUser: UserData= new UserData();
-  
-  // modalRef2: BsModalRef;
+  public actualizaUser: ActualizaData= new ActualizaData();
+  public actualizaPerfil: ActualizaPerfil= new ActualizaPerfil();
 
-  private _value: string = ''; // Private variable for input value
-  preValue: string = ''; // The value before clicking to edit
-  editing: boolean = false; // Is Component in edit mode?
-  onChange: any = Function.prototype; // Trascend the onChange event
-  onTouched: any = Function.prototype; // Trascend the onTouch event
+  public phoneModel = '';
+  public phoneMask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-  constructor(private apiservices: ApiServices, private dialogRef: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  constructor(private apiservices: ApiServices, private dialogRef: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any,
+  public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.actualizaUser.Telefono= "";
      this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.data.cveCliente).subscribe((res)=>{
-      this.nomUser = res.Nombre+" "+res.Paterno+" "+res.Materno;
+      this.actualizaUser.Id= this.data.cveCliente;
+      this.actualizaPerfil.Id= this.data.cveCliente;
       this.actualizaUser.Nombre= res.Nombre;
       this.actualizaUser.Paterno= res.Paterno;
       this.actualizaUser.Materno= res.Materno;
-      this.perfilUser = res.Perfil['ClavePerfil'];
-      this.mailUser = res.Correo;
-      this.telUser = res.Telefono;
+      this.actualizaUser.Correo= res.Correo;
+      this.actualizaUser.Telefono= res.Telefono;
+      this.actualizaUser.Perfil.ClavePerfil= res.Perfil['ClavePerfil'];
+      this.actualizaPerfil.Perfil.ClavePerfil= res.Perfil['ClavePerfil'];
+    });
+    this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
+      this.getPerfilUser = res;
     });
   }
 
   actualiza() {
-    console.log(this.actualizaUser);
+    this.actualizaUser.Telefono =  this.actualizaUser.Telefono.replace(/\D+/g, '');
+    this.final = true;
+    console.log(this.actualizaPerfil);
+    this.apiservices.service_general_put("/AdministracionCuentas/UpdateCliente",this.actualizaUser).subscribe((res)=>{
+      this.mensaje = res.Description;
+    }, 
+    (err: HttpErrorResponse) => { 
+      console.log(err.error);
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
+      }
+    });
 
-    // this.modalRef2 = this.modalService.show(template, { class: 'second' });
-    // this.modalRef.hide();
-    // this.modalRef = null;
+    this.apiservices.service_general_put("/AdministracionCuentas/UpdatePerfilCliente",this.actualizaPerfil).subscribe((res)=>{
+      this.mensaje = res.Description;
+    }, 
+    (err: HttpErrorResponse) => { 
+      console.log(err.error);
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
+      }
+    });
+    
   }
 
-
-  // Control Value Accessors for ngModel
-  get value(): any {
-    return this._value;
+  edit() {
+    this.disabled=true;
+    this.disablePerfil= this.data.tipoPerfil;
   }
 
-  set value(v: any) {
-    if (v !== this._value) {
-      this._value = v;
-      this.onChange(v);
+  validar_campos(event) {
+    for (var i = 0; i < event.length; i++) {
+      console.log(event[i].name);
+      if (!event[i].valid) {
+        $("#" + event[i].name).focus();
+        break;
+      }
     }
+    this.sendAlert("Algunos campos necesitan ser revisados");
   }
 
-  // Required for ControlValueAccessor interface
-  writeValue(value: any) {
-    this._value = value;
-  }
-
-  // Required forControlValueAccessor interface
-  public registerOnChange(fn: (_: any) => {}): void {
-    this.onChange = fn;
-  }
-
-  // Required forControlValueAccessor interface
-  public registerOnTouched(fn: () => {}): void {
-    this.onTouched = fn;
-  }
-
-  onBlur($event: Event) {
-    this.editing = false;
-  }
-
-  // Start the editting process for the input element
-  edit(value) {
-
-    if (this.disabled) {
-      return;
-    }
-    console.log(value);
-    this.preValue = value;
-    this.editing = true;
+  sendAlert(mensaje:string){
+    this.snackBar.open(mensaje, "", {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
 }

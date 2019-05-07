@@ -68,7 +68,7 @@
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
                   <input type="text" matInput  [(ngModel)]="crearUser.Correo" #emailUser="ngModel" id="emailUser" name="emailUser" placeholder="Correo: nombre@sitio.com" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                  <mat-error *ngIf="emailUser.hasError('email') && !emailUser.hasError('required')">
+                  <mat-error *ngIf="emailUser.dirty || emailUser.pristine">
                     El formato del campo es <strong>incorrecto</strong>
                   </mat-error>
                   <mat-error *ngIf="emailUser.hasError('required')">

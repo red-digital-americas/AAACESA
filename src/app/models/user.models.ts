@@ -24,6 +24,23 @@ export class UserAuth {
     public Perfil: PerfilUser= new PerfilUser();
   }
 
+  export class ActualizaData {
+    constructor() { }
+    public Id: string ="";
+    public Correo: string ="";
+    public Nombre: string ="";
+    public Paterno: string ="";
+    public Materno: string ="";
+    public Telefono: string ="";
+    public Perfil: PerfilUser= new PerfilUser();
+  }
+
+  export class ActualizaPerfil {
+    constructor() { }
+    public Id: string ="";
+    public Perfil: PerfilUser= new PerfilUser();
+  }
+
   export class PerfilUser{
     public ClavePerfil: string ="";
   }

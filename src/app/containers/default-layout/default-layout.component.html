@@ -7,9 +7,9 @@
   [mobileAsideMenuToggler]="false">
   
   
-  <span class="label label-default d-none d-lg-block small">Bienvenido! {{user}} | <small class="text-muted">Última sesión martes 19/abril/2019 | hora: 09:24:56</small> </span>
-  
-  <ul class="nav navbar-nav ml-auto">
+  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora: 09:24:56</small> </span>
+  <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{date | date:'yyyy-MM-dd'}}</small></span>
+  <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span>
@@ -62,7 +62,12 @@
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Administrador</strong></div>
         <div class="divider"></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Bloquear</a>
+        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " href="/forms/basic-forms" ><i class="icon-note"></i>Bitácora</a>
+        <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
+        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " href="/adminuser" ><i class="icon-people"></i> Admin de usuarios</a>
+        <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
+        <a class="dropdown-item" href="#"><i class="icon-lock"></i> Bloquear</a>
+        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" (click)="closeSession()"><i class="cui-account-logout"></i> Salir</a>
       </div>
     </li>
