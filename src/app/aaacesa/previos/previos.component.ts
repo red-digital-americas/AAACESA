@@ -257,24 +257,17 @@ export class PreviosComponent  {
       (response:any) => {         
         var element = document.createElement('a');
         element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);              
-                
+        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
         // element.setAttribute('target','_blank');
         element.setAttribute('download', response.NombreDocumento);
-
         document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        ////// Alternative
-        // window.open("data:application/pdf,base64ssdfasdf;", "_blank";
+        // For browser with no support of download attribute
+        if (typeof element.download == undefined) {
+          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        }  
       }, 
-      (errorService) => { console.log(errorService); });
-
-    // this.http.get('assets/Previos/getDocumento.json')
-    //   .subscribe((data) => {         
-    //     let f = data.json().Archivo.split('data:application/pdf;');
-    //     // window.open(data.json().Archivo, "_blank");
-    //     window.open("data:application/pdf;" + encodeURI(f[1]));
-    //   });    
+      (errorService) => { console.log(errorService); });     
   }
 
   openDialog(): void {
