@@ -48,9 +48,10 @@ export class PrealertasComponent {
   // Mat Table  
   public data = [];                         // Data original consultada del servicio  
   public detailData = {};                   // Registro con el detalle obtenido
+  public estatusTransferencia = [];         // Por el momento
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdPrealerta', 'GuiaMaster', 'GuiaHouse', 'InstruccionesManejo', 'FechaArribo', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdPrealerta', 'GuiaMaster', 'GuiaHouse', 'InstruccionesManejo', 'FechaArribo', 'Consignatario', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -174,6 +175,13 @@ export class PrealertasComponent {
     .subscribe ( 
     (response:any) => { this.detailData = response; this.loading = false;}, 
     (errorService) => { console.log(errorService); this.loading = false; });
+
+    // Estatus Transferencia
+    // this.estatusTransferencia = [];
+    // this.apiService.service_general_get(`ConsultaMercancia/GetEstatusTransferencia?Master=139-11650133&House=CDG810683`)
+    // .subscribe ( 
+    // (response:any) => { this.detailData = response; this.loading = false;}, 
+    // (errorService) => { console.log(errorService); this.loading = false; });
   } 
   
   ///////////////////////////////

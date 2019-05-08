@@ -43,7 +43,7 @@ export class SalidasComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'RFCFacturar', 'Pedimento', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaCreacion', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
