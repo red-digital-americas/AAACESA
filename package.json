@@ -71,6 +71,8 @@
     "ngx-perfect-scrollbar": "6.3.0",
     "ngx-quill": "^3.4.0",
     "ngx-quill-editor": "^2.2.2",
+    "node-gyp": "^4.0.0",
+    "node-sass": "^4.12.0",
     "rxjs": "^6.3.0",
     "rxjs-compat": "^6.3.0",
     "simple-line-icons": "^2.4.1",

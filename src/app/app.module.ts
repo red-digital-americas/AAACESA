@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -24,7 +24,10 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+import { registerLocaleData } from '@angular/common';
+import localeEsMx from '@angular/common/locales/es-MX';
 
+registerLocaleData(localeEsMx, 'es-Mx');
 
 // Providers
 
@@ -52,6 +55,7 @@ import { ResetpasswordComponent } from './views/resetpassword/resetpassword.comp
 import { MatInputModule, MatIconModule, MatSnackBarModule, MatCheckboxModule } from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxLoadingModule } from 'ngx-loading';
+
 
 
 @NgModule({
@@ -92,7 +96,7 @@ import { NgxLoadingModule } from 'ngx-loading';
   ],
   exports: [
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-Mx' }],
 
   bootstrap: [ AppComponent ],
 

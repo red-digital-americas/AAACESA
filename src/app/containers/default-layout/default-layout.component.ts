@@ -14,6 +14,7 @@ export class DefaultLayoutComponent implements OnInit {
   public user : string;
   public rolUser : string;
   public IDUSR;
+  public logTime;
   date;
   
 
@@ -25,6 +26,7 @@ export class DefaultLayoutComponent implements OnInit {
        this.IDUSR = JSON.parse(localStorage.getItem("user"));
        this.user = this.IDUSR.Nombre+" "+this.IDUSR.Paterno+" "+this.IDUSR.Materno;
        this.rolUser = JSON.parse(localStorage.getItem("rol"));
+       this.logTime = new Date(localStorage.getItem("mytime"));
      }
 
   }

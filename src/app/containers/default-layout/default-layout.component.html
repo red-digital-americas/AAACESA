@@ -7,8 +7,8 @@
   [mobileAsideMenuToggler]="false">
   
   
-  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora: 09:24:56</small> </span>
-  <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{date | date:'yyyy-MM-dd'}}</small></span>
+  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora 9:24 AM</small> </span>
+  <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{logTime | date:'dd/MMM/y'}} &nbsp;|&nbsp;hora {{logTime | date:'h:mm a'}}</small></span>
   <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">

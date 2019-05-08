@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   getPasword = false;
   message: string="";
   validar = false;
+  hide = true;
   checked: boolean=false;
   loginUser;
   sesionUser;
@@ -41,8 +42,10 @@ export class LoginComponent implements OnInit {
         if(value.isAuth)
         {
           this.apiservices.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
+            let myDate = new Date();
             localStorage.setItem('user', JSON.stringify(respuesta));
             localStorage.setItem('rol', JSON.stringify(respuesta.Perfil.ClavePerfil));
+            localStorage.setItem("mytime", myDate.toString());
             this.loading = false;
             this.message = "Acceso correcto. Seras redirigido al Dashboard principal";
             this.sendAlert(this.message);
