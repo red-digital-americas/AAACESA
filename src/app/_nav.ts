@@ -38,7 +38,7 @@ switch(permisos)
     },
     {
       name: 'Finanzas',
-      url: '/charts',
+      url: '/finanzas',
       icon: 'icon-chart'
     },
     {
@@ -80,7 +80,7 @@ switch(permisos)
     },
     {
       name: 'Finanzas',
-      url: '/charts',
+      url: '/finanzas',
       icon: 'icon-chart'
     },
     {
@@ -134,7 +134,7 @@ switch(permisos)
     },
     {
       name: 'Finanzas',
-      url: '/charts',
+      url: '/finanzas',
       icon: 'icon-chart'
     },
     {
