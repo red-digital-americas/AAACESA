@@ -206,17 +206,17 @@
               <td mat-cell *matCellDef="let element"> {{element.Consignatario}} </td>
             </ng-container>
                         
-            <!-- <ng-container matColumnDef="Estatus">
+            <ng-container matColumnDef="Estatus">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
               <td mat-cell *matCellDef="let element"> 
                 <div class="col status-filter">            
                   <div class="status-filter__circle status-filter__circle--{{element.Estatus | statusPipe }}"></div>
-                  <div class="status-filter__text">
+                  <!-- <div class="status-filter__text">
                     <p> {{ element.Estatus }} </p>
-                  </div>
+                  </div> -->
                 </div>
               </td>
-            </ng-container> -->
+            </ng-container>
                         
             <ng-container matColumnDef="Acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
@@ -394,22 +394,23 @@
                             <p class="detail-text">{{detailData.FechaCreacion}}</p>                    
                           </div>    
 
-                          <!-- <div class="col-12">
+                          <div class="col-12">
                             <h6>Transferencia</h6>                        
                           </div>   
-                          <div class="col-12">   
+                          <div *ngFor="let estado of estatusTransferencia" class="col-12">   
                             <div class="row justify-content-start">
                               <div class="col-7 text-left">
-                                <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                                <div class="status-filter__circle status-filter__circle--Solicitada"></div>
+                                <!-- <div class="status-filter__circle status-filter__circle--{{estado.Estado | statusPipe }}"></div> -->
                                 <div class="status-filter__text">
-                                  <p class="detail-text"> Recolectado </p>
+                                  <p class="detail-text">{{estado.Estado}}</p>
                                 </div>                        
                               </div>
                               <div class="col-4 text-left">
-                                <h5 class="detail-text">16/03/2019</h5>                        
+                                <h5 class="detail-text">{{estado.Fecha.split(' ')[0] }}</h5>                        
                               </div>
                             </div>                      
-                          </div>                              -->
+                          </div>                             
                           
                           <div class="col-12">
                             <hr class="dividerb">

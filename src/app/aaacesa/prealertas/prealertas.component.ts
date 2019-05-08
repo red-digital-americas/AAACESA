@@ -12,7 +12,7 @@ import { ApiServices } from '../../services/api.services';
 
 ///////////
 // Modelos Prealertas
-import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo } from '../../models/prealertas.model';
+import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
@@ -48,10 +48,10 @@ export class PrealertasComponent {
   // Mat Table  
   public data = [];                         // Data original consultada del servicio  
   public detailData = {};                   // Registro con el detalle obtenido
-  public estatusTransferencia = [];         // Por el momento
+  public estatusTransferencia = [];         // EstatusTransferenciaDetalle
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdPrealerta', 'GuiaMaster', 'GuiaHouse', 'InstruccionesManejo', 'FechaArribo', 'Consignatario', 'Acciones'];    
+  displayedColumns: string[] = ['IdPrealerta', 'GuiaMaster', 'GuiaHouse', 'InstruccionesManejo', 'FechaArribo', 'Consignatario', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -173,16 +173,35 @@ export class PrealertasComponent {
     
     this.apiService.service_general_get(`/Prealertas/GetDetailsById/${id}`)
     .subscribe ( 
-    (response:any) => { this.detailData = response; this.loading = false;}, 
-    (errorService) => { console.log(errorService); this.loading = false; });
-
-    // Estatus Transferencia
-    // this.estatusTransferencia = [];
-    // this.apiService.service_general_get(`ConsultaMercancia/GetEstatusTransferencia?Master=139-11650133&House=CDG810683`)
-    // .subscribe ( 
-    // (response:any) => { this.detailData = response; this.loading = false;}, 
-    // (errorService) => { console.log(errorService); this.loading = false; });
+    (response:any) => { 
+      this.detailData = response; 
+      this.getEstatusTransferencia(response.GuiaMaster, response.GuiaHouse);
+      console.log(this.estatusTransferencia);
+      this.loading = false;
+    }, 
+    (errorService) => { console.log(errorService); this.loading = false; });    
   } 
+
+  private getEstatusTransferencia(master:string, house:string) {    
+    this.estatusTransferencia = [];        
+    this.apiService.service_general_get(`/ConsultaMercancia/GetEstatusTransferencia?Master=${master}&House=${house}`)
+    .subscribe ( 
+    (response:any) => { 
+      console.log(response);
+      let keys = Object.keys(response);
+      keys.splice(0, 4);
+
+      if (Array.isArray(keys) && keys.length) {
+        for (let i=0; i<keys.length; i+=2) {    
+          if (response[keys[i]]){
+            this.estatusTransferencia.push(new EstatusTransferencia(keys[i], response[keys[i+1]]));
+          }              
+        }        
+      }
+      // console.log(this.estatusTransferencia);
+    }, 
+    (errorService) => { console.log(errorService);});
+  }
   
   ///////////////////////////////
   // Update Seguimiento
@@ -260,11 +279,9 @@ export class PrealertasComponent {
       (response:any) => {         
         var element = document.createElement('a');
         element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);              
-                
+        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
         // element.setAttribute('target','_blank');
         element.setAttribute('download', response.NombreDocumento);
-
         document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
         // For browser with no support of download attribute
