@@ -7,8 +7,8 @@
   [mobileAsideMenuToggler]="false">
   
   
-  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora: 09:24:56</small> </span>
-  <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{date | date:'yyyy-MM-dd'}}</small></span>
+  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora 9:24 AM</small> </span>
+  <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{logTime | date:'dd/MMM/y'}} &nbsp;|&nbsp;hora {{logTime | date:'h:mm a'}}</small></span>
   <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
@@ -89,3 +89,41 @@
     </div><!-- /.container-fluid -->
   </main>
 </div>
+<app-footer>
+  <!-- <span><a href="https://coreui.io/pro/angular/">CoreUI Pro</a> &copy; 2018 creativeLabs.</span>
+  <span class="ml-auto">Powered by <a href="https://coreui.io/pro/angular">CoreUI Pro for Angular</a></span> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 border-right border border-white">
+              <img src="assets/img/brand/logo.png" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <span>AAACESA cuenta con más de 24 años de experiencia ofreciendo servicios de manejo, almacenaje y custodia de mercancías de comercio exterior. Con el paso del tiempo, se ha posicionado como el almacén fiscalizado líder en la aduana del Aeropuerto Internacional de la Ciudad de México</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <span>Servicios</span>
+              <span>Importación Aérea
+                Exportación Aérea
+                Cadena de Frío</span>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</app-footer>

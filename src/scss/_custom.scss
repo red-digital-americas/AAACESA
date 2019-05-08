@@ -24,6 +24,7 @@
     background-color: #183964;
     z-index: 1000;
     width: 100px !important;
+    border-right: none;
 }
 .sidebar-fixed .sidebar {
     z-index: 1000;
@@ -57,6 +58,12 @@
     z-index: 999 !important;
 }
 
+//Footer
+.app-footer{
+    margin-left: 0px!important;
+    border-top: none;
+    z-index: 1000;
+}
 
 //dropdown
 .dropdown-header {
