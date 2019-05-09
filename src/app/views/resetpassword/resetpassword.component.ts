@@ -52,26 +52,34 @@ export class ResetpasswordComponent implements OnInit {
  }
 
   ngOnInit() {
-      // this.loading=true;
+      this.loading=true;
       this.route.queryParams.subscribe(params => {
       console.log(params);
       this.idcliente = params['IdUser'];
       this.mail = params['Correo'];
       this.guid = params['token'];
-      // this.loginservices.service_general_get_with_params('/PasswordRecovery/ValidaProcesoRecuperacion',{
-      //   "Correo" : this.mail,
-      //   "Guid" : this.guid,
-      //   "IdCliente" : this.idcliente
-      // }).subscribe((respuesta)=>{
-      //     if(!respuesta)
-      //     {
-      //       this.loading=false;
-      //       this.sendAlert("El link a caducado, seras redirigido");
-      //       setTimeout(function(){
-      //         window.location.href ="login";
-      //       },3000);
-      //     }
-      // });
+      this.loginservices.service_general_get_with_params('/PasswordRecovery/ValidaProcesoRecuperacion',{
+        "Correo" : this.mail,
+        "Guid" : this.guid,
+        "IdCliente" : this.idcliente
+      }).subscribe((respuesta)=>{
+        this.loading=false;
+          if(!respuesta)
+          {
+            this.sendAlert("El link a caducado, seras redirigido");
+            setTimeout(function(){
+              window.location.href ="login";
+            },3000);
+          }
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        this.loading=false;
+        this.sendAlert("El link a caducado, seras redirigido al login");
+        setTimeout(function(){
+          window.location.href ="login";
+        },3000);
+      });
     })
   }
 
@@ -84,7 +92,7 @@ export class ResetpasswordComponent implements OnInit {
           "Correo" : this.mail,
           "Guid" : this.guid,
           "IdCliente" : this.idcliente,
-          "Password" : "Testing444c3s4"
+          "Password" : this.newPassword
         }).subscribe((respuesta)=>{
         if(respuesta)
         {
