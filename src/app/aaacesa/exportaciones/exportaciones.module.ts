@@ -3,11 +3,20 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//////////////////////////
+// Vendors Components
+import { DataTableModule } from 'angular2-datatable';     // DataTable
+import { TextMaskModule } from 'angular2-text-mask';      // Angular 2 Input Mask
+import { TimepickerModule } from 'ngx-bootstrap';         // Timepicker
+import { BsDatepickerModule } from 'ngx-bootstrap';       // Datepicker
+import { SelectModule } from 'ng-select';                 // Ng2-select
+import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
+import { ngfModule } from 'angular-file';
+import { NgxLoadingModule } from 'ngx-loading';
 
-import { SalidasComponent, DialogCreateSalidaComponent} from './salidas.component';
-import { SalidasRoutingModule } from './salidas-routing.module';
-
-//Material
+////////////////////////
+// Material
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -23,53 +32,59 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatRadioModule} from '@angular/material/radio'; 
 
-//Vendor
-import { BsDatepickerModule } from 'ngx-bootstrap';       // Datepicker
-import { TextMaskModule } from 'angular2-text-mask';                  // Angular 2 Input Mask
-import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
-import { ngfModule } from 'angular-file';
-import { NgxLoadingModule } from 'ngx-loading';
 
+/////////////////////
+// Components
+import { ExportacionesComponent, DialogCreateExportacionesComponent } from './exportaciones.component';
+
+/////////////////////////
+// Routing
+import { ExportacionesRoutingModule } from './exportaciones-routing.module';
+
+////////////////
 // Shared
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    SalidasComponent,
-    DialogCreateSalidaComponent
-  ],
-  entryComponents: [
-    DialogCreateSalidaComponent
-  ],
-  imports: [
+  imports: [    
+    ExportacionesRoutingModule,
     CommonModule,
+    DataTableModule,
     FormsModule,
     ReactiveFormsModule,
+// tslint:disable-next-line: deprecation
     HttpModule,
+    MatDatepickerModule,
     TextMaskModule,
+    TimepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    SelectModule,
+    ModalModule,  
     MatExpansionModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    SalidasRoutingModule,
+    MatAutocompleteModule,
+    MatSelectModule,    
     MatDialogModule,
     MatStepperModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
     MatSlideToggleModule,
+    MatSnackBarModule,  
     MatRadioModule,
-    ModalModule,
-    BsDatepickerModule.forRoot(),
     NgxMatSelectSearchModule,
-    MatSelectModule,
-    MatSnackBarModule,
     ngfModule,
     NgxLoadingModule.forRoot({}),
     SharedModule
-  ]
+  ],
+  declarations: [    
+    ExportacionesComponent,
+    DialogCreateExportacionesComponent 
+  ],
+  entryComponents: [
+    DialogCreateExportacionesComponent
+  ]  
 })
-export class SalidasModule { }
+export class ExportacionesModule { }

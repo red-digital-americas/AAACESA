@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 ///////////
 // Material
@@ -27,6 +27,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class PrealertasComponent {  
   
   loading = false;  
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   ///////////////////////
   // Catalogos para los <select>
@@ -146,7 +147,8 @@ export class PrealertasComponent {
     } else {    
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
-    }    
+    }        
+
     console.log(this.busquedaModel);
     this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
       .subscribe ( 
@@ -323,7 +325,7 @@ export class PrealertasComponent {
 })
 export class DialogCreatePrealertasComponent implements OnInit {
 
-  isLinear = true;
+  isLinear = true;  
 
   ///////////////////////
   // Catalogos para los <select>
@@ -335,7 +337,10 @@ export class DialogCreatePrealertasComponent implements OnInit {
   condicionesAlmacenesCatalogo = [];
 
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;      
+  isMasterHouseValid = false;
+  secondFormGroup: FormGroup;   
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -396,9 +401,9 @@ export class DialogCreatePrealertasComponent implements OnInit {
       referenciaCtrl: ['', Validators.required],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fechaArriboCtrl: ['', Validators.required],
-      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
+      fechaArriboCtrl: ['', Validators.required],      
+      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
       rangoTemperaturaCtrl: ['', Validators.required],
@@ -415,6 +420,45 @@ export class DialogCreatePrealertasComponent implements OnInit {
       comentarioCtrl: [''],    
     });
     
+    this.fechaArriboChange();
+  }
+
+  hourValidation (control: FormControl): {[s:string]:boolean} {
+    let currentTime = parseInt(moment(new Date()).format('HH'));    
+    let selectedTime = parseInt(control.value);
+    
+    if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
+
+    let date = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');      
+    console.log(today === date);        
+
+    if (selectedTime < currentTime && (today === date)) { return { hour:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  minuteValidation (control: FormControl): {[s:string]:boolean} {
+    let currentTime = parseInt(moment(new Date()).format('mm'));    
+    let selectedTime = parseInt(control.value);
+    
+    if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
+
+    let date = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');      
+    console.log(today === date);        
+    // let hour = this.secondFormGroup.controls.horaPrevioCtrl.value;    
+    
+    if (selectedTime < currentTime && (today === date) ) { return { minute:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  fechaArriboChange() {    
+    this.secondFormGroup.get('fechaArriboCtrl').valueChanges    
+    .subscribe((data) => {
+      console.log(data);
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();  
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();            
+    });
   }
 
   closeDialog(msj:string): void {    
@@ -439,6 +483,31 @@ export class DialogCreatePrealertasComponent implements OnInit {
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     }       
+
+    if (this.firstFormGroup.valid) {
+      // this.validarMasterHouse();
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);      
+      this.processingCreation = false;
+      this.showAlert("Master/House encontrada");
+      this.isMasterHouseValid = true;
+    }, 
+    (errorService) => { 
+      // console.log(errorService); 
+      this.secondFormGroup.value.piezasCtrl = "";                  
+      this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {
@@ -450,7 +519,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   }
 
   guardarFirstForm () {    
-    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
+    // if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
     
     this.model.GuiaMaster = this.firstFormGroup.value.masterCtrl;
     this.model.GuiaHouse = this.firstFormGroup.value.houseCtrl;
