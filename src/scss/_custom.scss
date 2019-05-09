@@ -220,18 +220,6 @@ table{
     width: 80%;
 }
 
-
-
-/*Select Input */
-// .styled-select {
-//     overflow: hidden;    
-//     & select {
-//         -webkit-appearance: none;
-//         -moz-appearance: none;
-//         appearance: none;
-//     }
-// }  
-
 /*DragInputFiles  */
 .my-drop-zone { 
     border: dotted 3px lightgray; 
@@ -270,30 +258,31 @@ table{
         background-color: white;
 
         &--Aceptada {
-            background-color: #2ee836;
+            background-color: #21a2dc;
         }
 
         &--Solicitada {
-            background-color: #18EDED;            
+            background-color: #ecd914;            
         }
 
         &--PendienteAAACESA{
-            background-color: #fff500;
+            background-color: #e0750c;
         }
         &--PendienteCliente{
-            background-color: #ef5500;
+            background-color: rgba(255,255,255,0.7);
+            border: solid 1px black;
         }
         &--Pendiente {
             background-color: #fff500;
         }
         &--Rechazada{
-            background-color: #ff0000;
+            background-color: #ce0f0f;
         }
         &--Finalizada{
-            background-color: #596df2;
+            background-color: #24c327;
         }
         &--Cancelada{
-            background-color: #ff0000;
+            background-color: #000000;
         }
     }
 }

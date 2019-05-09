@@ -26,7 +26,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">                
                   <mat-form-field class="input-full-width">         
-                    <input matInput type="text" formControlName="masterCtrl" placeholder="Guía Master"/> 
+                    <input matInput type="text" formControlName="masterCtrl" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>
@@ -93,7 +93,7 @@
             <div class="row mb-3">                              
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha estimada de Arribo">
+                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha estimada de Arribo">
                     <mat-error *ngIf="secondFormGroup.get('fechaArriboCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error> 
@@ -126,6 +126,21 @@
             </div>
 
             <div class="row mb-3">  
+
+              <div class="col-lg-8">
+                <mat-form-field class="input-full-width">
+                  <mat-select formControlName="condicionesAlmacenesCtrl" placeholder="Condiciones Almacen" #singleSelect>
+                    <mat-option>                      
+                      <ngx-mat-select-search formControlName="condicionesAlmacenesSearchCtrl" [placeholderLabel]="'Condiciones Almacen'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option>Ninguno</mat-option>                    
+                    <mat-option *ngFor="let option of condicionesAlmacenesCatalogo | filterSelect: secondFormGroup.get('condicionesAlmacenesSearchCtrl').value" [value]="option.CveCondicionalmacenaje"> 
+                      {{option.CveCondicionalmacenaje}} - {{option.Descripcion}}
+                    </mat-option>
+                  </mat-select>                  
+                </mat-form-field>
+              </div>
+
               <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
                     <mat-select formControlName="rangoTemperaturaCtrl" placeholder="Rango de Temperatura" #singleSelect>
@@ -134,12 +149,29 @@
                       </mat-option>
                       <mat-option>Ninguno</mat-option>                    
                       <mat-option *ngFor="let option of rangoTemperaturaCatalogo | filterSelect: secondFormGroup.get('rangoTemperaturaSearchCtrl').value" [value]="option.Concepto"> 
-                        {{option.RangoTemperatura}}
+                        {{option.Concepto}}
                       </mat-option>
                     </mat-select>                  
                   </mat-form-field>
-                </div>
-              
+                </div>                          
+                                          
+            </div>   
+            
+            <div class="row mb-3">
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <mat-select formControlName="usoCFDICtrl" placeholder="Uso de CFDI" #singleSelect>
+                    <mat-option>                      
+                      <ngx-mat-select-search formControlName="usoCFDISearchCtrl" [placeholderLabel]="'Uso de CFDI'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option>Ninguno</mat-option>                    
+                    <mat-option *ngFor="let option of usoCFDICatalogo | filterSelect: secondFormGroup.get('usoCFDISearchCtrl').value" [value]="option.c_UsoCFDI"> 
+                      {{option.c_UsoCFDI}} - {{option.Descripcion}}
+                    </mat-option>
+                  </mat-select>                  
+                </mat-form-field>
+              </div>
+
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" formControlName="consignatarioCtrl" placeholder="Consignatario a Facturar"/>
@@ -161,42 +193,14 @@
                     </mat-option>
                   </mat-select>                  
                 </mat-form-field>
-              </div>                
-                                          
-            </div>   
-            
-            <div class="row mb-3">
-              <div class="col-lg-4">
-                <mat-form-field class="input-full-width">
-                  <mat-select formControlName="usoCFDICtrl" placeholder="Uso de CFDI" #singleSelect>
-                    <mat-option>                      
-                      <ngx-mat-select-search formControlName="usoCFDISearchCtrl" [placeholderLabel]="'Uso de CFDI'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option>Ninguno</mat-option>                    
-                    <mat-option *ngFor="let option of usoCFDICatalogo | filterSelect: secondFormGroup.get('usoCFDISearchCtrl').value" [value]="option.c_UsoCFDI"> 
-                      {{option.c_UsoCFDI}} - {{option.Descripcion}}
-                    </mat-option>
-                  </mat-select>                  
-                </mat-form-field>
-              </div>
+              </div> 
 
-              <div class="col-lg-4">
-                <mat-form-field class="input-full-width">
-                  <mat-select formControlName="condicionesAlmacenesCtrl" placeholder="Condiciones Almacen" #singleSelect>
-                    <mat-option>                      
-                      <ngx-mat-select-search formControlName="condicionesAlmacenesSearchCtrl" [placeholderLabel]="'Condiciones Almacen'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option>Ninguno</mat-option>                    
-                    <mat-option *ngFor="let option of condicionesAlmacenesCatalogo | filterSelect: secondFormGroup.get('condicionesAlmacenesSearchCtrl').value" [value]="option.CveCondicionalmacenaje"> 
-                      {{option.CveCondicionalmacenaje}} - {{option.Descripcion}}
-                    </mat-option>
-                  </mat-select>                  
-                </mat-form-field>
-              </div>
+            </div>
 
-              <div class="col-lg-4">
-                <mat-slide-toggle formControlName="consolidadoCtrl">Consolidado</mat-slide-toggle>                  
-              </div>
+            <div class="row mb-4">
+              <div class="col-lg-4">                
+                  <mat-slide-toggle formControlName="consolidadoCtrl">Consolidado</mat-slide-toggle>                                  
+              </div>           
             </div>
 
             <div class="row mb-3">
@@ -207,7 +211,8 @@
                 <mat-radio-group formControlName="instruccionesManejoCtrl" aria-label="Select an option">
                   <div class="row mt-3">
                     <mat-radio-button class="col" *ngFor="let option of instruccionesManejoCatalogo" [value]="option.ClaveInstruccion">
-                      {{option.ClaveInstruccion}} - {{option.Descripcion}}
+                      <!-- {{option.ClaveInstruccion}} - {{option.Descripcion}} -->
+                      {{option.Descripcion}}
                     </mat-radio-button>                    
                   </div>                    
                 </mat-radio-group>
@@ -233,17 +238,19 @@
                 
     </mat-step>
 
-    <mat-step [completed]="model.Documentos?.length >= 1" >      
+    <!-- <mat-step [completed]="model.Documentos?.length >= 1" >       -->
+    <mat-step>      
       <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
 
       <div class="container mt-3">
-        <p>Subir documentos: Guia Master, Guia House, Gafete, Etiquetado<small> (mínimo subir un documento)</small></p>  
+        <p>Subir documentos: Guia Master, Guia House, Gafete, Etiquetado</p>  
         
         <div class="row mb-5">                     
           <div class="col-lg-12 mb-3">
             <div ngfDrop selectable="1" multiple="1"
               [(files)]="files"
-              accept = ".pdf"                                                           
+              accept = ".pdf"       
+              maxSize   = "4194304"                                                    
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
@@ -251,11 +258,11 @@
             </div>                                    
           </div>  
 
-          <div *ngFor="let documento of model.Documentos; let in=index" class="col-lg-2">    
+          <div *ngFor="let documento of model.Documentos; let in=index" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">    
             <div>
-              <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
-              <div style="font-size: 4rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
-              <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+              <div (click)="removeDocument(in)" style="height: .5rem;" class="file__btn-close"><span>&times;</span></div>
+              <div style="font-size: 3rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+              <p style="word-break: break-all; text-align: center" class="detail-text">{{documento.NombreDocumento}}</p>                                                                          
             </div>                                                                      
           </div>                                                
         </div>              
@@ -284,12 +291,12 @@
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">                                                                                                
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guia Master </h5>
+                      <h5 class="detail-text text-muted">Guía Master </h5>
                       <p class="detail-text">{{model.GuiaMaster}}</p>
                     </div>
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guia House </h5>
+                      <h5 class="detail-text text-muted">Guía House </h5>
                       <p class="detail-text">{{model.GuiaHouse}}</p>
                     </div>
 
@@ -304,7 +311,7 @@
                     </div>
 
                     <div class="col">
-                      <h5 class="detail-text text-muted">Condicion de Alamacenaje</h5>
+                      <h5 class="detail-text text-muted">Condición de Almacenaje</h5>
                       <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
                     </div>                                                      
                   </div>  
@@ -313,13 +320,13 @@
                   <!-- Start Right Inside -->
                   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
 
-                    <div class="row justify-content-end">
+                    <div class="row justify-content-start">
                       <div class="col-xs-12 col-sm-12 col-lg-8">
                         <div class="referencia">
                           <h5 class="detail-text">Referencia: {{ model.Referencia }}</h5>                             
                         </div>
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                      <!-- <div class="col-xs-12 col-sm-12 col-lg-4">
                         <h5 class="detail-text text-muted">Estatus</h5>
                         <div class="col status-filter">            
                           <div class="status-filter__circle status-filter__circle--Solicitada"></div>
@@ -327,7 +334,7 @@
                             <p> Solicitada </p>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
 
                     <div class="row">
@@ -338,7 +345,7 @@
 
                       <div class="col-xs-12 col-sm-12 col-lg-2">
                         <h5 class="detail-text text-muted">Peso</h5>
-                        <p class="detail-text">{{model.Peso}}</p>
+                        <p class="detail-text">{{model.Peso}} kg</p>
                       </div>
 
                       <div class="col-xs-12 col-sm-12 col-lg-8">
@@ -357,20 +364,20 @@
                         <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Almacen de Origen</h5>
-                        <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 2}} </p>
+                        <h5 class="detail-text text-muted">Almacén de Origen</h5>
+                        <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-6">
                         <h5 class="detail-text text-muted">Rango de Temperatura</h5>
-                        <h6 class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 2}}</h6>
+                        <h6 class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 0}}</h6>
                       </div>   
                       
                       <div class="col-xs-12 col-sm-12 col-lg-6">
                         <h5 class="detail-text text-muted">Instrucciones de Manejo</h5>
-                        <h6 class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 2}}</h6>
+                        <h6 class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 1}}</h6>
                       </div>   
                     </div>
                     
@@ -382,9 +389,9 @@
                 <hr class="dividerb">
 
                 <div class="row mt-5 mb-3">                
-                  <div *ngFor="let file of model.Documentos" class="col col-lg-2">
-                    <h1 style="font-size: 5rem"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
-                    <p style="word-break: break-all;" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+                  <div *ngFor="let file of model.Documentos" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
+                    <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
                   </div>                        
                 </div>              
           </div>
@@ -413,7 +420,7 @@
           {{responseMessage}}
         </div>
         <div class="col-12 text-center mt-5 ">
-          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Ok</button>  
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Aceptar</button>  
         </div>
       </div>        
     </div>

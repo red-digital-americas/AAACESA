@@ -7,6 +7,7 @@ import { StatusPipe } from './status.pipe';
 import { FilterSelectPipe } from './filterSelect.pipe';
 import { DataFilterPipe } from './datafilterpipe';
 import { GetSelectPipe } from './getSelect.pipe';
+import { SeguimientoAccionesPipe } from './seguimientoAcciones.pipe';
 
 @NgModule({
   imports: [        
@@ -16,14 +17,16 @@ import { GetSelectPipe } from './getSelect.pipe';
     StatusPipe,
     FilterSelectPipe,
     DataFilterPipe,
-    GetSelectPipe
+    GetSelectPipe,
+    SeguimientoAccionesPipe
   ],
   exports: [
     FileIconPipe,
     StatusPipe,
     FilterSelectPipe,
     DataFilterPipe,
-    GetSelectPipe
+    GetSelectPipe,
+    SeguimientoAccionesPipe
   ]
 })
 export class SharedModule { }

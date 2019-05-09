@@ -390,17 +390,23 @@ export class DialogCreatePreviosComponent implements OnInit {
 
   //////////////////////
   // Paso 1
-  checkReferencia() {    
-    //Consultar servicios        
-    if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
-      this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
-      this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+  checkReferencia() {        
+    let referencia = this.firstFormGroup.get('referenciaCtrl').value;    
+    // referencia = "244147";        
+    this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
+    .subscribe ( 
+    (response:any) => { 
+      console.log(response);
+      this.firstFormGroup.get('masterCtrl').setValue(response.Master);
+      this.firstFormGroup.get('houseCtrl').setValue(response.House);
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
-    } else {
+    },(errorService) => { 
+      console.log(errorService);
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
       this.referencia = "Sin Referencia";
-    }
+      this.showAlert("Referencia no encontrada");
+    });
   }
 
   cleanReferencia() {        
