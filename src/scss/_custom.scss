@@ -22,7 +22,7 @@
 //sidebar
 .sidebar{
     background-color: #183964;
-    z-index: 1000;
+    z-index: 999;
     width: 100px !important;
     border-right: none;
 }
@@ -59,13 +59,39 @@
 }
 //footer-container
 .app-footer{
-    margin-left: 80px!important;
+    margin-left: 0px!important;
+    border: none !important;
+    z-index: 1000;
 }
 
 .footer-container{
-    font-size: x-small;
-    line-height: 90%;
-    text-align: justify
+    font-size:  x-small;
+    line-height: 95%;
+    text-align: justify;
+    color: #B2B3C0;
+    .texto{
+        font-size: small;
+        line-height: normal;
+    }
+}
+
+ul.dash {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+}
+ul.dash > li:before {
+    display: inline-block;
+    content: "-";
+    width: 1em;
+    margin-left: -1em;
+}
+.link-footer{
+    color: #B2B3C0;
+    :hover{
+        color: #596df2!important;
+        text-decoration: underline #596df2;
+    }
 }
 
 //dropdown

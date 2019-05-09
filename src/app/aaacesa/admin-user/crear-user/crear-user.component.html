@@ -1,10 +1,36 @@
-<h2 mat-dialog-title>Nuevo Usuario</h2>
+<ngx-loading [show]="loading"></ngx-loading>
+<div mat-dialog-title>
+  <div class="row justify-content-between">
+    <div class="col">
+        <h5> Nuevo Usuario </h5>
+    </div>  
+    <div class="col">
+      <button mat-dialog-close type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
 <mat-dialog-content class="mat-typography" *ngIf="!visible">
   <div class="container mt-3 mb-5" *ngIf="!final">
     <div class="row">
       <div class="col">
         <form #creaUserForm="ngForm">
           <div class="container">
+            <div class="row mt-3">
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput [(ngModel)]="crearUser.RFC" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly value="rfcUser" >
+                  <span matPrefix>RFC:&nbsp;</span>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput [(ngModel)]="crearUser.ClavePatente" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
+                  <span matPrefix>Patente:&nbsp;</span>
+                </mat-form-field>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field class="input-full-width">
@@ -31,28 +57,6 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="row mt-3">
-              <div class="col-md-4">
-                <mat-form-field class="input-full-width">
-                  <input type="text" matInput [(ngModel)]="crearUser.Telefono" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono"  [textMask]="{mask: phoneMask, guide: false, modelClean: true}" pattern="^\(?([0-9]{3})\)?[ ]?([0-9]{3})[-]?([0-9]{4})$" required>
-                  <mat-error *ngIf="telefonoUser.dirty || telefonoUser.pristine">
-                    El campo Teléfono es <strong>requerido</strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field class="input-full-width">
-                  <input type="text" matInput [(ngModel)]="crearUser.RFC" #rfcUserT="ngModel" id="rfcUserT" name="rfcUserT" readonly value="rfcUser" >
-                  <span matPrefix>RFC:&nbsp;</span>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4">
-                <mat-form-field class="input-full-width">
-                  <input type="text" matInput [(ngModel)]="crearUser.ClavePatente" #patenteU="ngModel" id="patenteU" name="patenteU" readonly>
-                  <span matPrefix>Patente:&nbsp;</span>
-                </mat-form-field>
-              </div>
-            </div>
             <div class="row mt-4">
               <div class="col-md-4 styled-select">
                 <mat-form-field class="input-full-width">
@@ -76,15 +80,18 @@
                   </mat-error>
                 </mat-form-field> 
               </div>
-            </div>
-            <!-- <div class="row">
-              <div class="col">
-                <a class="btn btn-ghost-primary btn-pill" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Agregar más usuarios</a>
+              <div class="col-md-4">
+                <mat-form-field class="input-full-width">
+                  <input type="text" matInput [(ngModel)]="crearUser.Telefono" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" placeholder="Teléfono"  [textMask]="{mask: phoneMask, guide: false, modelClean: true}" pattern="^\(?([0-9]{3})\)?[ ]?([0-9]{3})[-]?([0-9]{4})$" required>
+                  <mat-error *ngIf="telefonoUser.dirty || telefonoUser.pristine">
+                    El campo Teléfono es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
               </div>
-            </div> -->
-            <div class="row mt-3 align-items-center">
-              <div class="col text-center">
-                <button type="submit"  class="btn btn-ghost-links btn-pill" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm._directives)">Crear</button>
+            </div>
+            <div class="row mt-3">
+              <div class="col text-right">
+                <button type="submit"  class="btn btn-primary btn-pill btn-sm" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm)">Crear nuevo usuario</button>
               </div>
             </div>
           </div>
@@ -114,7 +121,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-4 text-left">
-            <button type="submit"  class="btn btn-ghost-link btn-pill" (click)="buscaUserForm.valid ? buscaRFCUsuario() : validar_campos(buscaUserForm._directives)"><i class="fas fa-search"></i>&nbsp;Buscar</button>
+            <button type="submit" class="btn btn-primary btn-pill btn-sm" (click)="buscaUserForm.valid ? buscaRFCUsuario() : validar_campos(buscaUserForm)"><i class="fas fa-search"></i>&nbsp;Buscar</button>
           </div>
         </div>
         <div class="row  mt-4"  *ngIf="rfcVisible">
@@ -130,7 +137,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-4 text-center">
-            <button type="submit" class="btn btn-ghost-link btn-pill" (click)="crearUserByAdmin(selgetRFCc.value)" >Enviar</button>
+            <button type="submit" class="btn btn-primary btn-pill btn-sm" (click)="crearUserByAdmin(selgetRFCc.value)" >Siguiente</button>
           </div>
         </div>
         <div class="row mt-3 align-items-center">
@@ -147,7 +154,3 @@
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-dialog-close class="btn btn-pill btn-primary">Cancelar</button>
-  <!-- <button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-</mat-dialog-actions>

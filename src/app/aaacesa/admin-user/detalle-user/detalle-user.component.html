@@ -1,109 +1,101 @@
-<h2 mat-dialog-title>Editar Usuario</h2>
+<ngx-loading [show]="loading"></ngx-loading>
+<div mat-dialog-title>
+  <div class="row justify-content-between">
+    <div class="col">
+        <h5> {{title}} </h5>
+    </div>  
+    <div class="col">
+      <button mat-dialog-close type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
 <mat-dialog-content class="mat-typography" *ngIf="!visible">
   <div class="container mt-3 mb-5" *ngIf="!final">
-    <div class="col-md-12">
-      <div class="row">
-        <form #detailUserForm="ngForm">
+    <div class="row">
+      <form #detailUserForm="ngForm" class="input-full-width">
+        <div class="col-md-12">
           <div class="row">
-            <div class="col">
-              <div class="row">
-                <div title="Click para editar" (click)="edit()" tabindex="0" class="input-full-width">
-                  Nombre Completo<i class="cui-pencil"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <input matInput type="text" [disabled]="!disabled" [(ngModel)]="actualizaUser.Nombre" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
-                    <mat-error *ngIf="nomUser.dirty || nomUser.pristine">
-                      El campo Nombre es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <input type="text" matInput [disabled]="!disabled" [(ngModel)]="actualizaUser.Paterno" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
-                    <mat-error *ngIf="paternoUser.dirty || paternoUser.pristine">
-                      El campo Paterno es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <input type="text" matInput [disabled]="!disabled" [(ngModel)]="actualizaUser.Materno" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
-                    <mat-error *ngIf="maternoUser.dirty || maternoUser.pristine">
-                      El campo Materno es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="row">
-                <div title="Click para editar" (click)="edit()" tabindex="1" class="input-full-width">
-                  Correo<i class="cui-pencil"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <input type="text" matInput [disabled]="!disabled"  [(ngModel)]="actualizaUser.Correo" #emailUser="ngModel" id="emailUser" name="emailUser" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                    <mat-error *ngIf="emailUser.dirty || emailUser.pristine">
-                      El formato del campo es <strong>incorrecto</strong>
-                    </mat-error>
-                    <mat-error *ngIf="emailUser.hasError('required')">
-                      El campo Correo es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
+            <div title="Click para editar" (click)="edit()" tabindex="0" class="input-full-width col-md-12">
+              Nombre Completo &nbsp;&nbsp;&nbsp; <i class="cui-pencil"></i>
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              <div class="row">
-                <div title="Click para editar" (click)="edit()" tabindex="1" class="input-full-width">
-                  Perfil<i class="cui-pencil" *ngIf="data.tipoPerfil"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <select matNativeControl [disabled]="!disablePerfil" [(ngModel)]="actualizaPerfil.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required >
-                      <option label="--Selecciona el perfil --">--Selecciona el perfil --</option>
-                      <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil" [selected]="rol.ClavePerfil==actualizaUser.Perfil.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
-                    </select>
-                    <mat-error *ngIf="selPerfilUser.hasError('required')">
-                      El campo Perfil es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [disabled]="!disabled" [(ngModel)]="actualizaUser.Nombre" #nomUser="ngModel" id="nomUser" name="nomUser" placeholder="Nombre" required>
+                <mat-error *ngIf="nomUser.dirty || nomUser.pristine">
+                  El campo Nombre es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
-            <div class="col">
-              <div class="row">
-                <div class="col" title="Click para editar" (click)="edit()" tabindex="0">
-                  Teléfono<i class="cui-pencil"></i>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <mat-form-field class="input-full-width">
-                    <input type="text" [disabled]="!disabled" matInput [(ngModel)]="actualizaUser.Telefono" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" [textMask]="{mask: phoneMask, guide: false, modelClean: true}" pattern="^\(?([0-9]{3})\)?[ ]?([0-9]{3})[-]?([0-9]{4})$" required>
-                    <mat-error *ngIf="telefonoUser.dirty || telefonoUser.pristine">
-                      El campo Teléfono es <strong>requerido</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+                <input type="text" matInput [disabled]="!disabled" [(ngModel)]="actualizaUser.Paterno" #paternoUser="ngModel" id="paternoUser" name="paternoUser" placeholder="Apellido Paterno" required>
+                <mat-error *ngIf="paternoUser.dirty || paternoUser.pristine">
+                  El campo Paterno es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+                <input type="text" matInput [disabled]="!disabled" [(ngModel)]="actualizaUser.Materno" #maternoUser="ngModel" id="maternoUser" name="maternoUser" placeholder="Apellido Materno" required>
+                <mat-error *ngIf="maternoUser.dirty || maternoUser.pristine">
+                  El campo Materno es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
-        </form>
-      </div>
+          <div class="row">
+            <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
+              Correo&nbsp;&nbsp;&nbsp;<i class="cui-pencil"></i>
+            </div>
+            <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
+              Perfil&nbsp;&nbsp;&nbsp;<i class="cui-pencil" *ngIf="data.tipoPerfil"></i>
+            </div>
+            <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
+              Teléfono&nbsp;&nbsp;&nbsp;<i class="cui-pencil"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+                <input type="text" matInput [disabled]="!disabled"  [(ngModel)]="actualizaUser.Correo" #emailUser="ngModel" id="emailUser" name="emailUser" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                <mat-error *ngIf="emailUser.dirty || emailUser.pristine">
+                  El formato del campo es <strong>incorrecto</strong>
+                </mat-error>
+                <mat-error *ngIf="emailUser.hasError('required')">
+                  El campo Correo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field class="input-full-width">
+                <select matNativeControl [disabled]="!disablePerfil" [(ngModel)]="actualizaPerfil.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required >
+                  <option label="--Selecciona el perfil --">--Selecciona el perfil --</option>
+                  <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil" [selected]="rol.ClavePerfil==actualizaUser.Perfil.ClavePerfil">{{rol.ClavePerfil}}</option>
+                </select>
+                <mat-error *ngIf="selPerfilUser.hasError('required')">
+                  El campo Perfil es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="input-full-width">
+                <input type="text" [disabled]="!disabled" matInput [(ngModel)]="actualizaUser.Telefono" #telefonoUser="ngModel" id="telefonoUser" name="telefonoUser" [textMask]="{mask: phoneMask, guide: false, modelClean: true}" pattern="^\(?([0-9]{3})\)?[ ]?([0-9]{3})[-]?([0-9]{4})$" required>
+                <mat-error *ngIf="telefonoUser.dirty || telefonoUser.pristine">
+                  El campo Teléfono es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
     <div class="row">
       <div class="col text-right">
-        <button *ngIf="disabled" type="button" class="btn btn-ghost-links btn-pill" (click)="detailUserForm.valid ? actualiza() : validar_campos(detailUserForm._directives)">Actualizar</button>
+        <button *ngIf="disabled" type="button" class="btn btn-primary btn-pill btn-sm" (click)="detailUserForm.valid ? actualiza() : validar_campos(detailUserForm)">Actualizar</button>
       </div>
     </div>
   </div>
@@ -115,6 +107,3 @@
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-dialog-close class="btn btn-ghost-links btn-pill">Cerrar</button>
-</mat-dialog-actions>
