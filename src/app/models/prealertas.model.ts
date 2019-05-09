@@ -11,7 +11,7 @@ export class PrealertaBusqueda {
     public ClaveInstruccionManejo = "";
 
     Clean() {
-        this.IdPrealerta = "";	
+        this.IdPrealerta = "";	    
         this.FechaInicial = "";    
         this.FechaFinal = "";        
         this.Master = "";    
