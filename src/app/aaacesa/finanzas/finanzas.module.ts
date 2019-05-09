@@ -6,9 +6,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FinanzasComponent } from './finanzas.component';
 
 //import { FinanzasRoutingModule } from './finanzas-routing.module';
-import { MatTabsModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { FinanzasRoutingModule } from './finanzas-routing.module';
+
+import { BsDatepickerModule } from 'ngx-bootstrap';
+
 
 
 @NgModule({
@@ -18,6 +21,7 @@ import { FinanzasRoutingModule } from './finanzas-routing.module';
     FormsModule,
     HttpModule,
     MatDatepickerModule,
+    BsDatepickerModule.forRoot(),
     MatInputModule,
     MatTabsModule,
     MatTableModule,
