@@ -118,7 +118,7 @@
                       </mat-option>
                       <mat-option>Ninguno</mat-option>                    
                       <mat-option *ngFor="let option of almacenOrigenCatalogo | filterSelect: secondFormGroup.get('almacenOrigenSearchCtrl').value" [value]="option.Clave"> 
-                        {{option.Clave}} - {{option.RecintoFiscalizado}}
+                        {{option.RecintoFiscalizado}}
                       </mat-option>
                     </mat-select>                  
                   </mat-form-field>
@@ -134,7 +134,7 @@
                       </mat-option>
                       <mat-option>Ninguno</mat-option>                    
                       <mat-option *ngFor="let option of rangoTemperaturaCatalogo | filterSelect: secondFormGroup.get('rangoTemperaturaSearchCtrl').value" [value]="option.Concepto"> 
-                        {{option.Concepto}} - {{option.RangoTemperatura}}
+                        {{option.RangoTemperatura}}
                       </mat-option>
                     </mat-select>                  
                   </mat-form-field>

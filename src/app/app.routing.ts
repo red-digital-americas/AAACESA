@@ -84,6 +84,10 @@ export const routes: Routes = [
         // }
       },
       {
+        path: 'exportaciones',
+        loadChildren: './aaacesa/exportaciones/exportaciones.module#ExportacionesModule'
+      },
+      {
         path: 'finanzas',
         loadChildren: './aaacesa/finanzas/finanzas.module#FinanzasModule'
       },
