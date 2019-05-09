@@ -11,8 +11,6 @@ import { AdminUserRoutingModule } from './admin-user-routing.module';
 import { AdminUserComponent } from './admin-user.component';
 
 // Modal Component
-import { ModalModule } from 'ngx-bootstrap';
-import { ModalsComponent } from '../../views/notifications/modals.component';
 import { DetalleUserComponent } from './detalle-user/detalle-user.component';
 import { CrearUserComponent } from './crear-user/crear-user.component';
 
@@ -34,7 +32,6 @@ import { NgxLoadingModule } from 'ngx-loading';
     DataTableModule,
     FormsModule,
     HttpModule,
-    ModalModule.forRoot(),
     MatInputModule,
     MatIconModule,
     MatTableModule,
@@ -50,7 +47,6 @@ import { NgxLoadingModule } from 'ngx-loading';
   ],
   declarations: [
     AdminUserComponent,
-    ModalsComponent,
     DetalleUserComponent,
     CrearUserComponent,
   ],
