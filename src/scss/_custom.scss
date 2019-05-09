@@ -57,12 +57,15 @@
 .sidebar-show .main::before, .aside-menu-show .main::before {
     z-index: 999 !important;
 }
-
-//Footer
+//footer-container
 .app-footer{
-    margin-left: 0px!important;
-    border-top: none;
-    z-index: 1000;
+    margin-left: 80px!important;
+}
+
+.footer-container{
+    font-size: x-small;
+    line-height: 90%;
+    text-align: justify
 }
 
 //dropdown
