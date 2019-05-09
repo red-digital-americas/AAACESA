@@ -218,9 +218,9 @@
                   </ng-container>
   
                 <tr mat-header-row *matHeaderRowDef="CPColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: CPColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: CPColumns"></tr>
               </table>
-              <mat-paginator #paid[length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+              <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>
             </div>
           </mat-tab>
