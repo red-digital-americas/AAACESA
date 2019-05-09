@@ -25,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 
 //Vendor
 import { BsDatepickerModule } from 'ngx-bootstrap';       // Datepicker
+import { TextMaskModule } from 'angular2-text-mask';                  // Angular 2 Input Mask
 import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
 import { ngfModule } from 'angular-file';
@@ -47,6 +48,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    TextMaskModule,
     MatExpansionModule,
     MatInputModule,
     MatIconModule,

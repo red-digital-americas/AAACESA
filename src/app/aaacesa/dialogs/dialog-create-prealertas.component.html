@@ -17,6 +17,7 @@
 <mat-dialog-content class="mat-typography">
   <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
+    <!-- <mat-step [completed]="isMasterHouseValid"> -->
     <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
 
     <div class="container mt-3">
@@ -199,7 +200,7 @@
 
             <div class="row mb-4">
               <div class="col-lg-4">                
-                  <mat-slide-toggle formControlName="consolidadoCtrl">Consolidado</mat-slide-toggle>                                  
+                  <mat-slide-toggle formControlName="consolidadoCtrl" color="primary">Consolidado</mat-slide-toggle>                                  
               </div>           
             </div>
 

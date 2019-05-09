@@ -29,6 +29,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class PreviosComponent  {
 
   loading = false;
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   ///////////////////////
   // Catalogos para los <select>
@@ -304,6 +305,8 @@ export class DialogCreatePreviosComponent implements OnInit {
   isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
     
   daterangepickerOptions = {
     startDate: '09/01/2017',
@@ -340,18 +343,27 @@ export class DialogCreatePreviosComponent implements OnInit {
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
-      nombreCtrl: ['', Validators.required],
-      paternoCtrl: ['', Validators.required],
-      maternoCtrl: ['', Validators.required],
-      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      // nombreCtrl: ['', Validators.required],
+      // paternoCtrl: ['', Validators.required],
+      // maternoCtrl: ['', Validators.required],
+      // patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaPrevioCtrl: ['', Validators.required],
       horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
       minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
-      numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      // numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       etiquetadoCtrl: [false, Validators.required],
-      comentarioCtrl: [''],    
+      // comentarioCtrl: [''],    
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],      
+      nombreCtrl: ['', Validators.required],
+      paternoCtrl: ['', Validators.required],
+      maternoCtrl: ['', Validators.required],
+      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],            
+      comentarioCtrl: [''],     
     });
     
   }
@@ -365,7 +377,7 @@ export class DialogCreatePreviosComponent implements OnInit {
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
-    if (event.selectedIndex === 3){
+    if (event.selectedIndex === 4){
       this.guardarFirstForm();
     }
   }  
@@ -378,6 +390,9 @@ export class DialogCreatePreviosComponent implements OnInit {
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     }       
+    else if(!this.thirdFormGroup.valid && index === 2) {  
+      this.showAlert("Algunos campos necesitan ser revisados");    
+    }
   }
 
   private showAlert (msj:string) {
@@ -420,12 +435,13 @@ export class DialogCreatePreviosComponent implements OnInit {
 
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);
+
     this.model.Master = this.firstFormGroup.value.masterCtrl;
     this.model.House = this.firstFormGroup.value.houseCtrl;
-    this.model.Nombre = this.secondFormGroup.value.nombreCtrl;
-    this.model.Paterno = this.secondFormGroup.value.paternoCtrl;
-    this.model.Materno = this.secondFormGroup.value.maternoCtrl;
-    this.model.Patente = this.secondFormGroup.value.patenteCtrl;
+    this.model.Nombre = this.thirdFormGroup.value.nombreCtrl;
+    this.model.Paterno = this.thirdFormGroup.value.paternoCtrl;
+    this.model.Materno = this.thirdFormGroup.value.maternoCtrl;
+    this.model.Patente = this.thirdFormGroup.value.patenteCtrl;
     
     // let f = this.secondFormGroup.value.fechaPrevioCtrl.toISOString();       // 2019-11-23        
     // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)} 12:20`; 
@@ -447,14 +463,15 @@ export class DialogCreatePreviosComponent implements OnInit {
 
     this.model.FechaPrevio = f;    
 
-    this.model.NumGafete = this.secondFormGroup.value.numGafeteCtrl;
+    this.model.NumGafete = this.thirdFormGroup.value.numGafeteCtrl;
     this.model.Piezas = this.secondFormGroup.value.piezasCtrl;
     this.model.Peso = this.secondFormGroup.value.pesoCtrl;
     this.model.Etiquetado = this.secondFormGroup.value.etiquetadoCtrl;
-    if (this.secondFormGroup.value.comentarioCtrl == "") {            
+
+    if (this.thirdFormGroup.value.comentarioCtrl == "") {            
       this.model.Seguimiento[0].Comentarios = "";
     } else {      
-      this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
+      this.model.Seguimiento[0].Comentarios = this.thirdFormGroup.value.comentarioCtrl;;
     }
 
     console.log(this.model);    

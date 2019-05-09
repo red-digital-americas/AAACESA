@@ -27,6 +27,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class PrealertasComponent {  
   
   loading = false;  
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   ///////////////////////
   // Catalogos para los <select>
@@ -146,7 +147,8 @@ export class PrealertasComponent {
     } else {    
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
-    }    
+    }        
+
     console.log(this.busquedaModel);
     this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
       .subscribe ( 
@@ -335,6 +337,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   condicionesAlmacenesCatalogo = [];
 
   firstFormGroup: FormGroup;
+  isMasterHouseValid = false;
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
@@ -480,6 +483,31 @@ export class DialogCreatePrealertasComponent implements OnInit {
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     }       
+
+    if (this.firstFormGroup.valid) {
+      // this.validarMasterHouse();
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);      
+      this.processingCreation = false;
+      this.showAlert("Master/House encontrada");
+      this.isMasterHouseValid = true;
+    }, 
+    (errorService) => { 
+      // console.log(errorService); 
+      this.secondFormGroup.value.piezasCtrl = "";                  
+      this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {

@@ -16,7 +16,7 @@
           <div class="row">
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.Master" placeholder="Guia Master"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.Master" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guia Master"/>
               </mat-form-field>
             </div>
 
