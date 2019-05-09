@@ -15,6 +15,8 @@ export class DefaultLayoutComponent implements OnInit {
   public rolUser : string;
   public IDUSR;
   public logTime;
+  public lastTime;
+  loading=false;
   date;
   
 
@@ -27,6 +29,7 @@ export class DefaultLayoutComponent implements OnInit {
        this.user = this.IDUSR.Nombre+" "+this.IDUSR.Paterno+" "+this.IDUSR.Materno;
        this.rolUser = JSON.parse(localStorage.getItem("rol"));
        this.logTime = new Date(localStorage.getItem("mytime"));
+       this.lastTime = this.IDUSR.FechaUltimaSesion;
      }
 
   }
@@ -44,6 +47,7 @@ export class DefaultLayoutComponent implements OnInit {
    
   
   closeSession(){
+    this.loading=true;
     localStorage.clear();
     // this.router.navigate(['/login']);
   }

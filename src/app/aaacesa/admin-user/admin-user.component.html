@@ -1,8 +1,9 @@
+<ngx-loading [show]="loading"></ngx-loading>
 <div class="container">
   <!-- <div class="row justify-content-end" *ngIf="numCuentas && rolUser"> -->
   <div class="row justify-content-end">
     <div class="col-lg-6 col-md-6 col-xs-6 text-right">
-      <button (click)="crearUser()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
+      <button (click)="crearUser()" class="btn btn-link-primary"> <i class="fas fa-plus-circle"></i> Crear Usuario</button>
     </div>
   </div>
 </div>
@@ -32,21 +33,15 @@
             <td mat-cell *matCellDef="let element"> {{element.Telefono}} </td>
           </ng-container>
 
-          <!-- RFC Column -->
-          <ng-container matColumnDef="RFC">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> RFC </th>
-            <td mat-cell *matCellDef="let element"> {{element.RFC}} </td>
-          </ng-container>
-
-          <!-- Patente Column -->
-          <ng-container matColumnDef="ClavePatente">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
-            <td mat-cell *matCellDef="let element"> {{element.ClavePatente}} </td>
+          <!-- Correo Column -->
+          <ng-container matColumnDef="Correo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+            <td mat-cell *matCellDef="let element"> {{element.Correo}} </td>
           </ng-container>
 
           <!-- Perfil Column -->
           <ng-container matColumnDef="ClavePerfil">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Perfil </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ClavePerfil </th>
             <td mat-cell *matCellDef="let element"> {{element.Perfil["ClavePerfil"]}} </td>
           </ng-container>
 
@@ -54,10 +49,11 @@
           <ng-container matColumnDef="IsBlocked">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
             <td mat-cell *matCellDef="let element">
-              <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">
+              <!-- <label class="switch switch-label switch-pill switch-outline-secondary" style="padding-top:8px;">
                 <input type="checkbox" class="switch-input" [checked]="!element.IsBlocked" (change)="changed($event, element.Id)">
                 <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
-              </label>
+              </label> -->
+              <mat-slide-toggle color="primary" [checked]="!element.IsBlocked" (change)="changed($event,element.Id)"></mat-slide-toggle>                  
             </td>
           </ng-container>
 

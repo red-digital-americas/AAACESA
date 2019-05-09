@@ -17,6 +17,8 @@ export class DetalleUserComponent implements OnInit {
   getPerfilUser:   string;
   mensaje: any;
   final: boolean = false;
+  loading=false;
+  title;
 
   public actualizaUser: ActualizaData= new ActualizaData();
   public actualizaPerfil: ActualizaPerfil= new ActualizaPerfil();
@@ -29,8 +31,11 @@ export class DetalleUserComponent implements OnInit {
   public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.title= this.data.title;
+    this.loading=true;
     this.actualizaUser.Telefono= "";
      this.apiservices.service_general_get("/AdministracionCuentas/GetAccountById/"+this.data.cveCliente).subscribe((res)=>{
+      this.loading=false;
       this.actualizaUser.Id= this.data.cveCliente;
       this.actualizaPerfil.Id= this.data.cveCliente;
       this.actualizaUser.Nombre= res.Nombre;
@@ -47,13 +52,15 @@ export class DetalleUserComponent implements OnInit {
   }
 
   actualiza() {
+    this.loading=true;
     this.actualizaUser.Telefono =  this.actualizaUser.Telefono.replace(/\D+/g, '');
     this.final = true;
-    console.log(this.actualizaPerfil);
     this.apiservices.service_general_put("/AdministracionCuentas/UpdateCliente",this.actualizaUser).subscribe((res)=>{
+      this.loading=false;
       this.mensaje = res.Description;
     }, 
     (err: HttpErrorResponse) => { 
+      this.loading=false;
       console.log(err.error);
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
@@ -79,6 +86,7 @@ export class DetalleUserComponent implements OnInit {
   }
 
   edit() {
+    this.title= "Actualizar datos del Usuario";
     this.disabled=true;
     this.disablePerfil= this.data.tipoPerfil;
   }
