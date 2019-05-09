@@ -68,3 +68,16 @@ export class PrealertaSeguimiento {
         this.Documentos = [];
     }
 }
+
+
+
+//////////////
+// Estatus Transferencia
+export class EstatusTransferencia {
+    Estado:string;
+    Fecha:string;
+    constructor (estado:string, fecha:string) {
+        this.Estado = estado;
+        this.Fecha = fecha;
+    }
+}

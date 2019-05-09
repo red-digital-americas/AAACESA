@@ -25,6 +25,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 })
 export class SalidasComponent  {
   loading = false;  
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   ///////////////////////
   // Catalogos para los <select>
@@ -250,7 +251,8 @@ export class DialogCreateSalidaComponent implements OnInit {
 
   isLinear = true;
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;      
+  secondFormGroup: FormGroup;
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   model:SalidaNuevo = new SalidaNuevo();  
   files;                                  // Arreglo usado por el dragInputFiles  
@@ -351,7 +353,7 @@ constructor(
     this.model.Subdivision = this.secondFormGroup.value.subdivisionCtrl;               
     this.model.Patente = this.secondFormGroup.value.patenteCtrl;        
 
-    let f = moment(this.secondFormGroup.value.fechaArriboCtrl).format('DD/MM/YYYY');    
+    let f = moment(this.secondFormGroup.value.fechaSalidaCtrl).format('YYYYMMDD');    
 
     if (this.secondFormGroup.value.horaSalidaCtrl < 10){
       f = `${f} 0${this.secondFormGroup.value.horaSalidaCtrl}`;

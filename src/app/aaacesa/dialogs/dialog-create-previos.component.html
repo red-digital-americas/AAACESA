@@ -25,7 +25,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">                
                   <mat-form-field class="input-full-width">         
-                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" placeholder="Guía Master"/> 
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>
@@ -43,8 +43,10 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
+                    <input matInput type="text" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
+                    <!-- <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                       -->
                   </mat-form-field>                 
+                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary">Checar referencia</button>            
                 </div>
               </div>          
             </div>
@@ -64,79 +66,8 @@
               
         <div class="container mt-3">
           <form [formGroup]="secondFormGroup">
-            <div class="row mb-3">            
-                <div class="col-lg-4">
-                  <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="nombreCtrl" placeholder="Nombre"/>
-                    <mat-error *ngIf="secondFormGroup.get('nombreCtrl').errors?.required">
-                      Este campo es obligatorio
-                    </mat-error>  
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-4">
-                  <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="paternoCtrl" placeholder="Apellido Paterno"/>
-                    <mat-error *ngIf="secondFormGroup.get('paternoCtrl').errors?.required">
-                      Este campo es obligatorio
-                    </mat-error>  
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-4">
-                  <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="maternoCtrl" placeholder="Apellido Materno"/>
-                    <mat-error *ngIf="secondFormGroup.get('maternoCtrl').errors?.required">
-                      Este campo es obligatorio
-                    </mat-error> 
-                  </mat-form-field>
-                </div>              
-              </div>
-
-              <div class="row mb-3">            
-                  <div class="col-lg-4">
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="text" formControlName="patenteCtrl" placeholder="Patente"/>
-                      <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.required">
-                        Este campo es obligatorio
-                      </mat-error> 
-                      <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.pattern">
-                        Debe ser un numero
-                      </mat-error> 
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-4">
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha">
-                      <mat-error *ngIf="secondFormGroup.get('fechaPrevioCtrl').errors?.required">
-                        Este campo es obligatorio
-                      </mat-error> 
-                    </mat-form-field>                                              
-                  </div>
-
-                  <div class="col-lg-4">                    
-                    <mat-form-field style="width: 49%;" >
-                      <input matInput type="number" formControlName="horaPrevioCtrl" style="text-align:center;" min="0" max="23" placeholder="Hrs" />
-                    </mat-form-field>
-                    <strong style="font-size:1rem;">:</strong>
-                    <mat-form-field style="width: 49%;">
-                      <input matInput type="number" formControlName="minutoPrevioCtrl" style="text-align:center;" min="0" max="59"  placeholder="Mins" />
-                    </mat-form-field>
-                  </div>
-
-              </div>
-
-              <div class="row mb-3">   
-                <div class="col-lg-4">
-                  <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="numGafeteCtrl" placeholder="No. Gafete"/>
-                    <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.required">
-                      Este campo es obligatorio
-                    </mat-error> 
-                    <mat-error *ngIf="secondFormGroup.get('numGafeteCtrl').errors?.pattern">
-                      Debe ser un numero
-                    </mat-error> 
-                  </mat-form-field>
-                </div>    
-
+        
+              <div class="row mb-3">                     
                 <div class="col-lg-4">  
                   <mat-form-field class="input-full-width">
                     <input matInput type="text" formControlName="piezasCtrl" placeholder="Piezas"/>
@@ -152,22 +83,34 @@
                       Debe ser un numero
                     </mat-error> 
                   </mat-form-field>
-                </div>                           
-              </div>
+                </div>    
 
-              <div class="row mb-3">            
                 <div class="col-lg-4">                                             
-                  <mat-slide-toggle formControlName="etiquetadoCtrl">Etiquetado</mat-slide-toggle>                  
-                </div>                                        
-              </div>            
-
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <mat-form-field class="input-full-width">
-                    <textarea matInput formControlName="comentarioCtrl" placeholder="Comentario"></textarea>
-                  </mat-form-field>
-                </div>            
+                  <mat-slide-toggle formControlName="etiquetadoCtrl" color="primary">Etiquetado</mat-slide-toggle>                  
+                </div>                                   
               </div>
+
+              <div class="row mb-3">                 
+                <div class="col-lg-6">
+                  <mat-form-field class="input-full-width">
+                    <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha">
+                    <mat-error *ngIf="secondFormGroup.get('fechaPrevioCtrl').errors?.required">
+                      Este campo es obligatorio
+                    </mat-error> 
+                  </mat-form-field>                                              
+                </div>
+
+                <div class="col-lg-6">                    
+                  <mat-form-field style="width: 49%;" >
+                    <input matInput type="number" formControlName="horaPrevioCtrl" style="text-align:center;" min="0" max="23" placeholder="Hrs" />
+                  </mat-form-field>
+                  <strong style="font-size:1rem;">:</strong>
+                  <mat-form-field style="width: 49%;">
+                    <input matInput type="number" formControlName="minutoPrevioCtrl" style="text-align:center;" min="0" max="59"  placeholder="Mins" />
+                  </mat-form-field>
+                </div>                                       
+              </div>
+              
             </form>
 
             <div class="row mt-5">
@@ -178,6 +121,83 @@
             </div>
         </div>
                 
+    </mat-step>
+
+    <mat-step [stepControl]="thirdFormGroup">
+
+      <div class="container mt-3">
+        <form [formGroup]="thirdFormGroup">
+          
+          <div class="row mb-3">     
+            <div class="col-lg-6">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="numGafeteCtrl" placeholder="No. Gafete"/>
+                <mat-error *ngIf="thirdFormGroup.get('numGafeteCtrl').errors?.required">
+                  Este campo es obligatorio
+                </mat-error> 
+                <mat-error *ngIf="thirdFormGroup.get('numGafeteCtrl').errors?.pattern">
+                  Debe ser un numero
+                </mat-error> 
+              </mat-form-field>
+            </div>  
+            
+            <div class="col-lg-6">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" formControlName="patenteCtrl" placeholder="Patente"/>
+                <mat-error *ngIf="thirdFormGroup.get('patenteCtrl').errors?.required">
+                  Este campo es obligatorio
+                </mat-error> 
+                <mat-error *ngIf="thirdFormGroup.get('patenteCtrl').errors?.pattern">
+                  Debe ser un numero
+                </mat-error> 
+              </mat-form-field>
+            </div>                               
+          </div>  
+
+          <div class="row mb-3">            
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" formControlName="nombreCtrl" placeholder="Nombre del tramitador"/>
+                  <mat-error *ngIf="thirdFormGroup.get('nombreCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error>  
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" formControlName="paternoCtrl" placeholder="Apellido Paterno"/>
+                  <mat-error *ngIf="thirdFormGroup.get('paternoCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error>  
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field class="input-full-width">
+                  <input matInput type="text" formControlName="maternoCtrl" placeholder="Apellido Materno"/>
+                  <mat-error *ngIf="thirdFormGroup.get('maternoCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error> 
+                </mat-form-field>
+              </div>              
+            </div>          
+
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <mat-form-field class="input-full-width">
+                  <textarea matInput formControlName="comentarioCtrl" placeholder="Comentario"></textarea>
+                </mat-form-field>
+              </div>            
+            </div>
+          </form>
+
+          <div class="row mt-5">
+            <div class="col-lg-12 text-center">
+              <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
+              <button (click)="validarCampos(2)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+            </div>
+          </div>
+      </div>
+
     </mat-step>
 
     <mat-step [completed]="model.Documentos?.length >= 1" >      
@@ -234,7 +254,7 @@
                   <div class="col-12 col-md-12">                    
                     <div class="row mb-1">
                       <div class="col-md-4">
-                        <h5 class="detail-text text-muted">Guia Master </h5>
+                        <h5 class="detail-text text-muted">Guía Master </h5>
                         <p class="detail-text">{{model.Master}}</p>
                       </div>
                       
@@ -250,7 +270,7 @@
                 
                     <div class="row mb-1">
                       <div class="col-md-4">
-                        <h5 class="detail-text text-muted">Guia House</h5>
+                        <h5 class="detail-text text-muted">Guía House</h5>
                         <p class="detail-text">{{model.House}}</p>
                       </div>
 
@@ -272,21 +292,20 @@
                       
                       </div>
                       <div class="col-md-4">
-                        <h5 class="detail-text text-muted">Piezas </h5>
+                        <h5 class="detail-text text-muted">Piezas</h5>
                         <p class="detail-text">{{model.Piezas}}</p>
                       </div>
                       
                       <div class="col-md-4">
                         <h5 class="detail-text text-muted">Peso</h5>
-                        <p class="detail-text">{{model.Peso}}</p>
+                        <p class="detail-text">{{model.Peso}} Kg</p>
                       </div>
                     </div>
                 
                     <div class="row mb-3">
                       <div class="col-md-4">
-                        <h5 class="detail-text text-muted">Fecha y Hora</h5> 
-                        <p class="detail-text">{{model.FechaPrevio}}</p>
-                      
+                        <h5 class="detail-text text-muted">Fecha y hora</h5> 
+                        <p class="detail-text">{{model.FechaPrevio?.slice(0,4)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(6,9)}} {{model.FechaPrevio?.slice(9,14)}}</p>                        
                       </div>
                       <div class="col-md-4">
                         <h5 class="detail-text text-muted">Etiquetado</h5>
@@ -329,7 +348,7 @@
           {{responseMessage}}
         </div>
         <div class="col-12 text-center mt-5 ">
-          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Ok</button>  
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Aceptar</button>  
         </div>
       </div>        
     </div>

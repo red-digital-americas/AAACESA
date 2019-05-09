@@ -15,7 +15,7 @@
           <div class="row">
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">                
-                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Master" placeholder="Guía Master"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Master" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/>
               </mat-form-field>                
             </div>
             <div class="col-lg-3 mb-1">
@@ -50,7 +50,7 @@
                 <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" placeholder="Id Adelanto Previo"/>
               </mat-form-field>
             </div>
-            <div class="col-lg-3 mb-1">
+            <!-- <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
                 <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
                   <mat-option>                      
@@ -62,7 +62,7 @@
                   </mat-option>
                 </mat-select>                  
               </mat-form-field>                
-            </div>                            
+            </div>                             -->
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
                 <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" placeholder="Patente"/>
@@ -262,14 +262,14 @@
 
                               <div class="row">
                                 <div class="col">
-                                  <h5 class="detail-text text-muted">No. Master </h5>
+                                  <h5 class="detail-text text-muted">Guía Master </h5>
                                   <p class="detail-text">{{detailData.Master}}</p>
                                 </div>
                               </div>
 
                               <div class="row">
                                 <div class="col">
-                                  <h5 class="detail-text text-muted">No. House </h5>
+                                  <h5 class="detail-text text-muted">Guía House </h5>
                                   <p class="detail-text">{{detailData.House}}</p>
                                 </div>
                               </div>
@@ -418,7 +418,7 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                               <div class="row justify-content-end">
                                 <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
-                                  <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado.split(' ')[0]}}</button>
+                                  <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary btn-sm">{{estado | seguimientoAccionesPipe}}</button>
                                 </div>
                               </div>                                
                             </div>                                                      

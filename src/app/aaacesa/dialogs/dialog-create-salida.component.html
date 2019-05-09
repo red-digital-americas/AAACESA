@@ -26,7 +26,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">                
                   <mat-form-field class="input-full-width">         
-                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" placeholder="Guía Master"/> 
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="masterCtrl" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>
@@ -88,7 +88,7 @@
               </div>
 
               <div class="col-lg-4">
-                <mat-slide-toggle formControlName="subdivisionCtrl">Subdivisión</mat-slide-toggle>                  
+                <mat-slide-toggle formControlName="subdivisionCtrl" color="primary">Subdivisión</mat-slide-toggle>                  
               </div>
                           
             </div>
@@ -108,7 +108,7 @@
               
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha estimada de Arribo">
+                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha Salida">
                   <mat-error *ngIf="secondFormGroup.get('fechaSalidaCtrl').errors?.required">
                     Este campo es obligatorio
                   </mat-error> 
@@ -254,7 +254,7 @@
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
                         <h5 class="detail-text text-muted">Fecha Salida</h5>
-                        <p class="detail-text">{{model.FechaSalida}}</p>
+                        <p class="detail-text">{{model.FechaSalida?.slice(0,4)}}/{{model.FechaSalida?.slice(4,6)}}/{{model.FechaSalida?.slice(6,9)}} {{model.FechaSalida?.slice(9,14)}}</p>
                       </div>
                     </div>                            
                   </div>
