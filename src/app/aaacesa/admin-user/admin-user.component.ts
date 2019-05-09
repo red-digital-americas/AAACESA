@@ -14,7 +14,7 @@ import { UserData } from '../../models/user.models';
 })
 export class AdminUserComponent implements OnInit {
 
-  displayedColumns: string[] = ['Nombre', 'Telefono', 'RFC', 'ClavePatente', 'ClavePerfil', 'IsBlocked', 'acciones'];
+  displayedColumns: string[] = ['Nombre', 'Telefono', 'Correo', 'ClavePerfil', 'IsBlocked', 'acciones'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,6 +27,8 @@ export class AdminUserComponent implements OnInit {
   public myModal;
   public detalle;
   public rolUser : boolean = false;
+  changeToggle;
+  loading=false;
   
   constructor(private http: Http, private apiserv: ApiServices, private dialog: MatDialog,public snackBar: MatSnackBar ) {
    }
@@ -56,16 +58,18 @@ export class AdminUserComponent implements OnInit {
   }
 
 
-  changed(evt, IdCliente){
-
-    if(evt.target.checked)
+  changed(event, IdCliente){
+    this.loading=true;
+    if(event.checked)
     {
       this.apiserv.service_general_put('/AdministracionCuentas/DesbloquearCuenta',IdCliente).subscribe((data) => {
+        this.loading=false;
         this.sendAlert("La cuenta se desbloqueó correctamente");
       });
     }
     else{
       this.apiserv.service_general_put('/AdministracionCuentas/BloquearCuenta',IdCliente).subscribe((data) => {
+        this.loading=false;
         this.sendAlert("La cuenta se bloqueó correctamente");
       });
     }

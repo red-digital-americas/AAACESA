@@ -22,9 +22,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { MatSelectModule, MatDialogModule, MatSnackBarModule, MatSlideToggleModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
@@ -43,7 +44,9 @@ import { TextMaskModule } from 'angular2-text-mask';
     SharedModule,
     MatDialogModule,
     MatSnackBarModule,
-    TextMaskModule
+    MatSlideToggleModule,
+    TextMaskModule,
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [
     AdminUserComponent,

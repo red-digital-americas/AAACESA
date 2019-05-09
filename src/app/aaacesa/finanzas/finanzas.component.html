@@ -1,18 +1,35 @@
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-body">
-      <div class="row mb-3">
-        <div class="col-md-4 offset-md-8">
-          <mat-form-field class="input-full-width">
-            <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
-            <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
-          </mat-form-field>
-        </div>
-      </div>
+     
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
         <mat-tab label="Facturas">
+          <br>
+          <br>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                  <mat-form-field class="input-full-width">
+                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Pedimento" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="input-full-width">
+                      <input matInput type="text" #dp="bsDatepicker" bsDatepicker [(ngModel)]="filterQueryDate" placeholder="Fecha Emision" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                    <div class="row justify-content-start">
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+                        <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                      </div>
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+                        <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                      </div>
+                    </div>
+                  </div>   
+              </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -32,12 +49,6 @@
                 <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
               </ng-container>
 
-              <!-- Tipo Column -->
-              <ng-container matColumnDef="Tipo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
-              </ng-container>
-
               <!-- Valor Column -->
               <ng-container matColumnDef="Valor">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
@@ -53,7 +64,7 @@
                 <!-- FechaDeEmision Column -->
               <ng-container matColumnDef="FechaDeEmision">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
-                  <td mat-cell *matCellDef="let element"> {{element.FechaDeEmision}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaEmision}} </td>
                 </ng-container>
 
                 <!-- Descargar Column -->
@@ -70,8 +81,32 @@
           </div>
         </mat-tab>
         <mat-tab label="Notas de crédito">
+          <br>
+          <br>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                  <mat-form-field class="input-full-width">
+                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Pedimento" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="input-full-width">
+                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Fecha Emision" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                    <div class="row justify-content-start">
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+                        <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                      </div>
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+                        <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                      </div>
+                    </div>
+                  </div>   
+              </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSources" matSort class="mat-elevation-z8">
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -89,12 +124,6 @@
               <ng-container matColumnDef="Folio">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
                 <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
-              </ng-container>
-
-              <!-- Tipo Column -->
-              <ng-container matColumnDef="Tipo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
               </ng-container>
 
               <!-- Valor Column -->
@@ -124,85 +153,94 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-          </div>
-        </mat-tab>
-
-        <mat-tab label="Estado de cuenta">
-          <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
-
-              <!-- Nombre Column -->
-              <ng-container matColumnDef="Master">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
-                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
-              </ng-container>
-
-              <!-- House Column -->
-              <ng-container matColumnDef="House">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
-                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
-              </ng-container>
-
-              <!-- Folio Column -->
-              <ng-container matColumnDef="Folio">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
-                <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
-              </ng-container>
-
-              <!-- Tipo Column -->
-              <ng-container matColumnDef="Tipo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
-              </ng-container>
-
-              <!-- Valor Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
-              </ng-container>
-
-              <!-- Pedimento Column -->
-              <ng-container matColumnDef="Pedimento">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
-                </ng-container>
-
-                <!-- FechaDeEmision Column -->
-              <ng-container matColumnDef="FechaDeEmision">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
-                  <td mat-cell *matCellDef="let element"> {{element.FechaEmision}} </td>
-                </ng-container>
-
-                <!-- Descargar Column -->
-              <ng-container matColumnDef="Descargar">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
-                </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator #CreditNotesPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>
 
         <mat-tab label="Complemento de pago">
+          <br>
+          <br>
+          <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
+              </mat-form-field>
+            </div>
+            <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
+  
+                <!-- UUID Column -->
+                <ng-container matColumnDef="UUID">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> UUID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.UUID}}</td>
+                </ng-container>
+  
+                <!-- FechaTimbrado Column -->
+                <ng-container matColumnDef="FechaTimbrado">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Timbrado </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaTimbrado }} </td>
+                </ng-container>
+  
+                <!-- Folio Column -->
+                <ng-container matColumnDef="Folio">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+                </ng-container>
+  
+                <!-- Valor Column -->
+                <ng-container matColumnDef="Valor">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
+                </ng-container>
+  
+                <!-- RFC Column -->
+                <ng-container matColumnDef="RFC">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RFC </th>
+                    <td mat-cell *matCellDef="let element"> {{element.RFC}} </td>
+                  </ng-container>
+  
+                  <!-- RazonSocial Column -->
+                <ng-container matColumnDef="RazonSocial">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
+                    <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
+                  </ng-container>
+                  
+                  <!-- FoliosRelacionados Column -->
+                <ng-container matColumnDef="FoliosRelacionados">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Folios Relacionados </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FolioRelacionados}} </td>
+                  </ng-container>
+  
+                  <!-- Descargar Column -->
+                <ng-container matColumnDef="Descargar">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                  </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="CPColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: CPColumns"></tr>
+              </table>
+              <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
+          </mat-tab>
+
+        <mat-tab label="Estado de cuenta">
+          <br>
+          <br>
+          <div class="col-lg-3 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
+              </mat-form-field>
+            </div>
+
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
 
-              <!-- Nombre Column -->
-              <ng-container matColumnDef="Master">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master </th>
-                <td mat-cell *matCellDef="let element"> {{element.Master}}</td>
-              </ng-container>
-
-              <!-- House Column -->
-              <ng-container matColumnDef="House">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> House </th>
-                <td mat-cell *matCellDef="let element"> {{element.House }} </td>
+              <!-- MasterHouse Column -->
+              <ng-container matColumnDef="MasterHouse">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Master House </th>
+                <td mat-cell *matCellDef="let element"> {{element.MasterHouse}}</td>
               </ng-container>
 
               <!-- Folio Column -->
@@ -211,28 +249,47 @@
                 <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
               </ng-container>
 
-              <!-- Tipo Column -->
-              <ng-container matColumnDef="Tipo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-                <td mat-cell *matCellDef="let element"> {{element.Tipo}} </td>
-              </ng-container>
-
-              <!-- Valor Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
-              </ng-container>
-
+              
               <!-- Pedimento Column -->
               <ng-container matColumnDef="Pedimento">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Pedimento </th>
                   <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
                 </ng-container>
 
-                <!-- FechaDeEmision Column -->
-              <ng-container matColumnDef="FechaDeEmision">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de emisión </th>
-                  <td mat-cell *matCellDef="let element"> {{element.FechaEmision}} </td>
+              <!-- Cliente Column -->
+              <ng-container matColumnDef="Cliente">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Cliente}} </td>
+                </ng-container>
+
+              <!-- Importe Column -->
+              <ng-container matColumnDef="ImporteFactura">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
+                <td mat-cell *matCellDef="let element"> {{element.ImporteFactura}} </td>
+              </ng-container>
+
+              <!-- ImporteFaltante Column -->
+              <ng-container matColumnDef="ImporteFaltante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Faltante </th>
+                <td mat-cell *matCellDef="let element"> {{element.ImporteFaltante}} </td>
+              </ng-container>
+
+                <!-- FechaFactura Column -->
+              <ng-container matColumnDef="FechaFactura">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Factura </th>
+                  <td mat-cell *matCellDef="let element"> {{element.FechaFactura}} </td>
+                </ng-container>
+
+                <!-- Vencimiento Column -->
+              <ng-container matColumnDef="DiasVencidos">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Días Vencidos </th>
+                  <td mat-cell *matCellDef="let element"> {{element.DiasVencidos}} </td>
+                </ng-container>
+
+                <!-- Estatus Column -->
+              <ng-container matColumnDef="Estatus">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Estatus}} </td>
                 </ng-container>
 
                 <!-- Descargar Column -->
@@ -241,13 +298,14 @@
                   <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
                 </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-header-row *matHeaderRowDef="EdoCtaColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: EdoCtaColumns;"></tr>
             </table>
             <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>
+
       </mat-tab-group>
     </div>
   </div>

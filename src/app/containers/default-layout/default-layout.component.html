@@ -1,3 +1,4 @@
+<ngx-loading [show]="loading"></ngx-loading>
 <app-header
   [fixed]="true"
   [navbarBrandFull]="{src: 'assets/img/brand/logo.png', alt: 'Almacenes Fiscalizados -- Inicio'}"
@@ -7,7 +8,7 @@
   [mobileAsideMenuToggler]="false">
   
   
-  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión martes 19/abril/2019 | hora 9:24 AM</small> </span>
+  <span class="label label-default d-none d-lg-block small mr-auto">Bienvenido! {{user}} | <small class="text-muted d-none d-lg-block">Última sesión {{lastTime}}</small> </span>
   <span class="label label-default d-none d-lg-block small"><small class="text-muted">Sesión actual {{logTime | date:'dd/MMM/y'}} &nbsp;|&nbsp;hora {{logTime | date:'h:mm a'}}</small></span>
   <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
@@ -64,17 +65,17 @@
         <div class="divider"></div>
         <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " href="/forms/basic-forms" ><i class="icon-note"></i>Bitácora</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
-        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " href="/adminuser" ><i class="icon-people"></i> Admin de usuarios</a>
+        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " (click)="loading = !loading" href="/adminuser" ><i class="icon-people"></i> Admin de usuarios</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
-        <a class="dropdown-item" href="#"><i class="icon-lock"></i> Bloquear</a>
-        <div class="dropdown-divider"></div>
+        <!-- <a class="dropdown-item" href="#"><i class="icon-lock"></i> Bloquear</a> -->
+        <!-- <div class="dropdown-divider"></div> -->
         <a class="dropdown-item" href="#" (click)="closeSession()"><i class="cui-account-logout"></i> Salir</a>
       </div>
     </li>
   </ul>
 </app-header>
 <div class="app-body">
-  <app-sidebar [fixed]="true" [display]="'md'">
+  <app-sidebar [fixed]="false" [display]="'md'">
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] ></app-sidebar-nav>
   </app-sidebar>
   <!-- Main content -->
@@ -90,18 +91,81 @@
   </main>
 </div>
 <app-footer>
-  <!-- <span><a href="https://coreui.io/pro/angular/">CoreUI Pro</a> &copy; 2018 creativeLabs.</span>
-  <span class="ml-auto">Powered by <a href="https://coreui.io/pro/angular">CoreUI Pro for Angular</a></span> -->
-  <div class="container footer-container">
-    <div class="col-md-12">
-      <div class="row ">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 border-right border-white mt-1 mb-1 mr-0">
-            <span class="font-weight-light text-muted">AAACESA cuenta con más de 24 años de experiencia ofreciendo servicios de manejo, almacenaje y custodia de mercancías de comercio exterior. Con el paso del tiempo, se ha posicionado como el almacén fiscalizado líder en la aduana del Aeropuerto Internacional de la Ciudad de México</span>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-          
-        </div>
+  <div class="container footer-container text-center text-md-left ml-0 mt-3">
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-md-3 border-right border-white">
+        <!-- Content -->
+        <p class="texto text-justify">AAACESA cuenta con más de 24 años de experiencia ofreciendo servicios de manejo, almacenaje y custodia de mercancías de comercio exterior. Con el paso del tiempo, se ha posicionado como el almacén fiscalizado líder en la aduana del Aeropuerto Internacional de la Ciudad de México.</p>
       </div>
+      <!-- Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-1 mr-3">
+        <h6><strong>Servicios</strong></h6>
+        <ul class="dash">
+          <li>Prealertas</li>
+          <li>Previos</li>
+          <li>Salidas</li>
+          <li>Exportación</li>
+          <li>Finanzas</li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-2 ml-0">
+        <h6><strong>&nbsp;</strong></h6>
+        <ul class="dash">
+          <li>Consulta de mercancías</li>
+          <li>Abandono</li>
+          <li>Bitácora</li>
+          <li>Admin de Usuarios</li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-2 mx-auto">
+        <h6><strong>Contacto</strong></h6>
+        <p><strong>Teléfono</strong> <br><br><a class="link-footer" href="tel:015551333100"> (01 55) 51 33 31 00 </a> </p>
+        <p><strong>Atención a clientes</strong><br><br>
+        <a class="link-footer" href="http://buzon.aaacesa.com.mx/Registrar.aspx"> <p>Buzón</p></a>
+      </div>
+      <!-- Grid column -->
+      <hr class="clearfix w-100 d-md-none">
+      <!-- Grid column -->
+      <div class="col-md-3 mx-auto">
+        <h6><strong>Correos</strong></h6>
+        <ul class="list-unstyled">
+          <li><a class="link-footer" href="mailto:clientes@aaacesa.com.mx">clientes@aaacesa.com.mx</a></li>
+          <li><a class="link-footer" href="mailto:marketing@aaacesa.com.mx">marketing@aaacesa.com.mx</a></li>
+          <li><a class="link-footer" href="mailto:ventas@aaacesa.com.mx">ventas@aaacesa.com.mx</a></li>
+        </ul>
+        <div class="text-center">
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+      </div>
+      <!-- Grid column -->
     </div>
+    <!-- Grid row -->
   </div>
+  <!-- Footer Links -->
 </app-footer>

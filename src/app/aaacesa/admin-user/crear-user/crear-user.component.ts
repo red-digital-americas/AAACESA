@@ -29,7 +29,7 @@ export class CrearUserComponent implements OnInit {
 
   public phoneModel = '';
   public phoneMask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-
+  loading=false;
 
   constructor(private apiservices: ApiServices,private dialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public snackBar: MatSnackBar ) { }
 
@@ -54,19 +54,24 @@ export class CrearUserComponent implements OnInit {
   }
 
   buscaRFCUsuario(){
+    this.loading=true;
     this.rfcVisible=true;
     this.apiservices.service_general_get("/Catalogos/GetClientes/"+this.rfcCliente).subscribe((res)=>{
+      this.loading=false;
       this.getRFCcliente  = res;
     });
   }
 
   guardaUsuario() {
+    this.loading=true;
     this.crearUser.Telefono =  this.crearUser.Telefono.replace(/\D+/g, '');
     this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
-        this.final= (value.Result)?true:false;
+      this.loading=false;  
+      this.final= (value.Result)?true:false;
         this.mensaje = value.Description
     }, 
     (err: HttpErrorResponse) => { 
+      this.loading=false;
       console.log(err.error);
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
