@@ -1,5 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<ngx-loading [show]="loading"></ngx-loading>      
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>      
 <div class="row justify-content-end">  
   <div class="col-lg-12 text-right">
     <button (click)="openDialog()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Salida</button>    
@@ -247,7 +247,8 @@
 
                         <div class="row mb-3">                
                           <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">                        
-                            <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
+                            <!-- <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
+                            <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
                             <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
                           </div>                      
                         </div>

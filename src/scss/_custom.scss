@@ -226,6 +226,14 @@ table{
     font-size: 2rem;    
     cursor:pointer;
 }
+.file__icon {
+    width: 5rem;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    // width: 50%;
+}
 
 // Input type="" Fixes
 .no-spinners {
@@ -254,6 +262,24 @@ table{
     border: dotted 3px lightgray; 
     height: 100px;
     background-color: #f5f5f5;
+    // background-image: url("../assets/img/iconos/upload.png");
+    // background-size: 4rem;
+    // background-repeat: no-repeat;
+    // background-position: center
+    &__icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 3rem;
+        transform: translate(-50%, -50%);
+    }
+
+    &__text {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 0%);
+    }
 }      
    
 
@@ -300,10 +326,7 @@ table{
         &--PendienteCliente{
             background-color: rgba(255,255,255,0.7);
             border: solid 1px black;
-        }
-        &--Pendiente {
-            background-color: #fff500;
-        }
+        }        
         &--Rechazada{
             background-color: #ce0f0f;
         }
@@ -312,6 +335,21 @@ table{
         }
         &--Cancelada{
             background-color: #000000;
+        }
+        &--Pendiente {
+            background-color: #fff500;
+        }
+        &--Prealerta{
+            background-color: #CBC30B;
+        }
+        &--Recoleccion{
+            background-color: #63C2DE;
+        }
+        &--DocumentosDisponibles{
+            background-color: #5894CC;
+        }
+        &--CargaDisponible{
+            background-color: #B2B2B2;
         }
     }
 }
