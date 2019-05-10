@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation, ViewChild, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
 
 ///////////
 // API Services 
@@ -44,7 +44,7 @@ export class SalidasComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaCreacion', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Patente', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -250,9 +250,13 @@ export class SalidasComponent  {
 export class DialogCreateSalidaComponent implements OnInit {
 
   isLinear = true;
+
+  @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: FormGroup;
+  isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();
 
   model:SalidaNuevo = new SalidaNuevo();  
   files;                                  // Arreglo usado por el dragInputFiles  
@@ -285,10 +289,60 @@ constructor(
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaSalidaCtrl: ['', Validators.required],
-      horaSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],            
+      horaSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    
     }); 
+
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+  }
+
+  hourValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
+
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = parseInt(control.value);        
+
+    let selectedDate = moment(this.secondFormGroup.controls.fechaSalidaCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                 
+
+    if (selectedHour < currentHour && (today === selectedDate)) { return { hour:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  minuteValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
+
+    let currentMinute = parseInt(moment(new Date()).format('mm'));    
+    let selectedMinute = parseInt(control.value);
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = this.secondFormGroup.controls.horaSalidaCtrl.value;  
+        
+    let selectedDate = moment(this.secondFormGroup.controls.fechaSalidaCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                      
+        
+    if ( (selectedMinute < currentMinute) && (selectedHour <= currentHour) && (today === selectedDate) ) { return { minute:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  fechaArriboChange() {    
+    this.secondFormGroup.get('fechaSalidaCtrl').valueChanges    
+    .subscribe((data) => { 
+      this.secondFormGroup.get('horaSalidaCtrl').updateValueAndValidity();  
+      this.secondFormGroup.get('minutoSalidaCtrl').updateValueAndValidity();            
+    });
+  }  
+  hourChange() {
+    this.secondFormGroup.get('horaSalidaCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('minutoSalidaCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+  minuteChange() {
+    this.secondFormGroup.get('minutoSalidaCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('horaSalidaCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
   }
 
   closeDialog(msj:string): void {    
@@ -300,6 +354,11 @@ constructor(
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
+
+    if (event.selectedIndex === 0){
+      this.isMasterHouseValid = false;
+    }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
@@ -312,7 +371,35 @@ constructor(
     } 
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
-    }       
+    }
+    
+    if (this.firstFormGroup.valid && index === 0) {
+      this.validarMasterHouse();
+      // this.isMasterHouseValid = true;                           //QuitarEsto
+      // setTimeout(() => {this.stepper.selectedIndex = 1;});      //QuitarEsto
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    this.isMasterHouseValid = false;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      // this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      // this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
+      this.showAlert("Master/House encontrada");      
+      this.isMasterHouseValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {       
+      // this.secondFormGroup.value.piezasCtrl = "";                  
+      // this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {
@@ -325,17 +412,22 @@ constructor(
 
   //////////////////////
   // Paso 1
-  checkReferencia() {    
-    //Consultar servicios        
-    if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
-      this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
-      this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+  checkReferencia() {        
+    let referencia = this.firstFormGroup.get('referenciaCtrl').value;           
+    this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
+    .subscribe ( 
+    (response:any) => { 
+      console.log(response);
+      this.firstFormGroup.get('masterCtrl').setValue(response.Master);
+      this.firstFormGroup.get('houseCtrl').setValue(response.House);
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
-    } else {
+    },(errorService) => { 
+      console.log(errorService);
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
       this.referencia = "Sin Referencia";
-    }
+      this.showAlert("Referencia no encontrada");
+    });
   }
 
   cleanReferencia() {        

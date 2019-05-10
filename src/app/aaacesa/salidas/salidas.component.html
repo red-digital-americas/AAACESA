@@ -110,17 +110,17 @@
             <ng-container matColumnDef="RFCFacturar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> RFC Facturar </th>
               <td mat-cell *matCellDef="let element">{{element.RFCFacturar}}</td>
-            </ng-container>            
-            
-            <!-- <ng-container matColumnDef="FechaArribo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Arribo </th>
-              <td mat-cell *matCellDef="let element"> {{element.FechaArribo.split(' ')[0]}} </td>
-            </ng-container> -->
+            </ng-container>                                  
 
-            <ng-container matColumnDef="FechaCreacion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creación </th>
-              <td mat-cell *matCellDef="let element">{{element.FechaCreacion.split(' ')[0]}}</td>
-            </ng-container>            
+            <ng-container matColumnDef="FechaSalida">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Salida </th>
+              <td mat-cell *matCellDef="let element">{{element.FechaSalida.split(' ')[0]}}</td>
+            </ng-container>  
+
+            <ng-container matColumnDef="Patente">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
+              <td mat-cell *matCellDef="let element">{{element.Patente}}</td>
+            </ng-container>  
                         
             <ng-container matColumnDef="Estatus">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
@@ -134,7 +134,7 @@
             <ng-container matColumnDef="Acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
               <td mat-cell *matCellDef="let element"> 
-                <a class="btn btn-pill btn-ghost-links" (click)="detalleModal.show(); verDetalle(element.IdAdelantoSalidas);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+                <a class="btn btn-pill btn-ghost-links btn-sm" (click)="detalleModal.show(); verDetalle(element.IdAdelantoSalidas);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
             </ng-container>
 
@@ -230,8 +230,8 @@
 
                             <div class="row">                              
                               <div class="col-xs-12 col-sm-12 col-lg-8">
-                                <h5 class="detail-text text-muted">Pedimento</h5>
-                                <p class="detail-text">{{detailData.Pedimento ? 'Sí' : 'No' }}</p>
+                                <h5 class="detail-text text-muted">Subdivisión</h5>
+                                <p class="detail-text">{{detailData.Subdivision ? 'Sí' : 'No' }}</p>
                               </div>
                               <div class="col-xs-12 col-sm-12 col-lg-4">
                                 <h5 class="detail-text text-muted">Fecha Salida</h5>
@@ -291,7 +291,7 @@
                             <div class="row justify-content-end">
                               <div class="col-lg mb-1 text-right">
                                 <label for="file-multiple-input">
-                                  <div class="btn btn-pill btn-primary">Subir Documento</div>
+                                  <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
                                 </label>
                                 <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
                               </div>                                
@@ -311,7 +311,7 @@
                           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                             <div class="row justify-content-end">
                               <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
-                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado | seguimientoAccionesPipe}}</button>
+                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary btn-sm">{{estado | seguimientoAccionesPipe}}</button>
                               </div>
                             </div>                                
                           </div>

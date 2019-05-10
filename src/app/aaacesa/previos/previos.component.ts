@@ -507,6 +507,40 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.referencia = "Sin Referencia";        
   }
 
+   //////////////////////
+  // Paso 2
+  checkGafete() {        
+    let gafete = this.thirdFormGroup.get('numGafeteCtrl').value;        
+    this.apiService.service_general_get(`/AdelantoPrevios/GetTramitador/${gafete}`)
+    .subscribe ( 
+    (response:any) => { 
+      // console.log(response);      
+      this.thirdFormGroup.get('nombreCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('nombreCtrl').setValue(response.Nombre);
+      this.thirdFormGroup.get('paternoCtrl').setValue(response.Paterno);
+      this.thirdFormGroup.get('maternoCtrl').setValue(response.Materno);
+      this.thirdFormGroup.get('patenteCtrl').setValue(response.Patente);      
+      this.thirdFormGroup.get('nombreCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').disable({onlySelf: true, emitEvent: false});      
+    },(errorService) => { 
+      console.log(errorService);
+      this.thirdFormGroup.get('nombreCtrl').setValue('');
+      this.thirdFormGroup.get('paternoCtrl').setValue('');
+      this.thirdFormGroup.get('maternoCtrl').setValue('');
+      this.thirdFormGroup.get('patenteCtrl').setValue(''); 
+      this.thirdFormGroup.get('nombreCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').enable({onlySelf: true, emitEvent: false});  
+      // this.showAlert("Gafete no encontrada");
+    });
+  }  
+
 
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }

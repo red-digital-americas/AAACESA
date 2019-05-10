@@ -16,7 +16,8 @@
 
 <mat-dialog-content class="mat-typography">
   <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <!-- <mat-step [stepControl]="firstFormGroup"> -->
+    <mat-step [completed]="isMasterHouseValid">
     <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
 
     <div class="container mt-3">
@@ -44,8 +45,9 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
-                  </mat-form-field>                 
+                    <input matInput type="text" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
+                  </mat-form-field> 
+                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary">Checar referencia</button>                            
                 </div>
               </div>          
             </div>
@@ -108,7 +110,7 @@
               
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha Salida">
+                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha Salida">
                   <mat-error *ngIf="secondFormGroup.get('fechaSalidaCtrl').errors?.required">
                     Este campo es obligatorio
                   </mat-error> 
@@ -296,7 +298,7 @@
           {{responseMessage}}
         </div>
         <div class="col-12 text-center mt-5 ">
-          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Ok</button>  
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Aceptar</button>  
         </div>
       </div>        
     </div>
