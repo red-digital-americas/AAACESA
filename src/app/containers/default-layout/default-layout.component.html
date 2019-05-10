@@ -63,9 +63,9 @@
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Administrador</strong></div>
         <div class="divider"></div>
-        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " href="/forms/basic-forms" ><i class="icon-note"></i>Bitácora</a>
+        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " [routerLink]="" (click)="redirect('404')" ><i class="icon-note"></i>Bitácora</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
-        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " (click)="loading = !loading" href="/adminuser" ><i class="icon-people"></i> Admin de usuarios</a>
+        <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " [routerLink]="" (click)="redirect('adminuser')" ><i class="icon-people"></i> Admin de usuarios</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
         <!-- <a class="dropdown-item" href="#"><i class="icon-lock"></i> Bloquear</a> -->
         <!-- <div class="dropdown-divider"></div> -->
