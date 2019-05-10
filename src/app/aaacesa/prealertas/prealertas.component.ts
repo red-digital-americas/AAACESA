@@ -41,9 +41,10 @@ export class PrealertasComponent {
   instruccionesManejoSearch:any = "";  
 
   ///////////////////////
-  // Status Filter Bar
+  // Status Filter Bar  
   public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
   public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
   // Mat Table  
@@ -103,6 +104,7 @@ export class PrealertasComponent {
 
   public applyFilter(index: number) {
     this.dataSource.data = [];
+    this.currentFilterIndex = index;
 
     if (index < this.statusEnum.length) {
       this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));

@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>      
 <div class="row justify-content-end">  
-  <div class="col-lg-12 text-right">
+  <div class="col-lg-12 text-right btn-crear">
     <button (click)="openDialog()" class="btn btn-link"> <i class="fas fa-plus-circle"></i> Crear Pre Alerta</button>    
   </div>          
 </div>
@@ -77,10 +77,10 @@
 
         <div class="col-lg-3">
           <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 align-self-end">
+            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 align-self-end">
               <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0 align-self-start">              
+            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0 align-self-start">              
               <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
             </div>
           </div>
@@ -94,7 +94,7 @@
           <div class="col-lg-12">
             <div class="row align-items-center">
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==1}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Solicitada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(1)">
@@ -103,7 +103,7 @@
                   </div>
               </div>
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==4}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Rechazada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(4)">
@@ -112,7 +112,7 @@
                   </div>
               </div>
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==3}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--PendienteCliente"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(3)">
@@ -121,7 +121,7 @@
                   </div>
               </div>                                    
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==2}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--PendienteAAACESA"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(2)">
@@ -130,7 +130,7 @@
                   </div>
               </div>      
               
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==0}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Aceptada"></div>
                   <div class="status-filter__text">
                     <label (click)="applyFilter(0)">
@@ -139,16 +139,16 @@
                   </div>
               </div>  
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==5}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Finalizada"></div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(5)" for="finalizadaCheck">
+                  <label (click)="applyFilter(5)">
                     <span class="status-filter__number">({{ countStatus.Finalizada }})</span> Finalizada
                   </label>
                 </div>              
               </div>
 
-              <div class="col mb-1 text-center status-filter">            
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==6}" class="col mb-1 text-center status-filter">            
                 <div class="status-filter__circle status-filter__circle--Cancelada"></div>
                 <div class="status-filter__text">
                   <label (click)="applyFilter(6)">
@@ -157,9 +157,9 @@
                 </div>                
               </div>
 
-              <div class="col mb-1 text-center status-filter">                          
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==7}"  class="col mb-1 text-center status-filter">                          
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(10)" for="todosCheck">
+                  <label (click)="applyFilter(7)">
                     <span class="status-filter__number">({{data.length}})</span> Todos
                   </label>
                 </div>              

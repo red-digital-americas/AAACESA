@@ -172,12 +172,9 @@ table{
 }
 
 //customButtons
-.btn-prealerta {
-    background: transparent;
-    border-radius: 50px;
-    margin: 2px 2px;
-    color: white;
-    padding: 2px 10px;
+.btn-crear {
+    margin-top: -3rem;
+    margin-bottom: 1rem;
 }
 
 .btn-circle {
@@ -288,9 +285,14 @@ table{
     position: relative;    
     font-size: .8rem;    
 
-    &:not(:last-child) {
-        border-right: 2px solid #183964;  
-    }    
+    // &:not(:last-child) {
+    //     border-right: 2px solid #183964;  
+    // }    
+
+    &--active {
+        border-bottom: solid 3px #183964;
+        font-weight: bold;
+    }
 
     &__number {
         font-weight: bold;
