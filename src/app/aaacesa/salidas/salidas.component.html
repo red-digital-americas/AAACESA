@@ -311,7 +311,7 @@
                           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                             <div class="row justify-content-end">
                               <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
-                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado.split(' ')[0]}}</button>
+                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary">{{estado | seguimientoAccionesPipe}}</button>
                               </div>
                             </div>                                
                           </div>

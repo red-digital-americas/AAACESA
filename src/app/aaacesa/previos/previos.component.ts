@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { ngfModule, ngf } from "angular-file" // DragInput
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
 
 ///////////
 // API Services 
@@ -30,7 +30,7 @@ export class PreviosComponent  {
 
   loading = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
-
+  
   ///////////////////////
   // Catalogos para los <select>
   estatusCatalogo = [];
@@ -303,10 +303,14 @@ export class PreviosComponent  {
 export class DialogCreatePreviosComponent implements OnInit {
 
   isLinear = true;
+
+  @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: FormGroup;
+  isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();
     
   daterangepickerOptions = {
     startDate: '09/01/2017',
@@ -342,19 +346,13 @@ export class DialogCreatePreviosComponent implements OnInit {
       houseCtrl: ['', Validators.required],
       referenciaCtrl: ['', []]
     });
-    this.secondFormGroup = this._formBuilder.group({
-      // nombreCtrl: ['', Validators.required],
-      // paternoCtrl: ['', Validators.required],
-      // maternoCtrl: ['', Validators.required],
-      // patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    this.secondFormGroup = this._formBuilder.group({  
       fechaPrevioCtrl: ['', Validators.required],
-      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
-      // numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      etiquetadoCtrl: [false, Validators.required],
-      // comentarioCtrl: [''],    
+      etiquetadoCtrl: [false, Validators.required],      
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -366,6 +364,55 @@ export class DialogCreatePreviosComponent implements OnInit {
       comentarioCtrl: [''],     
     });
     
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+  }
+
+  hourValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
+
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = parseInt(control.value);        
+
+    let selectedDate = moment(this.secondFormGroup.controls.fechaPrevioCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                 
+
+    if (selectedHour < currentHour && (today === selectedDate)) { return { hour:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  minuteValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
+
+    let currentMinute = parseInt(moment(new Date()).format('mm'));    
+    let selectedMinute = parseInt(control.value);
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = this.secondFormGroup.controls.horaPrevioCtrl.value;  
+        
+    let selectedDate = moment(this.secondFormGroup.controls.fechaPrevioCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                      
+        
+    if ( (selectedMinute < currentMinute) && (selectedHour <= currentHour) && (today === selectedDate) ) { return { minute:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  fechaArriboChange() {    
+    this.secondFormGroup.get('fechaPrevioCtrl').valueChanges    
+    .subscribe((data) => { 
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();  
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();            
+    });
+  }  
+  hourChange() {
+    this.secondFormGroup.get('horaPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+  minuteChange() {
+    this.secondFormGroup.get('minutoPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
   }
 
   closeDialog(msj:string): void {    
@@ -377,6 +424,11 @@ export class DialogCreatePreviosComponent implements OnInit {
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
+
+    if (event.selectedIndex === 0){
+      this.isMasterHouseValid = false;
+    }
+
     if (event.selectedIndex === 4){
       this.guardarFirstForm();
     }
@@ -393,6 +445,32 @@ export class DialogCreatePreviosComponent implements OnInit {
     else if(!this.thirdFormGroup.valid && index === 2) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     }
+
+    if (this.firstFormGroup.valid && index === 0) {
+      this.validarMasterHouse();
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    this.isMasterHouseValid = false;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
+      this.showAlert("Master/House encontrada");      
+      this.isMasterHouseValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {       
+      this.secondFormGroup.value.piezasCtrl = "";                  
+      this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {

@@ -15,7 +15,8 @@
 
 <mat-dialog-content class="mat-typography">
   <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <!-- <mat-step [stepControl]="firstFormGroup"> -->
+    <mat-step [completed]="isMasterHouseValid">
     <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
 
     <div class="container mt-3">
@@ -93,7 +94,7 @@
               <div class="row mb-3">                 
                 <div class="col-lg-6">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha">
+                    <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha">
                     <mat-error *ngIf="secondFormGroup.get('fechaPrevioCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error> 
