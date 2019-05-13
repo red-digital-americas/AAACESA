@@ -10,6 +10,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { SelectModule } from 'ng-select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule, 
     MatSnackBarModule,
     NgxMatSelectSearchModule,
+    SharedModule,
     NgxLoadingModule.forRoot({}),
     BsDatepickerModule.forRoot(),
   ],

@@ -9,6 +9,7 @@ import { DataFilterPipe } from './datafilterpipe';
 import { GetSelectPipe } from './getSelect.pipe';
 import { SeguimientoAccionesPipe } from './seguimientoAcciones.pipe';
 import { FileIconStatusPipe } from './fileIconStatus.pipe';
+import { FilterSelectSingle } from './filterSelectSingle.pipe';
 
 @NgModule({
   imports: [        
@@ -20,7 +21,8 @@ import { FileIconStatusPipe } from './fileIconStatus.pipe';
     DataFilterPipe,
     GetSelectPipe,
     SeguimientoAccionesPipe,
-    FileIconStatusPipe
+    FileIconStatusPipe,
+    FilterSelectSingle
   ],
   exports: [
     FileIconPipe,
@@ -29,7 +31,8 @@ import { FileIconStatusPipe } from './fileIconStatus.pipe';
     DataFilterPipe,
     GetSelectPipe,
     SeguimientoAccionesPipe,
-    FileIconStatusPipe
+    FileIconStatusPipe,
+    FilterSelectSingle
   ]
 })
 export class SharedModule { }
