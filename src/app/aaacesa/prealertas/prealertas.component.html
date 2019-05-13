@@ -381,9 +381,11 @@
                       
                       <div class="row mb-3">                
                         <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col-3 col-sm-3 col-md-3 col-lg-3">                                      
+                          <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
                           <div>
-                            <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
-                            <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+                            <!-- <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div> -->
+                            <!-- <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                   -->
+                            <img class="file__icon file__icon--xs" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
                             <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
                           </div>                                                                                                                                                          
                         </div>                      

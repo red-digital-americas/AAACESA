@@ -14,7 +14,7 @@ import { ApiServices } from '../../services/api.services';
 // Modelos Exportacion
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
-import { ExportacionBusqueda } from '../../models/exportaciones.model';
+import { ExportacionBusqueda, ExportacionNuevo, ExportacionSeguimiento } from '../../models/exportaciones.model';
 
 @Component({
   selector: 'app-exportaciones',
@@ -83,7 +83,7 @@ export class ExportacionesComponent {
 
   ///////////////////////////////
   // Seguimiento
-  modelSeguimiento:PrealertaSeguimiento = new PrealertaSeguimiento();
+  modelSeguimiento:ExportacionSeguimiento = new ExportacionSeguimiento();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
@@ -160,50 +160,27 @@ export class ExportacionesComponent {
     this.apiService.service_general_get(`/Exportacion/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { 
-      this.detailData = response; 
-      this.getEstatusTransferencia(response.GuiaMaster, response.GuiaHouse);
-      console.log(this.estatusTransferencia);
+      this.detailData = response;       
       this.loading = false;
     }, 
     (errorService) => { console.log(errorService); this.loading = false; });    
   } 
 
-  private getEstatusTransferencia(master:string, house:string) {    
-    this.estatusTransferencia = [];        
-    this.apiService.service_general_get(`/ConsultaMercancia/GetEstatusTransferencia?Master=${master}&House=${house}`)
-    .subscribe ( 
-    (response:any) => { 
-      console.log(response);
-      let keys = Object.keys(response);
-      keys.splice(0, 4);
-
-      if (Array.isArray(keys) && keys.length) {
-        for (let i=0; i<keys.length; i+=2) {    
-          if (response[keys[i]]){
-            this.estatusTransferencia.push(new EstatusTransferencia(keys[i], response[keys[i+1]]));
-          }              
-        }        
-      }
-      // console.log(this.estatusTransferencia);
-    }, 
-    (errorService) => { console.log(errorService);});
-  }
-  
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
     this.loading = true;
-    this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
+    this.modelSeguimiento.IdExportacion = this.detailData['IdExportacion'];
     this.modelSeguimiento.Estatus = estado;
     console.log(this.modelSeguimiento);  
     
-    this.apiService.service_general_put(`/Prealertas/UpdateSeguimiento`, this.modelSeguimiento)
+    this.apiService.service_general_put(`/Exportacion/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
         console.log(response); 
         if (response.Result) {                 
           this.showAlert(response.Description);
-          this.verDetalle(this.detailData['IdPrealerta']);
+          this.verDetalle(this.detailData['IdExportacion']);
           this.buscarExportaciones();
         } else {
           this.showAlert(response.Description);
@@ -233,6 +210,7 @@ export class ExportacionesComponent {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -260,22 +238,26 @@ export class ExportacionesComponent {
 
   public openDocument (idDocumento) {   
     // console.log(idDocumento); 
-    this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
+    this.apiService.service_general_get(`/Exportacion/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
-        // element.setAttribute('target','_blank');
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        } else {
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+          element.setAttribute('target','_blank');
+          // element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-        }  
+          // For browser with no support of download attribute
+          if (typeof element.download == undefined) {
+            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          }
+        }
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
   }
 
   openDialog(): void {
@@ -299,17 +281,17 @@ export class ExportacionesComponent {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Crear Prealertas Stepper - Dialog Component
+// Crear Exportaciones Stepper - Dialog Component
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @Component({
   selector: 'dialog-overview-example-dialog',
-  templateUrl: '../dialogs/dialog-create-prealertas.component.html',
+  templateUrl: '../dialogs/dialog-create-exportaciones.component.html',
   providers: [FormBuilder, ApiServices]
 })
 export class DialogCreateExportacionesComponent implements OnInit {
 
-  isLinear = true;
+  isLinear = true;  
 
   ///////////////////////
   // Catalogos para los <select>
@@ -321,9 +303,11 @@ export class DialogCreateExportacionesComponent implements OnInit {
   condicionesAlmacenesCatalogo = [];
 
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;      
+  secondFormGroup: FormGroup;  
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();    
 
-  model:PrealertaNuevo = new PrealertaNuevo();  
+  model:ExportacionNuevo = new ExportacionNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
   successResponse = false;
   processingCreation = false;
@@ -375,30 +359,14 @@ export class DialogCreateExportacionesComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required],
-      referenciaCtrl: ['', []]
+      houseCtrl: ['', Validators.required],      
     });
     this.secondFormGroup = this._formBuilder.group({
-      referenciaCtrl: ['', Validators.required],
+      pedimentoCtrl: ['', Validators.required],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fechaArriboCtrl: ['', Validators.required],
-      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
-      almacenOrigenCtrl: ['', Validators.required],
-      almacenOrigenSearchCtrl: ['', []],      
-      rangoTemperaturaCtrl: ['', Validators.required],
-      rangoTemperaturaSearchCtrl: ['', []],
-      metodoPagoCtrl: ['', Validators.required],
-      metodoPagoSearchCtrl: ['', []],
-      usoCFDICtrl: ['', Validators.required],
-      usoCFDISearchCtrl: ['', []],
-      condicionesAlmacenesCtrl: ['', Validators.required],
-      condicionesAlmacenesSearchCtrl: ['', []],
-      instruccionesManejoCtrl: ['', [Validators.required]],
-      consignatarioCtrl: ['', Validators.required],
-      consolidadoCtrl: [false, Validators.required],      
-      comentarioCtrl: [''],    
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      fechaEntradaMercanciaCtrl: ['', Validators.required],
+      comentarioCtrl: ['']    
     });
     
   }
@@ -438,53 +406,29 @@ export class DialogCreateExportacionesComponent implements OnInit {
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
     
-    this.model.GuiaMaster = this.firstFormGroup.value.masterCtrl;
-    this.model.GuiaHouse = this.firstFormGroup.value.houseCtrl;
-    this.model.AlmacenOrigen = this.secondFormGroup.value.almacenOrigenCtrl;
-    this.model.CondicionAlmacenaje = this.secondFormGroup.value.condicionesAlmacenesCtrl;
-    this.model.Consignatario = this.secondFormGroup.value.consignatarioCtrl;
-    this.model.InstruccionesManejo = this.secondFormGroup.value.instruccionesManejoCtrl;     
+    this.model.Master = this.firstFormGroup.value.masterCtrl;
+    this.model.House = this.firstFormGroup.value.houseCtrl;    
     this.model.Piezas = this.secondFormGroup.value.piezasCtrl;
     this.model.Peso = this.secondFormGroup.value.pesoCtrl;
-    this.model.RangoTemperatura = this.secondFormGroup.value.rangoTemperaturaCtrl;
-    this.model.Referencia = this.secondFormGroup.value.referenciaCtrl;
-    this.model.Consolidado = this.secondFormGroup.value.consolidadoCtrl;
-    this.model.MetodoPago = this.secondFormGroup.value.metodoPagoCtrl;
-    this.model.UsoCFDI = this.secondFormGroup.value.usoCFDICtrl;
-    
-    // let f = this.secondFormGroup.value.fechaArriboCtrl.toISOString();       // 2019-11-23            
-    // f = `${f.slice(8,10)}/${f.slice(5,7)}/${f.slice(0,4)}`;
-    let f = moment(this.secondFormGroup.value.fechaArriboCtrl).format('DD/MM/YYYY');    
+    this.model.Pedimento = this.secondFormGroup.value.pedimentoCtrl;        
+        
+    let f = moment(this.secondFormGroup.value.fechaEntradaMercanciaCtrl).format('YYYYMMDD');        
+    this.model.FechaEntradaMercancia = f;          
 
-    if (this.secondFormGroup.value.horaPrevioCtrl < 10){
-      f = `${f} 0${this.secondFormGroup.value.horaPrevioCtrl}`;
-    } else {
-      f = `${f} ${this.secondFormGroup.value.horaPrevioCtrl}`;
-    }
-
-    if (this.secondFormGroup.value.minutoPrevioCtrl < 10) {
-      f = `${f}:0${this.secondFormGroup.value.minutoPrevioCtrl}`;
-    } else {
-      f = `${f}:${this.secondFormGroup.value.minutoPrevioCtrl}`;
-    }
-
-    this.model.FechaArribo = f;    
-    
     if (this.secondFormGroup.value.comentarioCtrl == "") {            
       this.model.Seguimiento[0].Comentarios = "";
     } else {      
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    // console.log(this.model);    
-    // console.log(this.model.FechaPrevio);    
+    console.log(this.model);        
   }
 
-  crearPrealerta () {
+  crearExportacion () {
     if (this.processingCreation) { return; }
     
     this.processingCreation = true;
-    this.apiService.service_general_post(`/Prealertas/CrearPrealerta`, this.model)
+    this.apiService.service_general_post(`/Exportacion/CrearAdelantoExportacion`, this.model)
       .subscribe ( 
       (response:any) => { 
         console.log(response); 
