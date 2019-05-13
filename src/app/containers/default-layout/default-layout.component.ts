@@ -3,6 +3,7 @@ import { navItems } from './../../_nav';
 import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +24,8 @@ export class DefaultLayoutComponent implements OnInit {
   
 
   ngOnInit() {
-
     //Start watching for user inactivity.
     this.userIdle.startWatching();
-    
     // Start watching when user idle is starting.
     this.userIdle.onTimerStart().subscribe(count => {
       
@@ -37,11 +36,11 @@ export class DefaultLayoutComponent implements OnInit {
     });
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() =>{ 
-       this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login");
-      // setTimeout(function(){
-      //   localStorage.clear();
-      //   window.location.href ="login";
-      // },3000);
+      this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login");
+      setTimeout(function(){
+        localStorage.clear();
+        window.location.href ="login";
+      },3000);
     });
 
      if (localStorage.getItem("user") == undefined) {
@@ -58,7 +57,8 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog) {
-
+    (this.getTimeSesion())?"":this.closeSession();
+    
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');
     });
@@ -103,7 +103,30 @@ export class DefaultLayoutComponent implements OnInit {
     this.loading=true;
     localStorage.clear();
   }
+
+  
+  getTimeSesion(){
+    let dt = new Date();
+    let dtS = new Date(localStorage.getItem("mytime"));
+    let x = new Date(localStorage.getItem("mytime"));
+    let oneHrMas = new Date((x.setHours(x.getHours() + 1 )));
+    
+    let msecInit = dt.getTime() - dtS.getTime();
+    let msecFin = dt.getTime() - x.getTime();
+    let difInitSesion = Math.floor(msecInit / 60000);
+    let difFinSesion = Math.floor(msecFin / 60000)
+    console.log(difInitSesion);
+    console.log(difFinSesion);
+
+    if(difInitSesion > 60 && difFinSesion > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sesion - Dialog Component
