@@ -335,20 +335,7 @@ export class PrealertasComponent {
       .subscribe ( 
       (response:any) => {       
         if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
-          // let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
-          let objbuilder = '';
-          objbuilder += ('<object width="100%" height="100%"      data="data:application/pdf;base64,');
-          objbuilder += (response.Archivo);
-          objbuilder += ('" type="application/pdf" class="internal">');
-          objbuilder += ('<embed src="data:application/pdf;base64,');
-          objbuilder += (response.Archivo);
-          objbuilder += ('" type="application/pdf" />');
-          objbuilder += ('</object>');
-          var win = window.open("","_blank");        
-          win.document.write('<html><body>');
-          win.document.write(objbuilder);
-          win.document.write('</body></html>');
-          
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                                     
         } else {
           var element = document.createElement('a');
           element.style.display = 'none';
