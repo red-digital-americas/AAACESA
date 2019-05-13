@@ -231,9 +231,13 @@ td.mat-cell{
 
 // File X (remove) button
 .file__btn-close {
-    text-align: right;
+    // text-align: right;
     font-size: 2rem;    
     cursor:pointer;
+    height: 1rem;
+    position: absolute;
+    right: 0;
+    top: -1rem; // Half of font-size
 }
 .file__icon {
     width: 5rem;
@@ -243,6 +247,18 @@ td.mat-cell{
     margin-right: auto;
     // width: 50%;
     cursor: pointer;
+
+    &--sm {
+        cursor: auto;
+        width: 4rem;
+        padding-right: .1rem;
+    }
+
+    &--xs {
+        cursor: auto;
+        width: 3rem;
+        padding-right: .1rem;
+    }
 }
 
 // Input type="" Fixes

@@ -247,7 +247,8 @@ export class PrealertasComponent {
       if (event.target.files[i].type != "application/pdf") { continue; }
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
-      {continue;}
+      {continue;}      
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -295,7 +296,7 @@ export class PrealertasComponent {
         }
                           
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
   }
 
   openDialog(): void {
@@ -405,7 +406,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       referenciaCtrl: ['', Validators.required],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: ['', Validators.required],      
       horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],

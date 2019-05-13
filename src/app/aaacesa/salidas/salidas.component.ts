@@ -199,6 +199,7 @@ export class SalidasComponent  {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -229,21 +230,24 @@ export class SalidasComponent  {
     this.apiService.service_general_get(`/AdelantoFacturacion/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
-
-        /////// Option 1 - Creating a new anchor <a> tag
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);              
-        
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-        }        
+        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        } else {
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+          element.setAttribute('target','_blank');
+          // element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      
+          // For browser with no support of download attribute
+          if (typeof element.download == undefined) {
+            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          }
+        }
 
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
   }
 
   openDialog(): void {
