@@ -42,8 +42,9 @@ export class PrealertasComponent {
 
   ///////////////////////
   // Status Filter Bar  
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
   public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
@@ -92,14 +93,10 @@ export class PrealertasComponent {
 
   //////////////////////////
   // Status Filter Bar Logic
-  public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
-    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
   }
 
   public applyFilter(index: number) {
@@ -166,7 +163,7 @@ export class PrealertasComponent {
   buscaPrealertasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarPrealertas();
   }
 
@@ -276,22 +273,27 @@ export class PrealertasComponent {
     });
   }
 
-  public openDocument (idDocumento) {   
-    // console.log(idDocumento); 
+  public openDocument (idDocumento) {     
+    // console.log(idDocumento);     
     this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
       .subscribe ( 
-      (response:any) => {         
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
-        // element.setAttribute('target','_blank');
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      (response:any) => {       
+        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        } else {
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+          element.setAttribute('target','_blank');
+          // element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-        }  
+          // For browser with no support of download attribute
+          if (typeof element.download == undefined) {
+            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          }
+        }
+                          
       }, 
       (errorService) => { console.log(errorService); });     
   }

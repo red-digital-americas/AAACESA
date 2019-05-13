@@ -45,8 +45,10 @@ export class PreviosComponent  {
   
   ///////////////////////
   // Status Filter Bar
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
 
   ///////////////////////
   // Mat Table  
@@ -93,18 +95,15 @@ export class PreviosComponent  {
 
   //////////////////////////
   // Status Filter Bar Logic
-  public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
-    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
   }
 
   public applyFilter(index: number) {
     this.dataSource.data = [];
+    this.currentFilterIndex = index;
 
     if (index < this.statusEnum.length) {
       this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
@@ -163,7 +162,7 @@ export class PreviosComponent  {
   buscaPreviosNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarPrevios();
   }
 

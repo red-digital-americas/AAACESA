@@ -76,6 +76,36 @@
       </div>      
       <!-- End Busqueda Superior -->
 
+      <!-- Start Status Filter Bar -->
+      <div class="container">      
+        <div class="row justify-content-center mt-5 mb-3">
+          <div class="col-lg-12">
+            <div class="row align-items-center">
+
+              <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+                <div class="status-filter__circle status-filter__circle--{{estado | statusPipe}}"></div>
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(i)" class="u-cursor">
+                    <span class="status-filter__number">({{ countStatus[i] }})</span> {{statusLabels[i]}}
+                  </label>
+                </div>
+              </div>             
+
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==statusEnum.length}"  class="col mb-1 text-center status-filter u-cursor">                          
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(statusEnum.length)" class="u-cursor">
+                    <span class="status-filter__number">({{data.length}})</span> Todos
+                  </label>
+                </div>              
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Status Filter Bar -->
+
+
       <!-- <div *ngIf="!dataSource.data?.length" class="row">
         <div class="col-12 text-center">
           <h3>No hay resultados para mostrar</h3>                    
@@ -246,7 +276,7 @@
                         <hr class="dividerb">
 
                         <div class="row mb-3">                
-                          <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">                        
+                          <div *ngFor="let file of detailData.Documentos" class="col-3 col-sm-3 col-md-3 col-lg-3">                        
                             <!-- <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
                             <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
                             <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
@@ -269,20 +299,16 @@
                           </div> -->
 
                           <div class="col-12">
-                            <h6>Estatus Transferencia</h6>                        
+                            <h6>Seguimiento</h6>                        
                           </div>                                    
-                          <div class="col-12">
+                          <!-- <div class="col-12">
                             <h5 class="detail-text">Fecha de Solicitud</h5>
                             <p class="detail-text">{{detailData.FechaCreacion}}</p>                    
                           </div>    
                         
                           <div class="col-12">
                             <hr class="dividerb">
-                          </div>                           
-
-                          <div class="col-12">
-                            <h6>Pre Alerta</h6>                        
-                          </div>                                                                 
+                          </div> -->
 
                           <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
                             <mat-form-field class="input-full-width">         

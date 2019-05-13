@@ -11,9 +11,10 @@ import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DAT
 import { ApiServices } from '../../services/api.services';
 
 ///////////
-// Modelos Prealertas
+// Modelos Exportacion
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { ExportacionBusqueda } from '../../models/exportaciones.model';
 
 @Component({
   selector: 'app-exportaciones',
@@ -27,22 +28,24 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class ExportacionesComponent {  
   
   loading = false;  
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   ///////////////////////
   // Catalogos para los <select>
-  instruccionesManejoCatalogo = [];  
+  estatusCatalogo = [];
 
   ///////////////////////
   // BusquedaSuperior  
-  busquedaModel:PrealertaBusqueda = new PrealertaBusqueda();  
-  fechaPrevioSearch:Date = null;
+  busquedaModel:ExportacionBusqueda = new ExportacionBusqueda();    
   rangoFechaSearch:any = [];
-  instruccionesManejoSearch:any = "";  
+  estatusSearch:any = "";  
 
   ///////////////////////
   // Status Filter Bar
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
   // Mat Table  
@@ -51,7 +54,7 @@ export class ExportacionesComponent {
   public estatusTransferencia = [];         // EstatusTransferenciaDetalle
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdPrealerta', 'GuiaMaster', 'GuiaHouse', 'InstruccionesManejo', 'FechaArribo', 'Consignatario', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdExportacion', 'Master', 'House', 'Pedimento', 'FechaEntradaMercancia', 'FechaCreacion', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -59,14 +62,20 @@ export class ExportacionesComponent {
     this.dataSource.sort = this.sort;     
     this.dataSource.sortingDataAccessor = (item, property) => {      
       switch (property) {     
-        case 'FechaArribo': {              
-          let f = item['FechaArribo'].split(' ')[0];                // 07/05/2019 12:00 PM          
-          f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
-          //console.log(f);
-          let newDate = new Date(f);
-          // console.log(newDate);
+        case 'FechaEntradaMercancia': {              
+          let f = item['FechaEntradaMercancia'].split(' ')[0];                // 07/05/2019 12:00 PM          
+          f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019          
+          let newDate = new Date(f);          
           return newDate;
         }
+
+        case 'FechaCreacion': {              
+          let f = item['FechaCreacion'].split(' ')[0];                // 07/05/2019 12:00 PM          
+          f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019          
+          let newDate = new Date(f);          
+          return newDate;
+        }
+
         default: { return item[property];} 
       }
     };
@@ -80,28 +89,25 @@ export class ExportacionesComponent {
 // LOGIC SECTION    
   
   constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
-    this.buscaPrealertasNueva();    
+    this.buscaExportacionesNueva();    
  
-    this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
+    this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
       .subscribe ( 
-      (response:any) => { this.instruccionesManejoCatalogo = response;}, 
+      (response:any) => { this.estatusCatalogo = response;}, 
       (errorService) => { console.log(errorService); });
   }
 
   //////////////////////////
   // Status Filter Bar Logic
-  public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
-    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
   }
 
   public applyFilter(index: number) {
     this.dataSource.data = [];
+    this.currentFilterIndex = index;
 
     if (index < this.statusEnum.length) {
       this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
@@ -110,36 +116,17 @@ export class ExportacionesComponent {
     }
   }  
   
-  public buscarPrealertas () {    
+  public buscarExportaciones () {    
     this.loading = true;
 
     // Estatus seleccionado "Niguno"
-    if (typeof this.busquedaModel.ClaveInstruccionManejo === "undefined"){
-      this.busquedaModel.ClaveInstruccionManejo = "";
-    }
-        
-    // FechaPrevio
-    if (this.fechaPrevioSearch != null){            
-      // moment().format('YYYY-MM-DD[T]HH:mm:ss.SSS')
-      // console.log( moment(this.fechaPrevioSearch).format('YYYYMMDD'));      
-      // let f = this.fechaPrevioSearch.toISOString().slice(0,10); // 2019-11-23        
-      // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;     // 20191123
-      // this.busquedaModel.FechaArribo = f; 
-      this.busquedaModel.FechaArribo = moment(this.fechaPrevioSearch).format('YYYYMMDD');
-    } else {
-      this.busquedaModel.FechaArribo = "";
-    }
+    if (typeof this.busquedaModel.Estatus === "undefined"){
+      this.busquedaModel.Estatus = "";
+    }           
 
     // FechaInicial - FechaFinal
     if (this.rangoFechaSearch != null) {
-      if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){      
-        // let f = this.rangoFechaSearch[0].toISOString().slice(0,10);   // 2019-11-23        
-        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        // this.busquedaModel.FechaInicial = f;
-        // f = this.rangoFechaSearch[1].toISOString().slice(0,10);       // 2019-11-23        
-        // f = `${f.slice(0,4)}${f.slice(5,7)}${f.slice(8,10)}`;         // 20191123
-        // this.busquedaModel.FechaFinal = f;            
-
+      if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){                     
         this.busquedaModel.FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
         this.busquedaModel.FechaFinal = moment(this.rangoFechaSearch[1]).format('YYYYMMDD');
       }    
@@ -148,22 +135,21 @@ export class ExportacionesComponent {
       this.busquedaModel.FechaFinal = "";
     }    
     console.log(this.busquedaModel);
-    this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
+    this.apiService.service_general_get_with_params('/Exportacion/Busqueda', this.busquedaModel)
       .subscribe ( 
       (response:any) => {                 
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
-        this.loading = false;
+        this.loading = false; console.log(response);
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
   }
 
-  buscaPrealertasNueva () {
-    this.busquedaModel.Clean();
-    this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
-    this.buscarPrealertas();
+  buscaExportacionesNueva () {
+    this.busquedaModel.Clean();    
+    this.rangoFechaSearch = "";
+    this.buscarExportaciones();
   }
 
   public verDetalle (id: string) {    
@@ -171,7 +157,7 @@ export class ExportacionesComponent {
     this.detailData = {};
     this.modelSeguimiento.cleanSeguimiento();      
     
-    this.apiService.service_general_get(`/Prealertas/GetDetailsById/${id}`)
+    this.apiService.service_general_get(`/Exportacion/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { 
       this.detailData = response; 
@@ -218,7 +204,7 @@ export class ExportacionesComponent {
         if (response.Result) {                 
           this.showAlert(response.Description);
           this.verDetalle(this.detailData['IdPrealerta']);
-          this.buscarPrealertas();
+          this.buscarExportaciones();
         } else {
           this.showAlert(response.Description);
         }
@@ -304,7 +290,7 @@ export class ExportacionesComponent {
       console.log(result);
       if (result === "true") {
         // console.log("resultado true");
-        this.buscarPrealertas();
+        this.buscarExportaciones();
       }      
       // this.buscarPrevios();
     });

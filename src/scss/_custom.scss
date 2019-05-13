@@ -75,6 +75,13 @@
     }
 }
 
+.modal {
+    z-index: 1000;
+}
+.modal-backdrop {
+    z-index: 999;
+}
+
 ul.dash {
     list-style: none;
     margin-left: 0;
@@ -127,7 +134,10 @@ table{
     font-weight: bold;
 }
 .mat-cell, .mat-footer-cell {
-    color: #183964;
+    color: #183964;    
+}
+td.mat-cell{
+    padding-right: 24px !important;
 }
 
 //switch
@@ -186,7 +196,9 @@ table{
     //TODO change to var $color-primary
     color: #D31E28;
 }
-
+.u-cursor {
+    cursor: pointer;
+}
 
 // Font size fixes
 .card {
@@ -230,6 +242,7 @@ table{
     margin-left: auto;
     margin-right: auto;
     // width: 50%;
+    cursor: pointer;
 }
 
 // Input type="" Fixes
@@ -363,5 +376,3 @@ table{
     white-space: nowrap;
     overflow: hidden;
 }
-  
-  

@@ -21,7 +21,7 @@ export class ExportacionBusqueda {
 }
 
 ////////////////
-// Crear Prealerta
+// Crear Exportacion
 export class Seguimiento {
     public Comentarios:string;
 }

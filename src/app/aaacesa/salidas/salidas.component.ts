@@ -37,6 +37,13 @@ export class SalidasComponent  {
   fechaPrevioSearch:Date = null;
   rangoFechaSearch:any = [];
   estatusSearch:any = "";    
+
+  ///////////////////////
+  // Status Filter Bar  
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
   // Mat Table  
@@ -80,6 +87,25 @@ export class SalidasComponent  {
       (response:any) => { this.estatusCatalogo = response;}, 
       (errorService) => { console.log(errorService); });
   }
+
+  //////////////////////////
+  // Status Filter Bar Logic
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
+  }
+
+  public applyFilter(index: number) {
+    this.dataSource.data = [];
+    this.currentFilterIndex = index;
+
+    if (index < this.statusEnum.length) {
+      this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
+    } else {
+      this.dataSource.data = this.data;
+    }
+  }  
   
   public buscarSalidas () {    
     this.loading = true;
@@ -104,7 +130,8 @@ export class SalidasComponent  {
       .subscribe ( 
       (response:any) => {                 
         this.data = response;        
-        this.dataSource.data = this.data;        
+        this.dataSource.data = this.data;   
+        this.updateCountStatus();     
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -113,7 +140,7 @@ export class SalidasComponent  {
   buscaSalidasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarSalidas();
   }
 
@@ -125,7 +152,7 @@ export class SalidasComponent  {
     this.apiService.service_general_get(`/AdelantoFacturacion/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { this.detailData = response; this.loading = false;}, 
-    (errorService) => { console.log(errorService); this.loading = false; });
+    (errorService) => { console.log(errorService); this.loading = false; });    
   } 
   
   ///////////////////////////////
