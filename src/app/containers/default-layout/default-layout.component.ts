@@ -118,7 +118,7 @@ export class DefaultLayoutComponent implements OnInit {
     console.log(difInitSesion);
     console.log(difFinSesion);
 
-    if(difInitSesion > 60 && difFinSesion > 0){
+    if(difInitSesion >= 60 && difFinSesion >= 0){
       return false;
     }
     else{
