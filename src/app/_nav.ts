@@ -4,17 +4,12 @@ var menu= [];
 
 switch(permisos)
 {
-  case "ADMIN":
+  case "MAESTRO":
     menu =[
     {
       name: 'Dashboard',
       url: '/dashboard',
       icon: 'icon-home',
-    },
-    {
-      name: 'Mercancía',
-      url: '/mercancias',
-      icon: 'icon-basket-loaded'
     },
     {
       name: 'Pre Alertas',
@@ -42,20 +37,10 @@ switch(permisos)
       icon: 'icon-chart'
     },
     {
-      name: 'Cálculo Maniobras',
-      url: '/calculadora',
-      icon: 'cui-calculator',
+      name: 'Consulta de Mercancía',
+      url: '/mercancias',
+      icon: 'icon-basket-loaded'
     },
-    // {
-    //   name: 'Bitácoras',
-    //   url: '/forms/basic-forms',
-    //   icon: 'icon-note',
-    // },
-    // {
-    //   name: 'Admin de usuarios',
-    //   url: '/adminuser',
-    //   icon: 'fa fa-sitemap',
-    // },
     {
       name: 'Abandono',
       url: '/abandono',
@@ -66,7 +51,7 @@ switch(permisos)
     },
   ];
     break;
-  case "MAESTRO":
+  case "ADMIN":
     menu =[
     {
       name: 'Dashboard',
@@ -74,34 +59,29 @@ switch(permisos)
       icon: 'icon-home',
     },
     {
-      name: 'Pre Alertas',
-      url: '/prealertas',
-      icon: 'icon-info'
-    },
-    {
-      name: 'Finanzas',
-      url: '/finanzas',
-      icon: 'icon-chart'
-    },
-    {
-      name: 'Previos',
-      url: '/previos',
-      icon: 'cui-task'
-    },
-    {
-      name: 'Salidas',
-      url: '/salidas',
-      icon: 'icon-direction',
+      name: 'Consulta de Mercancía',
+      url: '/mercancias',
+      icon: 'icon-basket-loaded'
     },
     // {
-    //   name: 'Bitácoras',
-    //   url: '/forms/basic-forms',
-    //   icon: 'icon-note',
+    //   name: 'Pre Alertas',
+    //   url: '/prealertas',
+    //   icon: 'icon-info'
     // },
     // {
-    //   name: 'Admin de usuarios',
-    //   url: '/adminuser',
-    //   icon: 'fa fa-sitemap',
+    //   name: 'Previos',
+    //   url: '/previos',
+    //   icon: 'cui-task'
+    // },
+    // {
+    //   name: 'Salidas',
+    //   url: '/salidas',
+    //   icon: 'icon-direction',
+    // },
+    // {
+    //   name: 'Finanzas',
+    //   url: '/finanzas',
+    //   icon: 'icon-chart'
     // },
     {
       divider: true
@@ -119,6 +99,31 @@ switch(permisos)
       name: 'Pre Alertas',
       url: '/prealertas',
       icon: 'icon-info'
+    },
+    {
+      name: 'Previos',
+      url: '/previos',
+      icon: 'cui-task'
+    },
+    {
+      name: 'Salidas',
+      url: '/salidas',
+      icon: 'icon-direction',
+    },
+    {
+      name: 'Exportación',
+      url: '/buttons/buttons',
+      icon: 'icon-globe',
+    },
+    {
+      name: 'Consulta de Mercancía',
+      url: '/mercancias',
+      icon: 'icon-basket-loaded'
+    },
+    {
+      name: 'Abandono',
+      url: '/abandono',
+      icon: 'icon-grid',
     },
     {
       divider: true

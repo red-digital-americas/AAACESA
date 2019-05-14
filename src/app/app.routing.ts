@@ -96,6 +96,10 @@ export const routes: Routes = [
         loadChildren: './aaacesa/bitacoras/bitacoras.module#BitacorasModule'
       },
       {
+        path: 'mercancias',
+        loadChildren: './aaacesa/mercancias/mercancias.module#MercanciasModule'
+      },
+      {
         path: 'base',
         loadChildren: './views/base/base.module#BaseModule'
       },

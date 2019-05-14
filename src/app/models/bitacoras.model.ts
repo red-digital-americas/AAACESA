@@ -12,3 +12,14 @@ export class BitacorasBusqueda {
         this.IdCuentaEspecifica = "";    
     }
 }
+
+export class MercanciasBusqueda {
+    constructor() { }    
+    public Master:string = "";    
+    public House:string = "";        
+
+    Clean() {
+        this.Master = "";    
+        this.House = "";        
+    }
+}
