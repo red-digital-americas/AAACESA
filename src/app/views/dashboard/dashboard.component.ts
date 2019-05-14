@@ -17,9 +17,6 @@ export class DashboardComponent implements OnInit {
     new Summary("Trasnsferencias", 80, "bg-green")
   ]
 
-  public summaryss: any[] = {
-    new Summary()
-  }
 
 
 
