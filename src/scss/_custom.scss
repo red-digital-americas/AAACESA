@@ -127,8 +127,8 @@ table{
     border-top: none;
     color: #183964;
 }
-//Mat Table
 
+//Mat Table
 .mat-header-cell {
     color: #183964;
     font-weight: bold;
@@ -140,8 +140,16 @@ td.mat-cell{
     padding-right: 24px !important;
 }
 
-//switch
+// Mat Modal
+.mat-dialog-content {
+    max-height: 80vh !important;
+}
+.mat-horizontal-stepper-header-container {
+    margin-top: -1.5rem !important; 
+    height: 4rem;
+}
 
+//switch
 .switch-outline-secondary .switch-input:checked + .switch-slider {
     background-color: transparent !important;
 }

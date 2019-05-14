@@ -292,27 +292,27 @@
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">                                                                                                
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guía Master </h5>
+                      <div class="detail-text text-muted">Guía Master </div>
                       <p class="detail-text">{{model.GuiaMaster}}</p>
                     </div>
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guía House </h5>
+                      <div class="detail-text text-muted">Guía House </div>
                       <p class="detail-text">{{model.GuiaHouse}}</p>
                     </div>
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Consiganatario a Facturar</h5> 
+                      <div class="detail-text text-muted">Consiganatario a Facturar</div> 
                       <p class="detail-text">{{model.Consignatario}}</p>
                     </div>
 
                     <div class="col">
-                      <h5 class="detail-text text-muted">Método de Pago</h5>
+                      <div class="detail-text text-muted">Método de Pago</div>
                       <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
                     </div>
 
                     <div class="col">
-                      <h5 class="detail-text text-muted">Condición de Almacenaje</h5>
+                      <div class="detail-text text-muted">Condición de Almacenaje</div>
                       <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
                     </div>                                                      
                   </div>  
@@ -324,11 +324,11 @@
                     <div class="row justify-content-start">
                       <div class="col-xs-12 col-sm-12 col-lg-8">
                         <div class="referencia">
-                          <h5 class="detail-text">Referencia: {{ model.Referencia }}</h5>                             
+                          <div class="detail-text">Referencia: {{ model.Referencia }}</div>                             
                         </div>
                       </div>
                       <!-- <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Estatus</h5>
+                        <div class="detail-text text-muted">Estatus</div>
                         <div class="col status-filter">            
                           <div class="status-filter__circle status-filter__circle--Solicitada"></div>
                           <div class="status-filter__text">
@@ -340,44 +340,44 @@
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-2">
-                        <h5 class="detail-text text-muted">Piezas </h5>
+                        <div class="detail-text text-muted">Piezas </div>
                         <p class="detail-text">{{model.Piezas}}</p>
                       </div>
 
                       <div class="col-xs-12 col-sm-12 col-lg-2">
-                        <h5 class="detail-text text-muted">Peso</h5>
+                        <div class="detail-text text-muted">Peso</div>
                         <p class="detail-text">{{model.Peso}} kg</p>
                       </div>
 
                       <div class="col-xs-12 col-sm-12 col-lg-8">
-                        <h5 class="detail-text text-muted">Uso de CFDI</h5>
+                        <div class="detail-text text-muted">Uso de CFDI</div>
                         <p class="detail-text">{{usoCFDICatalogo | getSelect: model.UsoCFDI : 2}}</p>
                       </div>                              
                     </div>
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Fecha de Arribo</h5>
+                        <div class="detail-text text-muted">Fecha de Arribo</div>
                         <p class="detail-text">{{model.FechaArribo}}</p>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Consolidado</h5>
+                        <div class="detail-text text-muted">Consolidado</div>
                         <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Almacén de Origen</h5>
+                        <div class="detail-text text-muted">Almacén de Origen</div>
                         <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-6">
-                        <h5 class="detail-text text-muted">Rango de Temperatura</h5>
+                        <div class="detail-text text-muted">Rango de Temperatura</div>
                         <h6 class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 0}}</h6>
                       </div>   
                       
                       <div class="col-xs-12 col-sm-12 col-lg-6">
-                        <h5 class="detail-text text-muted">Instrucciones de Manejo</h5>
+                        <div class="detail-text text-muted">Instrucciones de Manejo</div>
                         <h6 class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 1}}</h6>
                       </div>   
                     </div>

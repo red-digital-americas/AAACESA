@@ -276,8 +276,7 @@ export class PrealertasComponent {
   }
 
   public openDocument (idDocumento) {          
-    // console.log(idDocumento);     
-    var that = this;    
+    // console.log(idDocumento);           
     this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {       
@@ -299,8 +298,8 @@ export class PrealertasComponent {
         if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
           window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
         } else {
-          that.externalPdfViewer.pdfSrc = this.base64ToArrayBuffer(response.Archivo);      
-          that.externalPdfViewer.refresh();              
+          this.externalPdfViewer.pdfSrc = this.base64ToArrayBuffer(response.Archivo);      
+          this.externalPdfViewer.refresh();              
         }                
       }, 
       (errorService) => { console.log(errorService); this.showAlert(errorService.error); });       
