@@ -1,0 +1,66 @@
+<div class="animated fadeIn">
+  <div class="card" style="height: 100vh">
+    <div class="card-body">
+      <!-- Start Busqueda Superior -->
+      <div class="row mb-4">
+        <div class="col-lg-6">
+          <div class="row">
+
+            <!-- busqueda Master -->
+            <div class="col-lg-6 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.Master" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/>
+              </mat-form-field>
+            </div>
+
+            <!-- busqueda House -->
+            <div class="col-lg-6 mb-1">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
+              </mat-form-field>
+            </div>
+            
+          </div>
+          <!-- end row -->
+        </div>
+
+        <div class="col-lg-6">
+          <div class="row justify-content-start">
+            <div class="col-lg-3 col-xs-6 col-md-3 align-self-end mr-0">
+              <button (click)="buscarMercancias()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+            </div>
+            <div class="col  col-xs-6 col-md-4 align-self-start">              
+              <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
+            </div>
+          </div>
+        </div>    
+      </div>      
+      <!-- End Busqueda Superior -->
+      <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)" >
+        <!-- TAB INFO GENERAL -->
+        <mat-tab label="Información General"> 
+          <p>Tab 1</p>
+        </mat-tab>
+        <!-- END TAB INFO GENRAL -->
+        
+        <!-- TAB ESTATUS MERCANCIA -->
+        <mat-tab label="Estatus Mercancía">  
+          <p>Tab 2</p>
+        </mat-tab>
+        <!-- END TAB -->
+
+        <!-- TAB INFO SALIDAS MERCANCIAS -->
+        <mat-tab label="Info Salida Mercancía">  
+          <p>Tab 3</p>
+        </mat-tab>
+        <!-- END TAB -->
+
+        <!-- TAB ESTATUS TRANSFERENCIA -->
+        <mat-tab label="Estatus Mercancía">  
+          <p>Tab 4</p>
+        </mat-tab>
+        <!-- END TAB -->
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
