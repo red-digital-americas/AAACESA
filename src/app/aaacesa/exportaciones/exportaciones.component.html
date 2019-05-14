@@ -64,12 +64,12 @@
         </div>
 
         <div class="col-lg-3">
-          <div class="row justify-content-center">
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 align-self-end">
-              <button (click)="buscarExportaciones()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+          <div class="row justify-content-start">
+            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-5 mb-1">
+              <button (click)="buscarExportaciones()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0 align-self-start">              
-              <button (click)="buscaExportacionesNueva()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
+            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-7 mb-1">              
+              <button (click)="buscaExportacionesNueva()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
             </div>
           </div>
         </div>    
@@ -361,3 +361,4 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!--#endregion End Modal Detalle -->
+<ng2-pdfjs-viewer #externalPdfViewer [externalWindow]="true"></ng2-pdfjs-viewer>
