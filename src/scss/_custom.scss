@@ -148,6 +148,12 @@ td.mat-cell{
     margin-top: -1.5rem !important; 
     height: 4rem;
 }
+.mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover {
+    background-color: transparent;
+}
+.mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
 
 //switch
 .switch-outline-secondary .switch-input:checked + .switch-slider {
