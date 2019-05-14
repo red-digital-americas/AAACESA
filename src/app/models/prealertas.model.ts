@@ -29,7 +29,7 @@ export class Seguimiento {
     public Comentarios:string;
 }
 
-export class Documento {
+export class Documento {    
     public NombreDocumento:string;
     public Archivo:string;
 }

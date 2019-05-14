@@ -144,7 +144,7 @@ export class PrealertasComponent {
         this.busquedaModel.FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
         this.busquedaModel.FechaFinal = moment(this.rangoFechaSearch[1]).format('YYYYMMDD');
       }    
-    } else {    
+    } else {
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
     }        
@@ -288,7 +288,7 @@ export class PrealertasComponent {
       
         // For browser with no support of download attribute
         if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
       (errorService) => { console.log(errorService); });     
