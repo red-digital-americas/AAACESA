@@ -144,7 +144,7 @@ export class PrealertasComponent {
         this.busquedaModel.FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
         this.busquedaModel.FechaFinal = moment(this.rangoFechaSearch[1]).format('YYYYMMDD');
       }    
-    } else {    
+    } else {
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
     }        

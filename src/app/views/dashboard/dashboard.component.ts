@@ -17,6 +17,9 @@ export class DashboardComponent implements OnInit {
     new Summary("Trasnsferencias", 80, "bg-green")
   ]
 
+
+
+
   public merchant: any[] = [
     new Merchant("021563431", "12345978", "21/03/2018", "Transfer"),
     new Merchant("021563431", "12345978", "21/03/2018", "Salida"),

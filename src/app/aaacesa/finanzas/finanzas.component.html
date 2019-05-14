@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-body">
@@ -9,21 +11,21 @@
             <div class="row mb-3">
                 <div class="col-md-3">
                   <mat-form-field class="input-full-width">
-                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Pedimento" />
+                    <input matInput [(ngModel)]="busquedaModel[0].Pedimento" type="text" placeholder="Pedimento" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="input-full-width">
-                      <input matInput type="text" #dp="bsDatepicker" bsDatepicker [(ngModel)]="filterQueryDate" placeholder="Fecha Emision" />
+                    <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Fecha Emision" />
                   </mat-form-field>
                 </div>
                 <div class="col-lg-3">
                     <div class="row justify-content-start">
                       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-                        <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                        <button (click)="facturasBusqueda()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar </button>
                       </div>
                       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-                        <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                        <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
                       </div>
                     </div>
                   </div>   
@@ -70,37 +72,41 @@
                 <!-- Descargar Column -->
               <ng-container matColumnDef="Descargar">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                  <td mat-cell *matCellDef="let element">
+                      <a class="btn" (click)="getPDFInvoices(element)"><i class="fas fa-file-pdf"></i></a>
+                      <a class="btn" (click)="getXMLInvoices(element)"><i class="far fa-file-code"></i></a> 
+                  </td>
                 </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator #InvoicesPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>
+
         <mat-tab label="Notas de crédito">
           <br>
           <br>
             <div class="row mb-3">
                 <div class="col-md-3">
                   <mat-form-field class="input-full-width">
-                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Pedimento" />
+                    <input matInput [(ngModel)]="busquedaModel[1].Pedimento" type="text" placeholder="Pedimento" />
                   </mat-form-field>
                 </div>
                 <div class="col-md-3">
                   <mat-form-field class="input-full-width">
-                    <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Fecha Emision" />
+                    <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Fecha Emision" />
                   </mat-form-field>
                 </div>
                 <div class="col-lg-3">
                     <div class="row justify-content-start">
                       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-                        <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                        <button (click)="notasBusqueda()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
                       </div>
                       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-                        <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                        <button (click)="NuevaBusquedaNotas()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
                       </div>
                     </div>
                   </div>   
@@ -147,7 +153,10 @@
                 <!-- Descargar Column -->
               <ng-container matColumnDef="Descargar">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
+                  <td mat-cell *matCellDef="let element">
+                    <a class="btn" (click)="getPDF(element)"><i class="fas fa-file-pdf"></i></a>
+                    <a class="btn" (click)="getXML(element)"><i class="far fa-file-code"></i></a>
+                  </td>
                 </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -161,13 +170,25 @@
         <mat-tab label="Complemento de pago">
           <br>
           <br>
-          <div class="col-lg-3 mb-1">
+          <div class="row mb-3">
+              <div class="col-md-3">
               <mat-form-field class="input-full-width">
                 <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
               </mat-form-field>
+              </div>
+              <div class="col-lg-3">
+                <div class="row justify-content-start">
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+                    <button (click)="ComplementoBusqueda()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+                    <button (click)="NuevaBusquedaComplemento()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                  </div>
+                </div>
+              </div>  
             </div>
             <div class="table-responsive">
-              <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
+              <table mat-table [dataSource]="info.data" matSort class="mat-elevation-z8">
   
                 <!-- UUID Column -->
                 <ng-container matColumnDef="UUID">
@@ -220,7 +241,7 @@
                 <tr mat-header-row *matHeaderRowDef="CPColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: CPColumns"></tr>
               </table>
-              <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+              <mat-paginator #PaidComplementPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
               </mat-paginator>
             </div>
           </mat-tab>
@@ -228,14 +249,26 @@
         <mat-tab label="Estado de cuenta">
           <br>
           <br>
-          <div class="col-lg-3 mb-1">
+          <div class="row mb-3">
+              <div class="col-md-3">
               <mat-form-field class="input-full-width">
                 <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="rangoFechaSearch" placeholder="Rango de Fecha">
               </mat-form-field>
+              </div>
+              <div class="col-lg-3">
+                <div class="row justify-content-start">
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+                    <button (click)="EstadosBusqueda()" class="btn btn-pill btn-primary"> <i class="fas fa-search"></i> Buscar</button>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+                    <button (click)="NuevaBusquedaEstados()" class="btn btn-pill btn-primary"> Nueva Busqueda</button>
+                  </div>
+                </div>
+              </div>  
             </div>
 
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="account.data" matSort class="mat-elevation-z8">
 
               <!-- MasterHouse Column -->
               <ng-container matColumnDef="MasterHouse">
@@ -293,15 +326,15 @@
                 </ng-container>
 
                 <!-- Descargar Column -->
-              <ng-container matColumnDef="Descargar">
+              <!-- <ng-container matColumnDef="Descargar">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Descargar </th>
                   <td mat-cell *matCellDef="let element"> {{element.Descargar}} </td>
-                </ng-container>
+                </ng-container> -->
 
               <tr mat-header-row *matHeaderRowDef="EdoCtaColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: EdoCtaColumns;"></tr>
             </table>
-            <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator #AccountStatusPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>

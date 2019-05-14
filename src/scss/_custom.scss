@@ -1,7 +1,7 @@
 // Here you can add other styles
 .app-header{
     background-color: #183964;
-    z-index: 1000;
+    z-index: 999;
     height: 68px;
     border-bottom: none;
     box-shadow: 0 5px 5px #282c52; 
@@ -12,7 +12,7 @@
     height: 55px;
 }
 .header-fixed .app-header {
-    z-index: 1000;
+    z-index: 999;
 }
 
 .header-fixed .app-body {
@@ -22,12 +22,12 @@
 //sidebar
 .sidebar{
     background-color: #183964;
-    z-index: 1000;
+    z-index: 998;
     width: 100px !important;
     border-right: none;
 }
 .sidebar-fixed .sidebar {
-    z-index: 1000;
+    z-index: 998;
     width: 100px;
 }
 .sidebar .nav-link {
@@ -36,6 +36,9 @@
     text-align: center;
     width: 100px;
     font-size: 0.75rem;
+}
+.sidebar-show .main::before, .aside-menu-show .main::before {
+    z-index: 997 !important;
 }
 .sidebar .nav-link.active{
     color: #ffffff;
@@ -54,14 +57,12 @@
 .sidebar .nav-link.active .nav-icon {
     color: #ffffff;
 }
-.sidebar-show .main::before, .aside-menu-show .main::before {
-    z-index: 999 !important;
-}
+
 //footer-container
 .app-footer{
     // margin-left: 0px!important;
     border: none !important;
-    z-index: 999;
+    z-index: 998;
 }
 
 .footer-container{
