@@ -18,7 +18,7 @@ import { BsDatepickerViewMode } from 'ngx-bootstrap/datepicker/models';
 
 export class BitacorasComponent implements OnInit {
 
-  displayedColumns: string[] = ['Usuario', 'Acciones', 'Detalles', 'Hora', 'Fecha'];
+  displayedColumns: string[] = ['Nombre', 'Accion', 'Detalle', 'Hora', 'Fecha'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,12 +63,31 @@ export class BitacorasComponent implements OnInit {
 
     this.busquedaBit.Modulo = (this.busquedaBit.Modulo == undefined)?"":this.busquedaBit.Modulo;
     this.busquedaBit.IdCuentaEspecifica = (this.busquedaBit.IdCuentaEspecifica == undefined)?"":this.busquedaBit.IdCuentaEspecifica;
-    console.log(this.busquedaBit);  
     this.apiserv.service_general_get_with_params('/Bitacoras/Busqueda',this.busquedaBit).subscribe((data) => {
       this.loading= false;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (item, property) => {      
+        switch (property) {     
+          case 'Fecha': {   
+            let f = item['FechaCreacion'].split(' ')[0];                // 07/05/2019 12:00 PM          
+             f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
+            //console.log(f);
+            let newDate = new Date(f);
+             console.log(newDate);
+            return newDate;
+            }
+          case 'Hora':{
+            let h = item['FechaCreacion'].split(' ')[1];
+            console.log(h)
+            let newHours = new Date(h);
+            console.log(newHours);
+            return newHours;
+            }
+          default: { return item[property];} 
+        }
+      };
     }); 
 
   }
