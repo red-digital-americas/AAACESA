@@ -1,8 +1,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<ngx-loading [show]="loading"></ngx-loading>      
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>      
 <div class="row justify-content-end">  
-  <div class="col-lg-12 text-right">
-    <button (click)="openDialog()" class="btn btn-pill btn-ghost-primary"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
+  <div class="col-lg-12 text-right btn-crear">
+    <button (click)="openDialog()" class="btn btn-link"> <i class="fas fa-plus-circle"></i> Crear Previos</button>
   </div>          
 </div>
 
@@ -88,86 +88,35 @@
         </div> 
       </div>
      
-      <!-- <div class="row mt-5 mb-3">
-          <div class="col-lg-10 offset-lg-1">
-            <div class="row">
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Aceptada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(0)">
-                      <p><span class="status-filter__number">{{ countStatus.Aceptada }}</span> Aceptada </p>
-                    </label>
-                  </div>
-              </div> 
-              
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Solicitada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(1)">
-                      <p><span class="status-filter__number">{{ countStatus.Solicitada }}</span> Solicitada </p>
-                    </label>
-                  </div>
-              </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--PendienteAAACESA"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(2)">
-                      <p><span class="status-filter__number">{{ countStatus.PendienteAAACESA }}</span> P.AAACESA </p>
-                    </label>
-                  </div>
-              </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--PendienteCliente"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(3)">
-                      <p><span class="status-filter__number">{{ countStatus.PendienteCliente }}</span> P.Cliente </p>
-                    </label>
-                  </div>
-              </div>
-              
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Rechazada"></div>
-                  <div class="status-filter__text">
-                    <label (click)="applyFilter(4)">
-                      <p><span class="status-filter__number">{{ countStatus.Rechazada }}</span> Rechazada </p>
-                    </label>
-                  </div>
-              </div>
-  
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Finalizada"></div>
+      <!-- Start Status Filter Bar -->
+      <div class="container">      
+        <div class="row justify-content-center mt-5 mb-3">
+          <div class="col-lg-12">
+            <div class="row align-items-center">
+
+              <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+                <div class="status-filter__circle status-filter__circle--{{estado | statusPipe}}"></div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(5)">
-                    <p><span class="status-filter__number">{{ countStatus.Finalizada }}</span> Finalizada </p>
+                  <label (click)="applyFilter(i)" class="u-cursor">
+                    <span class="status-filter__number">({{ countStatus[i] }})</span> {{statusLabels[i]}}
                   </label>
-                </div>                
+                </div>
+              </div>             
+
+              <div [ngClass]="{'status-filter--active': currentFilterIndex==statusEnum.length}"  class="col mb-1 text-center status-filter u-cursor">                          
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(statusEnum.length)" class="u-cursor">
+                    <span class="status-filter__number">({{data.length}})</span> Todos
+                  </label>
+                </div>              
               </div>
 
-              <div class="col status-filter">            
-                <div class="status-filter__circle status-filter__circle--Cancelada"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(6)">
-                    <p><span class="status-filter__number">{{ countStatus.Cancelada }}</span> Cancelada </p>
-                  </label>
-                </div>                
-              </div>
-  
-              <div class="col status-filter">                          
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(10)">
-                    <p><span class="status-filter__number">{{data.length}}</span> Todos </p>
-                  </label>
-                </div>                
-              </div>              
-  
             </div>
           </div>
-        </div> -->
-          
-        
+        </div>
+      </div>
+      <!-- End Status Filter Bar -->
+                  
         <div class="table-responsive">
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">                                   
           
@@ -221,7 +170,7 @@
             <ng-container matColumnDef="Acciones">
               <th mat-header-cell *matHeaderCellDef> Acciones </th>
               <td mat-cell *matCellDef="let element"> 
-                <a class="btn btn-pill btn-ghost-link" (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
+                <a class="btn btn-pill btn-ghost-links btn-sm" (click)="detalleModal.show(); verDetalle(element.IdAdelantoPrevios);" href="javascript: void(0);"><i class="fas fa-plus-circle"></i> Detalle</a>
               </td>
             </ng-container>
 
@@ -356,12 +305,9 @@
                           <hr class="dividerb">
 
                           <div class="row mb-3">                
-                            <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">
-                              <div>            
-                                <div class="status-filter__circle status-filter__circle--{{file.Estatus | statusPipe }}"></div>
-                                <div class="status-filter__text"><p> {{file.Estatus}} </p></div>
-                              </div>
-                              <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
+                            <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">                              
+                              <!-- <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
+                              <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
                               <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
                             </div>                      
                           </div>
@@ -375,18 +321,18 @@
                         <div class="col-sm-12 col-md-12 col-lg-5 col-xl-4">
                           <div class="card">
                           <div class="card-body">
-                          <div class="row">
+                          <!-- <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                               <h6>Estado</h6>
                               <h5 class="detail-text">Fecha de Solicitud</h5>
                               <p class="detail-text">{{detailData.FechaSolicitud}}</p>
                               <hr class="dividerb">
                             </div>
-                          </div>
+                          </div> -->
 
                           <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
-                              <h6>Previo</h6>
+                              <h6>Seguimiento</h6>
                             </div>
                             
                             <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
@@ -396,7 +342,7 @@
                               <div class="row justify-content-end">
                                 <div class="col-lg mb-1 text-right">
                                   <label for="file-multiple-input">
-                                    <div class="btn btn-pill btn-primary">Subir Documento</div>
+                                    <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
                                   </label>
                                   <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
                                 </div>                                
@@ -404,10 +350,12 @@
 
                               <!-- <div class="col-lg"> -->
                                   <div class="row mb-3">                
-                                    <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col col-lg-3">                                      
+                                    <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col-3 col-sm-3 col-md-3 col-lg-3">                                      
+                                      <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
                                       <div>
-                                        <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
-                                        <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
+                                        <!-- <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
+                                        <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                   -->
+                                        <img class="file__icon file__icon--xs" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
                                         <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
                                       </div>                                                                                                                                                          
                                     </div>                      

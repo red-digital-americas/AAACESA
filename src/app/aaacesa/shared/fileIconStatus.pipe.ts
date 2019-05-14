@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FileIconStatusPipe implements PipeTransform {
     // Asociacion de estados con su respectiva clase para el icono
     estados = ['Pendiente', 'Valido', 'Invalido'];
-    classFA = ['fa-file-pdf', 'fa-file-archive', 'fa-file-image'];   
+    classFA = ['pendiente.png', 'valido.png', 'invalido.png'];   
 
   transform(estado: string): any {        
 

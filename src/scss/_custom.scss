@@ -22,7 +22,7 @@
 //sidebar
 .sidebar{
     background-color: #183964;
-    z-index: 999;
+    z-index: 1000;
     width: 100px !important;
     border-right: none;
 }
@@ -59,9 +59,9 @@
 }
 //footer-container
 .app-footer{
-    margin-left: 0px!important;
+    // margin-left: 0px!important;
     border: none !important;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .footer-container{
@@ -73,6 +73,13 @@
         font-size: small;
         line-height: normal;
     }
+}
+
+.modal {
+    z-index: 1000;
+}
+.modal-backdrop {
+    z-index: 999;
 }
 
 ul.dash {
@@ -120,18 +127,35 @@ table{
     border-top: none;
     color: #183964;
 }
-//Mat Table
 
+//Mat Table
 .mat-header-cell {
     color: #183964;
     font-weight: bold;
 }
 .mat-cell, .mat-footer-cell {
-    color: #183964;
+    color: #183964;    
+}
+td.mat-cell{
+    padding-right: 24px !important;
+}
+
+// Mat Modal
+.mat-dialog-content {
+    max-height: 80vh !important;
+}
+.mat-horizontal-stepper-header-container {
+    margin-top: -1.5rem !important; 
+    height: 4rem;
+}
+.mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover {
+    background-color: transparent;
+}
+.mat-horizontal-stepper-header{
+    pointer-events: none !important;
 }
 
 //switch
-
 .switch-outline-secondary .switch-input:checked + .switch-slider {
     background-color: transparent !important;
 }
@@ -154,7 +178,7 @@ table{
 }
 .mat-body, .mat-body-1, .mat-typography{
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
+    font-size: .75rem;
     font-weight: 400;
     line-height: 1.5;
 }
@@ -172,12 +196,9 @@ table{
 }
 
 //customButtons
-.btn-prealerta {
-    background: transparent;
-    border-radius: 50px;
-    margin: 2px 2px;
-    color: white;
-    padding: 2px 10px;
+.btn-crear {
+    margin-top: -3rem;
+    margin-bottom: 1rem;
 }
 
 .btn-circle {
@@ -189,7 +210,9 @@ table{
     //TODO change to var $color-primary
     color: #D31E28;
 }
-
+.u-cursor {
+    cursor: pointer;
+}
 
 // Font size fixes
 .card {
@@ -222,9 +245,34 @@ table{
 
 // File X (remove) button
 .file__btn-close {
-    text-align: right;
+    // text-align: right;
     font-size: 2rem;    
     cursor:pointer;
+    height: 1rem;
+    position: absolute;
+    right: 0;
+    top: -1rem; // Half of font-size
+}
+.file__icon {
+    width: 5rem;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    // width: 50%;
+    cursor: pointer;
+
+    &--sm {
+        cursor: auto;
+        width: 4rem;
+        padding-right: .1rem;
+    }
+
+    &--xs {
+        cursor: auto;
+        width: 3rem;
+        padding-right: .1rem;
+    }
 }
 
 // Input type="" Fixes
@@ -254,6 +302,24 @@ table{
     border: dotted 3px lightgray; 
     height: 100px;
     background-color: #f5f5f5;
+    // background-image: url("../assets/img/iconos/upload.png");
+    // background-size: 4rem;
+    // background-repeat: no-repeat;
+    // background-position: center
+    &__icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        font-size: 3rem;
+        transform: translate(-50%, -50%);
+    }
+
+    &__text {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 0%);
+    }
 }      
    
 
@@ -262,9 +328,14 @@ table{
     position: relative;    
     font-size: .8rem;    
 
-    &:not(:last-child) {
-        border-right: 2px solid #183964;  
-    }    
+    // &:not(:last-child) {
+    //     border-right: 2px solid #183964;  
+    // }    
+
+    &--active {
+        border-bottom: solid 3px #183964;
+        font-weight: bold;
+    }
 
     &__number {
         font-weight: bold;
@@ -300,10 +371,7 @@ table{
         &--PendienteCliente{
             background-color: rgba(255,255,255,0.7);
             border: solid 1px black;
-        }
-        &--Pendiente {
-            background-color: #fff500;
-        }
+        }        
         &--Rechazada{
             background-color: #ce0f0f;
         }
@@ -312,6 +380,21 @@ table{
         }
         &--Cancelada{
             background-color: #000000;
+        }
+        &--Pendiente {
+            background-color: #fff500;
+        }
+        &--Prealerta{
+            background-color: #CBC30B;
+        }
+        &--Recoleccion{
+            background-color: #63C2DE;
+        }
+        &--DocumentosDisponibles{
+            background-color: #5894CC;
+        }
+        &--CargaDisponible{
+            background-color: #B2B2B2;
         }
     }
 }
@@ -323,5 +406,3 @@ table{
     white-space: nowrap;
     overflow: hidden;
 }
-  
-  

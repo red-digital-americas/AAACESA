@@ -4,7 +4,7 @@ import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angula
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
 
 ///////////
 // API Services 
@@ -41,9 +41,11 @@ export class PrealertasComponent {
   instruccionesManejoSearch:any = "";  
 
   ///////////////////////
-  // Status Filter Bar
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  // Status Filter Bar  
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
   // Mat Table  
@@ -76,6 +78,7 @@ export class PrealertasComponent {
   ///////////////////////////////
   // Seguimiento
   modelSeguimiento:PrealertaSeguimiento = new PrealertaSeguimiento();
+  @ViewChild('externalPdfViewer') public externalPdfViewer;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
@@ -91,18 +94,15 @@ export class PrealertasComponent {
 
   //////////////////////////
   // Status Filter Bar Logic
-  public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
-    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
   }
 
   public applyFilter(index: number) {
     this.dataSource.data = [];
+    this.currentFilterIndex = index;
 
     if (index < this.statusEnum.length) {
       this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
@@ -164,7 +164,7 @@ export class PrealertasComponent {
   buscaPrealertasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarPrealertas();
   }
 
@@ -248,7 +248,8 @@ export class PrealertasComponent {
       if (event.target.files[i].type != "application/pdf") { continue; }
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
-      {continue;}
+      {continue;}      
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -274,24 +275,50 @@ export class PrealertasComponent {
     });
   }
 
-  public openDocument (idDocumento) {   
-    // console.log(idDocumento); 
+  public openDocument (idDocumento) {          
+    // console.log(idDocumento);           
     this.apiService.service_general_get(`/Prealertas/GetDocumentById/${idDocumento}`)
       .subscribe ( 
-      (response:any) => {         
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
-        // element.setAttribute('target','_blank');
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      (response:any) => {       
+        // if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+        //   let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                                     
+        // } else {
+        //   var element = document.createElement('a');
+        //   element.style.display = 'none';
+        //   element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+        //   element.setAttribute('target','_blank');
+        //   // element.setAttribute('download', response.NombreDocumento);
+        //   document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
-        }  
+        //   // For browser with no support of download attribute
+        //   if (typeof element.download == undefined) {
+            // window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        //   }
+        // }
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        } else if(/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {          
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                                
+          element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
+        } else {
+          this.externalPdfViewer.pdfSrc = this.base64ToArrayBuffer(response.Archivo);      
+          this.externalPdfViewer.refresh();              
+        }                
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });       
+  }
+
+  private base64ToArrayBuffer(arreglito:string): Uint8Array {
+    let binary_string =  window.atob(arreglito);
+    let len = binary_string.length;
+    let bytes = new Uint8Array( len );
+    for (let i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
   }
 
   openDialog(): void {
@@ -336,8 +363,9 @@ export class DialogCreatePrealertasComponent implements OnInit {
   usoCFDICatalogo = [];
   condicionesAlmacenesCatalogo = [];
 
+  // @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: FormGroup;
-  isMasterHouseValid = false;
+  // isMasterHouseValid = false;
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
@@ -400,13 +428,13 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       referenciaCtrl: ['', Validators.required],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: ['', Validators.required],      
       horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
-      rangoTemperaturaCtrl: ['', Validators.required],
+      rangoTemperaturaCtrl: ['ZONA SECA', Validators.required],
       rangoTemperaturaSearchCtrl: ['', []],
       metodoPagoCtrl: ['', Validators.required],
       metodoPagoSearchCtrl: ['', []],
@@ -420,46 +448,57 @@ export class DialogCreatePrealertasComponent implements OnInit {
       comentarioCtrl: [''],    
     });
     
-    this.fechaArriboChange();
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
   }
-
+  
   hourValidation (control: FormControl): {[s:string]:boolean} {
-    let currentTime = parseInt(moment(new Date()).format('HH'));    
-    let selectedTime = parseInt(control.value);
-    
     if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
 
-    let date = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
-    let today = moment(new Date()).format('DD/MM/YYYY');      
-    console.log(today === date);        
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = parseInt(control.value);        
 
-    if (selectedTime < currentTime && (today === date)) { return { hour:true } } // fallando          
+    let selectedDate = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                 
+
+    if (selectedHour < currentHour && (today === selectedDate)) { return { hour:true } } // fallando          
     return null; // validacion pasa
   }
 
   minuteValidation (control: FormControl): {[s:string]:boolean} {
-    let currentTime = parseInt(moment(new Date()).format('mm'));    
-    let selectedTime = parseInt(control.value);
-    
     if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
 
-    let date = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
-    let today = moment(new Date()).format('DD/MM/YYYY');      
-    console.log(today === date);        
-    // let hour = this.secondFormGroup.controls.horaPrevioCtrl.value;    
-    
-    if (selectedTime < currentTime && (today === date) ) { return { minute:true } } // fallando          
+    let currentMinute = parseInt(moment(new Date()).format('mm'));    
+    let selectedMinute = parseInt(control.value);
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = this.secondFormGroup.controls.horaPrevioCtrl.value;  
+        
+    let selectedDate = moment(this.secondFormGroup.controls.fechaArriboCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                      
+        
+    if ( (selectedMinute < currentMinute) && (selectedHour <= currentHour) && (today === selectedDate) ) { return { minute:true } } // fallando          
     return null; // validacion pasa
   }
 
   fechaArriboChange() {    
     this.secondFormGroup.get('fechaArriboCtrl').valueChanges    
-    .subscribe((data) => {
-      console.log(data);
+    .subscribe((data) => { 
       this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();  
       this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();            
     });
+  }  
+  hourChange() {
+    this.secondFormGroup.get('horaPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
   }
+  minuteChange() {
+    this.secondFormGroup.get('minutoPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+
 
   closeDialog(msj:string): void {    
     this.dialogRef.close(msj);
@@ -470,6 +509,11 @@ export class DialogCreatePrealertasComponent implements OnInit {
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
+
+    // if (event.selectedIndex === 0){
+    //   this.isMasterHouseValid = false;
+    // }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
@@ -484,31 +528,32 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.showAlert("Algunos campos necesitan ser revisados");    
     }       
 
-    if (this.firstFormGroup.valid) {
-      // this.validarMasterHouse();
-    }
+    // if (this.firstFormGroup.valid && index === 0) {
+    //   this.validarMasterHouse();
+    // }
   }
 
-  private validarMasterHouse() {
-    this.processingCreation = true;
+  // private validarMasterHouse() {
+  //   this.processingCreation = true;
+  //   this.isMasterHouseValid = false;
     
-    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
-    .subscribe ( 
-    (response:any) => {       
-      this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
-      this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);      
-      this.processingCreation = false;
-      this.showAlert("Master/House encontrada");
-      this.isMasterHouseValid = true;
-    }, 
-    (errorService) => { 
-      // console.log(errorService); 
-      this.secondFormGroup.value.piezasCtrl = "";                  
-      this.secondFormGroup.value.pesoCtrl = "";
-      this.showAlert(errorService.error);
-      this.processingCreation = false; 
-    });        
-  }
+  //   this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+  //   .subscribe ( 
+  //   (response:any) => {       
+  //     this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+  //     this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
+  //     this.showAlert("Master/House encontrada");      
+  //     this.isMasterHouseValid = true;
+  //     this.processingCreation = false;
+  //     setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
+  //   }, 
+  //   (errorService) => {       
+  //     this.secondFormGroup.value.piezasCtrl = "";                  
+  //     this.secondFormGroup.value.pesoCtrl = "";
+  //     this.showAlert(errorService.error);      
+  //     this.processingCreation = false; 
+  //   });        
+  // }
 
   private showAlert (msj:string) {
     this.snackBar.open(msj, "", {

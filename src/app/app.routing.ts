@@ -77,11 +77,7 @@ export const routes: Routes = [
       },
       {
         path: 'abandono',
-        // component: AbandonoComponent,
         loadChildren: './aaacesa/abandono/abandono.module#AbandonoModule'
-        // data: {
-        //   title: 'Abandono'
-        // }
       },
       {
         path: 'exportaciones',
@@ -94,6 +90,14 @@ export const routes: Routes = [
       {
         path: 'adminuser',
         loadChildren: './aaacesa/admin-user/admin-user.module#AdminUserModule'
+      },
+      {
+        path: 'bitacoras',
+        loadChildren: './aaacesa/bitacoras/bitacoras.module#BitacorasModule'
+      },
+      {
+        path: 'mercancias',
+        loadChildren: './aaacesa/mercancias/mercancias.module#MercanciasModule'
       },
       {
         path: 'base',

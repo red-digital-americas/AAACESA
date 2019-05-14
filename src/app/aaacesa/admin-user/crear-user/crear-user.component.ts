@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ApiServices } from '../../../services/api.services';
-import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserData } from '../../../models/user.models';
 import { AbstractControl } from '@angular/forms';
@@ -14,6 +14,11 @@ import * as jquery from 'jquery';
   providers: [ApiServices]
 })
 export class CrearUserComponent implements OnInit {
+
+  displayedColumns: string[] = [ 'TipoCliente', 'RazonSocial', 'NumCuentas','acciones'];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatSort) sort: MatSort;
+
   //Perfil Admin
   rolAdminUSer:string=this.data.rolAdmin;
   visible: boolean=false;
@@ -46,10 +51,11 @@ export class CrearUserComponent implements OnInit {
   }
 
   crearUserByAdmin(selValue){
-    this.crearUser.RFC = this.RFCcliente.RFC;
-    this.crearUser.RazonSocial = this.RFCcliente.RazonSocial;
-    this.crearUser.ClavePatente = this.RFCcliente.ClavePatente;
-    this.crearUser.TipoCliente = this.RFCcliente.TipoCliente;
+    console.log(selValue);
+    this.crearUser.RFC = selValue.RFC;
+    this.crearUser.RazonSocial = selValue.RazonSocial;
+    this.crearUser.ClavePatente = selValue.ClavePatente;
+    this.crearUser.TipoCliente = selValue.TipoCliente;
     this.visible=false;
   }
 
@@ -58,7 +64,8 @@ export class CrearUserComponent implements OnInit {
     this.rfcVisible=true;
     this.apiservices.service_general_get("/Catalogos/GetClientes/"+this.rfcCliente).subscribe((res)=>{
       this.loading=false;
-      this.getRFCcliente  = res;
+      this.dataSource.data= res;
+      this.dataSource.sort = this.sort;
     });
   }
 

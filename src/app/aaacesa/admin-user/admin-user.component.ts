@@ -51,7 +51,6 @@ export class AdminUserComponent implements OnInit {
   
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -120,6 +119,15 @@ export class AdminUserComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (item, property) => {      
+        switch (property) {     
+          case 'ClavePerfil': {   
+            let dato = item['Perfil']['ClavePerfil'];   
+            return dato;
+            }
+          default: { return item[property];} 
+        }
+      };
     });
   }
 

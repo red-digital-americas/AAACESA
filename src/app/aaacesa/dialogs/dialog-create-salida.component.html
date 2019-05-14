@@ -16,7 +16,8 @@
 
 <mat-dialog-content class="mat-typography">
   <mat-horizontal-stepper *ngIf="!successResponse" (selectionChange)="stepClick($event)" labelPosition="bottom" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <!-- <mat-step [stepControl]="firstFormGroup"> -->
+    <mat-step [completed]="isMasterHouseValid">
     <!-- <ng-template matStepLabel>Ingresar Master / House</ng-template> -->
 
     <div class="container mt-3">
@@ -44,16 +45,17 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
-                  </mat-form-field>                 
+                    <input matInput type="text" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
+                  </mat-form-field> 
+                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm">Checar referencia</button>                            
                 </div>
               </div>          
             </div>
           </div>   
 
-          <div class="row mt-5">
+          <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
             </div>
           </div>
       </form>
@@ -65,7 +67,7 @@
               
       <div class="container mt-3">
         <form [formGroup]="secondFormGroup">
-          <div class="row mb-3">            
+          <div class="row mb-1">            
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" formControlName="rfcFacturarCtrl" placeholder="RFC Facturar"/>
@@ -93,7 +95,7 @@
                           
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-1">
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" class="no-spinners" formControlName="patenteCtrl" placeholder="Patente"/>
@@ -108,7 +110,7 @@
               
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker placeholder="Fecha Salida">
+                  <input matInput type="text" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha Salida">
                   <mat-error *ngIf="secondFormGroup.get('fechaSalidaCtrl').errors?.required">
                     Este campo es obligatorio
                   </mat-error> 
@@ -126,7 +128,7 @@
                 </div>                               
             </div>                                              
 
-            <div class="row mb-3">
+            <div class="row mb-1">
               <div class="col-lg-12">
                 <mat-form-field class="input-full-width">
                   <textarea matInput formControlName="comentarioCtrl" placeholder="Comentario"></textarea>
@@ -135,10 +137,10 @@
             </div>
           </form>
 
-          <div class="row mt-5">
+          <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
-              <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+              <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
+              <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
             </div>
           </div>
       </div>
@@ -151,31 +153,35 @@
       <div class="container mt-3">
         <p>Subir documentos: Guia Master, Gafete, Factura y Pedimento<small> (mínimo subir un documento)</small></p>  
         
-        <div class="row mb-5">                     
+        <div class="row mb-1">                     
           <div class="col-lg-12 mb-3">
             <div ngfDrop selectable="1" multiple="1"
               [(files)]="files"
-              accept = ".pdf"                                                           
+              accept = ".pdf"      
+              maxSize   = "4194304"                                                        
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
-            Arrastra / Selecciona tus archivos
+            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos</div>
+            <div class="my-drop-zone__icon"><i class="fas fa-cloud-upload-alt"></i></div>            
             </div>                                    
           </div>  
 
-          <div *ngFor="let documento of model.Documentos; let in=index" class="col-lg-2">    
+          <div *ngFor="let documento of model.Documentos; let in=index" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">    
+            <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
             <div>
-              <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
-              <div style="font-size: 4rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                  
-              <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+              <!-- <div (click)="removeDocument(in)" style="height: .5rem;" class="file__btn-close"><span>&times;</span></div>
+              <div style="font-size: 3rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                   -->
+              <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
+              <p style="word-break: break-all; text-align: center" class="detail-text">{{documento.NombreDocumento}}</p>                                                                          
             </div>                                                                      
           </div>                                                
         </div>              
                       
-        <div class="row mt-5">
+        <div class="row mt-3">
           <div class="col-lg-12 text-center">
-            <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
-            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary">Siguiente</button>            
+            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
+            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
           </div>
         </div>
 
@@ -199,17 +205,17 @@
                     </div> -->
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guia Master </h5>
+                      <div class="detail-text text-muted">Guia Master </div>
                       <p class="detail-text">{{model.Master}}</p>
                     </div>
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Guia House </h5>
+                      <div class="detail-text text-muted">Guia House </div>
                       <p class="detail-text">{{model.House}}</p>
                     </div>
 
                     <div class="col-12">
-                      <h5 class="detail-text text-muted">Patente</h5> 
+                      <div class="detail-text text-muted">Patente</div> 
                       <p class="detail-text">{{model.Patente}}</p>
                     </div>                                                                             
                   </div>  
@@ -221,7 +227,7 @@
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-8">
                         <div class="referencia">
-                          <h5 class="detail-text">Referencia: {{referencia}}</h5>                    
+                          <div class="detail-text">Referencia: {{referencia}}</div>                    
                         </div>
                       </div>
                       <!-- <div class="col-xs-12 col-sm-12 col-lg-4">
@@ -237,23 +243,23 @@
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-8">
-                        <h5 class="detail-text text-muted">RFC Facturar </h5>
+                        <div class="detail-text text-muted">RFC Facturar </div>
                         <p class="detail-text">{{model.RFCFacturar}}</p>
                       </div>
 
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Pedimento</h5>
+                        <div class="detail-text text-muted">Pedimento</div>
                         <p class="detail-text">{{model.Pedimento}}</p>
                       </div>                                                        
                     </div>
 
                     <div class="row">                              
                       <div class="col-xs-12 col-sm-12 col-lg-8">
-                        <h5 class="detail-text text-muted">Subdivision</h5>
+                        <div class="detail-text text-muted">Subdivision</div>
                         <p class="detail-text">{{model.Subdivision ? 'Sí' : 'No' }}</p>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <h5 class="detail-text text-muted">Fecha Salida</h5>
+                        <div class="detail-text text-muted">Fecha Salida</div>
                         <p class="detail-text">{{model.FechaSalida?.slice(0,4)}}/{{model.FechaSalida?.slice(4,6)}}/{{model.FechaSalida?.slice(6,9)}} {{model.FechaSalida?.slice(9,14)}}</p>
                       </div>
                     </div>                            
@@ -264,10 +270,11 @@
 
                 <hr class="dividerb">
 
-                <div class="row mt-5 mb-3">                
+                <div class="row mt-4">                
                   <div *ngFor="let file of model.Documentos" class="col col-lg-2">
-                    <h1 style="font-size: 5rem"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1>
-                    <p style="word-break: break-all;" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+                    <!-- <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
+                    <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
+                    <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
                   </div>                        
                 </div>              
           </div>
@@ -275,10 +282,10 @@
 
         </div> <!-- End Row -->
 
-        <div class="row mt-5">
+        <div class="row mt-3">
           <div class="col-lg-12 text-center">
-            <button matStepperPrevious class="btn btn-pill btn-primary mr-4">Regresar</button>            
-            <button (click)="crearSalida()" class="btn btn-pill btn-primary">Enviar</button>
+            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
+            <button (click)="crearSalida()" class="btn btn-pill btn-primary btn-sm">Enviar</button>
           </div>
         </div>
       </div>
@@ -296,7 +303,7 @@
           {{responseMessage}}
         </div>
         <div class="col-12 text-center mt-5 ">
-          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary">Ok</button>  
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  
         </div>
       </div>        
     </div>

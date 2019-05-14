@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angular/core';
 import { Http } from '@angular/http';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { ngfModule, ngf } from "angular-file" // DragInput
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
 
 ///////////
 // API Services 
@@ -30,7 +30,7 @@ export class PreviosComponent  {
 
   loading = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
-
+  
   ///////////////////////
   // Catalogos para los <select>
   estatusCatalogo = [];
@@ -45,8 +45,10 @@ export class PreviosComponent  {
   
   ///////////////////////
   // Status Filter Bar
-  public statusEnum = ['Aceptada', 'Solicitada', 'Pendiente AAACESA', 'Pendiente Cliente', 'Rechazada', 'Finalizada', 'Cancelada'];
-  public countStatus = {'Aceptada': 0, 'Solicitada': 0, 'PendienteAAACESA': 0, 'PendienteCliente': 0, 'Rechazada': 0, 'Finalizada': 0, 'Cancelada': 0}; 
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
 
   ///////////////////////
   // Mat Table  
@@ -93,18 +95,15 @@ export class PreviosComponent  {
 
   //////////////////////////
   // Status Filter Bar Logic
-  public updateCountStatus () {
-    this.countStatus.Aceptada = this.data.filter(function (el) {return el.Estatus === 'Aceptada'; }).length;
-    this.countStatus.Solicitada = this.data.filter(function (el) {return el.Estatus === 'Solicitada'; }).length;
-    this.countStatus.PendienteAAACESA = this.data.filter(function (el) {return el.Estatus === 'Pendiente AAACESA'; }).length;
-    this.countStatus.PendienteCliente = this.data.filter(function (el) {return el.Estatus === 'Pendiente Cliente'; }).length;
-    this.countStatus.Rechazada = this.data.filter(function (el) {return el.Estatus === 'Rechazada'; }).length;
-    this.countStatus.Finalizada = this.data.filter(function (el) {return el.Estatus === 'Finalizada'; }).length;
-    this.countStatus.Cancelada = this.data.filter(function (el) {return el.Estatus === 'Cancelada'; }).length;
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
   }
 
   public applyFilter(index: number) {
     this.dataSource.data = [];
+    this.currentFilterIndex = index;
 
     if (index < this.statusEnum.length) {
       this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
@@ -163,7 +162,7 @@ export class PreviosComponent  {
   buscaPreviosNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarPrevios();
   }
 
@@ -226,6 +225,7 @@ export class PreviosComponent  {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -256,19 +256,23 @@ export class PreviosComponent  {
     this.apiService.service_general_get(`/AdelantoPrevios/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                              
-        // element.setAttribute('target','_blank');
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        } else {
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+          element.setAttribute('target','_blank');
+          // element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
       
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-        }  
+          // For browser with no support of download attribute
+          if (typeof element.download == undefined) {
+            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          }
+        }
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
   }
 
   openDialog(): void {
@@ -303,10 +307,14 @@ export class PreviosComponent  {
 export class DialogCreatePreviosComponent implements OnInit {
 
   isLinear = true;
+
+  @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: FormGroup;
+  isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();
     
   daterangepickerOptions = {
     startDate: '09/01/2017',
@@ -342,19 +350,13 @@ export class DialogCreatePreviosComponent implements OnInit {
       houseCtrl: ['', Validators.required],
       referenciaCtrl: ['', []]
     });
-    this.secondFormGroup = this._formBuilder.group({
-      // nombreCtrl: ['', Validators.required],
-      // paternoCtrl: ['', Validators.required],
-      // maternoCtrl: ['', Validators.required],
-      // patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    this.secondFormGroup = this._formBuilder.group({  
       fechaPrevioCtrl: ['', Validators.required],
-      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],
-      // numGafeteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      etiquetadoCtrl: [false, Validators.required],
-      // comentarioCtrl: [''],    
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      etiquetadoCtrl: [false, Validators.required],      
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -366,6 +368,55 @@ export class DialogCreatePreviosComponent implements OnInit {
       comentarioCtrl: [''],     
     });
     
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+  }
+
+  hourValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
+
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = parseInt(control.value);        
+
+    let selectedDate = moment(this.secondFormGroup.controls.fechaPrevioCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                 
+
+    if (selectedHour < currentHour && (today === selectedDate)) { return { hour:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  minuteValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
+
+    let currentMinute = parseInt(moment(new Date()).format('mm'));    
+    let selectedMinute = parseInt(control.value);
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = this.secondFormGroup.controls.horaPrevioCtrl.value;  
+        
+    let selectedDate = moment(this.secondFormGroup.controls.fechaPrevioCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                      
+        
+    if ( (selectedMinute < currentMinute) && (selectedHour <= currentHour) && (today === selectedDate) ) { return { minute:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  fechaArriboChange() {    
+    this.secondFormGroup.get('fechaPrevioCtrl').valueChanges    
+    .subscribe((data) => { 
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();  
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();            
+    });
+  }  
+  hourChange() {
+    this.secondFormGroup.get('horaPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+  minuteChange() {
+    this.secondFormGroup.get('minutoPrevioCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
   }
 
   closeDialog(msj:string): void {    
@@ -377,6 +428,11 @@ export class DialogCreatePreviosComponent implements OnInit {
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
+
+    if (event.selectedIndex === 0){
+      this.isMasterHouseValid = false;
+    }
+
     if (event.selectedIndex === 4){
       this.guardarFirstForm();
     }
@@ -393,6 +449,32 @@ export class DialogCreatePreviosComponent implements OnInit {
     else if(!this.thirdFormGroup.valid && index === 2) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     }
+
+    if (this.firstFormGroup.valid && index === 0) {
+      this.validarMasterHouse();
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    this.isMasterHouseValid = false;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
+      this.showAlert("Master/House encontrada");      
+      this.isMasterHouseValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {       
+      this.secondFormGroup.value.piezasCtrl = "";                  
+      this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {
@@ -428,6 +510,40 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.firstFormGroup.get('referenciaCtrl').setValue('');  
     this.referencia = "Sin Referencia";        
   }
+
+   //////////////////////
+  // Paso 2
+  checkGafete() {        
+    let gafete = this.thirdFormGroup.get('numGafeteCtrl').value;        
+    this.apiService.service_general_get(`/AdelantoPrevios/GetTramitador/${gafete}`)
+    .subscribe ( 
+    (response:any) => { 
+      // console.log(response);      
+      this.thirdFormGroup.get('nombreCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('nombreCtrl').setValue(response.Nombre);
+      this.thirdFormGroup.get('paternoCtrl').setValue(response.Paterno);
+      this.thirdFormGroup.get('maternoCtrl').setValue(response.Materno);
+      this.thirdFormGroup.get('patenteCtrl').setValue(response.Patente);      
+      this.thirdFormGroup.get('nombreCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').disable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').disable({onlySelf: true, emitEvent: false});      
+    },(errorService) => { 
+      console.log(errorService);
+      this.thirdFormGroup.get('nombreCtrl').setValue('');
+      this.thirdFormGroup.get('paternoCtrl').setValue('');
+      this.thirdFormGroup.get('maternoCtrl').setValue('');
+      this.thirdFormGroup.get('patenteCtrl').setValue(''); 
+      this.thirdFormGroup.get('nombreCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('paternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('maternoCtrl').enable({onlySelf: true, emitEvent: false});
+      this.thirdFormGroup.get('patenteCtrl').enable({onlySelf: true, emitEvent: false});  
+      // this.showAlert("Gafete no encontrada");
+    });
+  }  
 
 
   guardarFirstForm () {    

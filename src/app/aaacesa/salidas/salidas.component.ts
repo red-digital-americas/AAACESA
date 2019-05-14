@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation, ViewChild, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 ///////////
 // Material
-import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
 
 ///////////
 // API Services 
@@ -37,6 +37,13 @@ export class SalidasComponent  {
   fechaPrevioSearch:Date = null;
   rangoFechaSearch:any = [];
   estatusSearch:any = "";    
+
+  ///////////////////////
+  // Status Filter Bar  
+  public statusEnum = ['Solicitada', 'Rechazada', 'Pendiente Cliente', 'Pendiente AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public statusLabels = ['Solicitada', 'Rechazada', 'P.Cliente', 'P.AAACESA', 'Aceptada', 'Finalizada', 'Cancelada'];  
+  public countStatus = [0, 0, 0, 0, 0, 0, 0];
+  public currentFilterIndex = this.statusEnum.length;
   
   ///////////////////////
   // Mat Table  
@@ -44,7 +51,7 @@ export class SalidasComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaCreacion', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Patente', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -80,6 +87,25 @@ export class SalidasComponent  {
       (response:any) => { this.estatusCatalogo = response;}, 
       (errorService) => { console.log(errorService); });
   }
+
+  //////////////////////////
+  // Status Filter Bar Logic
+  public updateCountStatus () {    
+    for (let i=0; i < this.statusEnum.length; i++) {
+      this.countStatus[i] = this.data.filter( (el) => {return el.Estatus === this.statusEnum[i]; }).length;
+    }    
+  }
+
+  public applyFilter(index: number) {
+    this.dataSource.data = [];
+    this.currentFilterIndex = index;
+
+    if (index < this.statusEnum.length) {
+      this.dataSource.data = this.data.filter (function (el) { return  el.Estatus === this.statusEnum[index]; }.bind(this));
+    } else {
+      this.dataSource.data = this.data;
+    }
+  }  
   
   public buscarSalidas () {    
     this.loading = true;
@@ -104,7 +130,8 @@ export class SalidasComponent  {
       .subscribe ( 
       (response:any) => {                 
         this.data = response;        
-        this.dataSource.data = this.data;        
+        this.dataSource.data = this.data;   
+        this.updateCountStatus();     
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -113,7 +140,7 @@ export class SalidasComponent  {
   buscaSalidasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
     this.buscarSalidas();
   }
 
@@ -125,7 +152,7 @@ export class SalidasComponent  {
     this.apiService.service_general_get(`/AdelantoFacturacion/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { this.detailData = response; this.loading = false;}, 
-    (errorService) => { console.log(errorService); this.loading = false; });
+    (errorService) => { console.log(errorService); this.loading = false; });    
   } 
   
   ///////////////////////////////
@@ -172,6 +199,7 @@ export class SalidasComponent  {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
+      if (event.target.files[i].size > 4194304) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -202,21 +230,24 @@ export class SalidasComponent  {
     this.apiService.service_general_get(`/AdelantoFacturacion/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
-
-        /////// Option 1 - Creating a new anchor <a> tag
-        var element = document.createElement('a');
-        element.style.display = 'none';
-        element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
-        element.setAttribute('download', response.NombreDocumento);
-        document.body.appendChild(element); element.click(); document.body.removeChild(element);              
-        
-        // For browser with no support of download attribute
-        if (typeof element.download == undefined) {
-          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-        }        
+        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        } else {
+          var element = document.createElement('a');
+          element.style.display = 'none';
+          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
+          element.setAttribute('target','_blank');
+          // element.setAttribute('download', response.NombreDocumento);
+          document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      
+          // For browser with no support of download attribute
+          if (typeof element.download == undefined) {
+            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+          }
+        }
 
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
   }
 
   openDialog(): void {
@@ -250,9 +281,13 @@ export class SalidasComponent  {
 export class DialogCreateSalidaComponent implements OnInit {
 
   isLinear = true;
+
+  @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: FormGroup;
+  isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  minDate = new Date();
 
   model:SalidaNuevo = new SalidaNuevo();  
   files;                                  // Arreglo usado por el dragInputFiles  
@@ -285,10 +320,60 @@ constructor(
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaSalidaCtrl: ['', Validators.required],
-      horaSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23)]],
-      minutoSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59)]],            
+      horaSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoSalidaCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    
     }); 
+
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+  }
+
+  hourValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
+
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = parseInt(control.value);        
+
+    let selectedDate = moment(this.secondFormGroup.controls.fechaSalidaCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                 
+
+    if (selectedHour < currentHour && (today === selectedDate)) { return { hour:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  minuteValidation (control: FormControl): {[s:string]:boolean} {
+    if (!this.hasOwnProperty('secondFormGroup')) { return {minute:true} }
+
+    let currentMinute = parseInt(moment(new Date()).format('mm'));    
+    let selectedMinute = parseInt(control.value);
+    let currentHour = parseInt(moment(new Date()).format('HH'));    
+    let selectedHour = this.secondFormGroup.controls.horaSalidaCtrl.value;  
+        
+    let selectedDate = moment(this.secondFormGroup.controls.fechaSalidaCtrl.value).format('DD/MM/YYYY');
+    let today = moment(new Date()).format('DD/MM/YYYY');                      
+        
+    if ( (selectedMinute < currentMinute) && (selectedHour <= currentHour) && (today === selectedDate) ) { return { minute:true } } // fallando          
+    return null; // validacion pasa
+  }
+
+  fechaArriboChange() {    
+    this.secondFormGroup.get('fechaSalidaCtrl').valueChanges    
+    .subscribe((data) => { 
+      this.secondFormGroup.get('horaSalidaCtrl').updateValueAndValidity();  
+      this.secondFormGroup.get('minutoSalidaCtrl').updateValueAndValidity();            
+    });
+  }  
+  hourChange() {
+    this.secondFormGroup.get('horaSalidaCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('minutoSalidaCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+  minuteChange() {
+    this.secondFormGroup.get('minutoSalidaCtrl').valueChanges    
+    .subscribe((data) => {       
+      this.secondFormGroup.get('horaSalidaCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
   }
 
   closeDialog(msj:string): void {    
@@ -300,6 +385,11 @@ constructor(
   // Detonado cuando cambiamos de un paso con los botones (superiores) del stepper
   stepClick(event) {    
     // console.log(event);
+
+    if (event.selectedIndex === 0){
+      this.isMasterHouseValid = false;
+    }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
@@ -312,7 +402,35 @@ constructor(
     } 
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
-    }       
+    }
+    
+    if (this.firstFormGroup.valid && index === 0) {
+      this.validarMasterHouse();
+      // this.isMasterHouseValid = true;                           //QuitarEsto
+      // setTimeout(() => {this.stepper.selectedIndex = 1;});      //QuitarEsto
+    }
+  }
+
+  private validarMasterHouse() {
+    this.processingCreation = true;
+    this.isMasterHouseValid = false;
+    
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    .subscribe ( 
+    (response:any) => {       
+      // this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
+      // this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
+      this.showAlert("Master/House encontrada");      
+      this.isMasterHouseValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {       
+      // this.secondFormGroup.value.piezasCtrl = "";                  
+      // this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });        
   }
 
   private showAlert (msj:string) {
@@ -325,17 +443,22 @@ constructor(
 
   //////////////////////
   // Paso 1
-  checkReferencia() {    
-    //Consultar servicios        
-    if (this.firstFormGroup.get('referenciaCtrl').value == "123abcd") {
-      this.firstFormGroup.get('masterCtrl').setValue('123-12345678');
-      this.firstFormGroup.get('houseCtrl').setValue('houseReferencia');
+  checkReferencia() {        
+    let referencia = this.firstFormGroup.get('referenciaCtrl').value;           
+    this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
+    .subscribe ( 
+    (response:any) => { 
+      console.log(response);
+      this.firstFormGroup.get('masterCtrl').setValue(response.Master);
+      this.firstFormGroup.get('houseCtrl').setValue(response.House);
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
-    } else {
+    },(errorService) => { 
+      console.log(errorService);
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
       this.referencia = "Sin Referencia";
-    }
+      this.showAlert("Referencia no encontrada");
+    });
   }
 
   cleanReferencia() {        
