@@ -298,11 +298,7 @@ export class PrealertasComponent {
         if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
           window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
         } else if(/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {          
-          var element = document.createElement('a');
-          element.style.display = 'none';
-          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                                
-          element.setAttribute('download', response.NombreDocumento);
-          document.body.appendChild(element); element.click(); document.body.removeChild(element);
+          window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                                     
         } else {
           this.externalPdfViewer.pdfSrc = this.base64ToArrayBuffer(response.Archivo);      
           this.externalPdfViewer.refresh();              
