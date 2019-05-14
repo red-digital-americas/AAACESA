@@ -18,7 +18,7 @@ import { BsDatepickerViewMode } from 'ngx-bootstrap/datepicker/models';
 
 export class BitacorasComponent implements OnInit {
 
-  displayedColumns: string[] = ['Nombre', 'Accion', 'Detalle', 'Hora', 'Fecha'];
+  displayedColumns: string[] = ['Nombre', 'Accion', 'Detalle', 'Fecha', 'Hora'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -78,13 +78,6 @@ export class BitacorasComponent implements OnInit {
              console.log(newDate);
             return newDate;
             }
-          case 'Hora':{
-            let h = item['FechaCreacion'].split(' ')[1];
-            console.log(h)
-            let newHours = new Date(h);
-            console.log(newHours);
-            return newHours;
-            }
           default: { return item[property];} 
         }
       };
@@ -93,7 +86,9 @@ export class BitacorasComponent implements OnInit {
   }
 
   limpiarFlitros(){
-
+    this.busquedaBit.Clean();
+    this.rangoFechaSearch = "";
+    this.dataSource.data = [];
   }
 
 }
