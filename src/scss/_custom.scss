@@ -140,20 +140,6 @@ td.mat-cell{
     padding-right: 24px !important;
 }
 
-// Mat Modal
-.mat-dialog-content {
-    max-height: 80vh !important;
-}
-.mat-horizontal-stepper-header-container {
-    margin-top: -1.5rem !important; 
-    height: 4rem;
-}
-.mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover {
-    background-color: transparent;
-}
-.mat-horizontal-stepper-header{
-    pointer-events: none !important;
-}
 
 //switch
 .switch-outline-secondary .switch-input:checked + .switch-slider {
@@ -170,7 +156,6 @@ td.mat-cell{
     color: #4C58A9;
 }
 //Mat Dialog
-
 .mat-dialog-container {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     background: #fff;
@@ -181,6 +166,19 @@ td.mat-cell{
     font-size: .75rem;
     font-weight: 400;
     line-height: 1.5;
+}
+.mat-dialog-content {
+    max-height: 80vh !important;
+}
+.mat-horizontal-stepper-header-container {
+    margin-top: -1.5rem !important; 
+    height: 4rem;
+}
+.mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover {
+    background-color: transparent;
+}
+.mat-horizontal-stepper-header{
+    pointer-events: none !important;
 }
 
 

@@ -77,11 +77,11 @@
 
         <div class="col-lg-3">
           <div class="row justify-content-center">
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-5 mb-1 align-self-end">
-              <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 align-self-end">
+              <button (click)="buscarPrealertas()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-7 mb-1 align-self-start">              
-              <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 align-self-start">              
+              <button (click)="buscaPrealertasNueva()" style="float:right" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
             </div>
           </div>
         </div>    
@@ -119,8 +119,9 @@
 
 
       <!-- Start Data Table -->
+      <!-- <div class="table-responsive mat-elevation-z8"> -->
       <div class="table-responsive">
-          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">                                   
+          <table mat-table [dataSource]="dataSource" matSort>                                   
           
             <ng-container matColumnDef="IdPrealerta">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Prealerta </th>
