@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';        //Modal
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';     // Select Search Mat
 import { ngfModule } from 'angular-file';
 import { NgxLoadingModule } from 'ngx-loading';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 ////////////////////////
 // Material
@@ -77,6 +78,7 @@ import { SharedModule } from '../shared/shared.module';
     NgxMatSelectSearchModule,
     ngfModule,
     NgxLoadingModule.forRoot({}),
+    PdfJsViewerModule,
     SharedModule
   ],
   declarations: [    
