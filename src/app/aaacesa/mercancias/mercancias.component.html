@@ -1,3 +1,4 @@
+<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>
 <div class="animated fadeIn">
   <div class="card" style="height: 100vh">
     <div class="card-body">
@@ -9,14 +10,14 @@
             <!-- busqueda Master -->
             <div class="col-lg-6 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.Master" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.Master" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master" required/>
               </mat-form-field>
             </div>
 
             <!-- busqueda House -->
             <div class="col-lg-6 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guía House" />
               </mat-form-field>
             </div>
             
@@ -39,25 +40,215 @@
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)" >
         <!-- TAB INFO GENERAL -->
         <mat-tab label="Información General"> 
-          <p>Tab 1</p>
+          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+            <div class="row">
+              <div class="table-responsive" *ngIf="visibleIG">
+                <table mat-table [dataSource]="dataGetInfoG">
+        
+                  <!-- RazonSocial Column -->
+                  <ng-container matColumnDef="Piezas">
+                    <th mat-header-cell *matHeaderCellDef> No. Piezas </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Piezas}} </td>
+                  </ng-container>
+
+                  <!-- RazonSocial Column -->
+                  <ng-container matColumnDef="FechaArribo">
+                    <th mat-header-cell *matHeaderCellDef> Fecha de arribo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaArribo}} </td>
+                  </ng-container>
+
+                  <!-- RazonSocial Column -->
+                  <ng-container matColumnDef="Peso">
+                    <th mat-header-cell *matHeaderCellDef> Peso </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Peso}} </td>
+                  </ng-container>
+
+                  <!-- RazonSocial Column -->
+                  <ng-container matColumnDef="Parcialidad">
+                    <th mat-header-cell *matHeaderCellDef> Parcialidad </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Parcialidad}} </td>
+                  </ng-container>
+
+                  <!-- RazonSocial Column -->
+                  <ng-container matColumnDef="DescMercancia">
+                    <th mat-header-cell *matHeaderCellDef> Descripción de mercancía </th>
+                    <td mat-cell *matCellDef="let element"> {{element.DescMercancia}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="infoGralColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: infoGralColumns;"></tr>
+                </table>
+              </div>
+              <div class="col-md-12" *ngIf="!visibleIG">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+            </div>
+          </div>
         </mat-tab>
         <!-- END TAB INFO GENRAL -->
         
         <!-- TAB ESTATUS MERCANCIA -->
         <mat-tab label="Estatus Mercancía">  
-          <p>Tab 2</p>
+          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+            <div class="row">
+              <div class="table-responsive" *ngIf="visibleES">
+                <table mat-table [dataSource]="dataEstatus" >
+        
+                  <!-- UltimaZona Column -->
+                  <ng-container matColumnDef="UltimaZona">
+                    <th mat-header-cell *matHeaderCellDef> Zona de guardado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.UltimaZona}} </td>
+                  </ng-container>
+
+                  <!-- FechaUltimoPrevio Column -->
+                  <ng-container matColumnDef="FechaUltimoPrevio">
+                    <th mat-header-cell *matHeaderCellDef> Fecha previo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaUltimoPrevio}} </td>
+                  </ng-container>
+
+                  <!-- FechaAbandono Column -->
+                  <ng-container matColumnDef="FechaAbandono">
+                    <th mat-header-cell *matHeaderCellDef> Fecha abandono </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaAbandono}} </td>
+                  </ng-container>
+
+                  <!-- PesoUltimoPrevio Column -->
+                  <ng-container matColumnDef="PesoUltimoPrevio">
+                    <th mat-header-cell *matHeaderCellDef> Peso previo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.PesoUltimoPrevio}} </td>
+                  </ng-container>
+
+                  <!-- PzasUltimoPrevio Column -->
+                  <ng-container matColumnDef="PzasUltimoPrevio">
+                    <th mat-header-cell *matHeaderCellDef> Piezas previo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.PzasUltimoPrevio}} </td>
+                  </ng-container>
+
+                  <!-- NumPrevios Column -->
+                  <ng-container matColumnDef="NumPrevios">
+                    <th mat-header-cell *matHeaderCellDef> Num. Previos </th>
+                    <td mat-cell *matCellDef="let element"> {{element.NumPrevios}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="estatusColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: estatusColumns;"></tr>
+                </table>
+              </div>
+              <div class="col-md-12" *ngIf="!visibleES">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+            </div>
+          </div>
         </mat-tab>
         <!-- END TAB -->
 
         <!-- TAB INFO SALIDAS MERCANCIAS -->
         <mat-tab label="Info Salida Mercancía">  
-          <p>Tab 3</p>
+          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+            <div class="row">
+              <div class="table-responsive" *ngIf="visibleIS">
+                <table mat-table [dataSource]="dataInfoSalidas">
+        
+                  <!-- FechaSalida Column -->
+                  <ng-container matColumnDef="FechaSalida">
+                    <th mat-header-cell *matHeaderCellDef> Fecha emisión factura </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaSalida}} </td>
+                  </ng-container>
+
+                  <!-- Pedimento Column -->
+                  <ng-container matColumnDef="Pedimento">
+                    <th mat-header-cell *matHeaderCellDef> Pedimento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Pedimento}} </td>
+                  </ng-container>
+
+                  <!-- Folio Column -->
+                  <ng-container matColumnDef="Folio">
+                    <th mat-header-cell *matHeaderCellDef> Folio Factura  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
+                  </ng-container>
+
+                  <!-- RFC Column -->
+                  <ng-container matColumnDef="RFC">
+                    <th mat-header-cell *matHeaderCellDef> RFC Cliente </th>
+                    <td mat-cell *matCellDef="let element"> {{element.RFC}} </td>
+                  </ng-container>
+
+                  <!-- Importe Column -->
+                  <ng-container matColumnDef="Importe">
+                    <th mat-header-cell *matHeaderCellDef> Importe facturado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
+                  </ng-container>
+
+                  <!-- piezas Column -->
+                  <ng-container matColumnDef="piezas">
+                    <th mat-header-cell *matHeaderCellDef> piezas facturadas </th>
+                    <td mat-cell *matCellDef="let element"> {{element.piezas}} </td>
+                  </ng-container>
+
+                  <!-- Peso Column -->
+                  <ng-container matColumnDef="Peso">
+                    <th mat-header-cell *matHeaderCellDef> Peso facturado </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Peso}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="infoSalidasColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: infoSalidasColumns;"></tr>
+                </table>
+              </div>
+              <div class="col-md-12" *ngIf="!visibleIS">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+            </div>
+          </div>
         </mat-tab>
         <!-- END TAB -->
 
         <!-- TAB ESTATUS TRANSFERENCIA -->
-        <mat-tab label="Estatus Mercancía">  
-          <p>Tab 4</p>
+        <mat-tab label="Estatus Transferencia">  
+          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+            <div class="row">
+              <div class="table-responsive" *ngIf="visibleET">
+                <table mat-table [dataSource]="dataStatTrans">
+        
+                  <!-- FechaPrealerta Column -->
+                  <ng-container matColumnDef="FechaPrealerta">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Prealerta </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaPrealerta}} </td>
+                  </ng-container>
+
+                  <!-- Recoleccion Column -->
+                  <ng-container matColumnDef="Recoleccion">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Recoleccion </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Recoleccion}} </td>
+                  </ng-container>
+
+                  <!-- FechaDocumentosDisponibles Column -->
+                  <ng-container matColumnDef="FechaDocumentosDisponibles">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Documentos Disponibles  </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaDocumentosDisponibles}} </td>
+                  </ng-container>
+
+                  <!-- FechaCargaDisponible Column -->
+                  <ng-container matColumnDef="FechaCargaDisponible">
+                    <th mat-header-cell *matHeaderCellDef> Fecha Disponible Mercancía </th>
+                    <td mat-cell *matCellDef="let element"> {{element.FechaCargaDisponible}} </td>
+                  </ng-container>
+
+                  <!-- InstruccionManejo Column -->
+                  <ng-container matColumnDef="InstruccionManejo">
+                    <th mat-header-cell *matHeaderCellDef> Instrucciones de Manejo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.InstruccionManejo}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="statTransColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: statTransColumns;"></tr>
+                </table>
+              </div>
+              <div class="col-md-12" *ngIf="!visibleET">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+            </div>
+          </div>
         </mat-tab>
         <!-- END TAB -->
       </mat-tab-group>
