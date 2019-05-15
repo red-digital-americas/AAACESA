@@ -36,7 +36,7 @@
                   </mat-form-field>                              
 
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" placeholder="Guía House"/>  
+                    <input matInput type="text" (input)="cleanReferencia()" maxlength="20" formControlName="houseCtrl" placeholder="Guía House"/>  
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>   
@@ -77,6 +77,7 @@
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
                     <input matInput type="text" class="no-spinners" formControlName="pesoCtrl" placeholder="Peso"/>
+                    <span matSuffix>Kg.</span>
                     <mat-error *ngIf="secondFormGroup.get('pesoCtrl').errors?.required">
                         Este campo es obligatorio
                     </mat-error> 
@@ -216,7 +217,7 @@
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
-            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos</div>
+            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos .PDF (Max. 4Mb por archivo)</div>
             <div class="my-drop-zone__icon"><i class="fas fa-cloud-upload-alt"></i></div>            
             </div>                                    
           </div>  
@@ -267,7 +268,7 @@
                         <div class="row justify-content-end">
                           <div class="col">
                             <!-- <div class="detail-text referencia">Referencia: Sin Referencia</div>  -->
-                            <div class="detail-text referencia">Referencia: {{ referencia }}</div>                             
+                            <div class="detail-text">Referencia: {{ referencia }}</div>                             
                           </div>                          
                         </div>
                       </div>                        

@@ -37,7 +37,7 @@
                   </mat-form-field>                              
 
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" placeholder="Guía House"/>  
+                    <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" maxlength="20" placeholder="Guía House"/>  
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error>   
@@ -162,7 +162,7 @@
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
-            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos</div>
+            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos .PDF (Max. 4Mb por archivo)</div>
             <div class="my-drop-zone__icon"><i class="fas fa-cloud-upload-alt"></i></div>            
             </div>                                    
           </div>  
@@ -226,7 +226,7 @@
 
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-lg-8">
-                        <div class="referencia">
+                        <div class="">
                           <div class="detail-text">Referencia: {{referencia}}</div>                    
                         </div>
                       </div>

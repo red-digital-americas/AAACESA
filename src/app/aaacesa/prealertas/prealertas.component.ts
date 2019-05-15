@@ -422,7 +422,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required],
+      houseCtrl: ['', Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')],
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
@@ -430,8 +430,8 @@ export class DialogCreatePrealertasComponent implements OnInit {
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: [new Date(), Validators.required],      
-      horaPrevioCtrl: ['00', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
-      minutoPrevioCtrl: ['00', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
+      horaPrevioCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
       rangoTemperaturaCtrl: ['ZONA SECA', Validators.required],

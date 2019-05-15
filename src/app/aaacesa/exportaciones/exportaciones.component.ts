@@ -373,7 +373,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
       pedimentoCtrl: ['', Validators.required],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
-      fechaEntradaMercanciaCtrl: ['', Validators.required],
+      fechaEntradaMercanciaCtrl: [new Date(), Validators.required],
       comentarioCtrl: ['']    
     });
     
