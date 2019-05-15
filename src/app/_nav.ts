@@ -12,7 +12,7 @@ switch(permisos)
       icon: 'icon-home',
     },
     {
-      name: 'Pre Alertas',
+      name: 'Prealertas',
       url: '/prealertas',
       icon: 'icon-info'
     },
