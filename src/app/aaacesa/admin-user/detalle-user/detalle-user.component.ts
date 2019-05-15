@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef, Inject } from '@angular/core';
 import { ApiServices } from '../../../services/api.services';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { ActualizaData, ActualizaPerfil } from '../../../models/user.models';
+import { ActualizaData, ActualizaPerfil, UserData } from '../../../models/user.models';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -19,9 +19,12 @@ export class DetalleUserComponent implements OnInit {
   final: boolean = false;
   loading=false;
   title;
+  ClavePatente: any;
+  RazonSocial: any;
 
   public actualizaUser: ActualizaData= new ActualizaData();
   public actualizaPerfil: ActualizaPerfil= new ActualizaPerfil();
+  public detailUser: UserData = new UserData();
 
   public phoneModel = '';
   public phoneMask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -45,6 +48,10 @@ export class DetalleUserComponent implements OnInit {
       this.actualizaUser.Telefono= res.Telefono;
       this.actualizaUser.Perfil.ClavePerfil= res.Perfil['ClavePerfil'];
       this.actualizaPerfil.Perfil.ClavePerfil= res.Perfil['ClavePerfil'];
+      this.detailUser.ClavePatente = res.ClavePatente;
+      this.detailUser.RazonSocial = res.RazonSocial;
+      console.log(res.ClavePatente);
+      console.log(res.RazonSocial);
     });
     this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
       this.getPerfilUser = res;

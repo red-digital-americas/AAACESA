@@ -38,6 +38,12 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
             <td mat-cell *matCellDef="let element"> {{element.Correo}} </td>
           </ng-container>
+          
+          <!-- Correo Column -->
+          <ng-container matColumnDef="ClavePatente">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
+            <td mat-cell *matCellDef="let element"> {{element.ClavePatente}} </td>
+          </ng-container>
 
           <!-- Perfil Column -->
           <ng-container matColumnDef="ClavePerfil">

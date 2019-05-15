@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiServices } from '../../services/api.services';
 import { Http } from '@angular/http';
-import { MatTabChangeEvent, MatSnackBar, MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTabChangeEvent, MatSnackBar, MatSort, MatTableDataSource, MatPaginator, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MercanciasBusqueda, GetInformacionGeneral, GetEstatus, GetInformacionSalidas, GetEstatusTransferencia } from '../../models/mercancias.model';
 
@@ -72,7 +72,7 @@ export class MercanciasComponent implements OnInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert('Información General: '+ error);
+        this.sendAlert(error);
       }
     });
 
@@ -93,7 +93,7 @@ export class MercanciasComponent implements OnInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert('Estatus Mercancía: '+ error);
+        this.sendAlert( error);
       }
     });
 
@@ -114,22 +114,20 @@ export class MercanciasComponent implements OnInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert('Salida Mercancía: '+ error);
+        this.sendAlert(error);
       }
     });
 
     
     //Tabla GetEstatusTransferencia
     this.apiserv.service_general_get_with_params('/ConsultaMercancia/GetEstatusTransferencia',this.busquedaModel).subscribe((dataT) => {
+      let array:any[] = [];
       this.loading= false;
       this.visible=true;
       this.visibleET=true;
       this.loading=false;
-      
-      this.dataStatTrans.data = dataT;
-      console.log(this.dataStatTrans.data);
-      // this.dataGetInfoG.paginator = this.PaginInfoG;
-      // this.dataGetInfoG.sort = this.SortInfoG;
+      array.push(dataT);
+      this.dataStatTrans.data = array;
     }, 
     (err: HttpErrorResponse) => { 
       this.loading=false;
@@ -138,12 +136,11 @@ export class MercanciasComponent implements OnInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert('Estatus Transferencia: '+ error);
+        this.sendAlert(error);
       }
     });
-    
-
   }
+
   limpiarFlitros(){
     this.getInfoGral.Clean();
     this.getEstatus.Clean();
