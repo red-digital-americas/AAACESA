@@ -84,6 +84,7 @@ export class ExportacionesComponent {
   ///////////////////////////////
   // Seguimiento
   modelSeguimiento:ExportacionSeguimiento = new ExportacionSeguimiento();
+  @ViewChild('externalPdfViewer') public externalPdfViewer;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
@@ -241,23 +242,30 @@ export class ExportacionesComponent {
     this.apiService.service_general_get(`/Exportacion/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
-        if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
-          let pdfWindow = window.open("").document.write("<iframe width='100%' height='100%' src='data:application/pdf;base64,"+encodeURI(response.Archivo)+"'></iframe>")                 
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+          window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
+        } else if(/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {             
+          var byteArray = new Uint8Array(this.base64ToArrayBuffer(response.Archivo));
+          var blob = new Blob([byteArray], {
+              type: 'application/pdf'
+          });
+          window.navigator.msSaveOrOpenBlob(blob, response.NombreDocumento);    
         } else {
-          var element = document.createElement('a');
-          element.style.display = 'none';
-          element.setAttribute('href', `data:application/pdf;base64,${response.Archivo}`);                                      
-          element.setAttribute('target','_blank');
-          // element.setAttribute('download', response.NombreDocumento);
-          document.body.appendChild(element); element.click(); document.body.removeChild(element);
-      
-          // For browser with no support of download attribute
-          if (typeof element.download == undefined) {
-            window.open("data:application/pdf;base64,"+encodeURI(response.Archivo), "_blank");
-          }
+          this.externalPdfViewer.pdfSrc = this.base64ToArrayBuffer(response.Archivo);      
+          this.externalPdfViewer.refresh();              
         }
       }, 
       (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
+  }
+
+  private base64ToArrayBuffer(arreglito:string): Uint8Array {
+    let binary_string =  window.atob(arreglito);
+    let len = binary_string.length;
+    let bytes = new Uint8Array( len );
+    for (let i = 0; i < len; i++)        {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
   }
 
   openDialog(): void {

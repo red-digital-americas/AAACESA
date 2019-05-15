@@ -23,6 +23,7 @@ export class MercanciasComponent implements OnInit {
   }
 
   buscarMercancias(){
+    
   }
   limpiarFlitros(){
   }

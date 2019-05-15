@@ -79,10 +79,10 @@
         <div class="col-lg-3">
           <div class="row justify-content-start">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-              <button (click)="buscarPrevios()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+              <button (click)="buscarPrevios()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-              <button (click)="buscaPreviosNueva()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
+              <button (click)="buscaPreviosNueva()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
             </div>
           </div>
         </div> 
@@ -118,7 +118,7 @@
       <!-- End Status Filter Bar -->
                   
         <div class="table-responsive">
-          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">                                   
+          <table mat-table [dataSource]="dataSource" matSort>                                   
           
             <ng-container matColumnDef="Master">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía Master </th>
@@ -207,31 +207,25 @@
                           <div class="card">
                             <div class="card-body">
                           <div class="row mb-1">
-                            <div class="col-sm-4 col-md-4 col-lg-4">
+                            <div class="col-sm-12 col-md-12 col-lg-4">
 
                               <div class="row">
-                                <div class="col">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
                                   <h5 class="detail-text text-muted">Guía Master </h5>
                                   <p class="detail-text">{{detailData.Master}}</p>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col">
+                                </div>                              
+                              
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
                                   <h5 class="detail-text text-muted">Guía House </h5>
                                   <p class="detail-text">{{detailData.House}}</p>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col">
+                                </div>                              
+                              
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
                                   <h5 class="detail-text text-muted">Patente </h5>
                                   <p class="detail-text">{{detailData.Patente}}</p>
-                                </div>
-                              </div>
-                              
-                              <div class="row">
-                                <div class="col">
+                                </div>                              
+                                                            
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
                                   <h5 class="detail-text text-muted">Fecha y hora previo </h5>
                                   <p class="detail-text">{{detailData.FechaPrevio }}</p>
                                 </div>
@@ -241,13 +235,13 @@
                           
                             <div class="col-sm-12 col-md-12 col-lg-8">
                               <div class="row">
-                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-8">
+                                  <div class="col-6 col-sm-6 col-md-6 col-lg-8">
                                     <div class="referencia">
                                       <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>
                                     </div>
                                   </div>
 
-                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">                                    
+                                  <div class="col-6 col-sm-6 col-md-6 col-lg-4">                                    
                                     <h5 class="detail-text text-muted">Estatus:</h5>
                                     <div class="col status-filter">            
                                       <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
@@ -259,7 +253,7 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
 
                                   <div class="row">
                                     <div class="col">
@@ -283,7 +277,7 @@
                                   </div>
                                 </div>
 
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
                                   <div class="row">
                                     <div class="col">
                                       <h5 class="detail-text text-muted">No. Gafete </h5>
@@ -404,6 +398,7 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+<ng2-pdfjs-viewer #externalPdfViewer [externalWindow]="true"></ng2-pdfjs-viewer>
 
 
         
