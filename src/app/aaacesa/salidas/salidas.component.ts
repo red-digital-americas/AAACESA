@@ -339,7 +339,7 @@ constructor(
     if (!this.hasOwnProperty('secondFormGroup')) { return {hour:true} }
 
     let currentHour = parseInt(moment(new Date()).format('HH'));    
-    let selectedHour = parseInt(control.value);        
+    let selectedHour = parseInt(control.value);
 
     let selectedDate = moment(this.secondFormGroup.controls.fechaSalidaCtrl.value).format('DD/MM/YYYY');
     let today = moment(new Date()).format('DD/MM/YYYY');                 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
-import { MatTableDataSource, MatPaginator, MatSort, MatTabChangeEvent } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatTabChangeEvent, MatSnackBar } from '@angular/material';
 // import { ApiServices } from '../../services/api.services';
 import { facturasBusqueda } from '../../models/finanzas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
@@ -31,7 +31,7 @@ export class FinanzasComponent implements OnInit {
   fechaEmisionSearch:Date = null;
 
 
-  displayedColumns: string[] = ['Master', 'House', 'Folio', 'Valor', 'Pedimento', 'FechaDeEmision', 'Descargar'];
+  displayedColumns: string[] = ['Master', 'House', 'Folio', 'Valor', 'Pedimento', 'FechaEmision', 'Descargar'];
   CPColumns: string[] = ['UUID', 'FechaTimbrado', 'Folio', 'Valor', 'RFC', 'RazonSocial', 'FoliosRelacionados', 'Descargar'];
   EdoCtaColumns: string[] = ['MasterHouse', 'Folio', 'Pedimento', 'Cliente', 'ImporteFactura', 'ImporteFaltante', 'FechaFactura', 'DiasVencidos', 'Estatus'];
   dataSource = new MatTableDataSource();
@@ -50,6 +50,14 @@ export class FinanzasComponent implements OnInit {
   public myModal;
   public detalle;
   apiService: any;
+
+  private showAlert (msj:string) {
+    this.snackBar.open(msj, "", {
+      duration: 4000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.InvoicesPaginator;
@@ -73,7 +81,7 @@ export class FinanzasComponent implements OnInit {
   }   
 
 
-  constructor(private http: Http, private apiserv: ApiServices) { }
+  constructor(private http: Http, private apiserv: ApiServices, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     for(var i = 0;i <= 3; i++ ){
@@ -135,13 +143,14 @@ export class FinanzasComponent implements OnInit {
       this.busquedaModel[0].FechaFinal = "";
     }        
     console.log(this.busquedaModel);
+    this.loading = true;
     this.apiserv.service_general_get_with_params('/Finanzas/GetFacturas', this.busquedaModel[0])
       .subscribe ( 
       (response:any) => {
         this.data = response;
         this.dataSource.data = this.data;
         this.dataSource.data = [...this.dataSource.data];
-        this.loading = true;
+        this.loading = false;
       }, 
       (errorService) => {
         console.log(errorService); this.loading = true;
@@ -158,7 +167,6 @@ export class FinanzasComponent implements OnInit {
   }
 
   public getPDFInvoices(element){
-    debugger
     let format = moment(element.FechaEmision).format('YYYYMMDD');
     let params = {FolioFactura:element.Folio, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaFacturaPDF`, params).subscribe (
@@ -213,8 +221,8 @@ export class FinanzasComponent implements OnInit {
       this.busquedaModel[1].FechaInicial = "";
       this.busquedaModel[1].FechaFinal = "";
     }        
+    this.loading = true;
     console.log(this.busquedaModel);
-    debugger
     this.apiserv.service_general_get_with_params('/Finanzas/GetNotasCredito', this.busquedaModel[1])
       .subscribe ( 
       (response:any) => {
@@ -238,7 +246,6 @@ export class FinanzasComponent implements OnInit {
   }
 
   public getPDF(element){
-    debugger
     let format = moment(element.FechaEmision).format('YYYYMMDD');
     let params = {FolioFactura:element.Folio, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaNotaCreditoPDF`, params).subscribe (
@@ -291,6 +298,7 @@ export class FinanzasComponent implements OnInit {
       this.busquedaModel[2].FechaInicial = "";
       this.busquedaModel[2].FechaFinal = "";
     }        
+    this.loading = true;
     console.log(this.busquedaModel);
     this.apiserv.service_general_get_with_params('/Finanzas/GetComplementoDePago', this.busquedaModel[2])
       .subscribe ( 
@@ -298,7 +306,7 @@ export class FinanzasComponent implements OnInit {
         this.data = response;    
         this.info.data = this.data;
         this.info.data = [...this.info.data];
-        this.loading = true;
+        this.loading = false;
       }, 
       (errorService) => { 
         console.log(errorService); this.loading = false;
@@ -313,6 +321,52 @@ export class FinanzasComponent implements OnInit {
     this.info.data = [];
     this.info.data = [...this.info.data];
   }
+  public getComplementoPDF(element){
+    let params = {UUID:element.UUID}
+    this.apiserv.service_general_get_with_params(`/Finanzas/DescargaComplementoPagoPDF`, params).subscribe (
+      (response:any) => {
+        console.log(response);
+        var element = document.createElement('a');
+        element.style.display = 'none';
+        element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
+        element.setAttribute('download', response.Nombre);
+        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      
+        // For browser with no support of download attribute
+        if (typeof element.download == undefined) {
+          window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
+        }  
+      }, 
+      (errorService) => { 
+        console.log(errorService);
+        this.showAlert("Archivo no disponible");
+      });     
+  }
+ 
+
+  public getComplementoXML(element){
+    let params = {UUID:element.UUID}
+    this.apiserv.service_general_get_with_params(`/Finanzas/DescargaComplementoPagoXML`, params).subscribe (
+      (response:any) => {
+        console.log(response);
+        var element = document.createElement('a');
+        element.style.display = 'none';
+        element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
+        element.setAttribute('download', response.Nombre);
+        document.body.appendChild(element); element.click(); document.body.removeChild(element);
+      
+        // For browser with no support of download attribute
+        if (typeof element.download == undefined) {
+          window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
+        }  
+      }, 
+      /* (errorService) => { console.log(errorService); }); */
+      (errorService) => { 
+        console.log("errorService");
+        this.showAlert("Archivo no disponible");
+      });
+  }
+
 
   //Estados de cuenta **********************************************************************************************
   public EstadosBusqueda(){
@@ -326,6 +380,7 @@ export class FinanzasComponent implements OnInit {
       this.busquedaModel[3].FechaInicial = "";
       this.busquedaModel[3].FechaFinal = "";
     }        
+    this.loading = true;
     console.log(this.busquedaModel);
     this.apiserv.service_general_get_with_params('/Finanzas/GetEstadoDeCuenta', this.busquedaModel[3])
       .subscribe ( 
@@ -333,12 +388,15 @@ export class FinanzasComponent implements OnInit {
         this.data = response;    
         this.account.data = this.data;
         this.account.data = [...this.account.data];
-        this.loading = true;
+        this.loading = false;
       }, 
       (errorService) => { 
-        console.log(errorService); this.loading = true;
+        console.log(errorService); this.loading = false;
+        /* this.showAlert(errorService.error); */
+        this.showAlert("Rango de fechas no válido");  
       });
   }
+  
 
   public NuevaBusquedaEstados(){
     this.clear.Clean();

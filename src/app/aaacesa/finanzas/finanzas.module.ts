@@ -6,11 +6,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FinanzasComponent } from './finanzas.component';
 
 //import { FinanzasRoutingModule } from './finanzas-routing.module';
-import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { FinanzasRoutingModule } from './finanzas-routing.module';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 
@@ -25,10 +26,13 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
     MatInputModule,
     MatTabsModule,
     MatTableModule,
+    MatDialogModule,
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    SharedModule
+    MatSnackBarModule,
+    SharedModule,
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [
     FinanzasComponent,

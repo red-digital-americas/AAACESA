@@ -13,13 +13,3 @@ export class BitacorasBusqueda {
     }
 }
 
-export class MercanciasBusqueda {
-    constructor() { }    
-    public Master:string = "";    
-    public House:string = "";        
-
-    Clean() {
-        this.Master = "";    
-        this.House = "";        
-    }
-}

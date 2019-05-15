@@ -1,13 +1,20 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="animated fadeIn">
-  <div class="row">
+    <div>  
+        <button mat-button (click)="dia()" style="color:#CF0A2B">Día</button>
+        <button mat-button style="color:#CF0A2B">Semana</button>
+        <button mat-button style="color:#CF0A2B">Mes</button>
+    </div>
+      <br>
+      <br>
+  <div class="row"> 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+      
       <div *ngFor="let elemento of summarys">
         <app-general-summary [summary]="elemento"></app-general-summary>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
-
       <div class="row" style="margin-bottom:20px;">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <img class="img-fluid" src="https://via.placeholder.com/400x220" />
@@ -68,7 +75,7 @@
                   <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#FB600A" *ngIf="merch.status == 'Previo'">{{merch.status}}</small>
                   <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#CF0A2B" *ngIf="merch.status == 'Abandono'">{{merch.status}}</small>
                 </div>
-                
+
               </div>
               <div class="col-xs-12" style="color:aqua; margin-bottom:14px"><mat-divider></mat-divider></div>
               <div class="col-xs-12 text-center"><a href="#" style="color:#6976D2">Ver todo</a></div>
