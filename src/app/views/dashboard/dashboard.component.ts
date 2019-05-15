@@ -11,13 +11,15 @@ import { Chart } from 'chart.js';
 export class DashboardComponent implements OnInit {
 
   public summarys: any[] = [
-    new Summary("Abandono", 50, "bg-red"),
+    new Summary("Abandono", 60, "bg-red"),
     new Summary("Previos", 100, "bg-orange"),
     new Summary("Salida", 120, "bg-yello"),
     new Summary("Trasnsferencias", 80, "bg-green")
   ]
 
+public dia(){
 
+}
 
 
   public merchant: any[] = [
