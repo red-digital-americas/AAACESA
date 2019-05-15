@@ -291,40 +291,41 @@
           <div class="col-12">                                
                 <div class="row mb-1">
                   <!-- Start Left Inside -->
-                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">                                                                                                
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">                                                                                                
+                    <div class="row">
+                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
+                        <div class="detail-text text-muted">Guía Master </div>
+                        <p class="detail-text">{{model.GuiaMaster}}</p>
+                      </div>
 
-                    <div class="col-12">
-                      <div class="detail-text text-muted">Guía Master </div>
-                      <p class="detail-text">{{model.GuiaMaster}}</p>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="detail-text text-muted">Guía House </div>
-                      <p class="detail-text">{{model.GuiaHouse}}</p>
-                    </div>
+                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
+                        <div class="detail-text text-muted">Guía House </div>
+                        <p class="detail-text">{{model.GuiaHouse}}</p>
+                      </div>
 
                     <div class="col-12">
                       <div class="detail-text text-muted">Consignatario a Facturar</div> 
                       <p class="detail-text">{{model.Consignatario}}</p>
                     </div>
 
-                    <div class="col">
-                      <div class="detail-text text-muted">Método de Pago</div>
-                      <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
-                    </div>
+                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
+                        <div class="detail-text text-muted">Método de Pago</div>
+                        <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
+                      </div>
 
-                    <div class="col">
-                      <div class="detail-text text-muted">Condición de Almacenaje</div>
-                      <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
-                    </div>                                                      
+                      <div class="col-12">
+                        <div class="detail-text text-muted">Condición de Almacenaje</div>
+                        <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
+                      </div>    
+                    </div>                                                  
                   </div>  
                   <!-- End Left Inside -->
 
                   <!-- Start Right Inside -->
-                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
 
                     <div class="row justify-content-start">
-                      <div class="col-xs-12 col-sm-12 col-lg-8">
+                      <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                         <div class="referencia">
                           <div class="detail-text">Referencia: {{ model.Referencia }}</div>                             
                         </div>
@@ -341,32 +342,32 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-lg-2">
+                      <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                         <div class="detail-text text-muted">Piezas </div>
                         <p class="detail-text">{{model.Piezas}}</p>
                       </div>
 
-                      <div class="col-xs-12 col-sm-12 col-lg-2">
+                      <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                         <div class="detail-text text-muted">Peso</div>
                         <p class="detail-text">{{model.Peso}} kg</p>
                       </div>
 
-                      <div class="col-xs-12 col-sm-12 col-lg-8">
+                      <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                         <div class="detail-text text-muted">Uso de CFDI</div>
                         <p class="detail-text">{{usoCFDICatalogo | getSelect: model.UsoCFDI : 2}}</p>
                       </div>                              
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                      <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                         <div class="detail-text text-muted">Fecha de Arribo</div>
                         <p class="detail-text">{{model.FechaArribo}}</p>
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                      <div class="col-6 col-sm-3 col-md-3 col-lg-4 col-xl-3">
                         <div class="detail-text text-muted">Consolidado</div>
                         <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-lg-4">
+                      <div class="col-12 col-sm-5 col-md-5 col-lg-4 col-xl-5">
                         <div class="detail-text text-muted">Almacén de Origen</div>
                         <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
                       </div>
