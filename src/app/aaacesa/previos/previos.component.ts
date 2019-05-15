@@ -359,9 +359,9 @@ export class DialogCreatePreviosComponent implements OnInit {
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({  
-      fechaPrevioCtrl: ['', Validators.required],
-      horaPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
-      minutoPrevioCtrl: ['', [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
+      fechaPrevioCtrl: [new Date(), Validators.required],
+      horaPrevioCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       etiquetadoCtrl: [false, Validators.required],      

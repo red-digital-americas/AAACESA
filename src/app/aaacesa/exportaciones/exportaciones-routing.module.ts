@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ExportacionesComponent,
     data: {
       // title: 'DataTable'
-      title: 'Prealertas'
+      title: 'Exportaciones'
     }
   }
 ];

@@ -28,7 +28,7 @@ switch(permisos)
     },
     {
       name: 'Exportación',
-      url: '/buttons/buttons',
+      url: '/exportaciones',
       icon: 'icon-globe',
     },
     {
@@ -112,7 +112,7 @@ switch(permisos)
     },
     {
       name: 'Exportación',
-      url: '/buttons/buttons',
+      url: '/exportaciones',
       icon: 'icon-globe',
     },
     {
