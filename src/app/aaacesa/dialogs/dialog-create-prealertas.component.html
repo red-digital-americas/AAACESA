@@ -4,7 +4,7 @@
 <div mat-dialog-title>
   <div class="row justify-content-between">
     <div class="col">
-        <h5>Nueva Pre Alerta</h5>
+        <h5>Nueva Prealerta</h5>
     </div>  
     <div class="col">
       <button mat-dialog-close type="button" class="close" aria-label="Close">
@@ -24,8 +24,8 @@
       <form [formGroup]="firstFormGroup">                
           <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-              <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">                
+              <div class="row justify-content-center">
+                <div class="col-sm-5 col-md-5 col-lg-5">                
                   <mat-form-field class="input-full-width">         
                     <input matInput type="text" formControlName="masterCtrl" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
@@ -36,9 +36,9 @@
                     </mat-error>    
                   </mat-form-field>                                                
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">                                                
+                <div class="col-sm-5 col-md-5 col-lg-5">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" formControlName="houseCtrl" placeholder="Guía House"/>                    
+                    <input matInput type="text" maxlength="20" formControlName="houseCtrl" placeholder="Guía House"/>                    
                   </mat-form-field>                 
                 </div>
               </div>          
@@ -77,6 +77,7 @@
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" class="no-spinners" formControlName="pesoCtrl" placeholder="Peso"/>
+                  <span matSuffix>Kg.</span>
                   <mat-error *ngIf="secondFormGroup.get('pesoCtrl').errors?.required">
                       Este campo es obligatorio
                   </mat-error> 
@@ -114,7 +115,7 @@
                       <mat-option>                      
                         <ngx-mat-select-search formControlName="almacenOrigenSearchCtrl" [placeholderLabel]="'Almacén'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                       </mat-option>
-                      <mat-option>Ninguno</mat-option>                    
+                      <!-- <mat-option>Ninguno</mat-option>                     -->
                       <mat-option *ngFor="let option of almacenOrigenCatalogo | filterSelect: secondFormGroup.get('almacenOrigenSearchCtrl').value" [value]="option.Clave"> 
                         {{option.RecintoFiscalizado}}
                       </mat-option>
@@ -131,7 +132,7 @@
                     <mat-option>                      
                       <ngx-mat-select-search formControlName="condicionesAlmacenesSearchCtrl" [placeholderLabel]="'Condiciones Almacen'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option>Ninguno</mat-option>                    
+                    <!-- <mat-option>Ninguno</mat-option>                     -->
                     <mat-option *ngFor="let option of condicionesAlmacenesCatalogo | filterSelect: secondFormGroup.get('condicionesAlmacenesSearchCtrl').value" [value]="option.CveCondicionalmacenaje"> 
                       {{option.CveCondicionalmacenaje}} - {{option.Descripcion}}
                     </mat-option>
@@ -145,7 +146,7 @@
                       <mat-option>                      
                         <ngx-mat-select-search formControlName="rangoTemperaturaSearchCtrl" [placeholderLabel]="'Temperatura'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                       </mat-option>
-                      <mat-option>Ninguno</mat-option>                    
+                      <!-- <mat-option>Ninguno</mat-option>                     -->
                       <mat-option *ngFor="let option of rangoTemperaturaCatalogo | filterSelect: secondFormGroup.get('rangoTemperaturaSearchCtrl').value" [value]="option.Concepto"> 
                         {{option.Concepto}}
                       </mat-option>
@@ -162,7 +163,7 @@
                     <mat-option>                      
                       <ngx-mat-select-search formControlName="usoCFDISearchCtrl" [placeholderLabel]="'Uso de CFDI'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option>Ninguno</mat-option>                    
+                    <!-- <mat-option>Ninguno</mat-option>                     -->
                     <mat-option *ngFor="let option of usoCFDICatalogo | filterSelect: secondFormGroup.get('usoCFDISearchCtrl').value" [value]="option.c_UsoCFDI"> 
                       {{option.c_UsoCFDI}} - {{option.Descripcion}}
                     </mat-option>
@@ -185,7 +186,7 @@
                     <mat-option>                      
                       <ngx-mat-select-search formControlName="metodoPagoSearchCtrl" [placeholderLabel]="'Método de Pago'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option>Ninguno</mat-option>                    
+                    <!-- <mat-option>Ninguno</mat-option>                     -->
                     <mat-option *ngFor="let option of metodoPagoCatalogo | filterSelect: secondFormGroup.get('metodoPagoSearchCtrl').value" [value]="option.c_MetodoPago"> 
                       {{option.c_MetodoPago}} - {{option.Descripcion}}
                     </mat-option>
@@ -252,7 +253,7 @@
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
-            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos</div>
+            <div class="my-drop-zone__text d-none d-lg-block d-xl-block">Arrastra / Selecciona tus archivos .PDF (Max. 4Mb por archivo)</div>
             <div class="my-drop-zone__icon"><i class="fas fa-cloud-upload-alt"></i></div>            
             </div>                                    
           </div>  
@@ -281,13 +282,14 @@
     <mat-step>      
       <!-- <ng-template matStepLabel>Resumen</ng-template> -->
 
-      <div class="container">              
+      <div class="container">
         <div class="row">
-
+          <h3>Datos capturados</h3>
+        </div>              
+        <div class="row">
           <!--  Start left -->
           <div class="col-12">                                
                 <div class="row mb-1">
-
                   <!-- Start Left Inside -->
                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">                                                                                                
 
@@ -302,7 +304,7 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="detail-text text-muted">Consiganatario a Facturar</div> 
+                      <div class="detail-text text-muted">Consignatario a Facturar</div> 
                       <p class="detail-text">{{model.Consignatario}}</p>
                     </div>
 
@@ -414,12 +416,9 @@
 
   <div *ngIf="successResponse" class="container mt-3">
     <div class="conatiner">
-      <div class="row">
+      <div class="row">        
         <div class="col-12 text-center">
-          Gracias
-        </div>
-        <div class="col-12 text-center">
-          {{responseMessage}}
+          <h3>{{responseMessage}}</h3>
         </div>
         <div class="col-12 text-center mt-5 ">
           <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  
