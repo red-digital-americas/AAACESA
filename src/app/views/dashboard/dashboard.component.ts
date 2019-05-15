@@ -7,19 +7,18 @@ import { Chart } from 'chart.js';
 
 @Component({
   templateUrl: 'dashboard.component.html'
+  
 })
 export class DashboardComponent implements OnInit {
 
   public summarys: any[] = [
-    new Summary("Abandono", 60, "bg-red"),
-    new Summary("Previos", 100, "bg-orange"),
-    new Summary("Salida", 120, "bg-yello"),
-    new Summary("Trasnsferencias", 80, "bg-green")
+    new Summary("Previos", 50, "bg-gray"),
+    new Summary("Salidas", 100, "bg-salidas"),
+    new Summary("Transferencias", 120, "bg-transfer"),
+    new Summary("Abandono", 80, "bg-abandono")
   ]
 
-public dia(){
 
-}
 
 
   public merchant: any[] = [
@@ -27,7 +26,6 @@ public dia(){
     new Merchant("021563431", "12345978", "21/03/2018", "Salida"),
     new Merchant("021563431", "12345978", "21/03/2018", "Previo"),
     new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
-    new Merchant("021563431", "12345978", "21/03/2018", "Transfer"),
   ]
   // barChart
   //public barChartOptions: any = {
@@ -52,23 +50,23 @@ public dia(){
         labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         datasets: [
           {
-            label: "Abandono",
-            backgroundColor: "#CF0A2B",
-            data: [65, 59, 80, 81, 56, 55, 40, 8, 11, 78, 34, 12]
-          },
-          {
-            label: "Previos",
-            backgroundColor: "#FB600A",
-            data: [23, 45, 8, 90, 56, 40, 40, 8, 11, 78, 94, 56]
-          },
-          {
-            label: "Salidas",
-            backgroundColor: "#E2DA0C",
+            label: "Transferencias",
+            backgroundColor: "#1E82BA",
             data: [65, 59, 80, 8, 56, 60, 4, 8, 11, 5, 94, 56]
           },
           {
-            label: "Trasferencias",
-            backgroundColor: "#0AA010",
+            label: "Previos",
+            backgroundColor: "gray",
+            data: [65, 59, 80, 81, 56, 55, 40, 8, 11, 78, 34, 12]
+          },
+          {
+            label: "Salidas",
+            backgroundColor: "#1EC8F3",
+            data: [23, 45, 8, 90, 56, 40, 40, 8, 11, 78, 94, 56]
+          },
+          {
+            label: "Abandono",
+            backgroundColor: "#D9E11E",
             data: [25, 79, 40, 81, 56, 55, 90, 8, 11, 78, 54, 56]
           }
         ]
