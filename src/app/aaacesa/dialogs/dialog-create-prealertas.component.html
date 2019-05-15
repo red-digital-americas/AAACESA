@@ -38,7 +38,13 @@
                 </div>
                 <div class="col-sm-5 col-md-5 col-lg-5">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" maxlength="20" formControlName="houseCtrl" placeholder="Guía House"/>                    
+                    <input matInput type="text" maxlength="20" formControlName="houseCtrl" placeholder="Guía House"/>   
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
+                        Este campo es obligatorio
+                      </mat-error>
+                      <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
+                        Debe ser una Guia Master
+                      </mat-error>                    
                   </mat-form-field>                 
                 </div>
               </div>          
@@ -286,123 +292,85 @@
         <div class="row">
           <h3>Datos capturados</h3>
         </div>              
-        <div class="row">
-          <!--  Start left -->
-          <div class="col-12">                                
-                <div class="row mb-1">
-                  <!-- Start Left Inside -->
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">                                                                                                
-                    <div class="row">
-                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
-                        <div class="detail-text text-muted">Guía Master </div>
-                        <p class="detail-text">{{model.GuiaMaster}}</p>
-                      </div>
-
-                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
-                        <div class="detail-text text-muted">Guía House </div>
-                        <p class="detail-text">{{model.GuiaHouse}}</p>
-                      </div>
-
-                    <div class="col-12">
-                      <div class="detail-text text-muted">Consignatario a Facturar</div> 
-                      <p class="detail-text">{{model.Consignatario}}</p>
-                    </div>
-
-                      <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-12">
-                        <div class="detail-text text-muted">Método de Pago</div>
-                        <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
-                      </div>
-
-                      <div class="col-12">
-                        <div class="detail-text text-muted">Condición de Almacenaje</div>
-                        <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
-                      </div>    
-                    </div>                                                  
-                  </div>  
-                  <!-- End Left Inside -->
-
-                  <!-- Start Right Inside -->
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
-
-                    <div class="row justify-content-start">
-                      <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                        <div class="referencia">
-                          <div class="detail-text">Referencia: {{ model.Referencia }}</div>                             
-                        </div>
-                      </div>
-                      <!-- <div class="col-xs-12 col-sm-12 col-lg-4">
-                        <div class="detail-text text-muted">Estatus</div>
-                        <div class="col status-filter">            
-                          <div class="status-filter__circle status-filter__circle--Solicitada"></div>
-                          <div class="status-filter__text">
-                            <p> Solicitada </p>
-                          </div>
-                        </div>
-                      </div> -->
-                    </div>
-
-                    <div class="row">
-                      <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                        <div class="detail-text text-muted">Piezas </div>
-                        <p class="detail-text">{{model.Piezas}}</p>
-                      </div>
-
-                      <div class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-                        <div class="detail-text text-muted">Peso</div>
-                        <p class="detail-text">{{model.Peso}} kg</p>
-                      </div>
-
-                      <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                        <div class="detail-text text-muted">Uso de CFDI</div>
-                        <p class="detail-text">{{usoCFDICatalogo | getSelect: model.UsoCFDI : 2}}</p>
-                      </div>                              
-                    </div>
-
-                    <div class="row">
-                      <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                        <div class="detail-text text-muted">Fecha de Arribo</div>
-                        <p class="detail-text">{{model.FechaArribo}}</p>
-                      </div>
-                      <div class="col-6 col-sm-3 col-md-3 col-lg-4 col-xl-3">
-                        <div class="detail-text text-muted">Consolidado</div>
-                        <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
-                      </div>
-                      <div class="col-12 col-sm-5 col-md-5 col-lg-4 col-xl-5">
-                        <div class="detail-text text-muted">Almacén de Origen</div>
-                        <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-lg-6">
-                        <div class="detail-text text-muted">Rango de Temperatura</div>
-                        <h6 class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 0}}</h6>
-                      </div>   
-                      
-                      <div class="col-xs-12 col-sm-12 col-lg-6">
-                        <div class="detail-text text-muted">Instrucciones de Manejo</div>
-                        <h6 class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 1}}</h6>
-                      </div>   
-                    </div>
-                    
-                  </div>
-                  <!-- End Right Inside -->
-                  
-                </div>                                                                                                                                                                 
-
-                <hr class="dividerb">
-
-                <div class="row mt-4 mb-3">                
-                  <div *ngFor="let file of model.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
-                    <!-- <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
-                    <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
-                    <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
-                  </div>                        
-                </div>              
+        <div class="row mt-2">
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="detail-text text-muted">Guía Master </div>
+            <p class="detail-text">{{model.GuiaMaster}}</p>
           </div>
-          <!--  End left -->         
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="detail-text text-muted">Guía House </div>
+            <p class="detail-text">{{model.GuiaHouse}}</p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <div class="detail-text text-muted">Referencia</div>
+              <p class="detail-text">{{model.Referencia }}</p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="detail-text text-muted">Piezas </div>
+            <p class="detail-text">{{model.Piezas}}</p>
+          </div>
 
-        </div> <!-- End Row -->
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="detail-text text-muted">Peso</div>
+            <p class="detail-text">{{model.Peso}} kg</p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <div class="detail-text text-muted">Fecha de Arribo</div>
+              <p class="detail-text">{{model.FechaArribo}}</p>
+            </div>
+        </div><!-- End Row Inside -->
+        <hr class="dividerb">
+        <div class="row mt-3">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="detail-text text-muted">Almacén de Origen</div>
+            <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Condición de Almacenaje</div>
+              <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
+          </div>
+          
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Rango de Temperatura</div>
+              <p class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 0}}</p>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Consolidado</div>
+              <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
+          </div>
+        </div><!-- End Row Inside -->
+
+
+        <div class="row mt-3">
+          
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Uso de CFDI</div>
+              <p class="detail-text">{{usoCFDICatalogo | getSelect: model.UsoCFDI : 2}}</p>
+          </div>
+          
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Consignatario a Facturar</div> 
+              <p class="detail-text">{{model.Consignatario}}</p>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Método de Pago</div>
+              <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <div class="detail-text text-muted">Instrucciones de Manejo</div>
+              <p class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 1}}</p>
+          </div>
+        </div><!-- End Row Inside -->                                                
+
+        <hr class="dividerb">
+        <div class="row mt-3">
+          <div *ngFor="let file of model.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
+              <!-- <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
+            <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
+            <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+          </div>                        
+        </div><!-- End Row Inside -->                                                
 
         <div class="row mt-3">
           <div class="col-lg-12 text-center">
