@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation, ViewChild, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
@@ -80,7 +82,8 @@ export class SalidasComponent  {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor( private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor( private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
     this.buscaSalidasNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')

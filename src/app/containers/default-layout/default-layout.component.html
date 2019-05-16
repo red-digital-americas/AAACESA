@@ -87,6 +87,27 @@
     </ol>
     <div class="container-fluid">
       <router-outlet></router-outlet>
+      <div (click)="toogleCalc=!toogleCalc" class="floating__btn"><i class="fas fa-calculator"></i></div>  
+      <!-- <div (click)="sesionDialog('calculadora')" class="floating__btn"><i class="fas fa-calculator"></i></div>         -->
+      <div [ngClass]="{'floating__panel--active': toogleCalc}" class="floating__panel">
+        <h1 (click)="toogleCalc=!toogleCalc">&times;</h1>
+
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+      
+            <!-- <div class="modal-header">
+              <h6 class="modal-title">Detalle PreAlerta</h6>
+              <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div> -->
+      
+            <div class="modal-body">        
+              <app-calculdora></app-calculdora>
+            </div>
+          </div>
+        </div>
+      </div>
     </div><!-- /.container-fluid -->
   </main>
 </div>

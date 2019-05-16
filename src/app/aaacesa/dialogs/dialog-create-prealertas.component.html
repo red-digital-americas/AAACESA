@@ -98,7 +98,7 @@
             <div class="row mb-1">                              
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha estimada de Arribo">
+                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha estimada de Arribo">
                     <mat-error *ngIf="secondFormGroup.get('fechaArriboCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error> 
@@ -293,28 +293,28 @@
           <h3>Datos capturados</h3>
         </div>              
         <div class="row mt-2">
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text text-muted">Guía Master </div>
             <p class="detail-text">{{model.GuiaMaster}}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text text-muted">Guía House </div>
             <p class="detail-text">{{model.GuiaHouse}}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
               <div class="detail-text text-muted">Referencia</div>
               <p class="detail-text">{{model.Referencia }}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text text-muted">Piezas </div>
             <p class="detail-text">{{model.Piezas}}</p>
           </div>
 
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text text-muted">Peso</div>
             <p class="detail-text">{{model.Peso}} kg</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
               <div class="detail-text text-muted">Fecha de Arribo</div>
               <p class="detail-text">{{model.FechaArribo}}</p>
             </div>

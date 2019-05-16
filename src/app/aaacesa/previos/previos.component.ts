@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { ngfModule, ngf } from "angular-file" // DragInput
+import { BsLocaleService } from 'ngx-bootstrap';
 
 ///////////
 // Material
@@ -85,7 +86,8 @@ export class PreviosComponent  {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
 
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {            
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {            
+    this.localeService.use('es');
     this.buscarPrevios();
 
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')

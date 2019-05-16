@@ -11,27 +11,15 @@
                 <h6>Ingresa los datos solicitados a continuación.</h6>
               </div>
               <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-6 col-lg-6">                
-                    <!-- <mat-form-field class="input-full-width">
-                        <mat-select [(ngModel)]="busquedaModel.Estatus" class="" placeholder="Estatus" #singleSelect>
-                          <mat-option>                      
-                            <ngx-mat-select-search [(ngModel)]="estatusSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option>Ninguno</mat-option>
-                          
-                          <mat-option *ngFor="let option of estatusCatalogo | filterSelect: estatusSearch" [value]="option.IdEstatus"> 
-                            {{option.Descripcion}}
-                          </mat-option>
-                        </mat-select>                  
-                      </mat-form-field> -->              
+                <div class="col-sm-12 col-md-6 col-lg-6">                                                 
                   <div class="input-group">
-                    <mat-form-field class="input-full-width" >
+                    <!-- <mat-form-field class="input-full-width" >
                       <mat-select placeholder="CVE / Tipo Entrada">
                           <mat-option>
                               <input matInput class="form-control">
                           </mat-option>
                       </mat-select>
-                    </mat-form-field> 
+                    </mat-form-field>  -->
                     
                     <mat-form-field class="input-full-width">
                       <input matInput type="number" class="form-control" placeholder="Peso: 590 kg" required>
@@ -65,7 +53,7 @@
                         </label>
                     </div>
 
-                    <mat-form-field *ngIf="frio" class="input-full-width" >
+                    <!-- <mat-form-field *ngIf="frio" class="input-full-width" >
                         <mat-select placeholder="Rango de temperatura">
                             <mat-option>10°</mat-option>
                             <mat-option>5°</mat-option>
@@ -73,7 +61,7 @@
                             <mat-option>-5°</mat-option>
                             <mat-option>-10°</mat-option>
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
 
                     <div *ngIf="frio" class="input-full-width form-group form-check">                    
                         <label for="consolidado" class="form-check-label">Previo</label>
