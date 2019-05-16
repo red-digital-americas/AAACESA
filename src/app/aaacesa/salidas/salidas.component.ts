@@ -302,7 +302,7 @@ export class DialogCreateSalidaComponent implements OnInit {
   isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
-  minDate = new Date();
+  minDate = this.minDate = moment(new Date()).add(1, 'days').toDate();
 
   model:SalidaNuevo = new SalidaNuevo();  
   files;                                  // Arreglo usado por el dragInputFiles  
@@ -323,7 +323,7 @@ constructor(
   private apiService:ApiServices,
   public snackBar: MatSnackBar) { }
 
-  ngOnInit() {
+  ngOnInit() {        
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -334,7 +334,7 @@ constructor(
       pedimentoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fechaSalidaCtrl: [new Date(), Validators.required],
+      fechaSalidaCtrl: [moment(new Date()).add(1, 'days').format('DD/MM/YYYY'), Validators.required],
       horaSalidaCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoSalidaCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    
