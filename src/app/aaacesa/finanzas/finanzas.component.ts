@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { MatTableDataSource, MatPaginator, MatSort, MatTabChangeEvent, MatSnackBar } from '@angular/material';
 // import { ApiServices } from '../../services/api.services';
@@ -15,7 +15,7 @@ import { ApiServices } from '../../services/api.services';
   encapsulation: ViewEncapsulation.None,
   providers: [ApiServices]
 })
-export class FinanzasComponent implements OnInit {
+export class FinanzasComponent implements OnInit, AfterViewInit{
 
   @ViewChild('InvoicesPaginator', {read:MatPaginator}) InvoicesPaginator: MatPaginator;
   @ViewChild('CreditNotesPaginator',{read:MatPaginator}) CreditNotesPaginator: MatPaginator;
@@ -34,6 +34,7 @@ export class FinanzasComponent implements OnInit {
   displayedColumns: string[] = ['Master', 'House', 'Folio', 'Importe', 'Pedimento', 'FechaEmision', 'Descargar'];
   CPColumns: string[] = ['UUID', 'FechaTimbrado', 'Folio', 'Importe', 'RFC', 'RazonSocial', 'FoliosRelacionados', 'Descargar'];
   EdoCtaColumns: string[] = ['MasterHouse', 'Folio', 'Pedimento', 'Cliente', 'ImporteFactura', 'ImporteFaltante', 'FechaFactura', 'DiasVencidos', 'Estatus'];
+  
   dataSource = new MatTableDataSource();
   dataSources = new MatTableDataSource();
   info = new MatTableDataSource();
@@ -60,6 +61,12 @@ export class FinanzasComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+  
+    this.InvoicesPaginator._intl.itemsPerPageLabel = "Registros por página";
+    this.CreditNotesPaginator._intl.itemsPerPageLabel = "Registros por página";
+    this.PaidComplementPaginator._intl.itemsPerPageLabel = "Registros por página";
+    this.AccountStatusPaginator._intl.itemsPerPageLabel = "Registros por página";
+   /*  this.dataSource.paginator = this.paginator; */
     this.dataSource.paginator = this.InvoicesPaginator;
     this.dataSources.paginator = this.CreditNotesPaginator;
     this.info.paginator = this.PaidComplementPaginator;
@@ -151,6 +158,7 @@ export class FinanzasComponent implements OnInit {
         this.dataSource.data = this.data;
         this.dataSource.data = [...this.dataSource.data];
         this.loading = false;
+        this.dataSource.paginator = this.InvoicesPaginator;
       }, 
       (errorService) => {
         console.log(errorService); this.loading = false;

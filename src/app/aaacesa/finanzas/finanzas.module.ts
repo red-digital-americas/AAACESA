@@ -6,7 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FinanzasComponent } from './finanzas.component';
 
 //import { FinanzasRoutingModule } from './finanzas-routing.module';
-import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule, MatDialogModule, MatSnackBarModule, MatCardModule, MatDividerModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { FinanzasRoutingModule } from './finanzas-routing.module';
 
@@ -25,6 +25,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     BsDatepickerModule.forRoot(),
     MatInputModule,
     MatTabsModule,
+    MatCardModule,
     MatTableModule,
     MatDialogModule,
     MatSortModule,
@@ -32,6 +33,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     MatIconModule,
     MatSnackBarModule,
     SharedModule,
+    MatDividerModule,
     NgxLoadingModule.forRoot({})
   ],
   declarations: [

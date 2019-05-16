@@ -104,8 +104,7 @@ export class DashboardComponent implements OnInit {
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
-        this.detailPrevios = response.Dia;
-        debugger;
+        this.detailPrevios = response.Dia
         console.log(this.detailPrevios);
       },
       (errorService) => { 
@@ -116,7 +115,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Dia;
-          debugger;
           console.log(this.detailSalidas);
         },
         (errorService) => {
@@ -127,7 +125,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Dia;
-          debugger;
           console.log(this.detailPrealertas);
         },
         (errorService) => {
@@ -138,7 +135,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Dia;
-          debugger;
           console.log(this.detailAbandono);
         },
         (errorService) => {
@@ -150,8 +146,7 @@ export class DashboardComponent implements OnInit {
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
-        this.detailPrevios = response.Semana;
-        debugger;
+        this.detailPrevios = response.Semana
         console.log(this.detailPrevios);
       },
       (errorService) => { 
@@ -162,7 +157,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Semana;
-          debugger;
           console.log(this.detailSalidas);
         },
         (errorService) => {
@@ -173,7 +167,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Semana;
-          debugger;
           console.log(this.detailPrealertas);
         },
         (errorService) => {
@@ -184,7 +177,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Semana;
-          debugger;
           console.log(this.detailAbandono);
         },
         (errorService) => {
@@ -196,8 +188,7 @@ export class DashboardComponent implements OnInit {
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
-        this.detailPrevios = response.Mes;
-        debugger;
+        this.detailPrevios = response.Mes
         console.log(this.detailPrevios);
       },
       (errorService) => { 
@@ -208,7 +199,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Mes;
-          debugger;
           console.log(this.detailSalidas);
         },
         (errorService) => {
@@ -219,7 +209,6 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Mes;
-          debugger;
           console.log(this.detailPrealertas);
         },
         (errorService) => {
@@ -230,7 +219,6 @@ export class DashboardComponent implements OnInit {
       this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Mes;
-          debugger;
           console.log(this.detailAbandono);
         },
         (errorService) => {
