@@ -104,7 +104,17 @@
                     {{statusLabels[i]}}                    
                   </label>
                 </div>
-              </div>             
+              </div>    
+              
+              <!-- Barra Original -->
+              <!-- <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+                <div class="status-filter__circle status-filter__circle--{{estado | statusPipe}}"></div>
+                <div class="status-filter__text">
+                  <label (click)="applyFilter(i)" class="u-cursor">
+                    <span class="status-filter__number">({{ countStatus[i] }})</span> {{statusLabels[i]}}
+                  </label>
+                </div>
+              </div>  -->
 
               <div [ngClass]="{'status-filter--active': currentFilterIndex==statusEnum.length}"  class="col mb-1 text-center status-filter u-cursor">                          
                 <div class="status-filter__text">
