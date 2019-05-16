@@ -40,6 +40,9 @@
                     <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" maxlength="20" placeholder="Guía House"/>  
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
                       Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
+                      Carácteres no permitidos
                     </mat-error>   
                   </mat-form-field> 
                 </div>

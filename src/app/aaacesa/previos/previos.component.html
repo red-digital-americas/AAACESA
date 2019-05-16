@@ -333,14 +333,17 @@
                               <mat-form-field class="input-full-width">         
                                 <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
                               </mat-form-field>
-                              <div class="row justify-content-end">
-                                <div class="col-lg mb-1 text-right">
-                                  <label for="file-multiple-input">
-                                    <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
-                                  </label>
-                                  <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
-                                </div>                                
-                              </div>
+
+                              <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >
+                                <div *ngIf="estado==='Pendiente AAACESA'" class="row justify-content-end">
+                                  <div class="col-lg mb-1 text-right">
+                                    <label for="file-multiple-input">
+                                      <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
+                                    </label>
+                                    <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
+                                  </div>                                
+                                </div>
+                              </ng-container>
 
                               <!-- <div class="col-lg"> -->
                                   <div class="row mb-3">                

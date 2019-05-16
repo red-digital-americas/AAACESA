@@ -157,6 +157,7 @@ export class PreviosComponent  {
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false; });   
@@ -184,6 +185,10 @@ export class PreviosComponent  {
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
+      this.showAlert("No se pueden enviar documentos al cancelar"); return;
+    }
+
     this.loading = true;
     this.modelSeguimiento.IdAdelantoPrevios = this.detailData['IdAdelantoPrevios'];
     this.modelSeguimiento.Estatus = estado;
@@ -357,7 +362,7 @@ export class DialogCreatePreviosComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required],
+      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({  

@@ -159,6 +159,7 @@ export class PrealertasComponent {
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -167,7 +168,7 @@ export class PrealertasComponent {
   buscaPrealertasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = "";
+    this.rangoFechaSearch = "";    
     this.buscarPrealertas();
   }
 
@@ -211,6 +212,10 @@ export class PrealertasComponent {
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
+      this.showAlert("No se pueden enviar documentos al cancelar"); return;
+    }
+
     this.loading = true;
     this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
     this.modelSeguimiento.Estatus = estado;
@@ -607,7 +612,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    // console.log(this.model);    
+    console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 

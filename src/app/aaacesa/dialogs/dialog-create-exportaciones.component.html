@@ -39,7 +39,13 @@
                 <div class="col-sm-5 col-md-5 col-lg-5">                                                
                   <mat-form-field class="input-full-width">    
                     <input matInput type="text" formControlName="houseCtrl" maxlength="20" placeholder="Guía House"/>                    
-                  </mat-form-field>                 
+                  </mat-form-field>      
+                  <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
+                    Este campo es obligatorio
+                  </mat-error>
+                  <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
+                    Carácteres no permitidos
+                  </mat-error>              
                 </div>
               </div>          
             </div>
