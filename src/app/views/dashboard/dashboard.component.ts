@@ -1,32 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { Summary } from '../../aaacesa/general-summary/summary'
 import { Merchant } from '../../aaacesa/general-summary/merchant'
 import { Chart } from 'chart.js';
+import { collectExternalReferences } from '@angular/compiler';
+import { ApiServices } from '../../services/api.services';
 
 @Component({
-  templateUrl: 'dashboard.component.html'
-  
+  selector: 'app-dashboard',
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [ApiServices]
 })
+
 export class DashboardComponent implements OnInit {
 
-  public summarys: any[] = [
-    new Summary("Previos", 50, "bg-gray"),
-    new Summary("Salidas", 100, "bg-salidas"),
-    new Summary("Transferencias", 120, "bg-transfer"),
-    new Summary("Abandono", 80, "bg-abandono")
-  ]
+  @Input() color: any
+  @Input() summary: Summary
+  
+  public detailPrevios = "";
+  public detailPrealertas = "";
+  public detailSalidas = "";
+  public detailAbandono = "";
+  
 
-
-
+   public summarys: any[] = [
+    new Summary("Previos", "bg-gray"),
+    new Summary("Salidas", "bg-salidas"),
+    new Summary("Prealertas", "bg-transfer"),
+    new Summary("Abandono", "bg-abandono")
+  ] 
 
   public merchant: any[] = [
-    new Merchant("021563431", "12345978", "21/03/2018", "Transfer"),
+    new Merchant("021563431", "12345978", "21/03/2018", "Prealertas"),
     new Merchant("021563431", "12345978", "21/03/2018", "Salida"),
     new Merchant("021563431", "12345978", "21/03/2018", "Previo"),
     new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
   ]
+
+  constructor(private apiservice:ApiServices) {}
+
+
   // barChart
   //public barChartOptions: any = {
   //  scaleShowVerticalLines: false,
@@ -44,13 +59,14 @@ export class DashboardComponent implements OnInit {
   //];
 
   ngOnInit(): void {
+    this.dia();
     new Chart(document.getElementById("bar-chart-summary"), {
       type: 'bar',
       data: {
         labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         datasets: [
           {
-            label: "Transferencias",
+            label: "Prealertas",
             backgroundColor: "#1E82BA",
             data: [65, 59, 80, 8, 56, 60, 4, 8, 11, 5, 94, 56]
           },
@@ -80,5 +96,146 @@ export class DashboardComponent implements OnInit {
     });
 
 
+    
+
   }
+
+  public dia() {
+    this.detailPrevios = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
+      (response:any) => {
+        this.detailPrevios = response.Dia;
+        debugger;
+        console.log(this.detailPrevios);
+      },
+      (errorService) => { 
+        console.log(errorService);
+      })
+
+      this.detailSalidas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
+        (response:any) => {
+          this.detailSalidas = response.Dia;
+          debugger;
+          console.log(this.detailSalidas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailPrealertas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
+        (response:any) => {
+          this.detailPrealertas = response.Dia;
+          debugger;
+          console.log(this.detailPrealertas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailAbandono = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
+        (response:any) => {
+          this.detailAbandono = response.Dia;
+          debugger;
+          console.log(this.detailAbandono);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+  }
+
+  public semana() {
+    this.detailPrevios = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
+      (response:any) => {
+        this.detailPrevios = response.Semana;
+        debugger;
+        console.log(this.detailPrevios);
+      },
+      (errorService) => { 
+        console.log(errorService);
+      })
+
+      this.detailSalidas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
+        (response:any) => {
+          this.detailSalidas = response.Semana;
+          debugger;
+          console.log(this.detailSalidas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailPrealertas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
+        (response:any) => {
+          this.detailPrealertas = response.Semana;
+          debugger;
+          console.log(this.detailPrealertas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailAbandono = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
+        (response:any) => {
+          this.detailAbandono = response.Semana;
+          debugger;
+          console.log(this.detailAbandono);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+  }
+
+  public mes() {
+    this.detailPrevios = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
+      (response:any) => {
+        this.detailPrevios = response.Mes;
+        debugger;
+        console.log(this.detailPrevios);
+      },
+      (errorService) => { 
+        console.log(errorService);
+      })
+
+      this.detailSalidas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
+        (response:any) => {
+          this.detailSalidas = response.Mes;
+          debugger;
+          console.log(this.detailSalidas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailPrealertas = "";
+      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
+        (response:any) => {
+          this.detailPrealertas = response.Mes;
+          debugger;
+          console.log(this.detailPrealertas);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+
+        this.detailAbandono = "";
+      this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
+        (response:any) => {
+          this.detailAbandono = response.Mes;
+          debugger;
+          console.log(this.detailAbandono);
+        },
+        (errorService) => {
+          console.log(errorService);
+        })
+  }
+
 }

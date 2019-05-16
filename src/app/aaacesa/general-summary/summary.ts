@@ -1,12 +1,10 @@
 export class Summary {
 
   tipo: string
-  cantidad: string
   color: string
 
-  constructor(tipo, cantidad, color) {
+  constructor(tipo, color) {
     this.tipo = tipo
-    this.cantidad = cantidad
     this.color = color
   }
 }
