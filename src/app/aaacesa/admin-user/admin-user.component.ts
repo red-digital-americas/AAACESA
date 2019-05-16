@@ -34,7 +34,7 @@ export class AdminUserComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+    this.loading=true;
     this.userData = JSON.parse(localStorage.getItem("user"));
 
     if((this.userData.Perfil['ClavePerfil'] == "MAESTRO" ) || (this.userData.Perfil['ClavePerfil'] == "ADMIN") )
@@ -116,6 +116,7 @@ export class AdminUserComponent implements OnInit {
 
   getCuentasAsocUser(){
     this.apiserv.service_general_get('/AdministracionCuentas/GetCuentasAsociadas').subscribe((data) => {
+      this.loading=false;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
