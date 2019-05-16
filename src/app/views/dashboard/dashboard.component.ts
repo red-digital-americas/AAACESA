@@ -23,6 +23,9 @@ export class DashboardComponent implements OnInit {
   public detailPrealertas = "";
   public detailSalidas = "";
   public detailAbandono = "";
+
+  public currentIndex = 0;
+
   
 
    public summarys: any[] = [
@@ -101,6 +104,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public dia() {
+    this.currentIndex = 0;
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
@@ -143,6 +147,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public semana() {
+    this.currentIndex = 1;
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
@@ -185,6 +190,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public mes() {
+    this.currentIndex = 2;
     this.detailPrevios = "";
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
