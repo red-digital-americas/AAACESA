@@ -482,7 +482,8 @@ constructor(
   }
 
   guardarFirstForm () {    
-    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
+    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
+    if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
     
     this.model.Master = this.firstFormGroup.value.masterCtrl;      
     this.model.House = this.firstFormGroup.value.houseCtrl;

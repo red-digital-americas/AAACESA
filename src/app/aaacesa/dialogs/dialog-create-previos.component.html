@@ -205,7 +205,7 @@
 
     </mat-step>
 
-    <mat-step [completed]="model.Documentos?.length >= 1" >      
+    <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
       <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
 
       <div class="container mt-3">
@@ -216,7 +216,7 @@
             <div ngfDrop selectable="1" multiple="1"
               [(files)]="files"
               accept = ".pdf"   
-              maxSize   = "4194304"                                                           
+              maxSize   = "2097152"                                                           
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >
@@ -305,6 +305,14 @@
           </div>
         </div><!-- End Row Inside --> 
         <hr class="dividerb">
+        <div class="row mt-3">
+          <div *ngFor="let file of model.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
+              <!-- <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
+            <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
+            <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+          </div>                        
+        </div>
+
         <div class="row mt-3">
           <div class="col-lg-12 text-center">
             <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4 btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
