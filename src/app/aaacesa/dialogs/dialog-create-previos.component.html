@@ -314,7 +314,7 @@
                     <div class="row mb-1">
                       <div class="col-md-4">
                         <div class="detail-text text-muted">Fecha y hora</div> 
-                        <p class="detail-text">{{model.FechaPrevio?.slice(0,4)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(6,9)}} {{model.FechaPrevio?.slice(9,14)}}</p>                        
+                        <p class="detail-text">{{model.FechaPrevio?.slice(6,9)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(0,4)}} {{model.FechaPrevio?.slice(9,14)}}</p>                        
                       </div>
                       <div class="col-md-4">
                         <div class="detail-text text-muted">Etiquetado</div>
@@ -350,12 +350,9 @@
 
   <div *ngIf="successResponse" class="container mt-3">
     <div class="conatiner">
-      <div class="row">
+      <div class="row">        
         <div class="col-12 text-center">
-          Gracias
-        </div>
-        <div class="col-12 text-center">
-          {{responseMessage}}
+          <h3>{{responseMessage}}</h3>
         </div>
         <div class="col-12 text-center mt-5 ">
           <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  
