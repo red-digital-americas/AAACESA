@@ -243,8 +243,8 @@
                 
     </mat-step>
 
-    <!-- <mat-step [completed]="model.Documentos?.length >= 1" >       -->
-    <mat-step>      
+    <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
+    <!-- <mat-step>       -->
       <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
 
       <div class="container mt-3">
@@ -256,7 +256,7 @@
             <div ngfDrop selectable="1" multiple="1"
               [(files)]="files"
               accept = ".pdf"       
-              maxSize   = "4194304"                                                    
+              maxSize   = "2097152"                                                    
               (filesChange) = "dropInputChange($event)"
               class="my-drop-zone"
             >

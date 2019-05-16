@@ -334,7 +334,7 @@ constructor(
       pedimentoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fechaSalidaCtrl: [moment(new Date()).add(1, 'days').format('DD/MM/YYYY'), Validators.required],
+      fechaSalidaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
       horaSalidaCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoSalidaCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    
@@ -482,7 +482,8 @@ constructor(
   }
 
   guardarFirstForm () {    
-    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
+    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
+    if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
     
     this.model.Master = this.firstFormGroup.value.masterCtrl;      
     this.model.House = this.firstFormGroup.value.houseCtrl;

@@ -562,7 +562,8 @@ export class DialogCreatePreviosComponent implements OnInit {
 
 
   guardarFirstForm () {    
-    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }
+    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
+    if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
 
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);

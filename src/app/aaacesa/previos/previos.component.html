@@ -188,191 +188,151 @@
   </div>
       
     <!-- Modal Detalle -->
-      <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+    <div bsModal #detalleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
   
-              <div class="modal-header">
-                <h6 class="modal-title">Detalle Previo {{ detailData.IdAdelantoPrevios }}</h6>
-                <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold">Detalle Previo {{ detailData.IdAdelantoPrevios }}</h5>
+            <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
   
-              <div class="modal-body">
-                <div class="container">              
-                  <div class="row">                
-
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                      <div class="row">
-                        <!--  Start left -->
-                        <div class="col-sm-12 col-md-12 col-lg-7 col-xl-8">    
-                          <div class="card">
-                            <div class="card-body">
-                          <div class="row mb-1">
-                            <div class="col-sm-12 col-md-12 col-lg-4">
-
-                              <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
-                                  <h5 class="detail-text text-muted">Guía Master </h5>
-                                  <p class="detail-text">{{detailData.Master}}</p>
-                                </div>                              
-                              
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
-                                  <h5 class="detail-text text-muted">Guía House </h5>
-                                  <p class="detail-text">{{detailData.House}}</p>
-                                </div>                              
-                              
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
-                                  <h5 class="detail-text text-muted">Patente </h5>
-                                  <p class="detail-text">{{detailData.Patente}}</p>
-                                </div>                              
-                                                            
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
-                                  <h5 class="detail-text text-muted">Fecha y hora previo </h5>
-                                  <p class="detail-text">{{detailData.FechaPrevio }}</p>
-                                </div>
-                              </div>
-
+          <div class="modal-body">
+            <div class="container">              
+              <div class="row">                
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div class="row">
+                    <!--  Start left -->
+                    <div class="col-sm-12 col-md-12 col-lg-7 col-xl-8">    
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row mt-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold ">Guía Master </div>
+                              <p class="detail-text">{{detailData.Master}}</p>
                             </div>
-                          
-                            <div class="col-sm-12 col-md-12 col-lg-8">
-                              <div class="row">
-                                  <div class="col-6 col-sm-6 col-md-6 col-lg-8">
-                                    <div class="referencia">
-                                      <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-6 col-sm-6 col-md-6 col-lg-4">                                    
-                                    <h5 class="detail-text text-muted">Estatus:</h5>
-                                    <div class="col status-filter">            
-                                      <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
-                                      <div class="status-filter__text">
-                                        <p> {{ detailData.Estatus }} </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text text-muted">Nombre Completo </h5>
-                                      <p class="detail-text">{{detailData.Nombre}} {{detailData.Paterno}} {{detailData.Materno}}</p>    
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text text-muted">Piezas </h5>
-                                      <p class="detail-text">{{detailData.Piezas}}</p>
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text text-muted">Etiquetado </h5>
-                                      <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text text-muted">No. Gafete </h5>
-                                      <p class="detail-text">{{detailData.NumGafete}}</p>
-                                    </div>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="detail-text text-muted">Peso </h5>
-                                      <p class="detail-text">{{detailData.Peso}} Kg</p>
-                                    </div>
-                                  </div>                                 
-                                </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Guía House </div>
+                              <p class="detail-text">{{detailData.House}}</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <div class="detail-text font-weight-bold">Referencia</div>
+                                <p class="detail-text">{{detailData.Referencia }}</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Estatus</div>
+                              <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                              <div class="status-filter__text">
+                                <p> {{detailData.Estatus}} </p>
                               </div>
                             </div>
-                          </div>
-
-                          <hr class="dividerb">
-
-                          <div class="row mb-3">                
-                            <div *ngFor="let file of detailData.Documentos" class="col col-lg-3">                              
-                              <!-- <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
-                              <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
-                              <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
-                            </div>                      
-                          </div>
-                          
-                          </div> <!-- card-body -->                
-                        </div> <!-- card -->                
-                        </div>
-                        <!--  End left -->
-              
-                        <!-- Start Rigth -->
-                        <div class="col-sm-12 col-md-12 col-lg-5 col-xl-4">
-                          <div class="card">
-                          <div class="card-body">
-                          <!-- <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                              <h6>Estado</h6>
-                              <h5 class="detail-text">Fecha de Solicitud</h5>
-                              <p class="detail-text">{{detailData.FechaSolicitud}}</p>
-                              <hr class="dividerb">
+                          </div><!-- End Row Inside -->
+                          <div class="row mt-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Piezas </div>
+                              <p class="detail-text">{{detailData.Piezas}}</p>
                             </div>
-                          </div> -->
-
-                          <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
-                              <h6>Seguimiento</h6>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Peso</div>
+                              <p class="detail-text">{{detailData.Peso}} kg</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                <div class="detail-text font-weight-bold">Etiquetado  </div>
+                                <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
+                              </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <div class="detail-text font-weight-bold">Fecha y Hora previo </div>
+                              <p class="detail-text">{{detailData.FechaPrevio }}</p>
                             </div>
                             
-                            <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
-                              <mat-form-field class="input-full-width">         
-                                <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
-                              </mat-form-field>
-
-                              <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >
-                                <div *ngIf="estado==='Pendiente AAACESA'" class="row justify-content-end">
-                                  <div class="col-lg mb-1 text-right">
-                                    <label for="file-multiple-input">
-                                      <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
-                                    </label>
-                                    <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
-                                  </div>                                
-                                </div>
-                              </ng-container>
-
-                              <!-- <div class="col-lg"> -->
-                                  <div class="row mb-3">                
-                                    <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col-3 col-sm-3 col-md-3 col-lg-3">                                      
-                                      <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
-                                      <div>
-                                        <!-- <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
-                                        <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                   -->
-                                        <img class="file__icon file__icon--xs" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
-                                        <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
-                                      </div>                                                                                                                                                          
-                                    </div>                      
-                                  </div>
-                                <!-- </div> -->
-
+                          </div><!-- End Row Inside -->
+                          <div class="row mt-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold ">No. Gafete </div>
+                              <p class="detail-text">{{detailData.NumGafete}}</p>
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                              <div class="row justify-content-end">
-                                <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
-                                  <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary btn-sm">{{estado | seguimientoAccionesPipe}}</button>
-                                </div>
-                              </div>                                
-                            </div>                                                      
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Patente </div>
+                              <p class="detail-text">{{detailData.Patente}}</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-3">
+                                <div class="detail-text font-weight-bold">Nombre Completo</div>
+                                <p class="detail-text">{{detailData.Nombre}} {{detailData.Paterno}} {{detailData.Materno}}</p>
+                            </div>
+                          </div><!-- End Row Inside -->
+                          <hr class="dividerb">
+                          <div class="row mt-3">
+                            <div *ngFor="let file of detailData.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
+                                <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
+                              <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
+                            </div>                        
+                          </div> <!-- End Row Inside  -->
+                        </div> <!-- card-body -->                
+                      </div> <!-- card -->                
+                    </div>
+                    <!--  End left -->
+          
+                    <!-- Start Rigth -->
+                    <div class="col-sm-12 col-md-12 col-lg-5 col-xl-4">
+                      <div class="card">
+                        <div class="card-body">
+                        <!-- <div class="row">
+                          <div class="col-sm-12 col-md-12 col-lg-12">
+                            <h6>Estado</h6>
+                            <h5 class="detail-text">Fecha de Solicitud</h5>
+                            <p class="detail-text">{{detailData.FechaSolicitud}}</p>
+                            <hr class="dividerb">
                           </div>
+                        </div> -->
 
-                          <!-- Seguimiento -->
+                        <div class="row">
+                          <div class="col-sm-12 col-md-12 col-lg-12 mb-1">
+                            <h6 class="font-weight-bold">Seguimiento</h6>
+                          </div>
+                          
+                          <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
+                            <mat-form-field class="input-full-width">         
+                              <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                            </mat-form-field>
+
+                            <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >
+                              <div *ngIf="estado==='Pendiente AAACESA'" class="row justify-content-end">
+                                <div class="col-lg mb-1 text-right">
+                                  <label for="file-multiple-input">
+                                    <div class="btn btn-pill btn-primary btn-sm"><i class="fa fa-upload"></i> Subir Documento</div>
+                                  </label>
+                                  <input (change)="onFileChanged($event)" style="display: none;" id="file-multiple-input" multiple="" type="file">
+                                </div>                                
+                              </div>
+                            </ng-container>
+
+                            <!-- <div class="col-lg"> -->
+                                <div class="row mb-3">                
+                                  <div *ngFor="let documento of modelSeguimiento.Documentos; let in=index" class="col-3 col-sm-3 col-md-3 col-lg-3">                                      
+                                    <div (click)="removeDocument(in)" class="file__btn-close"><span>&times;</span></div>
+                                    <div>
+                                      <!-- <div (click)="removeDocument(in)" style="height: 30px;" class="file__btn-close align-text-bottom"><span>&times;</span></div>
+                                      <div style="font-size: 2rem; text-align: center"><i class="fas fa-file-pdf"></i></div>                   -->
+                                      <img class="file__icon file__icon--xs" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
+                                      <p style="word-break: break-all; text-align: center">{{documento.NombreDocumento}}</p>                                                                          
+                                    </div>                                                                                                                                                          
+                                  </div>                      
+                                </div>
+                              <!-- </div> -->
+
+                          </div>
+                          <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <div class="row justify-content-end">
+                              <div *ngFor="let estado of detailData.EstatusDisponibles" class="col-lg mb-2 text-right">
+                                <button (click)="updateSeguimiento(estado)" class="btn btn-pill btn-primary btn-sm">{{estado | seguimientoAccionesPipe}}</button>
+                              </div>
+                            </div>                                
+                          </div>                                                      
+                        </div>
+
+                        <!-- Seguimiento -->
                           <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">                                                            
                               <mat-accordion>
@@ -392,18 +352,17 @@
                               </mat-accordion>                                
                             </div>
                           </div>
-                          </div>
-                          </div>
                         </div>
-                        <!--  End Rigth -->
-  
-                  </div>
-                </div>                                                                                                
-  
-              </div>                                                  
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                      </div>
+                    </div>
+                    <!--  End Rigth -->
+
+              </div>
+            </div><!--  End Inner COL-xl-12 -->                                                           
+        </div> <!--  End ROW -->                                          
+      </div><!-- /.modal-contentaier -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 <ng2-pdfjs-viewer #externalPdfViewer [externalWindow]="true"></ng2-pdfjs-viewer>
 
 
