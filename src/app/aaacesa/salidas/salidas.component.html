@@ -190,7 +190,7 @@
           <div class="modal-content">
 
             <div class="modal-header">
-              <h6 class="modal-title">Detalle Salida {{ detailData.IdAdelantoSalidas }}</h6>
+              <h5 class="modal-title font-weight-bold">Detalle Salida {{ detailData.IdAdelantoSalidas }}</h5>
               <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -204,89 +204,56 @@
                   <div class="col-12 col-lg-7 col-xl-8">                    
                     <div class="card">
                       <div class="card-body">
-                        <div class="row mb-1">
-
-                          <!-- Start Left Inside -->
-                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                            <div class="row">
-                              <!-- <div class="col-12 mb-4">
-                                <h6 class="modal-title">Detalle PreAlerta {{ detailData.IdPrealerta }}</h6>
-                              </div> -->
-
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-12">
-                                <h5 class="detail-text text-muted">Guia Master </h5>
-                                <p class="detail-text">{{detailData.Master}}</p>
-                              </div>
-
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-12">
-                                <h5 class="detail-text text-muted">Guia House </h5>
-                                <p class="detail-text">{{detailData.House}}</p>
-                              </div>
-
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-12">
-                                <h5 class="detail-text text-muted">Patente</h5> 
-                                <p class="detail-text">{{detailData.Patente}}</p>
-                              </div>   
-                            </div>                                                                          
-                          </div>  
-                          <!-- End Left Inside -->
-
-                          <!-- Start Right Inside -->
-                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
-
-                            <div class="row justify-content-end">
-                              <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                                <div class="referencia">
-                                  <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>                    
-                                </div>
-                              </div>
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <h5 class="detail-text text-muted">Estatus</h5>
-                                <div class="col status-filter">            
-                                  <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
-                                  <div class="status-filter__text">
-                                    <p> {{detailData.Estatus}} </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3">
-                                <h5 class="detail-text text-muted">RFC Facturar </h5>
-                                <p class="detail-text">{{detailData.RFCFacturar}}</p>
-                              </div>
-
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3">
-                                <h5 class="detail-text text-muted">Pedimento</h5>
-                                <p class="detail-text">{{detailData.Pedimento}}</p>
-                              </div>    
-                              
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3">
-                                <h5 class="detail-text text-muted">Subdivisión</h5>
-                                <p class="detail-text">{{detailData.Subdivision ? 'Sí' : 'No' }}</p>
-                              </div>
-
-                              <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3">
-                                <h5 class="detail-text text-muted">Fecha Salida</h5>
-                                <p class="detail-text">{{detailData.FechaSalida}}</p>
-                              </div>
-                            </div>
-                            
+                        <div class="row mt-2">
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <div class="detail-text font-weight-bold ">Guía Master </div>
+                            <p class="detail-text">{{detailData.Master}}</p>
                           </div>
-                          <!-- End Right Inside -->
-                          
-                        </div>                                                                                                                                                                 
-
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <div class="detail-text font-weight-bold">Guía House </div>
+                            <p class="detail-text">{{detailData.House}}</p>
+                          </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <div class="detail-text font-weight-bold">Referencia</div>
+                              <p class="detail-text">{{detailData.Referencia }}</p>
+                          </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <div class="detail-text font-weight-bold">Estatus</div>
+                            <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                            <div class="status-filter__text">
+                              <p> {{detailData.Estatus}} </p>
+                            </div>
+                          </div>
+                        </div><!-- End Row Inside -->
+                        <div class="row mt-2">
+                          <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <div class="detail-text font-weight-bold">RFC Facturar </div>
+                            <p class="detail-text">{{detailData.RFCFacturar}}</p>
+                          </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-2">
+                            <div class="detail-text font-weight-bold">Pedimento</div>
+                            <p class="detail-text">{{detailData.Pedimento}}</p>
+                          </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-2">
+                            <div class="detail-text font-weight-bold">Patente</div>
+                            <p class="detail-text">{{detailData.Patente}}</p>
+                          </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-2">
+                              <div class="detail-text font-weight-bold">Subdivisión  </div>
+                              <p class="detail-text">{{detailData.Subdivision ? 'Sí' : 'No' }}</p>
+                            </div>
+                          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                            <div class="detail-text font-weight-bold">Fecha Salida </div>
+                            <p class="detail-text">{{detailData.FechaSalida }}</p>
+                          </div>
+                        </div><!-- End Row Inside -->
                         <hr class="dividerb">
-
-                        <div class="row mb-3">                
-                          <div *ngFor="let file of detailData.Documentos" class="col-3 col-sm-3 col-md-3 col-lg-3">                        
-                            <!-- <h1 (click)="openDocument(file.IdDocumento)" style="font-size: 5rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
-                            <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
-                            <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
-                          </div>                      
-                        </div>
+                        <div class="row mt-3">
+                          <div *ngFor="let file of detailData.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
+                              <img (click)="openDocument(file.IdDocumento)" class="file__icon" src="../../../assets/img/iconos/{{file.Estatus | fileIconStatusPipe}}" />
+                            <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>
+                          </div>                        
+                        </div> <!-- End Row Inside  -->
                       </div> <!-- End Card-Body-->
                     </div> <!-- End Card-->
                   </div>
@@ -304,7 +271,7 @@
                           </div> -->
 
                           <div class="col-12">
-                            <h6>Seguimiento</h6>                        
+                            <h6 class="font-weight-bold">Seguimiento</h6>                        
                           </div>                                    
                           <!-- <div class="col-12">
                             <h5 class="detail-text">Fecha de Solicitud</h5>
