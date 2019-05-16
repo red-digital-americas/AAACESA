@@ -377,6 +377,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
+  DOCUMENTS_REQUIRED = ["Guía Master, Guía House", "Patente, Gafete", "Guía Master, Patente"];
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
