@@ -19,12 +19,12 @@
           <div class="row">
             <div class="col-md-4">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" disabled="true" [(ngModel)]="detailUser.ClavePatente" >
+                <input matInput type="text" disabled="true" [(ngModel)]="detailUser.ClavePatente" placeholder="Patente" #ClavePatente="ngModel" [ngModelOptions]="{standalone: true}">
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field class="input-full-width">
-                <input type="text" matInput disabled="true" [(ngModel)]="detailUser.RazonSocial">
+                <input type="text" matInput disabled="true" [(ngModel)]="detailUser.RazonSocial" placeholder="Razón Social" #RazonSocial="ngModel" [ngModelOptions]="{standalone: true}" >
               </mat-form-field>
             </div>
           </div>
@@ -105,8 +105,11 @@
         </div>
       </form>
     </div>
-    <div class="row">
-      <div class="col text-right">
+    <div class="row justify-content-end">
+      <div class="col-lg-2 text-right">
+        <button *ngIf="disabled" type="button" class="btn btn-primary btn-pill btn-sm" (click)="(disabled = !disabled);(disablePerfil = !disablePerfil);" >Cancelar</button>
+      </div>
+      <div class="col-lg-2">
         <button *ngIf="disabled" type="button" class="btn btn-primary btn-pill btn-sm" (click)="detailUserForm.valid ? actualiza() : validar_campos(detailUserForm)">Actualizar</button>
       </div>
     </div>
@@ -114,7 +117,7 @@
   <div class="container mt-3 mb-5" *ngIf="final">
     <div class="row">
       <div class="col">
-        <h2 class="text-center"> {{ mensaje }}</h2>
+        <h3 class="text-center"> {{ mensaje }}</h3>
       </div>
     </div>
   </div>
