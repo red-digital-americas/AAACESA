@@ -356,8 +356,12 @@ td.mat-cell{
         margin-right: 10px;
         background-color: white;
 
+        &--mr-sm {
+            margin-right: 5px;
+        }
+
         &--Aceptada {
-            background-color: #21a2dc;
+            background-color: #21a2dc;            
         }
 
         &--Solicitada {
