@@ -7,6 +7,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { BsDatepickerConfig, BsLocaleService, defineLocale, deLocale } from 'ngx-bootstrap';
 import { BsDatepickerViewMode } from 'ngx-bootstrap/datepicker/models';
 
+
 @Component({
   selector: 'app-bitacoras',
   templateUrl: './bitacoras.component.html',
@@ -34,7 +35,9 @@ export class BitacorasComponent implements OnInit {
   usuarioSearch: any = "";
   usuariosGet = [];
 
-  constructor(private http: Http, private apiserv: ApiServices, private dialog: MatDialog,public snackBar: MatSnackBar) { }
+  constructor(private http: Http, private apiserv: ApiServices, private dialog: MatDialog,public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
+  }
 
   ngOnInit() {
 

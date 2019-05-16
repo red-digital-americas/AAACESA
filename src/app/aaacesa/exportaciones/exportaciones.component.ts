@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angula
 import { Http } from '@angular/http';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
@@ -89,7 +91,8 @@ export class ExportacionesComponent {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
     this.buscaExportacionesNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')

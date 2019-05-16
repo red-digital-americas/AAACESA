@@ -12,6 +12,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+
 @NgModule({
   imports: [
     CommonModule,

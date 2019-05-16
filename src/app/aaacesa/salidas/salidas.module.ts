@@ -3,9 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 import { SalidasComponent, DialogCreateSalidaComponent} from './salidas.component';
 import { SalidasRoutingModule } from './salidas-routing.module';
+
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
 
 //Material
 import { MatInputModule } from '@angular/material/input';
