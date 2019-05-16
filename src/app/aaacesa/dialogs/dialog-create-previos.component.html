@@ -50,7 +50,7 @@
                     <input matInput type="text" formControlName="referenciaCtrl" placeholder="Referencia"/>                      
                     <!-- <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                       -->
                   </mat-form-field>                 
-                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm">Checar referencia</button>            
+                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar referencia</button>            
                 </div>
               </div>          
             </div>
@@ -58,7 +58,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
             </div>
           </div>
       </form>
@@ -120,8 +120,8 @@
 
             <div class="row mt-3">
               <div class="col-lg-12 text-center">
-                <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-                <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+                <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4 btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+                <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
               </div>
             </div>
         </div>
@@ -197,8 +197,8 @@
 
           <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-              <button (click)="validarCampos(2)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+              <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4 btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+              <button (click)="validarCampos(2)" matStepperNext class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
             </div>
           </div>
       </div>
@@ -245,8 +245,8 @@
                       
         <div class="row mt-3">
           <div class="col-lg-12 text-center">
-            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4 btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+            <button (click)="guardarFirstForm()" matStepperNext class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
           </div>
         </div>
 
@@ -255,96 +255,63 @@
 
     <mat-step>      
         <!-- <ng-template matStepLabel>Resumen</ng-template> -->
-
-        <div class="container">              
-                <div class="row">
-
-                  <!--  Start left -->
-                  <div class="col-12 col-md-12">                    
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Guía Master </div>
-                        <p class="detail-text">{{model.Master}}</p>
-                      </div>
-                      
-                      <div class="col-md-4">
-                        <div class="row justify-content-end">
-                          <div class="col">
-                            <!-- <div class="detail-text referencia">Referencia: Sin Referencia</div>  -->
-                            <div class="detail-text">Referencia: {{ referencia }}</div>                             
-                          </div>                          
-                        </div>
-                      </div>                        
-                    </div> 
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Guía House</div>
-                        <p class="detail-text">{{model.House}}</p>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Nombre Completo</div>
-                        <p class="detail-text">{{model.Nombre}} {{model.Paterno}} {{model.Materno}}</p>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">No. Gafete</div>
-                        <p class="detail-text">{{model.NumGafete}}</p>
-                      </div>
-                    </div>   
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Patente</div> 
-                        <p class="detail-text">{{model.Patente}}</p>
-                      
-                      </div>
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Piezas</div>
-                        <p class="detail-text">{{model.Piezas}}</p>
-                      </div>
-                      
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Peso</div>
-                        <p class="detail-text">{{model.Peso}} Kg</p>
-                      </div>
-                    </div>
-                
-                    <div class="row mb-1">
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Fecha y hora</div> 
-                        <p class="detail-text">{{model.FechaPrevio?.slice(6,9)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(0,4)}} {{model.FechaPrevio?.slice(9,14)}}</p>                        
-                      </div>
-                      <div class="col-md-4">
-                        <div class="detail-text text-muted">Etiquetado</div>
-                        <h6 class="detail-text">{{model.Etiquetado ? 'Sí' : 'No'}}</h6>
-                      </div>                                           
-                    </div>
-
-                    <hr class="dividerb">
-                  
-                    <div class="row mt-4">                
-                        <div *ngFor="let file of model.Documentos" class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                          <!-- <h1 style="font-size: 3rem; text-align: center"><i class="fas {{file.NombreDocumento | fileIconPipe}}"></i></h1> -->
-                          <img class="file__icon file__icon--sm" src="../../../assets/img/iconos/{{Pendiente | fileIconStatusPipe}}" />
-                          <p style="word-break: break-all; text-align: center" class="detail-text">{{file.NombreDocumento}}</p>                                                                                               
-                        </div>                      
-                    </div>
-
-                  </div>
-                  <!--  End left -->                 
-
-                </div>
-
-                <div class="row mt-3">
-                  <div class="col-lg-12 text-center">
-                    <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-                    <button (click)="crearPrevio()" class="btn btn-pill btn-primary btn-sm">Enviar</button>
-                  </div>
-                </div>
-
-            </div>                      
+      <div class="container">
+        <div class="row">
+          <h3>Resumen</h3>
+        </div>              
+        <div class="row mt-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold ">Guía Master </div>
+            <p class="detail-text">{{model.Master}}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Guía House </div>
+            <p class="detail-text">{{model.House}}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Referencia</div>
+            <p class="detail-text">{{referencia  }}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Piezas </div>
+            <p class="detail-text">{{model.Piezas}}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Peso</div>
+            <p class="detail-text">{{model.Peso}}&nbsp;kg</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Fecha y Hora</div>
+            <p class="detail-text">{{model.FechaPrevio?.slice(6,9)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(0,4)}} {{model.FechaPrevio?.slice(9,14)}}</p>
+          </div>
+        </div><!-- End Row Inside -->
+        
+        <div class="row mt-2">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="detail-text font-weight-bold">No. Gafete </div>
+            <p class="detail-text">{{model.NumGafete}}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="detail-text font-weight-bold">Patente</div>
+            <p class="detail-text">{{model.Patente}}</p>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="detail-text font-weight-bold">Nombre Completo</div>
+            <p class="detail-text">{{model.Nombre}}&nbsp;{{model.Paterno}}&nbsp;{{model.Materno}}</p>
+          </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <div class="detail-text font-weight-bold">Etiquetado</div>
+            <p class="detail-text">{{model.Etiquetado ? 'Sí' : 'No'}}</p>
+          </div>
+        </div><!-- End Row Inside --> 
+        <hr class="dividerb">
+        <div class="row mt-3">
+          <div class="col-lg-12 text-center">
+            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4 btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+            <button (click)="crearPrevio()" class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">&nbsp;Enviar&nbsp;</button>
+          </div>
+        </div><!-- End Row Inside -->
+      </div>
     </mat-step>    
   </mat-horizontal-stepper>
 
