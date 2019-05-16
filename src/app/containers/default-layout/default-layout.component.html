@@ -87,10 +87,11 @@
     </ol>
     <div class="container-fluid">
       <router-outlet></router-outlet>
-      <div (click)="toogleCalc=!toogleCalc" class="floating__btn"><i class="fas fa-calculator"></i></div>  
-      <!-- <div (click)="sesionDialog('calculadora')" class="floating__btn"><i class="fas fa-calculator"></i></div>         -->
+      <!-- <div (click)="toogleCalc=!toogleCalc" class="floating__btn"><i class="fas fa-calculator"></i></div>   -->
+      <div [ngClass]="{'floating__backdrop': toogleCalc}"></div>
       <div [ngClass]="{'floating__panel--active': toogleCalc}" class="floating__panel">
-        <h1 (click)="toogleCalc=!toogleCalc">&times;</h1>
+        <div (click)="toogleCalc=!toogleCalc" class="floating__panel-close-btn"><i class="fas fa-calculator"></i></div>  
+        <!-- <h1 (click)="toogleCalc=!toogleCalc">&times;</h1> -->
 
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
