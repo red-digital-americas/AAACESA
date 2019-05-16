@@ -1,9 +1,17 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>
+
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-body">
-     
+        <div class="row mb-3">
+            <div class="col-md-4 offset-md-8">
+              <mat-form-field class="input-full-width">
+                <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
+                <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
         <mat-tab label="Facturas">
           <br>
@@ -21,17 +29,17 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="row justify-content-start">
-                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 ">
                         <button (click)="facturasBusqueda()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar </button>
                       </div>
-                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
+                      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0">
                         <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm"> Nueva Busqueda</button>
                       </div>
                     </div>
                   </div>   
               </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource.data" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -51,10 +59,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
               </ng-container>
 
-              <!-- Valor Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              <!-- Importe Column -->
+              <ng-container matColumnDef="Importe">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
+                <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
               </ng-container>
 
               <!-- Pedimento Column -->
@@ -112,7 +120,7 @@
                   </div>   
               </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSources" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSources | dataFilter : filterQuery" matSort class="mat-elevation-z8">
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -132,10 +140,10 @@
                 <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
               </ng-container>
 
-              <!-- Valor Column -->
-              <ng-container matColumnDef="Valor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
-                <td mat-cell *matCellDef="let element"> {{element.Valor}} </td>
+              <!-- Importe Column -->
+              <ng-container matColumnDef="Importe">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
+                <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
               </ng-container>
 
               <!-- Pedimento Column -->
@@ -188,7 +196,7 @@
               </div>  
             </div>
             <div class="table-responsive">
-              <table mat-table [dataSource]="info.data" matSort class="mat-elevation-z8">
+              <table mat-table [dataSource]="info.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
   
                 <!-- UUID Column -->
                 <ng-container matColumnDef="UUID">
@@ -208,9 +216,9 @@
                   <td mat-cell *matCellDef="let element"> {{element.Folio}} </td>
                 </ng-container>
   
-                <!-- Valor Column -->
-                <ng-container matColumnDef="Valor">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+                <!-- Importe Column -->
+                <ng-container matColumnDef="Importe">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
                   <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
                 </ng-container>
   
@@ -271,7 +279,7 @@
             </div>
 
           <div class="table-responsive">
-            <table mat-table [dataSource]="account.data" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="account.data | dataFilter : filterQuery" matSort class="mat-elevation-z8">
 
               <!-- MasterHouse Column -->
               <ng-container matColumnDef="MasterHouse">

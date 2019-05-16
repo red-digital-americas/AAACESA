@@ -14,7 +14,7 @@ import { UserData } from '../../models/user.models';
 })
 export class AdminUserComponent implements OnInit {
 
-  displayedColumns: string[] = ['Nombre', 'Telefono', 'Correo', 'ClavePerfil', 'IsBlocked', 'acciones'];
+  displayedColumns: string[] = ['Nombre', 'Telefono', 'ClavePatente' , 'Correo', 'ClavePerfil', 'IsBlocked', 'acciones'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

@@ -121,7 +121,7 @@
       <!-- Start Data Table -->
       <!-- <div class="table-responsive mat-elevation-z8"> -->
       <div class="table-responsive">
-          <table mat-table [dataSource]="dataSource" matSort>                                   
+          <table mat-table [dataSource]="dataSource" matSort>
           
             <ng-container matColumnDef="IdPrealerta">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Prealerta </th>
@@ -242,17 +242,17 @@
 
                     <!-- Start Right Inside -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8">
-
                       <div class="row justify-content-end">
                         <div class="col-6 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                           <div class="referencia">
-                            <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>                    
+                            <h5 class="detail-text">Referencia: {{detailData.Referencia}}</h5>
                           </div>
                         </div>
                         <div class="col-6 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                           <h5 class="detail-text text-muted">Estatus</h5>
-                          <div class="col status-filter">            
-                            <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
+                          <div class="col status-filter">
+                            <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}">
+                            </div>
                             <div class="status-filter__text">
                               <p> {{detailData.Estatus}} </p>
                             </div>

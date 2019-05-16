@@ -31,8 +31,8 @@ export class FinanzasComponent implements OnInit {
   fechaEmisionSearch:Date = null;
 
 
-  displayedColumns: string[] = ['Master', 'House', 'Folio', 'Valor', 'Pedimento', 'FechaEmision', 'Descargar'];
-  CPColumns: string[] = ['UUID', 'FechaTimbrado', 'Folio', 'Valor', 'RFC', 'RazonSocial', 'FoliosRelacionados', 'Descargar'];
+  displayedColumns: string[] = ['Master', 'House', 'Folio', 'Importe', 'Pedimento', 'FechaEmision', 'Descargar'];
+  CPColumns: string[] = ['UUID', 'FechaTimbrado', 'Folio', 'Importe', 'RFC', 'RazonSocial', 'FoliosRelacionados', 'Descargar'];
   EdoCtaColumns: string[] = ['MasterHouse', 'Folio', 'Pedimento', 'Cliente', 'ImporteFactura', 'ImporteFaltante', 'FechaFactura', 'DiasVencidos', 'Estatus'];
   dataSource = new MatTableDataSource();
   dataSources = new MatTableDataSource();
@@ -78,7 +78,7 @@ export class FinanzasComponent implements OnInit {
         default: { return item[property];} 
       }
     };
-  }   
+  }
 
 
   constructor(private http: Http, private apiserv: ApiServices, public snackBar: MatSnackBar) { }
@@ -153,7 +153,8 @@ export class FinanzasComponent implements OnInit {
         this.loading = false;
       }, 
       (errorService) => {
-        console.log(errorService); this.loading = true;
+        console.log(errorService); this.loading = false;
+        this.showAlert(errorService.error);
       });
   }
 
@@ -233,6 +234,7 @@ export class FinanzasComponent implements OnInit {
       }, 
       (errorService) => { 
         console.log(errorService); this.loading = false;
+        this.showAlert(errorService.error);
       });
   }
 
@@ -262,7 +264,11 @@ export class FinanzasComponent implements OnInit {
           window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { 
+        console.log(errorService);
+        this.showAlert(errorService.error);
+       });   
+        
   }
  
 
@@ -283,7 +289,10 @@ export class FinanzasComponent implements OnInit {
           window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { 
+        console.log(errorService);
+        this.showAlert(errorService.error);
+       });
   }
 
   //Complemento de pago ******************************************************************************************
@@ -339,7 +348,7 @@ export class FinanzasComponent implements OnInit {
       }, 
       (errorService) => { 
         console.log(errorService);
-        this.showAlert("Archivo no disponible");
+        this.showAlert(errorService.error);
       });     
   }
  
