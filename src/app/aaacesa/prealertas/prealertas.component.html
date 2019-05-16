@@ -189,7 +189,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h4 class="modal-title font-weight-bold">Detalle PreAlerta {{ detailData.IdPrealerta }}</h4>
+        <h5 class="modal-title font-weight-bold">Detalle PreAlerta {{ detailData.IdPrealerta }}</h5>
         <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -204,21 +204,17 @@
               <div class="card">
                 <div class="card-body">
                   <div class="row mt-2">
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                       <div class="detail-text font-weight-bold ">Guía Master </div>
                       <p class="detail-text">{{detailData.GuiaMaster}}</p>
                     </div>
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                       <div class="detail-text font-weight-bold">Guía House </div>
                       <p class="detail-text">{{detailData.GuiaHouse}}</p>
                     </div>
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                         <div class="detail-text font-weight-bold">Referencia</div>
                         <p class="detail-text">{{detailData.Referencia }}</p>
-                    </div>
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                      <div class="detail-text font-weight-bold">Fecha de Arribo</div>
-                      <p class="detail-text">{{detailData.FechaArribo}}</p>
                     </div>
                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                       <div class="detail-text font-weight-bold">Estatus</div>
@@ -228,28 +224,36 @@
                       </div>
                     </div>
                   </div><!-- End Row Inside -->
-                  <hr class="dividerb">
                   <div class="row mt-2">
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-1 col-xl-1">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                       <div class="detail-text font-weight-bold">Piezas </div>
                       <p class="detail-text">{{detailData.Piezas}}</p>
                     </div>
-          
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-1 col-xl-1">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                       <div class="detail-text font-weight-bold">Peso</div>
                       <p class="detail-text">{{detailData.Peso}} kg</p>
                     </div>
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                      <div class="detail-text font-weight-bold">Fecha de Arribo</div>
+                      <p class="detail-text">{{detailData.FechaArribo}}</p>
+                    </div>
+                  </div><!-- End Row Inside -->
+
+
+                  <hr class="dividerb">
+                  <div class="row mt-2">
+                    
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                         <div class="detail-text font-weight-bold">Almacén de Origen</div>
                         <p class="detail-text">{{detailData.AlmacenOrigen}} </p>
                       </div>
             
-                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-4">
                           <div class="detail-text font-weight-bold">Condición de Almacenaje</div>
                           <p class="detail-text">{{detailData.CondicionAlmacenaje}}</p>
                       </div>
                       
-                      <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+                      <div class="col-xs-3 col-sm-3 col-md-2 col-lg-3">
                           <div class="detail-text font-weight-bold">Rango de Temperatura</div>
                           <p class="detail-text">{{detailData.RangoTemperatura}}</p>
                       </div>
