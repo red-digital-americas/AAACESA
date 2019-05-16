@@ -15,9 +15,15 @@ import * as jquery from 'jquery';
 })
 export class CrearUserComponent implements OnInit {
 
+  //Tabla RFC
   displayedColumns: string[] = [ 'TipoCliente', 'RazonSocial', 'NumCuentas','acciones'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
+
+  //Tabla Módulos
+  columnsMod: string[] = [ 'ClaveModulo', 'Detalle'];
+  dataSourceMod = new MatTableDataSource();
+  visibleMods=false;
 
   //Perfil Admin
   rolAdminUSer:string=this.data.rolAdmin;
@@ -51,12 +57,17 @@ export class CrearUserComponent implements OnInit {
   }
 
   crearUserByAdmin(selValue){
-    console.log(selValue);
     this.crearUser.RFC = selValue.RFC;
     this.crearUser.RazonSocial = selValue.RazonSocial;
     this.crearUser.ClavePatente = selValue.ClavePatente;
     this.crearUser.TipoCliente = selValue.TipoCliente;
     this.visible=false;
+  }
+
+  filterChanged(event)
+  {
+    this.visibleMods=true;
+    this.dataSourceMod.data = event.Modulos;
   }
 
   buscaRFCUsuario(){

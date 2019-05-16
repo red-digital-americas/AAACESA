@@ -60,13 +60,14 @@
             <div class="row mt-4">
               <div class="col-md-4 styled-select">
                 <mat-form-field class="input-full-width">
-                  <select matNativeControl [(ngModel)]="crearUser.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil">
-                    <option label="--Selecciona el perfil --">--Selecciona el perfil --</option>
-                    <option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil">{{rol.ClavePerfil}} : {{ rol.DescripcionPerfil}} </option>
-                  </select>
+                  <mat-select [(ngModel)]="crearUser.Perfil.ClavePerfil" class="" #selPerfilUser="ngModel" name="selPerfil" required placeholder="Perfil" >
+                    <mat-option *ngFor="let rol of getPerfilUser" [value]="rol.ClavePerfil" (click)="filterChanged(rol)"> 
+                      {{rol.ClavePerfil}}
+                    </mat-option>
+                  </mat-select>
                   <mat-error *ngIf="selPerfilUser.hasError('required')">
                     El campo Perfil es <strong>requerido</strong>
-                  </mat-error>
+                  </mat-error>                  
                 </mat-form-field>
               </div>
               <div class="col-md-4">
@@ -87,6 +88,31 @@
                     El campo Teléfono es <strong>requerido</strong>
                   </mat-error>
                 </mat-form-field>
+              </div>
+            </div>
+            <div class="row mt-3" *ngIf="visibleMods">
+              <div class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
+                <small>Módulos de Acceso</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="dataSourceMod">
+                    <!-- ClaveModulo Column -->
+                    <ng-container matColumnDef="ClaveModulo">
+                      <th mat-header-cell *matHeaderCellDef style="font-size: x-small;" > Clave Modulo </th>
+                      <td mat-cell *matCellDef="let element" style="font-size: x-small;"> {{element.ClaveModulo}} </td>
+                    </ng-container>
+                   
+                    <!-- Detalle Column -->
+                    <ng-container matColumnDef="Detalle">
+                      <th mat-header-cell *matHeaderCellDef style="font-size: x-small;"> Detalle </th>
+                      <td mat-cell *matCellDef="let element" style="font-size: x-small;"> {{element.Detalle}} </td>
+                    </ng-container>
+      
+                    <tr mat-header-row *matHeaderRowDef="columnsMod" style="height: 3vh;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsMod;" style="height: 3vh;"></tr>
+                  </table>
+                </div>
               </div>
             </div>
             <div class="row mt-3">
@@ -125,52 +151,38 @@
           </div>
         </div>
         <div class="row  mt-4"  *ngIf="rfcVisible">
-          <!-- <div class="col-md-6">
-            <mat-form-field class="input-full-width">
-              <select matNativeControl [(ngModel)]="RFCcliente" #selgetRFCc="ngModel" name="selgetRFCc" id="selgetRFCc" required placeholder="Seleccione un cliente">
-                <option label="--Selecciona un cliente --" [ngValue]="0">--Selecciona un cliente --</option>
-                <option *ngFor="let item of getRFCcliente" [ngValue]="item">Razón:&nbsp;{{item.RazonSocial}}&nbsp;|&nbsp;RFC:&nbsp;{{ item.RFC}} </option>
-              </select>
-              <mat-error *ngIf="selgetRFCc.hasError('required')">
-                El campo RFC Cliente es <strong>requerido</strong>
-              </mat-error>
-            </mat-form-field>
-          </div> -->
           <div class="table-responsive">
-              <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-      
-                <!-- RazonSocial Column -->
-                <ng-container matColumnDef="RazonSocial">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
-                  <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
-                </ng-container>
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    
+              <!-- RazonSocial Column -->
+              <ng-container matColumnDef="RazonSocial">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
+                <td mat-cell *matCellDef="let element"> {{element.RazonSocial}} </td>
+              </ng-container>
 
-                <!-- RazonSocial Column -->
-                <ng-container matColumnDef="TipoCliente">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Cliente </th>
-                  <td mat-cell *matCellDef="let element"> {{element.TipoCliente}} </td>
-                </ng-container>
+              <!-- RazonSocial Column -->
+              <ng-container matColumnDef="TipoCliente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.TipoCliente}} </td>
+              </ng-container>
 
-                <!-- RazonSocial Column -->
-                <ng-container matColumnDef="NumCuentas">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Num Cuentas </th>
-                  <td mat-cell *matCellDef="let element"> {{element.NumCuentas}} </td>
-                </ng-container>
+              <!-- RazonSocial Column -->
+              <ng-container matColumnDef="NumCuentas">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Num Cuentas </th>
+                <td mat-cell *matCellDef="let element"> {{element.NumCuentas}} </td>
+              </ng-container>
 
-                <!-- Acciones Column -->
-                <ng-container matColumnDef="acciones">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
-                  <td mat-cell *matCellDef="let element"> <a class="btn btn-link btn-sm" (click)="crearUserByAdmin(element)" href="javascript: void(0);"><i class="icon-plus"></i> Seleccionar</a> </td>
-                </ng-container>
+              <!-- Acciones Column -->
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                <td mat-cell *matCellDef="let element"> <a class="btn btn-link btn-sm" (click)="crearUserByAdmin(element)" href="javascript: void(0);"><i class="icon-plus"></i> Seleccionar</a> </td>
+              </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
           </div>
       
-          <!-- <div class="col-md-4 text-center">
-            <button type="submit" class="btn btn-primary btn-pill btn-sm" (click)="crearUserByAdmin(selgetRFCc.value)" >Siguiente</button>
-          </div> -->
         </div>
         <div class="row mt-3 align-items-center">
           

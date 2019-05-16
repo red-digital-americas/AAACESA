@@ -11,6 +11,7 @@ import { MatSort, MatTableDataSource, MatPaginator, MatFormFieldControl } from '
 import { ApiServices } from '../../services/api.services';
 
 @Component({
+  selector: 'app-calculdora',
   templateUrl: './calculadora.component.html',
   styleUrls: ['../../../scss/vendors/bs-datepicker/bs-datepicker.scss',
   '../../../scss/vendors/ng-select/ng-select.scss',

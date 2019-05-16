@@ -57,6 +57,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NgxLoadingModule } from 'ngx-loading';
 import { UserIdleModule } from 'angular-user-idle';
 
+import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.component';
+
 
 
 @NgModule({
@@ -68,7 +70,8 @@ import { UserIdleModule } from 'angular-user-idle';
     LoginComponent,
     RegisterComponent,
     ResetpasswordComponent,
-    DialogSessionComponent
+    DialogSessionComponent,
+    CalculadoraComponent
     // AbandonoComponent
   ],
   imports: [

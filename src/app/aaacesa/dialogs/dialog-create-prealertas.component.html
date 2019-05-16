@@ -53,7 +53,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+              <button (click)="validarCampos(0)" matStepperNext class="btn btn-pill btn-primary btn-save-forms mb-1 mb-md-0 mr-1 ml-1 btn-sm">Siguiente</button>            
             </div>
           </div>
       </form>
@@ -98,7 +98,7 @@
             <div class="row mb-1">                              
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha estimada de Arribo">
+                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha estimada de Arribo">
                     <mat-error *ngIf="secondFormGroup.get('fechaArriboCtrl').errors?.required">
                       Este campo es obligatorio
                     </mat-error> 
@@ -235,8 +235,8 @@
 
           <div class="row mt-3">
             <div class="col-lg-12 text-center">
-              <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-              <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary btn-sm">Siguiente</button>            
+              <button matStepperPrevious class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+              <button (click)="validarCampos(1)" matStepperNext class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
             </div>
           </div>
       </div>
@@ -248,7 +248,8 @@
       <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
 
       <div class="container mt-3">
-        <p>Subir documentos: Guia Master, Guia House, Gafete, Etiquetado</p>  
+        <!-- <p>Subir documentos: Guia Master, Guia House, Gafete, Etiquetado</p>   -->
+        <p>Subir documentos: {{ DOCUMENTS_REQUIRED[secondFormGroup.get('instruccionesManejoCtrl').value] }}</p> 
         
         <div class="row mb-3">                     
           <div class="col-lg-12 mb-4">
@@ -290,53 +291,53 @@
 
       <div class="container">
         <div class="row">
-          <h3>Datos capturados</h3>
+          <h3>Resumen</h3>
         </div>              
         <div class="row mt-2">
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="detail-text text-muted">Guía Master </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold ">Guía Master </div>
             <p class="detail-text">{{model.GuiaMaster}}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="detail-text text-muted">Guía House </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Guía House </div>
             <p class="detail-text">{{model.GuiaHouse}}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-              <div class="detail-text text-muted">Referencia</div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+              <div class="detail-text font-weight-bold">Referencia</div>
               <p class="detail-text">{{model.Referencia }}</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="detail-text text-muted">Piezas </div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Piezas </div>
             <p class="detail-text">{{model.Piezas}}</p>
           </div>
 
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <div class="detail-text text-muted">Peso</div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+            <div class="detail-text font-weight-bold">Peso</div>
             <p class="detail-text">{{model.Peso}} kg</p>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-              <div class="detail-text text-muted">Fecha de Arribo</div>
+          <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+              <div class="detail-text font-weight-bold">Fecha de Arribo</div>
               <p class="detail-text">{{model.FechaArribo}}</p>
             </div>
         </div><!-- End Row Inside -->
         <hr class="dividerb">
         <div class="row mt-3">
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="detail-text text-muted">Almacén de Origen</div>
+            <div class="detail-text font-weight-bold">Almacén de Origen</div>
             <p class="detail-text">{{almacenOrigenCatalogo | getSelect: model.AlmacenOrigen : 1}} </p>
           </div>
 
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Condición de Almacenaje</div>
+              <div class="detail-text font-weight-bold">Condición de Almacenaje</div>
               <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
           </div>
           
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Rango de Temperatura</div>
+              <div class="detail-text font-weight-bold">Rango de Temperatura</div>
               <p class="detail-text">{{rangoTemperaturaCatalogo | getSelect: model.RangoTemperatura : 0}}</p>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Consolidado</div>
+              <div class="detail-text font-weight-bold">Consolidado</div>
               <p class="detail-text">{{model.Consolidado ? 'Sí' : 'No'}}</p>
           </div>
         </div><!-- End Row Inside -->
@@ -345,20 +346,20 @@
         <div class="row mt-3">
           
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Uso de CFDI</div>
+              <div class="detail-text font-weight-bold">Uso de CFDI</div>
               <p class="detail-text">{{usoCFDICatalogo | getSelect: model.UsoCFDI : 2}}</p>
           </div>
           
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Consignatario a Facturar</div> 
+              <div class="detail-text font-weight-bold">Consignatario a Facturar</div> 
               <p class="detail-text">{{model.Consignatario}}</p>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Método de Pago</div>
+              <div class="detail-text font-weight-bold">Método de Pago</div>
               <p class="detail-text">{{metodoPagoCatalogo | getSelect: model.MetodoPago : 2}}</p>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text text-muted">Instrucciones de Manejo</div>
+              <div class="detail-text font-weight-bold">Instrucciones de Manejo</div>
               <p class="detail-text">{{instruccionesManejoCatalogo | getSelect: model.InstruccionesManejo : 1}}</p>
           </div>
         </div><!-- End Row Inside -->                                                
@@ -374,8 +375,8 @@
 
         <div class="row mt-3">
           <div class="col-lg-12 text-center">
-            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm mr-4">Regresar</button>            
-            <button (click)="crearPrealerta()" class="btn btn-pill btn-primary btn-sm">Enviar</button>
+            <button matStepperPrevious class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Regresar</button>            
+            <button (click)="crearPrealerta()" class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Enviar</button>
           </div>
         </div>
       </div>
@@ -390,7 +391,7 @@
           <h3>{{responseMessage}}</h3>
         </div>
         <div class="col-12 text-center mt-5 ">
-          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  
+          <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Aceptar</button>  
         </div>
       </div>        
     </div>

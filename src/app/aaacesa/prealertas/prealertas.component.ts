@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angula
 import { Http } from '@angular/http';
 import { NgForm, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
@@ -27,7 +29,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 export class PrealertasComponent {  
   
   loading = false;  
-  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];    
 
   ///////////////////////
   // Catalogos para los <select>
@@ -83,7 +85,8 @@ export class PrealertasComponent {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
     this.buscaPrealertasNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
@@ -156,6 +159,7 @@ export class PrealertasComponent {
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -164,7 +168,7 @@ export class PrealertasComponent {
   buscaPrealertasNueva () {
     this.busquedaModel.Clean();
     this.fechaPrevioSearch = null;
-    this.rangoFechaSearch = "";
+    this.rangoFechaSearch = "";    
     this.buscarPrealertas();
   }
 
@@ -208,6 +212,10 @@ export class PrealertasComponent {
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
+      this.showAlert("No se pueden enviar documentos al cancelar"); return;
+    }
+
     this.loading = true;
     this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
     this.modelSeguimiento.Estatus = estado;
@@ -369,6 +377,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
+  DOCUMENTS_REQUIRED = { T: "Guía Master, Guía House", RT: "Patente, Gafete", R: "Guía Master, Patente"};
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -604,7 +613,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    // console.log(this.model);    
+    console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 

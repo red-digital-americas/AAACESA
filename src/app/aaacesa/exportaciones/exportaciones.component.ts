@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, OnInit, ViewChild, Inject } from '@angula
 import { Http } from '@angular/http';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
@@ -89,7 +91,8 @@ export class ExportacionesComponent {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(private http: Http, private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
     this.buscaExportacionesNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
@@ -142,6 +145,7 @@ export class ExportacionesComponent {
         this.data = response;        
         this.dataSource.data = this.data;
         this.updateCountStatus();
+        this.currentFilterIndex = this.statusEnum.length;
         this.loading = false; console.log(response);
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -170,6 +174,10 @@ export class ExportacionesComponent {
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
+      this.showAlert("No se pueden enviar documentos al cancelar"); return;
+    }
+
     this.loading = true;
     this.modelSeguimiento.IdExportacion = this.detailData['IdExportacion'];
     this.modelSeguimiento.Estatus = estado;
@@ -367,7 +375,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required],      
+      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],      
     });
     this.secondFormGroup = this._formBuilder.group({
       pedimentoCtrl: ['', Validators.required],

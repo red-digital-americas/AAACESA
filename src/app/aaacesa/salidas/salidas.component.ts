@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation, ViewChild, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 ///////////
 // Material
 import { MatSort, MatTableDataSource, MatPaginator, MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar, MatStepper } from '@angular/material';
@@ -80,7 +82,8 @@ export class SalidasComponent  {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LOGIC SECTION    
   
-  constructor( private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor( private apiService:ApiServices, public dialog: MatDialog, public snackBar: MatSnackBar, private localeService: BsLocaleService) {
+    this.localeService.use('es');
     this.buscaSalidasNueva();    
  
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
@@ -133,6 +136,7 @@ export class SalidasComponent  {
         this.data = response;        
         this.dataSource.data = this.data;   
         this.updateCountStatus();     
+        this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
       (errorService) => { console.log(errorService); this.loading = false;});            
@@ -159,6 +163,10 @@ export class SalidasComponent  {
   ///////////////////////////////
   // Update Seguimiento
   public updateSeguimiento (estado:string) {
+    if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
+      this.showAlert("No se pueden enviar documentos al cancelar"); return;
+    }
+
     this.loading = true;
     this.modelSeguimiento.IdAdelantoSalidas = this.detailData['IdAdelantoSalidas'];
     this.modelSeguimiento.Estatus = estado;
@@ -294,7 +302,7 @@ export class DialogCreateSalidaComponent implements OnInit {
   isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
-  minDate = new Date();
+  minDate = this.minDate = moment(new Date()).add(1, 'days').toDate();
 
   model:SalidaNuevo = new SalidaNuevo();  
   files;                                  // Arreglo usado por el dragInputFiles  
@@ -315,10 +323,10 @@ constructor(
   private apiService:ApiServices,
   public snackBar: MatSnackBar) { }
 
-  ngOnInit() {
+  ngOnInit() {        
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', Validators.required],
+      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
@@ -326,7 +334,7 @@ constructor(
       pedimentoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      fechaSalidaCtrl: [new Date(), Validators.required],
+      fechaSalidaCtrl: [moment(new Date()).add(1, 'days').format('DD/MM/YYYY'), Validators.required],
       horaSalidaCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoSalidaCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    

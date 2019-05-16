@@ -40,6 +40,9 @@
                     <input matInput type="text" (input)="cleanReferencia()" formControlName="houseCtrl" maxlength="20" placeholder="Guía House"/>  
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
                       Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
+                      Carácteres no permitidos
                     </mat-error>   
                   </mat-form-field> 
                 </div>
@@ -260,7 +263,7 @@
                       </div>
                       <div class="col-xs-12 col-sm-12 col-lg-4">
                         <div class="detail-text text-muted">Fecha Salida</div>
-                        <p class="detail-text">{{model.FechaSalida?.slice(0,4)}}/{{model.FechaSalida?.slice(4,6)}}/{{model.FechaSalida?.slice(6,9)}} {{model.FechaSalida?.slice(9,14)}}</p>
+                        <p class="detail-text">{{model.FechaSalida?.slice(6,8)}}/{{model.FechaSalida?.slice(4,6)}}/{{model.FechaSalida?.slice(0,4)}} {{model.FechaSalida?.slice(9,14)}}</p>
                       </div>
                     </div>                            
                   </div>
@@ -295,12 +298,9 @@
 
   <div *ngIf="successResponse" class="container mt-3">
     <div class="conatiner">
-      <div class="row">
+      <div class="row">        
         <div class="col-12 text-center">
-          Gracias
-        </div>
-        <div class="col-12 text-center">
-          {{responseMessage}}
+          <h3>{{responseMessage}}</h3>
         </div>
         <div class="col-12 text-center mt-5 ">
           <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  

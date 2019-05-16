@@ -39,7 +39,13 @@
                 <div class="col-sm-5 col-md-5 col-lg-5">                                                
                   <mat-form-field class="input-full-width">    
                     <input matInput type="text" formControlName="houseCtrl" maxlength="20" placeholder="Guía House"/>                    
-                  </mat-form-field>                 
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
+                      Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
+                      Carácteres no permitidos
+                    </mat-error> 
+                  </mat-form-field>                                     
                 </div>
               </div>          
             </div>
@@ -222,7 +228,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-lg-8">
                                 <div class="detail-text text-muted">Fecha Entrada Mercancía</div>
-                                <p class="detail-text">{{model.FechaEntradaMercancia?.slice(0,4)}}/{{model.FechaEntradaMercancia?.slice(4,6)}}/{{model.FechaEntradaMercancia?.slice(6,9)}} {{model.FechaEntradaMercancia?.slice(9,14)}}</p>
+                                <p class="detail-text">{{model.FechaEntradaMercancia?.slice(6,8)}}/{{model.FechaEntradaMercancia?.slice(4,6)}}/{{model.FechaEntradaMercancia?.slice(0,4)}} {{model.FechaEntradaMercancia?.slice(9,14)}}</p>
                             </div>
                         </div>
                     
@@ -258,12 +264,9 @@
 
   <div *ngIf="successResponse" class="container mt-3">
     <div class="conatiner">
-      <div class="row">
+      <div class="row">        
         <div class="col-12 text-center">
-          Gracias
-        </div>
-        <div class="col-12 text-center">
-          {{responseMessage}}
+          <h3>{{responseMessage}}</h3>
         </div>
         <div class="col-12 text-center mt-5 ">
           <button (click)="closeDialog('true')" class="btn btn-pill btn-primary btn-sm">Aceptar</button>  

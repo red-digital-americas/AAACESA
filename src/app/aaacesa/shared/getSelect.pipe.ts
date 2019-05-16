@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GetSelectPipe implements PipeTransform {
 
-  transform(array: any[], query: string, mode: number): string {
+  transform(array: any[], query: string, mode: number, k = 0): string {
     if (query == undefined) { return '';}
 
     let filterValue = query.toLowerCase();
@@ -14,7 +14,7 @@ export class GetSelectPipe implements PipeTransform {
       keys = Object.keys(array[0]);
     }        
     
-    let result = array.filter(option => option[keys[0]].toLowerCase().includes(filterValue));
+    let result = array.filter(option => option[keys[k]].toLowerCase().includes(filterValue));
     if (result == undefined) { return '';}
 
     if (mode == 0) {
