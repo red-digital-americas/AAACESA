@@ -31,7 +31,7 @@ export class DefaultLayoutComponent implements OnInit {
     this.userIdle.startWatching();
     // Start watching when user idle is starting.
     this.userIdle.onTimerStart().subscribe(()=>{
-      console.log(this.userIdle.getConfigValue());
+      // console.log(this.userIdle.getConfigValue());
     });
     
     this.userIdle.ping$.subscribe(() => {
