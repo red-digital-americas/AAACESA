@@ -21,6 +21,8 @@ export class DefaultLayoutComponent implements OnInit {
   public lastTime;
   loading=false;
   date;
+
+  public toogleCalc = false;
   
 
   ngOnInit() {

@@ -405,3 +405,45 @@ td.mat-cell{
     white-space: nowrap;
     overflow: hidden;
 }
+
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+/* Floating Btn Calculator */
+.floating {
+    &__btn {
+        position: fixed;
+        right: 1.1rem;
+        top: 47%;
+        color: white;
+        padding: .5rem 1rem;
+        background-color: #183964;
+        border-radius: 20px 0px 0px 20px;
+        font-size: 2rem;
+        cursor: pointer;
+        
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }   
+
+    &__panel {
+        position: fixed;
+        right: 0;
+        top: 47%;                                        
+        width: 85vw;
+        height: 80vh;
+        overflow-y: auto;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 1px #9EA6B1;
+        background-color: white;
+        transform: translate(100%, -40%);
+        transition: all .5s; 
+        
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }    
+
+    &__panel--active {
+        transform: translate(0%, -40%);
+    }
+}
