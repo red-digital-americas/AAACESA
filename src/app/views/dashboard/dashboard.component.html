@@ -2,16 +2,80 @@
 <div class="animated fadeIn">
     <div>  
         <button mat-button (click)="dia()" style="color:#CF0A2B">Día</button>
-        <button mat-button style="color:#CF0A2B">Semana</button>
-        <button mat-button style="color:#CF0A2B">Mes</button>
+        <button mat-button (click)="semana()" style="color:#CF0A2B">Semana</button>
+        <button mat-button (click)="mes()" style="color:#CF0A2B">Mes</button>
     </div>
       <br>
   <div class="row"> 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-      
-      <div *ngFor="let elemento of summarys">
+      <!-- <div *ngFor="let elemento of summarys">
         <app-general-summary [summary]="elemento"></app-general-summary>
+      </div> -->
+      <div class="info-box">
+        <span class="info-box-icon {{summarys[0].color}}"></span>
+        <div class="info-box-content">
+          <div class="row">
+            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+              <span class="info-box-text"><h5>{{summarys[0].tipo}}</h5></span>
+              <span  class="info-box-number">{{detailPrevios}}</span>
+
+            </div>
+            <div class="col-xs-12 col-lg-4" style="padding:0">
+              <br>
+              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+            </div>
+          </div>
+        </div>
       </div>
+             <!-- /.info-box-content -->
+             <div class="info-box">
+              <span class="info-box-icon {{summarys[1].color}}"></span>
+              <div class="info-box-content">
+                <div class="row">
+                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+                    <span class="info-box-text"><h5>{{summarys[1].tipo}}</h5></span>
+                    <span class="info-box-number">{{detailSalidas}}</span>
+                  </div>
+                  <div class="col-xs-12 col-lg-4" style="padding:0">
+                    <br>
+                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <span class="info-box-icon {{summarys[2].color}}"></span>
+              <div class="info-box-content">
+                <div class="row">
+                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+                    <span class="info-box-text"><h5>{{summarys[2].tipo}}</h5></span>
+                    <span class="info-box-number">{{detailPrealertas}}</span>
+                  </div>
+                  <div class="col-xs-12 col-lg-4" style="padding:0">
+                    <br>
+                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <span class="info-box-icon {{summarys[3].color}}"></span>
+              <div class="info-box-content">
+                <div class="row">
+                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+                    <span class="info-box-text"><h5>{{summarys[3].tipo}}</h5></span>
+                    <span class="info-box-number">{{detailAbandono}}</span>
+                  </div>
+                  <div class="col-xs-12 col-lg-4" style="padding:0">
+                    <br>
+                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
     </div>
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
       <div class="row" style="margin-bottom:20px; margin-right: 0">
