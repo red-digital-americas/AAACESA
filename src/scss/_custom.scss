@@ -417,24 +417,24 @@ td.mat-cell{
 @import "node_modules/bootstrap/scss/mixins/_breakpoints";
 /* Floating Btn Calculator */
 .floating {
-    &__btn {
-        position: fixed;        
-        right: 0;
-        top: 47%;
-        color: white;
-        padding: .5rem 1rem;
-        background-color: #183964;
-        border-radius: 20px 0px 0px 20px;
-        font-size: 2rem;
-        cursor: pointer;        
+    // &__btn {
+    //     position: fixed;        
+    //     right: 0;
+    //     top: 47%;
+    //     color: white;
+    //     padding: .5rem 1rem;
+    //     background-color: #183964;
+    //     border-radius: 20px 0px 0px 20px;
+    //     font-size: 2rem;
+    //     cursor: pointer;        
         
-        @include media-breakpoint-down(md) {
-            display: none;
-        }
-    }   
+    //     @include media-breakpoint-down(md) {
+    //         display: none;
+    //     }
+    // }   
 
     &__panel {
-        position: fixed;
+        position: absolute;
         right: 0;
         top: 47%;                                        
         width: 85vw;
@@ -452,25 +452,49 @@ td.mat-cell{
         }        
 
         &-close-btn {
-            position: fixed;            
+            position: absolute;            
             left: -3.7rem;
-            top: 0;
+            top: 47%;
             color: white;
             padding: .5rem 1rem;
             background-color: #183964;
             border-radius: 20px 0px 0px 20px;
             font-size: 2rem;
             cursor: pointer;
+
+            &--hide {
+                display: none;
+            }
             
             @include media-breakpoint-down(md) {
                 display: none;
             } 
         }
+
+        &-close2-btn {
+            position: absolute;            
+            right: 0;
+            top: 53%;
+            color: white;
+            padding: .5rem 1rem;
+            background-color: #183964;
+            border-radius: 20px 0px 0px 20px;
+            font-size: 2rem;
+            cursor: pointer;            
+
+            &--hide {
+                display: none;
+            }
+            
+            @include media-breakpoint-down(md) {
+                display: none;
+            }             
+        }
     }    
 
     &__panel--active {
         transform: translate(0%, -40%);
-    }  
+    }     
 
     &__backdrop {        
         position: absolute;
