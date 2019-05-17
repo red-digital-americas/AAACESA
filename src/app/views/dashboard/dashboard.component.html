@@ -106,24 +106,24 @@
               <div>
               <img src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg" alt="Imagen Aeropuerto" style="height: 155px" >
             </div>
-            <div class="row" >
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 5px 5px 15px">
+            
+            <!-- <div class="row"> -->
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">
                   <small style="font-size:11px; font-weight:bold">Lo más frecuente</small>
+                  <div class="col-xs-12" style="color:black; padding: 0"><mat-divider></mat-divider></div> 
                 </div>
-
-                
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                     <small class="info-box-text" style="font-size:10px; text-align: center">- Pre-alertas</small>
-                    <div class="col-xs-12" style="color:black"><mat-divider></mat-divider></div>
+                    <div class="col-xs-12" style="color:black; padding: 0"><mat-divider></mat-divider></div> 
                   </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                       <small class="info-box-text" style="font-size:10px; text-align: center">- Previos</small>
-                      <div class="col-xs-12" style="color:black"><mat-divider></mat-divider></div>
+                      <div class="col-xs-3" style="color:black; padding: 0"><mat-divider></mat-divider></div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                         <small class="info-box-text" style="font-size:10px; text-align: center">- Salidas</small>
                       </div>
-                </div>
+                <!-- </div> -->
                 </div>
               </div>
             <!-- <div class="second-img col-lg-8">
@@ -177,26 +177,26 @@
 
               
               <div class="col-xs-12" style="color:aqua"><mat-divider></mat-divider></div>
-              <div class="row" *ngFor="let merch of merchant; let i = index">
+              <div class="row" *ngFor="let item of dataInfoSalidas.data; let i = index">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 15px">
-                  <small class="info-box-text" style="font-size:10px;">{{merch.master}}</small>
+                  <small class="info-box-text" style="font-size:10px;">{{item.Master}}</small>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
-                  <small class="info-box-text" style="font-size:10px;">{{merch.house}}</small>
+                  <small class="info-box-text" style="font-size:10px;">{{item.House}}</small>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
-                  <small class="info-box-text" style="font-size:10px;">{{merch.date}}</small>
+                  <small class="info-box-text" style="font-size:10px;">{{item.Fecha}}</small>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center" style="padding: 15px 15px 15px 5px">
-                  <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#0AA010" *ngIf="merch.status == 'Transfer'">{{merch.status}}</small>
-                  <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#E2DA0C" *ngIf="merch.status == 'Salida'">{{merch.status}}</small>
-                  <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#FB600A" *ngIf="merch.status == 'Previo'">{{merch.status}}</small>
-                  <small class="info-box-text" style="font-size:10px; font-weight:bold; color:#CF0A2B" *ngIf="merch.status == 'Abandono'">{{merch.status}}</small>
+                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1E82BA" *ngIf="item.Estatus == 'PREALERTAS'">{{item.Estatus}}</small>
+                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1EC8F3" *ngIf="item.Estatus == 'SALIDAS'">{{item.Estatus}}</small>
+                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:gray" *ngIf="item.Estatus == 'PREVIOS'">{{item.Estatus}}</small>
+                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#D9E11E" *ngIf="item.Estatus == 'ABANDONOS'">{{item.Estatus}}</small>
                 </div>
 
               </div>
               <div class="col-xs-12" style="color:aqua; margin-bottom:14px"><mat-divider></mat-divider></div>
-              <div class="col-xs-12 text-center"><a href="./mercancias" style="color:#6976D2">Ver todo</a></div>
+              <div class="col-xs-12 text-center"><a [routerLink]="" (click)="redirect('mercancias')" style="color:#1E82BA">Ver todo</a></div>
             </mat-card>
             </div>
 

@@ -6,6 +6,10 @@ import { Merchant } from '../../aaacesa/general-summary/merchant'
 import { Chart } from 'chart.js';
 import { collectExternalReferences } from '@angular/compiler';
 import { ApiServices } from '../../services/api.services';
+import { mercancias } from '../../models/dashboard.model';
+import { MatTableDataSource, MatSnackBar, } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +27,20 @@ export class DashboardComponent implements OnInit {
   public detailPrealertas = "";
   public detailSalidas = "";
   public detailAbandono = "";
-
   public currentIndex = 0;
 
-  
+  private showAlert (msj:string) {
+    this.snackBar.open(msj, "", {
+      duration: 4000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }
+
+ 
+
+  dataInfoSalidas = new MatTableDataSource();
+  searchModel = new Array<mercancias>();
 
    public summarys: any[] = [
     new Summary("Previos", "bg-gray"),
@@ -42,8 +56,11 @@ export class DashboardComponent implements OnInit {
     new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
   ]
 
-  constructor(private apiservice:ApiServices) {}
-
+  constructor(private router: Router, private apiservice:ApiServices, public snackBar: MatSnackBar) {}
+  
+  redirect(ruta){
+    this.router.navigate(['/'+ruta+'']);
+  }
 
   // barChart
   //public barChartOptions: any = {
@@ -77,7 +94,7 @@ export class DashboardComponent implements OnInit {
             label: "Previos",
             backgroundColor: "gray",
             data: [65, 59, 80, 81, 56, 55, 40, 8, 11, 78, 34, 12]
-          },
+          },  
           {
             label: "Salidas",
             backgroundColor: "#1EC8F3",
@@ -98,10 +115,26 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-
-    
-
+    this.getMercancias();
   }
+
+    // **************************** Tabla de mercancias ****************************
+    public getMercancias() {
+      this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
+        this.dataInfoSalidas.data = data.splice(0,4);
+        //console.log(this.dataInfoSalidas.data);
+      }, 
+      (err: HttpErrorResponse) => { 
+        if (err.error instanceof Error) {
+          this.showAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.showAlert(error);
+        }
+    }
+      )};
+
+
 
   public dia() {
     this.currentIndex = 0;
