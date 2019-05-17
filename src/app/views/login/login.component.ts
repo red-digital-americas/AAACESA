@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginServices } from '../../services/login.services';
 import { ApiServices } from '../../services/api.services';
 import { MatSnackBar } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,6 +53,16 @@ export class LoginComponent implements OnInit {
             setTimeout(function(){
               window.location.href ="dashboard";
             },3000);
+          }, 
+          (err: HttpErrorResponse) => { 
+            this.loading=false;
+            console.log(err.error);
+            if (err.error instanceof Error) {
+              this.sendAlert('Error:'+ err.error.message);
+            } else {
+              let error= (err.error.Description == undefined)?err.error:err.error.Description;
+              this.sendAlert(error);
+            }
           });
         }
         else{
@@ -59,8 +70,16 @@ export class LoginComponent implements OnInit {
           this.message = value.Detalle;
           this.sendAlert(this.message);
         }
-      }
-    );
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        console.log(err.error);
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          this.sendAlert("Error en inicio de sesión, intenta más tarde");
+        }
+      });
   }
   
   validar_campos(event) {

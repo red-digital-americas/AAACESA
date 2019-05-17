@@ -1,88 +1,21 @@
-<div class="row">
-<div class="col-sm-12 col-md-8 col-lg-8">
-    <div class="card" style="padding: 2%">
-        <div class="card-body">
-          <div class="row mb-3">
-            <div class="col-12">
-              <div class="row">
-                <p>Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</p> <br>
-              </div>
-              <div class="row">
-                <h6>Ingresa los datos solicitados a continuación.</h6>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-6 col-lg-6">                                                 
-                  <div class="input-group">
-                    <!-- <mat-form-field class="input-full-width" >
-                      <mat-select placeholder="CVE / Tipo Entrada">
-                          <mat-option>
-                              <input matInput class="form-control">
-                          </mat-option>
-                      </mat-select>
-                    </mat-form-field>  -->
-                    
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="number" class="form-control" placeholder="Peso: 590 kg" required>
-                    </mat-form-field>   
-      
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="number" class="form-control" placeholder="$ 0.00" placeholder="Valor aduana">
-                      <span matPrefix>$&nbsp;</span>
-                      <span matSuffix>.00</span>
-                    </mat-form-field>    
-    
-                    <mat-form-field class="input-full-width">
-                      <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                      <input matInput class="form-control" type="text" placeholder="Fecha de Entrada">
-                      <mat-icon>calendar_today</mat-icon>               
-                      <!-- <mat-icon matPrefix >event</mat-icon> -->
-                    </mat-form-field>
-    
-                    <mat-form-field  class="input-full-width">
-                        <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                        <input matInput class="form-control" type="text" placeholder="Fecha de Salida">
-                        <mat-icon>calendar_today</mat-icon>              
-                        <!-- <mat-icon matPrefix >event</mat-icon> -->
-                    </mat-form-field>
-                    
-                    <div class="input-full-width form-group form-check">                    
-                      <label for="cadena" class="form-check-label">Cadena Fría</label>
-                        <label class="switch switch-pill switch-primary form-switch">                  
-                          <input id="cadena" [(ngModel)]="frio" type="checkbox" class="switch-input">
-                          <span class="switch-slider"></span>
-                        </label>
-                    </div>
-
-                    <!-- <mat-form-field *ngIf="frio" class="input-full-width" >
-                        <mat-select placeholder="Rango de temperatura">
-                            <mat-option>10°</mat-option>
-                            <mat-option>5°</mat-option>
-                            <mat-option>0°</mat-option>
-                            <mat-option>-5°</mat-option>
-                            <mat-option>-10°</mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
-
-                    <div *ngIf="frio" class="input-full-width form-group form-check">                    
-                        <label for="consolidado" class="form-check-label">Previo</label>
-                          <label class="switch switch-pill switch-primary form-switch">                  
-                            <input id="consolidado" type="checkbox" class="switch-input">
-                            <span class="switch-slider"></span>
-                          </label>
-                    </div>
-
-
-                    <mat-checkbox matInput class="input-full-width">Términos y condiciones</mat-checkbox> 
-    
-                    <button class="btn btn-pill btn-primary">CALCULAR</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="row ml-1 mt-3">
+  <div class="col-sm-12 col-md-8 col-lg-8">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <span class="label label-default d-none d-lg-block small ml-3">Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</span>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <span class="label label-default d-none d-lg-block small mr-auto ml-3"><small class="text-muted">Ingresa los datos solicitados a continuación.</small></span>
+          </div>
+        </div><!-- end ROW -->
+        <div class="row">
+          
         </div>
-      </div>
-    </div>
-</div>
+      </div><!-- Card Body -->
+    </div><!-- Card -->
+  </div><!--END Card calculadora -->
 
 
 <div class="col-sm-12 col-md-4 col-lg-4">

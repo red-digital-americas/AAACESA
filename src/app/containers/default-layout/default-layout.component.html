@@ -92,22 +92,9 @@
 
       <div [ngClass]="{'floating__panel--active': toogleCalc}" class="floating__panel">
         <div (click)="toogleCalc=!toogleCalc" [ngClass]="{'floating__panel-close-btn--hide': !toogleCalc}" class="floating__panel-close-btn"><i class="fas fa-calculator"></i></div>          
-
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-      
-            <!-- <div class="modal-header">
-              <h6 class="modal-title">Detalle PreAlerta</h6>
-              <button type="button" class="close" (click)="detalleModal.hide()" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div> -->
-      
-            <div class="modal-body">        
-              <app-calculdora></app-calculdora>
-            </div>
-          </div>
-        </div>
+        <div class="container-fluid">
+          <app-calculdora></app-calculdora>
+        </div><!-- modal  -->
       </div>
     </div><!-- /.container-fluid -->
   </main>
