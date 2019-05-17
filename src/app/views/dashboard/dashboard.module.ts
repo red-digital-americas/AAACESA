@@ -10,7 +10,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 /** Imports de Material */
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatTabsModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatTabsModule, MatTableModule, MatSnackBarModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { UsuarioComponent } from '../../aaacesa/usuario/usuario.component';
 import { ContadorComponent } from '../../aaacesa/contador/contador.component';
@@ -35,6 +35,7 @@ import { GeneralSummaryComponent } from '../../aaacesa/general-summary/general-s
     MatTabsModule,
     MatTableModule,
     MatCardModule,
+    MatSnackBarModule,
     MatGridListModule,
     CommonModule,
     MatDividerModule
