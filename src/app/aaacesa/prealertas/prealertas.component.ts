@@ -215,6 +215,12 @@ export class PrealertasComponent {
     if (estado==="Cancelada" && this.modelSeguimiento.Documentos.length > 0) { 
       this.showAlert("No se pueden enviar documentos al cancelar"); return;
     }
+    // if (estado==="Pendiente AAACESA" && this.modelSeguimiento.Documentos.length > 5) { 
+    //   this.showAlert("Máximo 5 documentos"); return;
+    // }
+    // if (estado==="Pendiente AAACESA" && this.modelSeguimiento.Documentos.length < 0) { 
+    //   this.showAlert("Mínimo 1 documento"); return;
+    // }
 
     this.loading = true;
     this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
@@ -251,13 +257,13 @@ export class PrealertasComponent {
 
   removeDocument (index) { this.modelSeguimiento.Documentos.splice(index, 1); }
 
-  onFileChanged(event) {    
+  onFileChanged(event) {        
     for (let i = 0; i < event.target.files.length; i++) {
-      if (event.target.files[i].type != "application/pdf") { continue; }
+      if (event.target.files[i].type != "application/pdf") { continue; }      
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}      
-      if (event.target.files[i].size > 4194304) { continue; }
+      if (event.target.files[i].size > 2097152) { continue; }             
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -377,7 +383,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
-  DOCUMENTS_REQUIRED = { T: "Guía Master, Guía House", RT: "Patente, Gafete", R: "Guía Master, Patente"};
+  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma."};
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -431,11 +437,11 @@ export class DialogCreatePrealertasComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
-      referenciaCtrl: ['', Validators.required],
+      referenciaCtrl: [''],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: [new Date(), Validators.required],      
@@ -573,7 +579,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   }
 
   guardarFirstForm () {    
-    if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
+    // if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
     if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
     
     this.model.GuiaMaster = this.firstFormGroup.value.masterCtrl;

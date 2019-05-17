@@ -208,7 +208,7 @@ export class SalidasComponent  {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
-      if (event.target.files[i].size > 4194304) { continue; }
+      if (event.target.files[i].size > 2097152) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;

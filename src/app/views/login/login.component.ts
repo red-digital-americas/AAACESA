@@ -120,6 +120,16 @@ export class LoginComponent implements OnInit {
             window.location.href ="login";
           },3000);
         }
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        console.log(err.error);
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.sendAlert(error);
+        }
       });
     }
     else{

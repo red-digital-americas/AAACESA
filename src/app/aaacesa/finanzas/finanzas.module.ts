@@ -5,6 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FinanzasComponent } from './finanzas.component';
 
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+
 //import { FinanzasRoutingModule } from './finanzas-routing.module';
 import { MatTabsModule, MatSortModule, MatIconModule, MatInputModule, MatTableModule, MatPaginatorModule, MatDialogModule, MatSnackBarModule, MatCardModule, MatDividerModule } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';

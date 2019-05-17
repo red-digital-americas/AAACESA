@@ -4,7 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatSnackBar, MatTableDataSource, MatSort } 
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserData } from '../../../models/user.models';
 import { AbstractControl } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, empty } from 'rxjs';
 import * as jquery from 'jquery';
 
 @Component({
@@ -80,17 +80,29 @@ export class CrearUserComponent implements OnInit {
     });
   }
 
-  guardaUsuario() {
+  guardaUsuario(accion) {
     this.loading=true;
     this.crearUser.Telefono =  this.crearUser.Telefono.replace(/\D+/g, '');
     this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
       this.loading=false;  
-      this.final= (value.Result)?true:false;
+      if(accion ==2)
+      {
+        this.crearUser.Clean();
+        this.resetValues();
+        this.visibleMods=false;
+        this.dataSourceMod.data = [];
+        this.sendAlert(value.Description);
+      }
+      else{
+        this.final= (value.Result)?true:false;
         this.mensaje = value.Description
+      }
+      
     }, 
     (err: HttpErrorResponse) => { 
       this.loading=false;
-      console.log(err.error);
+      this.visibleMods=false;
+      this.dataSourceMod.data = [];
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {
@@ -98,6 +110,12 @@ export class CrearUserComponent implements OnInit {
         this.sendAlert(error);
       }
     });
+  }
+  resetValues(){
+    this.crearUser.RFC = this.data.rfcUser;
+    this.crearUser.RazonSocial = this.data.razonSocUser;
+    this.crearUser.ClavePatente = this.data.patenteUser;
+    this.crearUser.TipoCliente = this.data.tipoUser;
   }
 
   validar_campos(event) {
