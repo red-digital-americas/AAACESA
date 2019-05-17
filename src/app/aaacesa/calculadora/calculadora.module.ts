@@ -42,6 +42,9 @@ import { ngfModule } from 'angular-file';
   ],
   declarations: [
     CalculadoraComponent,
+  ],
+  exports:[
+    CalculadoraComponent
   ]
 })
 

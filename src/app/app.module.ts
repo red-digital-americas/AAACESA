@@ -63,6 +63,8 @@ import { UserIdleModule } from 'angular-user-idle';
 
 import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { SharedModule } from './aaacesa/shared/shared.module';
+import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
 
 
 
@@ -76,7 +78,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
     RegisterComponent,
     ResetpasswordComponent,
     DialogSessionComponent,
-    CalculadoraComponent
+    // CalculadoraComponent
     // AbandonoComponent
   ],
   imports: [
@@ -106,7 +108,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
     TextMaskModule,
     MatSelectModule,
     NgxLoadingModule.forRoot({}),
-    UserIdleModule.forRoot({idle:0, timeout:1800,ping:1500})
+    UserIdleModule.forRoot({idle:0, timeout:1800,ping:1500}),
+    CalculadoraModule
     // UserIdleModule.forRoot({idle:0, timeout:20,ping:12})
   ],
   exports: [
