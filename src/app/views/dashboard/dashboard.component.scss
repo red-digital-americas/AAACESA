@@ -94,3 +94,12 @@ img {
     transition: all .35s ease-in-out;
   }
   
+  @media(max-width:480px){
+     mat-card .grafica {
+      display: none !important;
+    }
+
+    img #airport {
+      display: none;
+    }
+  }
