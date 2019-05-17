@@ -37,6 +37,7 @@ export class CrearUserComponent implements OnInit {
   mensaje="";
   public rfcCliente:string;
   public crearUser: UserData= new UserData();
+  numCuentasAsig;
 
   public phoneModel = '';
   public phoneMask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
@@ -61,6 +62,8 @@ export class CrearUserComponent implements OnInit {
     this.crearUser.RazonSocial = selValue.RazonSocial;
     this.crearUser.ClavePatente = selValue.ClavePatente;
     this.crearUser.TipoCliente = selValue.TipoCliente;
+    this.crearUser.NumCuentas = selValue.NumCuentas;
+    this.numCuentasAsig = selValue.NumCuentas;
     this.visible=false;
   }
 
@@ -81,6 +84,7 @@ export class CrearUserComponent implements OnInit {
   }
 
   guardaUsuario(accion) {
+    console.log(this.crearUser);
     this.loading=true;
     this.crearUser.Telefono =  this.crearUser.Telefono.replace(/\D+/g, '');
     this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
@@ -116,6 +120,7 @@ export class CrearUserComponent implements OnInit {
     this.crearUser.RazonSocial = this.data.razonSocUser;
     this.crearUser.ClavePatente = this.data.patenteUser;
     this.crearUser.TipoCliente = this.data.tipoUser;
+    this.crearUser.NumCuentas = (this.rolAdminUSer=='ADMIN')?this.numCuentasAsig:"";
   }
 
   validar_campos(event) {

@@ -64,11 +64,11 @@
         <div class="dropdown-header text-center"><strong>{{ rolUser }}</strong></div>
         <div class="divider"></div>
         <a class="dropdown-item" [routerLink]="" (click)="redirect('bitacoras')" ><i class="icon-note"></i>Bitácora</a>
-        <div class="dropdown-divider"></div>
+        <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
         <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " [routerLink]="" (click)="redirect('adminuser')" ><i class="icon-people"></i> Admin de usuarios</a>
         <div class="dropdown-divider  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION' "></div>
         <a class="dropdown-item  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION'" [routerLink]="" (click)="redirect('calculadora')" ><i class="icon-people"></i> Cálculo Maniobras</a>
-        <div class="dropdown-divider"></div>
+        <div class="dropdown-divider" *ngIf="rolUser != 'OPERACION'"></div>
         <a class="dropdown-item" href="#" (click)="closeSession()"><i class="cui-account-logout"></i> Salir</a>
       </div>
     </li>
