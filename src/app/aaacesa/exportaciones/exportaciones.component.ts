@@ -219,7 +219,7 @@ export class ExportacionesComponent {
       if(this.modelSeguimiento.Documentos.filter(
         documento => documento.NombreDocumento.includes(event.target.files[i].name)).length > 0)
       {continue;}
-      if (event.target.files[i].size > 4194304) { continue; }
+      if (event.target.files[i].size > 2097152) { continue; }
 
       let newDocumento = new Documento();
       newDocumento.NombreDocumento = event.target.files[i].name;
@@ -278,7 +278,7 @@ export class ExportacionesComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreateExportacionesComponent, {
-      // width: '95%',        
+      // width: '80%',        
       disableClose: true,
       data: { }      
     });
@@ -375,7 +375,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],      
+      houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],      
     });
     this.secondFormGroup = this._formBuilder.group({
       pedimentoCtrl: ['', Validators.required],
@@ -421,7 +421,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
 
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
-    if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
+    if (this.model.Documentos.length > 6) { this.showAlert("Máximo subir 6 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
     
     this.model.Master = this.firstFormGroup.value.masterCtrl;
     this.model.House = this.firstFormGroup.value.houseCtrl;    
