@@ -13,6 +13,25 @@ export class BitacorasBusqueda {
     }
 }
 
+export class BitacoraResult{
+    constructor(){}
+    public FechaCreacion:string = "";    
+    public Nombre:string = "";        
+    public Correo:string = "";    
+    public Modulo:string = "";    
+    public Accion:string = "";    
+    public Detalle:string = "";    
+
+    Clean() {
+        this.FechaCreacion = "";    
+        this.Nombre = "";        
+        this.Correo = "";    
+        this.Modulo = "";    
+        this.Accion = "";    
+        this.Detalle = "";    
+    }
+}
+
 export class CalculoManiobra {
     constructor() { }    
     public TipoEntrada:string = "";    

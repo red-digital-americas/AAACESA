@@ -116,8 +116,9 @@
               </div>
             </div>
             <div class="row mt-3">
-              <div class="col text-right">
-                <button type="submit"  class="btn btn-primary btn-pill btn-sm" (click)="creaUserForm.valid ? guardaUsuario() : validar_campos(creaUserForm)">Crear nuevo usuario</button>
+              <div class="col-lg-12 text-center">
+                <button (click)="(creaUserForm.valid ? guardaUsuario('2') : validar_campos(creaUserForm));" class="btn btn-pill btn-primary btn-sm mb-1 mb-md-0 mr-1 ml-1">Crear y Generar Nuevo</button>
+                <button type="submit"  class="btn btn-primary btn-pill btn-sm mb-1 mb-md-0 mr-1 ml-1" (click)="creaUserForm.valid ? guardaUsuario('1') : validar_campos(creaUserForm)">Crear y Terminar proceso</button>
               </div>
             </div>
           </div>
@@ -127,8 +128,8 @@
   </div>
   <div class="container mt-3 mb-5" *ngIf="final">
     <div class="row">
-      <div class="col">
-        {{ mensaje }}
+      <div class="col-12 text-center">
+        <h3>{{ mensaje }}</h3>
       </div>
     </div>
   </div>

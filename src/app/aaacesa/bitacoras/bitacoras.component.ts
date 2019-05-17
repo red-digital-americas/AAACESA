@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
 import { Http } from '@angular/http';
 import { ApiServices } from '../../services/api.services';
-import { BitacorasBusqueda } from '../../models/bitacoras.model';
+import { BitacorasBusqueda, BitacoraResult } from '../../models/bitacoras.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { BsDatepickerConfig, BsLocaleService, defineLocale, deLocale } from 'ngx-bootstrap';
 import { BsDatepickerViewMode } from 'ngx-bootstrap/datepicker/models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -20,10 +21,11 @@ import { BsDatepickerViewMode } from 'ngx-bootstrap/datepicker/models';
 export class BitacorasComponent implements OnInit {
 
   displayedColumns: string[] = ['Nombre', 'Accion', 'Detalle', 'Fecha', 'Hora'];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<BitacoraResult>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  visibleRes= false;
 
   
 
@@ -68,6 +70,7 @@ export class BitacorasComponent implements OnInit {
     this.busquedaBit.IdCuentaEspecifica = (this.busquedaBit.IdCuentaEspecifica == undefined)?"":this.busquedaBit.IdCuentaEspecifica;
     this.apiserv.service_general_get_with_params('/Bitacoras/Busqueda',this.busquedaBit).subscribe((data) => {
       this.loading= false;
+      this.visibleRes = true;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -84,14 +87,40 @@ export class BitacorasComponent implements OnInit {
           default: { return item[property];} 
         }
       };
+    }, 
+    (err: HttpErrorResponse) => { 
+      this.loading=false;
+      console.log(err.error);
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
+      }
     }); 
 
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   limpiarFlitros(){
     this.busquedaBit.Clean();
     this.rangoFechaSearch = "";
     this.dataSource.data = [];
+    this.visibleRes = false;
+  }
+
+  sendAlert(mensaje:string){
+    this.snackBar.open(mensaje, "", {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
 }

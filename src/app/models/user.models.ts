@@ -22,6 +22,19 @@ export class UserAuth {
     public Materno: string ="";
     public Telefono: string ="";
     public Perfil: PerfilUser= new PerfilUser();
+    Clean(){
+      this.ClavePatente ="";
+      this.TipoCliente ="";
+      this.RazonSocial ="";
+      this.RFC ="";
+      this.NumCuentas ="";
+      this.Correo ="";
+      this.Nombre ="";
+      this.Paterno ="";
+      this.Materno ="";
+      this.Telefono ="";
+      this.Perfil.ClavePerfil = "";
+    }
   }
 
   export class ActualizaData {
