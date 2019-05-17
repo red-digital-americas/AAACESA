@@ -1,9 +1,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-<div class="animated fadeIn">
+<div class="animated fadeIn" style="margin-top: -40px">
     <div>  
-        <button mat-button (click)="dia()" style="color:#CF0A2B">Día</button>
-        <button mat-button (click)="semana()" style="color:#CF0A2B">Semana</button>
-        <button mat-button (click)="mes()" style="color:#CF0A2B">Mes</button>
+        <button mat-button (click)="dia()" [ngClass]="{'dashboard__btn--underline': currentIndex === 0}" style="color:#CF0A2B">Día</button>
+        <button mat-button (click)="semana()" [ngClass]="{'dashboard__btn--underline': currentIndex === 1}" style="color:#CF0A2B">Semana</button>
+        <button mat-button (click)="mes()" [ngClass]="{'dashboard__btn--underline': currentIndex === 2}" style="color:#CF0A2B">Mes</button>
     </div>
       <br>
   <div class="row"> 
