@@ -1,130 +1,164 @@
-<div class="row">
-<div class="col-sm-12 col-md-8 col-lg-8">
-    <div class="card" style="padding: 2%">
-        <div class="card-body">
-          <div class="row mb-3">
-            <div class="col-12">
-              <div class="row">
-                <p>Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</p> <br>
-              </div>
-              <div class="row">
-                <h6>Ingresa los datos solicitados a continuación.</h6>
-              </div>
-              <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-6 col-lg-6">                                                 
-                  <div class="input-group">
-                    <!-- <mat-form-field class="input-full-width" >
-                      <mat-select placeholder="CVE / Tipo Entrada">
-                          <mat-option>
-                              <input matInput class="form-control">
-                          </mat-option>
-                      </mat-select>
-                    </mat-form-field>  -->
-                    
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="number" class="form-control" placeholder="Peso: 590 kg" required>
-                    </mat-form-field>   
-      
-                    <mat-form-field class="input-full-width">
-                      <input matInput type="number" class="form-control" placeholder="$ 0.00" placeholder="Valor aduana">
-                      <span matPrefix>$&nbsp;</span>
-                      <span matSuffix>.00</span>
-                    </mat-form-field>    
-    
-                    <mat-form-field class="input-full-width">
-                      <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                      <input matInput class="form-control" type="text" placeholder="Fecha de Entrada">
-                      <mat-icon>calendar_today</mat-icon>               
-                      <!-- <mat-icon matPrefix >event</mat-icon> -->
-                    </mat-form-field>
-    
-                    <mat-form-field  class="input-full-width">
-                        <!-- <input matInput type="text" class="" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" placeholder="Fecha Previo">                 -->
-                        <input matInput class="form-control" type="text" placeholder="Fecha de Salida">
-                        <mat-icon>calendar_today</mat-icon>              
-                        <!-- <mat-icon matPrefix >event</mat-icon> -->
-                    </mat-form-field>
-                    
-                    <div class="input-full-width form-group form-check">                    
-                      <label for="cadena" class="form-check-label">Cadena Fría</label>
-                        <label class="switch switch-pill switch-primary form-switch">                  
-                          <input id="cadena" [(ngModel)]="frio" type="checkbox" class="switch-input">
-                          <span class="switch-slider"></span>
-                        </label>
-                    </div>
-
-                    <!-- <mat-form-field *ngIf="frio" class="input-full-width" >
-                        <mat-select placeholder="Rango de temperatura">
-                            <mat-option>10°</mat-option>
-                            <mat-option>5°</mat-option>
-                            <mat-option>0°</mat-option>
-                            <mat-option>-5°</mat-option>
-                            <mat-option>-10°</mat-option>
-                        </mat-select>
-                    </mat-form-field> -->
-
-                    <div *ngIf="frio" class="input-full-width form-group form-check">                    
-                        <label for="consolidado" class="form-check-label">Previo</label>
-                          <label class="switch switch-pill switch-primary form-switch">                  
-                            <input id="consolidado" type="checkbox" class="switch-input">
-                            <span class="switch-slider"></span>
-                          </label>
-                    </div>
-
-
-                    <mat-checkbox matInput class="input-full-width">Términos y condiciones</mat-checkbox> 
-    
-                    <button class="btn btn-pill btn-primary">CALCULAR</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-
-<div class="col-sm-12 col-md-4 col-lg-4">
-<div class="animated fadeIn">
-  <div class="card" style="padding: 2%">
-    <div class="card-body">
-      <div class="row mb-3">
-        <div class="col">
-          <div class="row">
-            <h6>Cálculo de Maniobras</h6>
+<ngx-loading [show]="loading"></ngx-loading>
+<div class="row ml-1 mt-3 mr-1">
+  <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <span class="label label-default d-none d-lg-block small ml-3">Calcula el costo de  las maniobras, los datos marcados con * son obligatorios</span>
           </div>
-          <ng-template ngFor let-calculo [ngForOf]="calculos" let-i="index">
-              <div *ngIf="!frio" class="row">
-                  <div class="col-6">
-                    {{calculo}}
-                  </div>
-                  <div class="col-6">
-                    <mat-form-field class="alined">
-                      <input matInput type="number" class="form-control" placeholder="0" disabled>
-                      <span matPrefix>$&nbsp;</span>
-                      <span matSuffix>.00</span>
-                    </mat-form-field>
-                  </div>
-              </div>
-          </ng-template>
-          <ng-template ngFor let-calcfrio [ngForOf]="calcfrios" let-i="index">
-              <div *ngIf="frio" class="row">
-                  <div class="col-6">
-                    {{calcfrio}}
-                  </div>
-                  <div class="col-6">
-                    <mat-form-field class="alined">                   
-                      <input matInput type="number" class="form-control" placeholder="0" disabled>
-                      <span matPrefix>$&nbsp;</span><span matSuffix>.00</span>
-                    </mat-form-field>
-                  </div>
-              </div>
-          </ng-template>          
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <span class="label label-default d-none d-lg-block small mr-auto ml-3"><small class="text-muted">Ingresa los datos solicitados a continuación.</small></span>
+          </div>
+        </div><!-- end ROW -->
+        <form [formGroup]="calculoForm">
+          <div class="row mt-2">
+            <div class="col-12 styled-select">
+              <mat-form-field class="input-full-width">
+                <mat-select [(ngModel)]="calculoManiobra.TipoEntrada" class="" formControlName="sTipoEntrada" name="sTipoEntrada" required placeholder="Tipo de Entrada" >
+                  <!-- <mat-option *ngFor="let elem of getTipoIngreso" [value]="elem.Clave"> {{elem.Concepto}} </mat-option> -->
+                  <mat-option [value]="'I'"> Importación </mat-option>
+                  <mat-option [value]="'E'"> Exportación </mat-option>
+                </mat-select>
+                <mat-error *ngIf="calculoForm.get('sTipoEntrada').errors?.required">
+                  El campo Tipo Entrada es <strong>requerido</strong>
+                </mat-error>                  
+              </mat-form-field>
+            </div><!-- end col -->
+          </div>
+          <div class="row mt-2">
+            <div class="col-12 styled-select">
+              <mat-form-field class="input-full-width">
+                <mat-select [(ngModel)]="calculoManiobra.ConceptoCadenaFria" class="" formControlName="sConceptoCadenaFria" name="sConceptoCadenaFria" required placeholder="Rango de temperatura" >
+                  <mat-option *ngFor="let elemt of getCadena " [value]="elemt.Concepto"> 
+                  {{elemt.Concepto}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="calculoForm.get('sConceptoCadenaFria').errors?.required">
+                  El campo Rango de temperatura es <strong>requerido</strong>
+                </mat-error>                  
+              </mat-form-field>
+            </div><!-- end col -->
+          </div><!-- END row -->
+          <div class="row mt-2">
+            <div class="col-md-6 styled-select">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text"  [(ngModel)]="calculoManiobra.Peso" formControlName="sPeso" name="sPeso"  placeholder="Peso" required />
+                <span matSuffix>Kg.</span>
+                <mat-error *ngIf="calculoForm.get('sPeso').errors?.required">
+                    El campo Peso es <strong>requerido</strong>
+                </mat-error> 
+                <mat-error *ngIf="calculoForm.get('sPeso').errors?.pattern">
+                    El campo Peso debe ser <strong>numérico</strong>
+                </mat-error>
+              </mat-form-field>
+            </div><!-- end col -->
+            <div class="col-md-6 styled-select">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text"  [(ngModel)]="calculoManiobra.ValorAduana" formControlName="sValorAduana"placeholder="Valor Aduana" pattern="^[+-]?([0-9]*[.])?[0-9]+$" required/>
+                <mat-error *ngIf="calculoForm.get('sValorAduana').errors?.required">
+                    El campo Valor Aduana es <strong>requerido</strong>
+                </mat-error> 
+                <mat-error *ngIf="calculoForm.get('sValorAduana').errors?.pattern">
+                    El campo Valor Aduana debe ser <strong>numérico</strong>
+                </mat-error>
+              </mat-form-field>
+            </div><!-- end col -->
+          </div><!-- end ROW -->
+          <div class="row mt-2">
+            <div class="col-md-6 styled-select">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" [(ngModel)]="calculoManiobra.FechaEntrada" formControlName="fechaEntradaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate"  placeholder="Fecha de Entrada (dd/mm/AAAA)" required >
+                <mat-error *ngIf="calculoForm.get('fechaEntradaCtrl').errors?.required">
+                    El campo Fecha de Entrada es <strong>requerido</strong>
+                </mat-error> 
+              </mat-form-field>
+            </div><!-- end col -->
+            <div class="col-md-6 styled-select">
+              <mat-form-field class="input-full-width">
+                  <input matInput type="text" [(ngModel)]="calculoManiobra.FechaSalida" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha de Salida (dd/mm/AAAA)" required >
+                  <mat-error *ngIf="calculoForm.get('fechaSalidaCtrl').errors?.required">
+                      El campo Fecha de Salida es <strong>requerido</strong>
+                  </mat-error>  
+              </mat-form-field>
+            </div><!-- end col -->
+          </div><!-- end ROW -->
+          <hr class="dividerb">
+          <div class="row mt-3">
+            <div class="col-lg-12 text-center">
+              <button (click)="clean(); "  class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Limpiar</button>            
+              <button  (click)="calcularManiobra()" class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Enviar</button>
+            </div>
+          </div><!-- end ROW -->
+        </form>
+      </div><!-- Card Body-->
+    </div><!--END Card calculadora -->
+  </div><!--END Card calculadora right side-->
+
+
+  <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <h6>Resultado del Cálculo</h6>
+            </div>
+          </div><!-- end ROW -->
+          <div class="row" >
+            <div class="col-12" *ngIf="resCalcuo.CostoAlmacenaje > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoAlmacenaje" placeholder="Costo Almacenaje" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.CostoCustodia > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoCustodia" placeholder="Costo Custodia" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.CostoManiobra > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoManiobra" placeholder="Costo Maniobra" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.CostoRefrigeracion > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoRefrigeracion" placeholder="Costo Refrigeracion" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.CostoTEC > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoTEC" placeholder="Costo TEC" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+          </div>
+          <hr class="dividerb">
+          <div class="row" >
+            <div class="col-12" *ngIf="resCalcuo.Subtotal > '0' " >
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;"  [(ngModel)]="resCalcuo.Subtotal" placeholder="Subtotal" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.IVA > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.IVA" placeholder="IVA" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.Total > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.Total" placeholder="Total" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            
+          </div><!-- end ROW -->
+        </div><!-- Card Body-->
+    </div><!--END Card calculadora -->    
+  </div><!--END CARD resultados calculadora left side-->
 </div>

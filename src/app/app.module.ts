@@ -9,6 +9,10 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HttpClient } from '@angular/common/http';import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, Http } from '@angular/http';
 
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -52,12 +56,13 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ResetpasswordComponent } from './views/resetpassword/resetpassword.component';
-import { MatInputModule, MatIconModule, MatSnackBarModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
+import { MatInputModule, MatIconModule, MatSnackBarModule, MatCheckboxModule, MatDialogModule, MatSelectModule } from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxLoadingModule } from 'ngx-loading';
 import { UserIdleModule } from 'angular-user-idle';
 
 import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 
 
@@ -85,6 +90,7 @@ import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.componen
     AppHeaderModule,
     AppSidebarModule,
     PerfectScrollbarModule,
+    BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
@@ -98,6 +104,7 @@ import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.componen
     MatSnackBarModule,
     MatDialogModule,
     TextMaskModule,
+    MatSelectModule,
     NgxLoadingModule.forRoot({}),
     UserIdleModule.forRoot({idle:0, timeout:1800,ping:1500})
     // UserIdleModule.forRoot({idle:0, timeout:20,ping:12})

@@ -40,6 +40,11 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   info = new MatTableDataSource();
   account = new MatTableDataSource();
 
+  tmpdataSource = [];
+  tmpdataSources = [];
+  tmpinfo = [];
+  tmpaccount = [];
+
   public data;
   public userData;
   public numCuentas;
@@ -60,22 +65,19 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     });
   }
 
-  ngAfterViewInit() {
-  
-    this.InvoicesPaginator._intl.itemsPerPageLabel = "Registros por página";
-    this.CreditNotesPaginator._intl.itemsPerPageLabel = "Registros por página";
-    this.PaidComplementPaginator._intl.itemsPerPageLabel = "Registros por página";
-    this.AccountStatusPaginator._intl.itemsPerPageLabel = "Registros por página";
+  ngAfterViewInit() {      
    /*  this.dataSource.paginator = this.paginator; */
     this.dataSource.paginator = this.InvoicesPaginator;
     this.dataSources.paginator = this.CreditNotesPaginator;
     this.info.paginator = this.PaidComplementPaginator;
     this.account.paginator = this.AccountStatusPaginator;
+    // this.InvoicesPaginator._intl.itemsPerPageLabel = "Registros por página";    
+      
     this.dataSource.sort = this.sort;     
     this.dataSource.sortingDataAccessor = (item, property) => {      
       switch (property) {     
-        case 'FechaArribo': {
-          let f = item['FechaArribo'].split(' ')[0];                // 07/05/2019 12:00 PM          
+        case 'FechaEmision': {
+          let f = item['FechaEmision'].split(' ')[0];                // 07/05/2019 12:00 PM          
           f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
           //console.log(f);
           let newDate = new Date(f);
@@ -102,42 +104,55 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.account.data = [];
   }
 
+  public generalSearch() {
+    this.dataSource.data = this.filterValue(this.tmpdataSource, this.filterQuery);
+    this.dataSources.data = this.filterValue(this.tmpdataSources, this.filterQuery);
+    this.info.data = this.filterValue(this.tmpinfo, this.filterQuery);
+    this.account.data = this.filterValue(this.tmpaccount, this.filterQuery);
+  }
+
+  private filterValue(items:any, term:any) {
+    if (Array.isArray(items) && items.length && term && term.length) {
+      return items.filter(item => {
+        let keys = Object.keys(item);
+        if (Array.isArray(keys) && keys.length) {
+          for (let key of keys) {
+            if (item.hasOwnProperty(key) && item[key] && item[key].length && (item[key].toString().toLowerCase().replace(/ /g, '')).includes((term.toString().toLowerCase().replace(/ /g, '')))) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          return false;
+        }
+      });
+    } else {
+      return items;
+    }
+  }
+
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-    this.rangoFechaSearch = [];
+    this.rangoFechaSearch = "";
+    this.busquedaModel[tabChangeEvent.index].Pedimento = "";
+    
     if(tabChangeEvent.index == 0)
     {
-      this.dataSource.data = [];
-      this.apiserv.service_general_get('/Finanzas/GetFacturas').subscribe((data) => {
-        this.dataSource.data = [];
-      });
+      this.tmpdataSource = [];
+      this.dataSource.data = [];    
     }
     else if (tabChangeEvent.index == 1) {
-      this.dataSources.data = [];
-      this.apiserv.service_general_get('/Finanzas/GetNotasCredito').subscribe((res) => {
-        this.dataSources.data = [];
-      });
+      this.tmpdataSources= [];
+      this.dataSources.data = [];      
     }
     else if (tabChangeEvent.index == 2) {
       this.info.data = [];
-      this.apiserv.service_general_get('/finanzas/GetComplementoDePago').subscribe((com) => {
-        this.info.data = [];
-      })
+      this.tmpinfo = [];      
     }
     else if (tabChangeEvent.index == 3) {
-      this.account.data = [];
-      this.apiserv.service_general_get('/Finanzas/GetEstadoDeCuenta').subscribe((stat) => {
-        this.account.data = [];
-      })
+      this.tmpaccount = [];
+      this.account.data = [];      
     }
-  }
-
-  public toInt(num: string) {
-    return + num;
-  }
-
-  public sortByWordLength = (a: any) => {
-    return a.name.length;
-  }
+  } 
 
   public facturasBusqueda(){
     if (this.rangoFechaSearch != null) {
@@ -153,26 +168,24 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.loading = true;
     this.apiserv.service_general_get_with_params('/Finanzas/GetFacturas', this.busquedaModel[0])
       .subscribe ( 
-      (response:any) => {
-        this.data = response;
-        this.dataSource.data = this.data;
-        this.dataSource.data = [...this.dataSource.data];
-        this.loading = false;
-        this.dataSource.paginator = this.InvoicesPaginator;
+      (response:any) => {        
+        this.tmpdataSource = response;
+        this.dataSource.data = this.tmpdataSource;        
+        this.loading = false;        
       }, 
       (errorService) => {
+        // this.tmpdataSource = [];
+        // this.dataSource.data = this.tmpdataSource;
         console.log(errorService); this.loading = false;
         this.showAlert(errorService.error);
       });
   }
 
-  public NuevaBusquedaFinanzas(){
-    this.clear.Clean();
-    this.fechaEmisionSearch = null;
-    this.rangoFechaSearch = [];
-    this.Pedimento = [];
-    this.dataSource.data = [];
-    this.dataSource.data = [...this.dataSource.data];
+  public NuevaBusquedaFinanzas(){    
+    this.busquedaModel[0].Clean();    
+    this.rangoFechaSearch = "";
+    // this.Pedimento = [];
+    this.dataSource.data = [];  
   }
 
   public getPDFInvoices(element){
@@ -231,13 +244,12 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[1].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel);
+    console.log(this.busquedaModel[1]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetNotasCredito', this.busquedaModel[1])
       .subscribe ( 
       (response:any) => {
-        this.data = response;    
-        this.dataSources.data = this.data;
-        this.dataSources.data = [...this.dataSources.data];
+        this.tmpdataSources = response;    
+        this.dataSources.data = this.tmpdataSources;        
         this.loading = false;
       }, 
       (errorService) => { 
@@ -246,13 +258,11 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       });
   }
 
-  public NuevaBusquedaNotas(){
-    this.clear.Clean();
-    this.fechaEmisionSearch = null;
-    this.rangoFechaSearch = [];
-    this.Pedimento = [];
-    this.dataSources.data = [];
-    this.dataSources.data = [...this.dataSources.data];
+  public NuevaBusquedaNotas(){    
+    this.busquedaModel[1].Clean();    
+    this.rangoFechaSearch = "";
+    // this.Pedimento = [];     
+    this.dataSources.data = [];    
   }
 
   public getPDF(element){
@@ -316,13 +326,12 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[2].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel);
+    console.log(this.busquedaModel[2]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetComplementoDePago', this.busquedaModel[2])
       .subscribe ( 
       (response:any) => {
-        this.data = response;    
-        this.info.data = this.data;
-        this.info.data = [...this.info.data];
+        this.tmpinfo = response;    
+        this.info.data = this.tmpinfo;        
         this.loading = false;
       }, 
       (errorService) => { 
@@ -331,12 +340,10 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   }
 
   public NuevaBusquedaComplemento(){
-    this.clear.Clean();
-    this.fechaEmisionSearch = null;
-    this.rangoFechaSearch = [];
-    this.Pedimento = [];
-    this.info.data = [];
-    this.info.data = [...this.info.data];
+    this.busquedaModel[2].Clean();    
+    this.rangoFechaSearch = "";
+    // this.Pedimento = [];     
+    this.info.data = [];       
   }
   public getComplementoPDF(element){
     let params = {UUID:element.UUID}
@@ -398,13 +405,12 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[3].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel);
+    console.log(this.busquedaModel[3]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetEstadoDeCuenta', this.busquedaModel[3])
       .subscribe ( 
       (response:any) => {
-        this.data = response;    
-        this.account.data = this.data;
-        this.account.data = [...this.account.data];
+        this.tmpaccount = response;    
+        this.account.data = this.tmpaccount;        
         this.loading = false;
       }, 
       (errorService) => { 
@@ -416,12 +422,10 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   
 
   public NuevaBusquedaEstados(){
-    this.clear.Clean();
-    this.fechaEmisionSearch = null;
-    this.rangoFechaSearch = [];
-    this.Pedimento = [];
-    this.account.data = [];
-    this.account.data = [...this.account.data];
+    this.busquedaModel[3].Clean();    
+    this.rangoFechaSearch = "";
+    // this.Pedimento = [];         
+    this.account.data = [];    
   }
 
 }
