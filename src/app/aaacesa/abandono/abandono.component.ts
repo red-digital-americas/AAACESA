@@ -11,12 +11,14 @@ import { ApiServices } from '../../services/api.services';
 // export class DataTableComponent {
 export class AbandonoComponent implements OnInit, AfterViewInit {
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('PreNotificacionesPaginator', {read:MatPaginator}) PreNotificacionesPaginator: MatPaginator;
+  @ViewChild('NotificacionesPaginator',{read:MatPaginator}) NotificacionesPaginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('tabGroup') tabGroup;
 
   displayedColumns: string[] = ['Master', 'House', 'Piezas', 'Peso', 'FechaAbandono'];
   dataSource = new MatTableDataSource();
+  tmpdataSource = [];
   public data;
   public userData;
   public numCuentas;
@@ -28,37 +30,56 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {
-      this.dataSource.data = data;
+      this.tmpdataSource = data;        
+      this.dataSource.data = this.tmpdataSource;
     });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.PreNotificacionesPaginator;    
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     this.dataSource.data = [];
     if(tabChangeEvent.index == 0)
     {
-      this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {
-        this.dataSource.data = data;
+      this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {        
+        this.tmpdataSource = data;              
+        this.dataSource.data = this.tmpdataSource;
+        this.dataSource.paginator = this.PreNotificacionesPaginator;  
       });
     }
     else{
       this.apiserv.service_general_get('/Abandono/GetNotificacion').subscribe((res) => {
-        this.dataSource.data = res;
+        this.tmpdataSource = res;         
+        this.dataSource.data = this.tmpdataSource; 
+        this.dataSource.paginator = this.NotificacionesPaginator;      
       });
     }
   }
 
-  public toInt(num: string) {
-    return +num;
+  public generalSearch() {
+    this.dataSource.data = this.filterValue(this.tmpdataSource, this.filterQuery);    
   }
 
-  public sortByWordLength = (a: any) => {
-    return a.name.length;
+  private filterValue(items:any, term:any) {
+    if (Array.isArray(items) && items.length && term && term.length) {
+      return items.filter(item => {
+        let keys = Object.keys(item);
+        if (Array.isArray(keys) && keys.length) {
+          for (let key of keys) {
+            if (item.hasOwnProperty(key) && item[key] && item[key].length && (item[key].toString().toLowerCase().replace(/ /g, '')).includes((term.toString().toLowerCase().replace(/ /g, '')))) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          return false;
+        }
+      });
+    } else {
+      return items;
+    }
   }
-
 }
 
