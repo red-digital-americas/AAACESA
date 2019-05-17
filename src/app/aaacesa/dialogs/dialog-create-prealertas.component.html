@@ -243,7 +243,7 @@
                 
     </mat-step>
 
-    <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
+    <mat-step [completed]="this.model.Documentos.length <= 5" >
     <!-- <mat-step>       -->
       <!-- <ng-template matStepLabel>Subir documentos</ng-template> -->
 

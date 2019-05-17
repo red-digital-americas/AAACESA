@@ -6,6 +6,8 @@ import { facturasBusqueda } from '../../models/finanzas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ApiServices } from '../../services/api.services';
 
+import { BsLocaleService } from 'ngx-bootstrap';
+
 @Component({
   selector: 'app-finanzas',
   templateUrl: './finanzas.component.html',
@@ -90,7 +92,9 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   }
 
 
-  constructor(private http: Http, private apiserv: ApiServices, public snackBar: MatSnackBar) { }
+  constructor(private http: Http, private apiserv: ApiServices, public snackBar: MatSnackBar, private localeService: BsLocaleService) { 
+    this.localeService.use('es');
+  }
 
   ngOnInit() {
     for(var i = 0;i <= 3; i++ ){
