@@ -6,7 +6,7 @@
         <button mat-button (click)="mes()" [ngClass]="{'dashboard__btn--underline': currentIndex === 2}" style="color:#CF0A2B">Mes</button>
     </div>
       <br>
-  <div class="row"> 
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
       <div class="info-box">
         <span class="info-box-icon {{summarys[0].color}}"></span>
@@ -74,36 +74,71 @@
             </div>
 
     </div>
+
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
-      <div class="row" style="margin-bottom:20px; margin-right: 0">
-        <mat-card class="noticias">
-        <mat-card-header><mat-card-subtitle>Noticias</mat-card-subtitle></mat-card-header>
-        <img class="img-fluid" style="height:240px; width:400px" routerlink="http://www.aaacesa.com.mx/Aaacesa/Noticias" src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" />
-        <mat-card-content><br><p>AAACESA, a la vanguardia en infraestructura en cade de frio.</p></mat-card-content>
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+        <mat-card class="noticias" style="margin-bottom:20px; padding: 0">
+        <mat-card-header>
+          <mat-card-subtitle>Noticias</mat-card-subtitle>
+        </mat-card-header>
+        <img #aaacesa src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" alt="Imagen Noticias" routerlink="http://www.aaacesa.com.mx/Aaacesa/Noticias" >
+        <mat-card-content><br>
+        <p style="color:#183964; text-align: center"><b>AAACESA a la vanguardia en infraestructura en cade de frio.</b></p>
+      </mat-card-content>
         </mat-card>
+      </div>
+
+
+
        <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <p>Noticias</p>
           <img class="img-fluid" style="height:220px, width:400px" src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" />
           <p><b>AAACESA, a la vanguardia en infraestructura en cade de frio.</b></p>
         </div> -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <!-- <img class="img-fluid" src="https://via.placeholder.com/400x220" /> -->
-          <mat-card class="img">
+          <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
             <div class="row">
-              <div class="first-img col-lg-12">
-              <img class="img-fluid" style="height:340px; width:400px" routerlink="http://www.aaacesa.com.mx/Aaacesa/Noticias" src="http://www.aaacesa.com.mx/Content/images/montacargas-rfdi.jpg" />
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0">
+              <img  routerlink="http://www.aaacesa.com.mx/Aaacesa/Noticias" src="assets/img/portada(1).jpg" alt="Imagen card" style="height:257px"/> 
             </div>
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >
+              <div>
+              <img src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg" alt="Imagen Aeropuerto" style="height: 155px" >
+            </div>
+            <div class="row" >
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 5px 5px 15px">
+                  <small style="font-size:11px; font-weight:bold">Lo más frecuente</small>
+                </div>
+
+                
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                    <small class="info-box-text" style="font-size:10px; text-align: center">- Pre-alertas</small>
+                    <div class="col-xs-12" style="color:black"><mat-divider></mat-divider></div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                      <small class="info-box-text" style="font-size:10px; text-align: center">- Previos</small>
+                      <div class="col-xs-12" style="color:black"><mat-divider></mat-divider></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="padding: 5px 0px 1px 5px">
+                        <small class="info-box-text" style="font-size:10px; text-align: center">- Salidas</small>
+                      </div>
+                </div>
+                </div>
+              </div>
             <!-- <div class="second-img col-lg-8">
               <img class="img-fluid" style="height:140px; width:370px; border: 1px" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/AICM_logo.jpg" alt="">
             </div> -->
-            </div>  
             </mat-card>
         </div>
       </div>
+
+      
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-          <div class="card">
-            <div class="card-body">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
+          <mat-card class="Gráfica">
+          <!-- <div class="card"> -->
+            <!-- <div class="card-body"> -->
               <div class="chart-wrapper">
                 <!--<canvas baseChart class="chart"
                 [datasets]="barChartData"
@@ -113,14 +148,18 @@
                 [chartType]="barChartType"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>-->
-                <canvas id="bar-chart-summary" height="298"></canvas>
+                <canvas id="bar-chart-summary" height="254"></canvas>
               </div>
-            </div>
-          </div>
+            <!-- </div> -->
+          <!-- </div> -->
+        </mat-card>
         </div>
+
+
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-          <div class="card">
-            <div class="card-body">
+          <!-- <div class="card">
+            <div class="card-body"> -->
+              <mat-card>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 15px">
                   <small style="font-size:11px; font-weight:bold">Master</small>
@@ -135,6 +174,8 @@
                   <small style="font-size:11px; font-weight:bold">Status</small>
                 </div>
               </div>
+
+              
               <div class="col-xs-12" style="color:aqua"><mat-divider></mat-divider></div>
               <div class="row" *ngFor="let merch of merchant; let i = index">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 15px">
@@ -156,9 +197,13 @@
               </div>
               <div class="col-xs-12" style="color:aqua; margin-bottom:14px"><mat-divider></mat-divider></div>
               <div class="col-xs-12 text-center"><a href="./mercancias" style="color:#6976D2">Ver todo</a></div>
+            </mat-card>
             </div>
-          </div>
-        </div>
+
+
+          <!-- </div> -->
+        <!-- </div> -->
+      
       </div>
     </div>
   </div>
