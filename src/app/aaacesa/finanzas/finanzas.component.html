@@ -8,7 +8,7 @@
       <div class="row mb-3">
         <div class="col-md-4 offset-md-8">
           <mat-form-field class="input-full-width">
-            <input matInput [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
+            <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
             <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
           </mat-form-field>
         </div>
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="table-responsive ">
-            <table mat-table [dataSource]="dataSource.data | dataFilter : filterQuery" matSort>
+            <table mat-table [dataSource]="dataSource" matSort>
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -127,7 +127,7 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSources | dataFilter : filterQuery" matSort >
+            <table mat-table [dataSource]="dataSources" matSort >
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -206,7 +206,7 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="info.data | dataFilter : filterQuery" matSort>
+            <table mat-table [dataSource]="info" matSort>
 
               <!-- UUID Column -->
               <ng-container matColumnDef="UUID">
@@ -262,7 +262,7 @@
               <tr mat-header-row *matHeaderRowDef="CPColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: CPColumns"></tr>
             </table>
-            <mat-paginator #PaidComplementPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator #PaidComplementPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[1, 5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>
@@ -335,7 +335,7 @@
           </div>
 
           <div class="table-responsive">
-            <table mat-table [dataSource]="account.data | dataFilter : filterQuery" matSort >
+            <table mat-table [dataSource]="account" matSort >
 
               <!-- MasterHouse Column -->
               <ng-container matColumnDef="MasterHouse">
@@ -401,7 +401,7 @@
               <tr mat-header-row *matHeaderRowDef="EdoCtaColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: EdoCtaColumns;"></tr>
             </table>
-            <mat-paginator #AccountStatusPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator #AccountStatusPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[2, 5, 10, 25, 100]">
             </mat-paginator>
           </div>
         </mat-tab>
