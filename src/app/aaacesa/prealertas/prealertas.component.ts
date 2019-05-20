@@ -382,9 +382,10 @@ export class DialogCreatePrealertasComponent implements OnInit {
   firstFormGroup: FormGroup;
   // isMasterHouseValid = false;
   secondFormGroup: FormGroup;   
+  isSecondFormAndTimeValid = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
-  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma.", O: "Otros documentos."};
+  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma.", O: "Carta anual, guías revalidadas, factura comercial, formato de reubicación."};
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -446,8 +447,8 @@ export class DialogCreatePrealertasComponent implements OnInit {
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: [new Date(), Validators.required],      
-      horaPrevioCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
-      minutoPrevioCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
+      horaPrevioCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
       rangoTemperaturaCtrl: ['ZONA SECA', Validators.required],
@@ -543,6 +544,10 @@ export class DialogCreatePrealertasComponent implements OnInit {
     //   this.isMasterHouseValid = false;
     // }
 
+    // if (event.selectedIndex === 1) {
+    //   this.isSecondFormAndTimeValid = false;
+    // }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
@@ -555,10 +560,14 @@ export class DialogCreatePrealertasComponent implements OnInit {
     } 
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
-    }       
+    }           
 
     // if (this.firstFormGroup.valid && index === 0) {
     //   this.validarMasterHouse();
+    // }
+
+    // if (index === 1) {
+    //   this.validarSecondFormAndTime();
     // }
   }
 
@@ -582,6 +591,20 @@ export class DialogCreatePrealertasComponent implements OnInit {
   //     this.showAlert(errorService.error);      
   //     this.processingCreation = false; 
   //   });        
+  // }
+
+  // private validarSecondFormAndTime() {
+  //   this.isSecondFormAndTimeValid = false;
+
+  //   let fecha = moment(this.secondFormGroup.get('fechaArriboCtrl').value).format('DD/MM/YYYY');      
+  //   let hora = this.secondFormGroup.get('horaPrevioCtrl').value;
+  //   let minuto = this.secondFormGroup.get('minutoPrevioCtrl').value;
+  //   let f = moment(`${fecha} ${hora}:${minuto}`, 'DD/MM/YYYY HH:mm');
+  //   let i = moment();
+  //   // console.log(f.isSameOrAfter(i, 'minute'));
+  //   this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();
+  //   this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();
+  //   this.isSecondFormAndTimeValid = f.isSameOrAfter(i, 'minute') && this.secondFormGroup.valid;
   // }
 
   private showAlert (msj:string) {

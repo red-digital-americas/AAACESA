@@ -335,8 +335,8 @@ constructor(
       subdivisionCtrl: [false, Validators.required],      
       patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       fechaSalidaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
-      horaSalidaCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
-      minutoSalidaCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
+      horaSalidaCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoSalidaCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
       comentarioCtrl: [''],    
     }); 
 
