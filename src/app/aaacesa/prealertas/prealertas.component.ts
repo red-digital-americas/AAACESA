@@ -16,6 +16,7 @@ import { ApiServices } from '../../services/api.services';
 // Modelos Prealertas
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-prealertas',
@@ -383,7 +384,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
   secondFormGroup: FormGroup;   
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
-  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma."};
+  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma.", O: "Otros documentos."};
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -463,7 +464,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       comentarioCtrl: [''],    
     });
     
-    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange(); this.instruccionesManejoChange();
   }
   
   hourValidation (control: FormControl): {[s:string]:boolean} {
@@ -511,6 +512,19 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.secondFormGroup.get('minutoPrevioCtrl').valueChanges    
     .subscribe((data) => {       
       this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity({onlySelf: true, emitEvent: false});
+    });
+  }
+
+  instruccionesManejoChange() {
+    this.secondFormGroup.get('instruccionesManejoCtrl').valueChanges
+    .subscribe((data) => {             
+      if (data === 'O') {
+        this.secondFormGroup.get('comentarioCtrl').setValidators([Validators.required]);
+        this.secondFormGroup.get('comentarioCtrl').updateValueAndValidity();
+      } else {
+        this.secondFormGroup.get('comentarioCtrl').clearValidators();
+        this.secondFormGroup.get('comentarioCtrl').updateValueAndValidity();
+      }      
     });
   }
 
