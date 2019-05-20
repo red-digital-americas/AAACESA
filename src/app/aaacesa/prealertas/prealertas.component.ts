@@ -16,6 +16,7 @@ import { ApiServices } from '../../services/api.services';
 // Modelos Prealertas
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-prealertas',
@@ -92,7 +93,7 @@ export class PrealertasComponent {
     this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
       (response:any) => { this.instruccionesManejoCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { });
   }
 
   //////////////////////////
@@ -152,7 +153,7 @@ export class PrealertasComponent {
       this.busquedaModel.FechaFinal = "";
     }        
 
-    console.log(this.busquedaModel);
+    // console.log(this.busquedaModel);
     this.apiService.service_general_get_with_params('/Prealertas/Busqueda', this.busquedaModel)
       .subscribe ( 
       (response:any) => {                 
@@ -162,7 +163,7 @@ export class PrealertasComponent {
         this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); this.loading = false;});            
+      (errorService) => { this.loading = false;});            
   }
 
   buscaPrealertasNueva () {
@@ -182,10 +183,10 @@ export class PrealertasComponent {
     (response:any) => { 
       this.detailData = response; 
       this.getEstatusTransferencia(response.GuiaMaster, response.GuiaHouse);
-      console.log(this.estatusTransferencia);
+      // console.log(this.estatusTransferencia);
       this.loading = false;
     }, 
-    (errorService) => { console.log(errorService); this.loading = false; });    
+    (errorService) => { this.loading = false; });    
   } 
 
   private getEstatusTransferencia(master:string, house:string) {    
@@ -193,7 +194,7 @@ export class PrealertasComponent {
     this.apiService.service_general_get(`/ConsultaMercancia/GetEstatusTransferencia?Master=${master}&House=${house}`)
     .subscribe ( 
     (response:any) => { 
-      console.log(response);
+      // console.log(response);
       let keys = Object.keys(response);
       keys.splice(0, 4);
 
@@ -206,7 +207,7 @@ export class PrealertasComponent {
       }
       // console.log(this.estatusTransferencia);
     }, 
-    (errorService) => { console.log(errorService);});
+    (errorService) => { });
   }
   
   ///////////////////////////////
@@ -225,12 +226,12 @@ export class PrealertasComponent {
     this.loading = true;
     this.modelSeguimiento.IdPrealertas = this.detailData['IdPrealerta'];
     this.modelSeguimiento.Estatus = estado;
-    console.log(this.modelSeguimiento);  
+    // console.log(this.modelSeguimiento);  
     
     this.apiService.service_general_put(`/Prealertas/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {                 
           this.showAlert(response.Description);
           this.verDetalle(this.detailData['IdPrealerta']);
@@ -241,8 +242,7 @@ export class PrealertasComponent {
         // this.processingCreation = false;
         this.loading = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {             
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -276,7 +276,7 @@ export class PrealertasComponent {
         this.modelSeguimiento.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
   }
@@ -322,7 +322,13 @@ export class PrealertasComponent {
           this.externalPdfViewer.refresh();              
         }                
       }, 
-      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });       
+      (errorService) => { 
+        if(errorService.error == null) {
+          this.showAlert("Ocurrió un error al obtener el documento.");  
+        } else {
+          this.showAlert(errorService.error); 
+        }  
+      });       
   }
 
   private base64ToArrayBuffer(arreglito:string): Uint8Array {
@@ -343,8 +349,8 @@ export class PrealertasComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');   
-      console.log(result);
+      // console.log('The dialog was closed');   
+      // console.log(result);
       if (result === "true") {
         // console.log("resultado true");
         this.buscarPrealertas();
@@ -381,9 +387,10 @@ export class DialogCreatePrealertasComponent implements OnInit {
   firstFormGroup: FormGroup;
   // isMasterHouseValid = false;
   secondFormGroup: FormGroup;   
+  isSecondFormAndTimeValid = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
-  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma."};
+  DOCUMENTS_REQUIRED = { T: "Carta anual, guías revalidadas, factura comercial, formato de reubicación.", RT: "Carta anual, factura comercial, formato de reubicación.", R: "Carta anual, poder notarial, reconocimiento de firma.", O: "Carta anual, guías revalidadas, factura comercial, formato de reubicación."};
 
   model:PrealertaNuevo = new PrealertaNuevo();  
   files;                    // Arreglo usado por el dragInputFiles  
@@ -392,8 +399,8 @@ export class DialogCreatePrealertasComponent implements OnInit {
   responseMessage = "";
 
   dropInputChange(event) {
-    console.log(event);
-    console.log("drop change");
+    // console.log(event);
+    // console.log("drop change");
     this.onFileChanged(event);
   }
   
@@ -406,32 +413,32 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
       (response:any) => { this.instruccionesManejoCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { });
 
       this.apiService.service_general_get('/Catalogos/GetCatalogoAlmacenOrigen')
       .subscribe ( 
       (response:any) => { this.almacenOrigenCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });      
+      (errorService) => { });      
 
       this.apiService.service_general_get('/Catalogos/GetConceptosCadenaFria')
       .subscribe ( 
       (response:any) => { this.rangoTemperaturaCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { });     
 
       this.apiService.service_general_get('/Catalogos/GetConceptosMetodoPago')
       .subscribe ( 
       (response:any) => { this.metodoPagoCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });   
+      (errorService) => { });   
       
       this.apiService.service_general_get('/Catalogos/GetConceptosUsoCFDI')
       .subscribe ( 
       (response:any) => { this.usoCFDICatalogo = response; }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { });     
 
       this.apiService.service_general_get('/Catalogos/GetCondicionesAlmacenaje')
       .subscribe ( 
       (response:any) => { this.condicionesAlmacenesCatalogo = response; }, 
-      (errorService) => { console.log(errorService); });             
+      (errorService) => { });             
   }
 
   ngOnInit() {
@@ -445,8 +452,8 @@ export class DialogCreatePrealertasComponent implements OnInit {
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
       fechaArriboCtrl: [new Date(), Validators.required],      
-      horaPrevioCtrl: [moment(new Date()).format('HH'), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
-      minutoPrevioCtrl: [moment(new Date()).format('mm'), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
+      horaPrevioCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
+      minutoPrevioCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
       almacenOrigenCtrl: ['', Validators.required],
       almacenOrigenSearchCtrl: ['', []],      
       rangoTemperaturaCtrl: ['ZONA SECA', Validators.required],
@@ -463,7 +470,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       comentarioCtrl: [''],    
     });
     
-    this.fechaArriboChange(); this.hourChange(); this.minuteChange();
+    this.fechaArriboChange(); this.hourChange(); this.minuteChange(); this.instruccionesManejoChange();
   }
   
   hourValidation (control: FormControl): {[s:string]:boolean} {
@@ -514,6 +521,19 @@ export class DialogCreatePrealertasComponent implements OnInit {
     });
   }
 
+  instruccionesManejoChange() {
+    this.secondFormGroup.get('instruccionesManejoCtrl').valueChanges
+    .subscribe((data) => {             
+      if (data === 'O') {
+        this.secondFormGroup.get('comentarioCtrl').setValidators([Validators.required]);
+        this.secondFormGroup.get('comentarioCtrl').updateValueAndValidity();
+      } else {
+        this.secondFormGroup.get('comentarioCtrl').clearValidators();
+        this.secondFormGroup.get('comentarioCtrl').updateValueAndValidity();
+      }      
+    });
+  }
+
 
   closeDialog(msj:string): void {    
     this.dialogRef.close(msj);
@@ -529,22 +549,30 @@ export class DialogCreatePrealertasComponent implements OnInit {
     //   this.isMasterHouseValid = false;
     // }
 
+    // if (event.selectedIndex === 1) {
+    //   this.isSecondFormAndTimeValid = false;
+    // }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
   }  
 
   validarCampos(index) {   
-    console.log(index) ;
+    // console.log(index) ;
     if(!this.firstFormGroup.valid && index === 0) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     } 
     else if(!this.secondFormGroup.valid && index === 1) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
-    }       
+    }           
 
     // if (this.firstFormGroup.valid && index === 0) {
     //   this.validarMasterHouse();
+    // }
+
+    // if (index === 1) {
+    //   this.validarSecondFormAndTime();
     // }
   }
 
@@ -568,6 +596,20 @@ export class DialogCreatePrealertasComponent implements OnInit {
   //     this.showAlert(errorService.error);      
   //     this.processingCreation = false; 
   //   });        
+  // }
+
+  // private validarSecondFormAndTime() {
+  //   this.isSecondFormAndTimeValid = false;
+
+  //   let fecha = moment(this.secondFormGroup.get('fechaArriboCtrl').value).format('DD/MM/YYYY');      
+  //   let hora = this.secondFormGroup.get('horaPrevioCtrl').value;
+  //   let minuto = this.secondFormGroup.get('minutoPrevioCtrl').value;
+  //   let f = moment(`${fecha} ${hora}:${minuto}`, 'DD/MM/YYYY HH:mm');
+  //   let i = moment();
+  //   // console.log(f.isSameOrAfter(i, 'minute'));
+  //   this.secondFormGroup.get('horaPrevioCtrl').updateValueAndValidity();
+  //   this.secondFormGroup.get('minutoPrevioCtrl').updateValueAndValidity();
+  //   this.isSecondFormAndTimeValid = f.isSameOrAfter(i, 'minute') && this.secondFormGroup.valid;
   // }
 
   private showAlert (msj:string) {
@@ -620,7 +662,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    console.log(this.model);    
+    // console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 
@@ -631,7 +673,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.apiService.service_general_post(`/Prealertas/CrearPrealerta`, this.model)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {
           // this.dialogRef.close("true");
           this.successResponse = true;
@@ -641,8 +683,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
         }
         this.processingCreation = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {               
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -676,7 +717,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
         this.model.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
    this.files = [];

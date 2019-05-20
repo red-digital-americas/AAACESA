@@ -98,7 +98,7 @@ export class ExportacionesComponent {
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
       .subscribe ( 
       (response:any) => { this.estatusCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => {  });
   }
 
   //////////////////////////
@@ -138,7 +138,7 @@ export class ExportacionesComponent {
       this.busquedaModel.FechaInicial = "";
       this.busquedaModel.FechaFinal = "";
     }    
-    console.log(this.busquedaModel);
+    // console.log(this.busquedaModel);
     this.apiService.service_general_get_with_params('/Exportacion/Busqueda', this.busquedaModel)
       .subscribe ( 
       (response:any) => {                 
@@ -146,9 +146,9 @@ export class ExportacionesComponent {
         this.dataSource.data = this.data;
         this.updateCountStatus();
         this.currentFilterIndex = this.statusEnum.length;
-        this.loading = false; console.log(response);
+        this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); this.loading = false;});            
+      (errorService) => { this.loading = false;});            
   }
 
   buscaExportacionesNueva () {
@@ -168,7 +168,7 @@ export class ExportacionesComponent {
       this.detailData = response;       
       this.loading = false;
     }, 
-    (errorService) => { console.log(errorService); this.loading = false; });    
+    (errorService) => { this.loading = false; });    
   } 
 
   ///////////////////////////////
@@ -181,12 +181,12 @@ export class ExportacionesComponent {
     this.loading = true;
     this.modelSeguimiento.IdExportacion = this.detailData['IdExportacion'];
     this.modelSeguimiento.Estatus = estado;
-    console.log(this.modelSeguimiento);  
+    // console.log(this.modelSeguimiento);  
     
     this.apiService.service_general_put(`/Exportacion/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {                 
           this.showAlert(response.Description);
           this.verDetalle(this.detailData['IdExportacion']);
@@ -197,8 +197,7 @@ export class ExportacionesComponent {
         // this.processingCreation = false;
         this.loading = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {             
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -232,7 +231,7 @@ export class ExportacionesComponent {
         this.modelSeguimiento.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
   }
@@ -263,7 +262,13 @@ export class ExportacionesComponent {
           this.externalPdfViewer.refresh();              
         }
       }, 
-      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
+      (errorService) => {         
+        if(errorService.error == null) {
+          this.showAlert("Ocurrió un error al obtener el documento.");  
+        } else {
+          this.showAlert(errorService.error); 
+        }                        
+      });     
   }
 
   private base64ToArrayBuffer(arreglito:string): Uint8Array {
@@ -284,8 +289,8 @@ export class ExportacionesComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');   
-      console.log(result);
+      // console.log('The dialog was closed');   
+      // console.log(result);
       if (result === "true") {
         // console.log("resultado true");
         this.buscarExportaciones();
@@ -330,8 +335,8 @@ export class DialogCreateExportacionesComponent implements OnInit {
   responseMessage = "";
 
   dropInputChange(event) {
-    console.log(event);
-    console.log("drop change");
+    // console.log(event);
+    // console.log("drop change");
     this.onFileChanged(event);
   }
   
@@ -344,32 +349,32 @@ export class DialogCreateExportacionesComponent implements OnInit {
       this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
       (response:any) => { this.instruccionesManejoCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { });
 
       this.apiService.service_general_get('/Catalogos/GetCatalogoAlmacenOrigen')
       .subscribe ( 
       (response:any) => { this.almacenOrigenCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });      
+      (errorService) => { });      
 
       this.apiService.service_general_get('/Catalogos/GetConceptosCadenaFria')
       .subscribe ( 
       (response:any) => { this.rangoTemperaturaCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { });     
 
       this.apiService.service_general_get('/Catalogos/GetConceptosMetodoPago')
       .subscribe ( 
       (response:any) => { this.metodoPagoCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });   
+      (errorService) => { });   
       
       this.apiService.service_general_get('/Catalogos/GetConceptosUsoCFDI')
       .subscribe ( 
       (response:any) => { this.usoCFDICatalogo = response; }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => { });     
 
       this.apiService.service_general_get('/Catalogos/GetCondicionesAlmacenaje')
       .subscribe ( 
       (response:any) => { this.condicionesAlmacenesCatalogo = response; }, 
-      (errorService) => { console.log(errorService); });             
+      (errorService) => { });             
   }
 
   ngOnInit() {
@@ -402,7 +407,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
   }  
 
   validarCampos(index) {   
-    console.log(index) ;
+    // console.log(index) ;
     if(!this.firstFormGroup.valid && index === 0) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     } 
@@ -438,7 +443,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    console.log(this.model);        
+    // console.log(this.model);        
   }
 
   crearExportacion () {
@@ -448,7 +453,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
     this.apiService.service_general_post(`/Exportacion/CrearAdelantoExportacion`, this.model)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {
           // this.dialogRef.close("true");
           this.successResponse = true;
@@ -458,8 +463,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
         }
         this.processingCreation = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {           
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -493,7 +497,7 @@ export class DialogCreateExportacionesComponent implements OnInit {
         this.model.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
    this.files = [];

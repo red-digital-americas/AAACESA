@@ -70,15 +70,6 @@ export class LoginComponent implements OnInit {
           this.message = value.Detalle;
           this.sendAlert(this.message);
         }
-      }, 
-      (err: HttpErrorResponse) => { 
-        this.loading=false;
-        console.log(err.error);
-        if (err.error instanceof Error) {
-          this.sendAlert('Error:'+ err.error.message);
-        } else {
-          this.sendAlert("Error en inicio de sesión, intenta más tarde");
-        }
       });
   }
   
