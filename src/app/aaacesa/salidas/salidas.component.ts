@@ -89,7 +89,7 @@ export class SalidasComponent  {
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
       .subscribe ( 
       (response:any) => { this.estatusCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { });
   }
 
   //////////////////////////
@@ -139,7 +139,7 @@ export class SalidasComponent  {
         this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); this.loading = false;});            
+      (errorService) => { this.loading = false;});            
   }
 
   buscaSalidasNueva () {
@@ -157,7 +157,7 @@ export class SalidasComponent  {
     this.apiService.service_general_get(`/AdelantoFacturacion/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { this.detailData = response; this.loading = false;}, 
-    (errorService) => { console.log(errorService); this.loading = false; });    
+    (errorService) => { this.loading = false; });    
   } 
   
   ///////////////////////////////
@@ -170,12 +170,12 @@ export class SalidasComponent  {
     this.loading = true;
     this.modelSeguimiento.IdAdelantoSalidas = this.detailData['IdAdelantoSalidas'];
     this.modelSeguimiento.Estatus = estado;
-    console.log(this.modelSeguimiento);  
+    // console.log(this.modelSeguimiento);  
     
     this.apiService.service_general_put(`/AdelantoFacturacion/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {                 
           this.showAlert(response.Description);
           this.verDetalle(this.detailData['IdAdelantoSalidas']);
@@ -187,7 +187,7 @@ export class SalidasComponent  {
         this.loading = false;
       }, 
       (errorService) => { 
-        console.log(errorService);         
+        // console.log(errorService);         
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -221,7 +221,7 @@ export class SalidasComponent  {
         this.modelSeguimiento.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
   }
@@ -252,7 +252,13 @@ export class SalidasComponent  {
           this.externalPdfViewer.refresh();              
         }
       }, 
-      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
+      (errorService) => { 
+        if(errorService.error == null) {
+          this.showAlert("Ocurrió un error al obtener el documento.");  
+        } else {
+          this.showAlert(errorService.error); 
+        }  
+      });     
   }
 
   private base64ToArrayBuffer(arreglito:string): Uint8Array {
@@ -273,8 +279,8 @@ export class SalidasComponent  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');   
-      console.log(result);
+      // console.log('The dialog was closed');   
+      // console.log(result);
       if (result === "true") {
         // console.log("resultado true");
         this.buscarSalidas();
@@ -312,8 +318,8 @@ export class DialogCreateSalidaComponent implements OnInit {
   responseMessage = "";
 
   dropInputChange(event) {
-    console.log(event);
-    console.log("drop change");
+    // console.log(event);
+    // console.log("drop change");
     this.onFileChanged(event);
   }
   
@@ -463,12 +469,12 @@ constructor(
     this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
     .subscribe ( 
     (response:any) => { 
-      console.log(response);
+      // console.log(response);
       this.firstFormGroup.get('masterCtrl').setValue(response.Master);
       this.firstFormGroup.get('houseCtrl').setValue(response.House);
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     },(errorService) => { 
-      console.log(errorService);
+      // console.log(errorService);
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
       this.referencia = "Sin Referencia";
@@ -514,7 +520,7 @@ constructor(
       this.model.Seguimiento[0].Comentarios = this.secondFormGroup.value.comentarioCtrl;;
     }
 
-    console.log(this.model);    
+    // console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 
@@ -525,7 +531,7 @@ constructor(
     this.apiService.service_general_post(`/AdelantoFacturacion/CrearAdelantoSalidas`, this.model)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {
           // this.dialogRef.close("true");
           this.successResponse = true;
@@ -535,8 +541,7 @@ constructor(
         }
         this.processingCreation = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {             
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -570,7 +575,7 @@ constructor(
         this.model.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
    this.files = [];

@@ -70,7 +70,7 @@ export class PreviosComponent  {
           f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
           //console.log(f);
           let newDate = new Date(f);
-          console.log(newDate);
+          // console.log(newDate);
           return newDate;
         }
         default: { return item[property];} 
@@ -93,7 +93,7 @@ export class PreviosComponent  {
     this.apiService.service_general_get('/Catalogos/GetCatalogoEstatus')
       .subscribe ( 
       (response:any) => { this.estatusCatalogo = response;}, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { });
   }
 
   //////////////////////////
@@ -160,7 +160,7 @@ export class PreviosComponent  {
         this.currentFilterIndex = this.statusEnum.length;
         this.loading = false;
       }, 
-      (errorService) => { console.log(errorService); this.loading = false; });   
+      (errorService) => { this.loading = false; });   
   }
 
   buscaPreviosNueva () {
@@ -178,7 +178,7 @@ export class PreviosComponent  {
     this.apiService.service_general_get(`/AdelantoPrevios/GetDetailsById/${id}`)
     .subscribe ( 
     (response:any) => { this.detailData = response; this.loading = false;}, 
-    (errorService) => { console.log(errorService); this.loading = false;});
+    (errorService) => { this.loading = false;});
   }
 
 
@@ -197,7 +197,7 @@ export class PreviosComponent  {
     this.apiService.service_general_put(`/AdelantoPrevios/UpdateSeguimiento`, this.modelSeguimiento)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {          
           // this.successResponse = true;
           // this.responseMessage = response.Description;          
@@ -211,8 +211,7 @@ export class PreviosComponent  {
         // this.processingCreation = false;
         this.loading = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {         
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -246,7 +245,7 @@ export class PreviosComponent  {
         this.modelSeguimiento.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
   }
@@ -260,7 +259,7 @@ export class PreviosComponent  {
   }
 
   public openDocument (idDocumento) {   
-    console.log(idDocumento); 
+    // console.log(idDocumento); 
     this.apiService.service_general_get(`/AdelantoPrevios/GetDocumentById/${idDocumento}`)
       .subscribe ( 
       (response:any) => {         
@@ -277,7 +276,13 @@ export class PreviosComponent  {
           this.externalPdfViewer.refresh();              
         }
       }, 
-      (errorService) => { console.log(errorService); this.showAlert(errorService.error); });     
+      (errorService) => { 
+        if(errorService.error == null) {
+          this.showAlert("Ocurrió un error al obtener el documento.");  
+        } else {
+          this.showAlert(errorService.error); 
+        }    
+      });     
   }
 
   private base64ToArrayBuffer(arreglito:string): Uint8Array {
@@ -298,8 +303,8 @@ export class PreviosComponent  {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');   
-      console.log(result);
+      // console.log('The dialog was closed');   
+      // console.log(result);
       if (result === "true") {
         // console.log("resultado true");
         this.buscarPrevios();
@@ -348,8 +353,8 @@ export class DialogCreatePreviosComponent implements OnInit {
   responseMessage = "";
 
   dropInputChange(event) {
-    console.log(event);
-    console.log("drop change");
+    // console.log(event);
+    // console.log("drop change");
     this.onFileChanged(event);
   }
   
@@ -454,7 +459,7 @@ export class DialogCreatePreviosComponent implements OnInit {
   }  
 
   validarCampos(index) {   
-    console.log(index) ;
+    // console.log(index) ;
     if(!this.firstFormGroup.valid && index === 0) {  
       this.showAlert("Algunos campos necesitan ser revisados");    
     } 
@@ -508,12 +513,12 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
     .subscribe ( 
     (response:any) => { 
-      console.log(response);
+      // console.log(response);
       this.firstFormGroup.get('masterCtrl').setValue(response.Master);
       this.firstFormGroup.get('houseCtrl').setValue(response.House);
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     },(errorService) => { 
-      console.log(errorService);
+      // console.log(errorService);
       this.firstFormGroup.get('masterCtrl').setValue('');
       this.firstFormGroup.get('houseCtrl').setValue('');
       this.referencia = "Sin Referencia";
@@ -547,7 +552,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       this.thirdFormGroup.get('maternoCtrl').disable({onlySelf: true, emitEvent: false});
       this.thirdFormGroup.get('patenteCtrl').disable({onlySelf: true, emitEvent: false});      
     },(errorService) => { 
-      console.log(errorService);
+      // console.log(errorService);
       this.thirdFormGroup.get('nombreCtrl').setValue('');
       this.thirdFormGroup.get('paternoCtrl').setValue('');
       this.thirdFormGroup.get('maternoCtrl').setValue('');
@@ -606,7 +611,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       this.model.Seguimiento[0].Comentarios = this.thirdFormGroup.value.comentarioCtrl;;
     }
 
-    console.log(this.model);    
+    // console.log(this.model);    
     // console.log(this.model.FechaPrevio);    
   }
 
@@ -617,7 +622,7 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.apiService.service_general_post(`/AdelantoPrevios/CrearAdelantoPrevios`, this.model)
       .subscribe ( 
       (response:any) => { 
-        console.log(response); 
+        // console.log(response); 
         if (response.Result) {
           // this.dialogRef.close("true");
           this.successResponse = true;
@@ -627,8 +632,7 @@ export class DialogCreatePreviosComponent implements OnInit {
         }
         this.processingCreation = false;
       }, 
-      (errorService) => { 
-        console.log(errorService);         
+      (errorService) => {           
 
         if(errorService.error.Description == undefined) {
           this.showAlert(errorService.error);  
@@ -662,7 +666,7 @@ export class DialogCreatePreviosComponent implements OnInit {
         this.model.Documentos.push(newDocumento);
       };
       reader.onerror = (error) => {
-        console.log(error);        
+        // console.log(error);        
       };                    
    }
    this.files = [];
