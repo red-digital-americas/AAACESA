@@ -31,6 +31,9 @@ export class DashboardComponent implements OnInit {
   public currentIndex = 0;
   public WidgetData = new widgetAnualData();
 
+  charts: boolean;
+  
+
   private showAlert (msj:string) {
     this.snackBar.open(msj, "", {
       duration: 4000,
@@ -168,13 +171,15 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get('/Dashboard/GetWidgetAnual').subscribe((datas) => {
       this.WidgetData.parseData(datas);
       this.chart(this.WidgetData);
+      this.charts = true;
     }, 
     (err: HttpErrorResponse) => { 
       if (err.error instanceof Error) {
         this.showAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.showAlert(error);
+        /* this.showAlert(error); */
+        this.charts = false;
       }
   }
     )
@@ -326,5 +331,10 @@ export class DashboardComponent implements OnInit {
         })
   }
 
-
+  click(){
+    localStorage.setItem("clk", "1");
+    let localSave = parseInt(localStorage.getItem("clk"));
+    localSave++;
+    localStorage.setItem("clk",localSave.toString());
+  }
 }

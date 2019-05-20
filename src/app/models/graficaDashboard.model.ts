@@ -11,6 +11,7 @@ export class categoryAnualData {
 
 export class widgetAnualData {
     constructor() { }
+    charts: boolean;
     public Data = [new categoryAnualData(), new categoryAnualData(), new categoryAnualData(), new categoryAnualData()];
     private tipoSolicitud = ["PREALERTAS","ADELANTO PREVIOS", "ADELANTO SALIDAS", "ADELANTO ABANDONOS"];
 

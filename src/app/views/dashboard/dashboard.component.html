@@ -100,11 +100,11 @@
           <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
             <div class="row">
               <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0">
-              <img  routerlink="http://www.aaacesa.com.mx/Aaacesa/Noticias" src="assets/img/portada(1).jpg" alt="Imagen card" style="height:257px"/> 
+              <a href="http://t21.com.mx/"><img src="assets/img/portada(1).jpg" alt="Imagen card" style="height:257px"/></a>
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >
               <div>
-              <img class="airport" src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg" alt="Imagen Aeropuerto" style="height: 155px" >
+              <a href="https://www.aicm.com.mx/"><img class="airport" src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg" alt="Imagen Aeropuerto" style="height: 155px" ></a>
             </div>
             
             <!-- <div class="row"> -->
@@ -135,7 +135,7 @@
 
       
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
+        <div  *ngIf="charts" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
           <mat-card class="grafica">
           <!-- <div class="card"> -->
             <!-- <div class="card-body"> -->
