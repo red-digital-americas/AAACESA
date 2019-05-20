@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         }
       ).subscribe((value) => {
         localStorage.setItem('token', value.Token);
+        localStorage.setItem('refreshToken', value.RefreshToken);
         if(value.isAuth)
         {
           this.apiservices.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
@@ -56,7 +57,6 @@ export class LoginComponent implements OnInit {
           }, 
           (err: HttpErrorResponse) => { 
             this.loading=false;
-            console.log(err.error);
             if (err.error instanceof Error) {
               this.sendAlert('Error:'+ err.error.message);
             } else {
@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit {
   
   validar_campos(event) {
     for (var i = 0; i < event.length; i++) {
-      console.log(event[i].name);
       if (!event[i].valid) {
         $("#" + event[i].name).focus();
         break;
@@ -114,7 +113,6 @@ export class LoginComponent implements OnInit {
       }, 
       (err: HttpErrorResponse) => { 
         this.loading=false;
-        console.log(err.error);
         if (err.error instanceof Error) {
           this.sendAlert('Error:'+ err.error.message);
         } else {

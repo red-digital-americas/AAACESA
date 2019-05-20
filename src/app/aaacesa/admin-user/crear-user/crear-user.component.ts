@@ -84,7 +84,6 @@ export class CrearUserComponent implements OnInit {
   }
 
   guardaUsuario(accion) {
-    console.log(this.crearUser);
     this.loading=true;
     this.crearUser.Telefono =  this.crearUser.Telefono.replace(/\D+/g, '');
     this.apiservices.service_general_post("/AdministracionCuentas/CrearCuenta", this.crearUser ).subscribe((value) => {
@@ -125,7 +124,6 @@ export class CrearUserComponent implements OnInit {
 
   validar_campos(event) {
     for (var i = 0; i < event.length; i++) {
-      console.log(event[i].name);
       if (!event[i].valid) {
         $("#" + event[i].name).focus();
         break;

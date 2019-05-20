@@ -50,8 +50,6 @@ export class DetalleUserComponent implements OnInit {
       this.actualizaPerfil.Perfil.ClavePerfil= res.Perfil['ClavePerfil'];
       this.detailUser.ClavePatente = res.ClavePatente;
       this.detailUser.RazonSocial = res.RazonSocial;
-      console.log(res.ClavePatente);
-      console.log(res.RazonSocial);
     });
     this.apiservices.service_general_get("/Catalogos/GetPerfiles").subscribe((res)=>{
       this.getPerfilUser = res;
@@ -68,7 +66,6 @@ export class DetalleUserComponent implements OnInit {
     }, 
     (err: HttpErrorResponse) => { 
       this.loading=false;
-      console.log(err.error);
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {
@@ -81,7 +78,6 @@ export class DetalleUserComponent implements OnInit {
       this.mensaje = res.Description;
     }, 
     (err: HttpErrorResponse) => { 
-      console.log(err.error);
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {
@@ -100,7 +96,6 @@ export class DetalleUserComponent implements OnInit {
 
   validar_campos(event) {
     for (var i = 0; i < event.length; i++) {
-      console.log(event[i].name);
       if (!event[i].valid) {
         $("#" + event[i].name).focus();
         break;

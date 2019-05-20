@@ -52,7 +52,7 @@ export class CalculadoraComponent implements OnInit {
   calcularManiobra(){
     this.loading=true;
     let Fe = moment(this.calculoManiobra.FechaEntrada).format('DD/MM/YYYY');
-    let Fs = moment(this.calculoManiobra.FechaSalida).format('DD/MM/YYYY'); console.log(Fe);   
+    let Fs = moment(this.calculoManiobra.FechaSalida).format('DD/MM/YYYY');    
     this.calculoManiobra.FechaEntrada = Fe;
     this.calculoManiobra.FechaSalida = Fs;
     this.apiservice.service_general_get_with_params('/CalculoManiobras',this.calculoManiobra).subscribe((resIM)=>{
@@ -61,7 +61,6 @@ export class CalculadoraComponent implements OnInit {
     }, 
     (err: HttpErrorResponse) => { 
       this.loading=false;
-      console.log(err.error);
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {

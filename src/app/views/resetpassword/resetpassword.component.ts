@@ -54,7 +54,6 @@ export class ResetpasswordComponent implements OnInit {
   ngOnInit() {
       this.loading=true;
       this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.idcliente = params['IdUser'];
       this.mail = params['Correo'];
       this.guid = params['token'];
@@ -118,7 +117,6 @@ export class ResetpasswordComponent implements OnInit {
 
   validar_campos(event?) {
     for (var i = 0; i < event.length; i++) {
-      console.log(event[i].name);
       if (!event[i].valid) {
         $("#" + event[i].name).focus();
         break;

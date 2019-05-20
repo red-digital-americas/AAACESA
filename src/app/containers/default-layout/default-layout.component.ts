@@ -4,13 +4,16 @@ import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { ApiServices } from '../../services/api.services';
 
 export interface DialogData {
+  visible: boolean;
   respuesta: boolean;
 }
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './default-layout.component.html'
+  templateUrl: './default-layout.component.html',
+  providers: [ApiServices]
 })
 export class DefaultLayoutComponent implements OnInit {
   public navItems = navItems;
@@ -23,9 +26,11 @@ export class DefaultLayoutComponent implements OnInit {
   public IDUSR;
   public logTime;
   public lastTime;
+  refreshToken;
   loading=false;
   date;
-  respuesta: boolean = false;
+  visible: boolean = false;
+  respuesta: boolean = true;
 
   public toogleCalc = false;
   
@@ -34,18 +39,17 @@ export class DefaultLayoutComponent implements OnInit {
     //Start watching for user inactivity.
     this.userIdle.startWatching();
     // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe(()=>{
-      // console.log(this.userIdle.getConfigValue());
+    this.userIdle.onTimerStart().subscribe((count)=>{
+
     });
     
     this.userIdle.ping$.subscribe(() => {
-      console.log("PING");
-      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 5 minutos. Tome sus precauciones");
+      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 5 minutos. Tome sus precauciones",true);
     });
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() =>{ 
 
-      this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login");
+      this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login",false);
       setTimeout(function(){
         localStorage.clear();
         window.location.href ="login";
@@ -65,7 +69,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   }
 
-  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog) {
+  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices) {
     (this.getTimeSesion())?"":this.closeSession();
     
     this.changes = new MutationObserver((mutations) => {
@@ -97,20 +101,34 @@ export class DefaultLayoutComponent implements OnInit {
     this.userIdle.resetTimer();
   }
    
-  sesionDialog(titulo,mensaje)
+  sesionDialog(titulo,mensaje,visible)
   {
     const dialogRef = this.dialog.open(DialogSessionComponent, {
       width: '95%',
       data: { 
         title: titulo,
         mensaje: mensaje,
-        respuesta: this.respuesta
+        respuesta: this.respuesta,
+        visible: visible
        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.respuesta = result;
+      this.refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+      if(result){
+        this.apiservice.service_general_post('/Authentication/Refresh',{RefreshToken: this.refreshToken}).subscribe((respuesta)=>{
+          localStorage.removeItem('token');
+          localStorage.setItem('token', respuesta.Token);
+        });
+      }
     });
   }
   
   closeSession(){
     this.loading=true;
+    this.apiservice.service_general_put('/Authentication/LogOut',{});
     localStorage.clear();
   }
 
@@ -135,12 +153,9 @@ export class DefaultLayoutComponent implements OnInit {
     let secTimeout = Math.floor((oneHrMas.getTime() - dt.getTime())/ 1000);
     let Ping = secTimeout -300;
     let secPing = ( Ping <= 300)?0:Ping;
-    console.log(secPing)
     
     let difInitSesion = Math.floor(msecInit / 60000);
     let difFinSesion = Math.floor(msecFin / 60000)
-    console.log(difInitSesion);
-    console.log(difFinSesion);
 
     if(difInitSesion >= 60 && difFinSesion >= 0){
       return false;
@@ -149,7 +164,7 @@ export class DefaultLayoutComponent implements OnInit {
       this.configValues.idle = 0;
       this.configValues.timeout = secTimeout;
       this.configValues.ping = secPing;
-      this.userIdle.setConfigValues(this.configValues);
+      // this.userIdle.setConfigValues(this.configValues);
       return true;
     }
   }
