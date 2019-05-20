@@ -9,7 +9,7 @@ switch(permisos)
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'aaa-baseline-check_box-24px',
+      icon: 'icon-home',
     },
     {
       name: 'Prealertas',
