@@ -81,9 +81,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         case 'FechaEmision': {
           let f = item['FechaEmision'].split(' ')[0];                // 07/05/2019 12:00 PM          
           f = `${f.slice(3,5)}/${f.slice(0,2)}/${f.slice(6,10)}`;   // 05/07/2019
-          //console.log(f);
           let newDate = new Date(f);
-          // console.log(newDate);
           return newDate;
         }
         default: { return item[property];} 
@@ -168,7 +166,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[0].FechaInicial = "";
       this.busquedaModel[0].FechaFinal = "";
     }        
-    console.log(this.busquedaModel);
     this.loading = true;
     this.apiserv.service_general_get_with_params('/Finanzas/GetFacturas', this.busquedaModel[0])
       .subscribe ( 
@@ -180,7 +177,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       (errorService) => {
         // this.tmpdataSource = [];
         // this.dataSource.data = this.tmpdataSource;
-        console.log(errorService); this.loading = false;
+        this.loading = false;
         this.showAlert(errorService.error);
       });
   }
@@ -197,7 +194,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {FolioFactura:element.Folio, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaFacturaPDF`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -209,7 +205,9 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
           window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
-      (errorService) => { console.log(errorService); });     
+      (errorService) => {
+
+       });     
   }
  
 
@@ -218,7 +216,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {FolioFactura:element.FolioFactura, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaFacturaXML`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -230,7 +227,9 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
           window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
-      (errorService) => { console.log(errorService); });
+      (errorService) => { 
+
+       });
   }
 
   
@@ -248,7 +247,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[1].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel[1]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetNotasCredito', this.busquedaModel[1])
       .subscribe ( 
       (response:any) => {
@@ -257,7 +255,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.loading = false;
       }, 
       (errorService) => { 
-        console.log(errorService); this.loading = false;
+        this.loading = false;
         this.showAlert(errorService.error);
       });
   }
@@ -274,7 +272,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {FolioFactura:element.Folio, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaNotaCreditoPDF`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -287,7 +284,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         }  
       }, 
       (errorService) => { 
-        console.log(errorService);
         this.showAlert(errorService.error);
        });   
         
@@ -299,7 +295,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {FolioFactura:element.Folio, FechaEmision:format}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaNotaCreditoXML`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -312,7 +307,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         }  
       }, 
       (errorService) => { 
-        console.log(errorService);
         this.showAlert(errorService.error);
        });
   }
@@ -330,7 +324,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[2].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel[2]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetComplementoDePago', this.busquedaModel[2])
       .subscribe ( 
       (response:any) => {
@@ -339,7 +332,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.loading = false;
       }, 
       (errorService) => { 
-        console.log(errorService); this.loading = false;
+        this.loading = false;
       });
   }
 
@@ -353,7 +346,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {UUID:element.UUID}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaComplementoPagoPDF`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -366,8 +358,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         }  
       }, 
       (errorService) => { 
-        console.log(errorService);
-        this.showAlert(errorService.error);
+        this.showAlert("Archivo no disponible");
       });     
   }
  
@@ -376,7 +367,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     let params = {UUID:element.UUID}
     this.apiserv.service_general_get_with_params(`/Finanzas/DescargaComplementoPagoXML`, params).subscribe (
       (response:any) => {
-        console.log(response);
         var element = document.createElement('a');
         element.style.display = 'none';
         element.setAttribute('href', `data:application/pdf;base64,${response.Content}`);                              
@@ -388,9 +378,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
           window.open("data:application/pdf;base64,"+ encodeURI(response.Archivo), "_blank");
         }  
       }, 
-      /* (errorService) => { console.log(errorService); }); */
       (errorService) => { 
-        console.log("errorService");
         this.showAlert("Archivo no disponible");
       });
   }
@@ -409,7 +397,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[3].FechaFinal = "";
     }        
     this.loading = true;
-    console.log(this.busquedaModel[3]);
     this.apiserv.service_general_get_with_params('/Finanzas/GetEstadoDeCuenta', this.busquedaModel[3])
       .subscribe ( 
       (response:any) => {
@@ -418,7 +405,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.loading = false;
       }, 
       (errorService) => { 
-        console.log(errorService); this.loading = false;
+ this.loading = false;
         /* this.showAlert(errorService.error); */
         this.showAlert("Rango de fechas no válido");  
       });

@@ -10,6 +10,23 @@ img {
     }
 }
 
+@media(max-width:450px){
+     .grafica {
+      display: none;
+    }
+
+    .airport{
+      visibility:hidden;
+    }
+
+    .info-box {
+      height: 150px;
+    }
+    .info-box-text {
+      text-align: center;
+    }
+}
+
 
 .bg-gray{
     background-color: gray;

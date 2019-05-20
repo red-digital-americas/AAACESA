@@ -10,6 +10,7 @@ import { mercancias } from '../../models/dashboard.model';
 import { MatTableDataSource, MatSnackBar, } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { categoryAnualData, widgetAnualData } from '../../models/graficaDashboard.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   public detailSalidas = "";
   public detailAbandono = "";
   public currentIndex = 0;
+  public WidgetData = new widgetAnualData();
 
   private showAlert (msj:string) {
     this.snackBar.open(msj, "", {
@@ -49,12 +51,12 @@ export class DashboardComponent implements OnInit {
     new Summary("Abandono", "bg-abandono")
   ] 
 
-  public merchant: any[] = [
+/*   public merchant: any[] = [
     new Merchant("021563431", "12345978", "21/03/2018", "Prealertas"),
     new Merchant("021563431", "12345978", "21/03/2018", "Salida"),
     new Merchant("021563431", "12345978", "21/03/2018", "Previo"),
     new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
-  ]
+  ] */
 
   constructor(private router: Router, private apiservice:ApiServices, public snackBar: MatSnackBar) {}
   
@@ -78,8 +80,11 @@ export class DashboardComponent implements OnInit {
   //  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Transferencias' }
   //];
 
-  ngOnInit(): void {
+   ngOnInit(): void {
+    this.getWidgetAnual();
     this.dia();
+
+/*
     new Chart(document.getElementById("bar-chart-summary"), {
       type: 'bar',
       data: {
@@ -113,16 +118,72 @@ export class DashboardComponent implements OnInit {
           text: 'Cantidad VS Estado'
         }
       }
+
+
+
     });
 
-    this.getMercancias();
+    this.getMercancias(); */
   }
 
+  public chart(formatData){
+
+      new Chart(document.getElementById("bar-chart-summary"), {
+        type: 'bar',
+        data: {
+          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+          datasets: [
+            {
+              label: "Prealertas",
+              backgroundColor: "#1E82BA",
+              data: formatData.Data[0].data
+            },
+            {
+              label: "Previos",
+              backgroundColor: "gray",
+              data: formatData.Data[1].data
+            },  
+            {
+              label: "Salidas",
+              backgroundColor: "#1EC8F3",
+              data: formatData.Data[2].data
+            },
+            {
+              label: "Abandono",
+              backgroundColor: "#D9E11E",
+              data: formatData.Data[3].data
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Cantidad VS Estado'
+          }
+        }
+  });
+}
+
+  public getWidgetAnual() {
+    this.apiservice.service_general_get('/Dashboard/GetWidgetAnual').subscribe((datas) => {
+      this.WidgetData.parseData(datas);
+      this.chart(this.WidgetData);
+    }, 
+    (err: HttpErrorResponse) => { 
+      if (err.error instanceof Error) {
+        this.showAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.showAlert(error);
+      }
+  }
+    )
+  }
     // **************************** Tabla de mercancias ****************************
     public getMercancias() {
       this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
         this.dataInfoSalidas.data = data.splice(0,4);
-        //console.log(this.dataInfoSalidas.data);
+      
       }, 
       (err: HttpErrorResponse) => { 
         if (err.error instanceof Error) {
@@ -142,40 +203,40 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
         this.detailPrevios = response.Dia
-        console.log(this.detailPrevios);
+        
       },
       (errorService) => { 
-        console.log(errorService);
+        
       })
 
       this.detailSalidas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Dia;
-          console.log(this.detailSalidas);
+          
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
 
         this.detailPrealertas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Dia;
-          console.log(this.detailPrealertas);
+          
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
 
         this.detailAbandono = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Dia;
-          console.log(this.detailAbandono);
+         
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
   }
 
@@ -185,40 +246,40 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
         this.detailPrevios = response.Semana
-        console.log(this.detailPrevios);
+        
       },
       (errorService) => { 
-        console.log(errorService);
+        
       })
 
       this.detailSalidas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Semana;
-          console.log(this.detailSalidas);
+         
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
 
         this.detailPrealertas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Semana;
-          console.log(this.detailPrealertas);
+         
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
 
         this.detailAbandono = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Semana;
-          console.log(this.detailAbandono);
+          
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
   }
 
@@ -228,41 +289,42 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
         this.detailPrevios = response.Mes
-        console.log(this.detailPrevios);
+        
       },
       (errorService) => { 
-        console.log(errorService);
+        
       })
 
       this.detailSalidas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Mes;
-          console.log(this.detailSalidas);
+          
         },
         (errorService) => {
-          console.log(errorService);
+        
         })
 
         this.detailPrealertas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Mes;
-          console.log(this.detailPrealertas);
+         
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
 
         this.detailAbandono = "";
       this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Mes;
-          console.log(this.detailAbandono);
+          
         },
         (errorService) => {
-          console.log(errorService);
+          
         })
   }
+
 
 }
