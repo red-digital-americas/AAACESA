@@ -309,8 +309,8 @@
                           <mat-expansion-panel-header>
                             <div class="col status-filter">            
                               <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
-                              <div class="status-filter__text"><p> {{item.Estatus}} </p></div>
-                              <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>                                      
+                              <div class="status-filter__text">{{item.Estatus}}</div>
+                              <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha?.slice(0, -3)}}</div>
                             </div>                                                                                                              
                           </mat-expansion-panel-header>
                           <p class="detail-text">{{item.Usuario}}</p>
