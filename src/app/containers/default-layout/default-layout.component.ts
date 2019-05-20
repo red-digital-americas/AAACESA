@@ -5,6 +5,9 @@ import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
+export interface DialogData {
+  respuesta: boolean;
+}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
@@ -22,6 +25,7 @@ export class DefaultLayoutComponent implements OnInit {
   public lastTime;
   loading=false;
   date;
+  respuesta: boolean = false;
 
   public toogleCalc = false;
   
@@ -99,7 +103,8 @@ export class DefaultLayoutComponent implements OnInit {
       width: '95%',
       data: { 
         title: titulo,
-        mensaje: mensaje
+        mensaje: mensaje,
+        respuesta: this.respuesta
        }
     });
   }
