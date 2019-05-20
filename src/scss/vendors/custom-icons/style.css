@@ -1,0 +1,98 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?ducy3d');
+  src:  url('fonts/icomoon.eot?ducy3d#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ducy3d') format('truetype'),
+    url('fonts/icomoon.woff?ducy3d') format('woff'),
+    url('fonts/icomoon.svg?ducy3d#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="aaa-"], [class*=" aaa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  /* speak: none; */
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.aaa-baseline-check_box-24px:before {
+  content: "\e900";
+}
+.aaa-baseline-edit-24px:before {
+  content: "\e901";
+}
+.aaa-baseline-publish-24px:before {
+  content: "\e902";
+}
+.aaa-baseline-supervised_user_circle-24px:before {
+  content: "\e903";
+}
+.aaa-calculations:before {
+  content: "\e904";
+}
+.aaa-contract:before {
+  content: "\e905";
+}
+.aaa-icon:before {
+  content: "\e90b";
+}
+.aaa-logout:before {
+  content: "\e90c";
+}
+.aaa-maintenance:before {
+  content: "\e90d";
+}
+.aaa-message:before {
+  content: "\e90e";
+}
+.aaa-outline-check_box-24px:before {
+  content: "\e90f";
+}
+.aaa-outline-toggle_off-24px:before {
+  content: "\e910";
+}
+.aaa-package .path1:before {
+  content: "\e911";
+  color: rgb(0, 0, 0);
+}
+.aaa-package .path2:before {
+  content: "\e912";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.aaa-package .path3:before {
+  content: "\e913";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.aaa-package .path4:before {
+  content: "\e914";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.aaa-package .path5:before {
+  content: "\e915";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.aaa-round-insert_drive_file-24px:before {
+  content: "\e916";
+}
+.aaa-search:before {
+  content: "\e917";
+}
+.aaa-user:before {
+  content: "\e918";
+}
+.aaa-xml-file-format-symbol:before {
+  content: "\e919";
+}
