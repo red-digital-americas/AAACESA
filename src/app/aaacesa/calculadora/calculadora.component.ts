@@ -24,8 +24,11 @@ export class CalculadoraComponent implements OnInit {
   resCalcuo: ResCalculoManiobra = new ResCalculoManiobra();
   getTipoIngreso:string = "";
   getCadena: string = "";
-  calculoForm: FormGroup;
-  minDate = this.minDate = moment(new Date()).add(1, 'days').toDate();
+  calculoForm: FormGroup;  
+  // minDateFechaEntrada = moment(new Date()).add(1, 'days').toDate();
+  // maxDateFechaEntrada = null;
+  // minDateFechaSalida = moment(new Date()).add(1, 'days').toDate();  
+
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   constructor(private apiservice : ApiServices,private _formBuilder: FormBuilder,private localeService: BsLocaleService,public snackBar: MatSnackBar) {
