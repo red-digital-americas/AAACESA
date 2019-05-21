@@ -6,3 +6,11 @@ export class mercancias{
     public Fecha:string = "";
     public Estatus:string = "";
 }
+
+
+export class CountClicks{
+    constructor() {}
+
+    public nombre:string = "";
+    public click:number = 0;
+}

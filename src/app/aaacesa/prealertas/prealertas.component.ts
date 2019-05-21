@@ -17,6 +17,7 @@ import { ApiServices } from '../../services/api.services';
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { validateConfig } from '@angular/router/src/config';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-prealertas',
@@ -442,6 +443,9 @@ export class DialogCreatePrealertasComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.click();
+
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -722,4 +726,16 @@ export class DialogCreatePrealertasComponent implements OnInit {
    }
    this.files = [];
   }
-}
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("preclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("preclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("preclick",localSave.toString());
+      console.log(localSave);
+    }
+  }
+
+} //Final

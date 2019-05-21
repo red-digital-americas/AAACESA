@@ -3,6 +3,7 @@ import { Component, ViewEncapsulation, OnInit, ViewChild, AfterViewInit } from '
 import { Http } from '@angular/http';
 import { MatTableDataSource, MatPaginator, MatSort, MatTabChangeEvent } from '@angular/material';
 import { ApiServices } from '../../services/api.services';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   templateUrl: 'abandono.component.html',
@@ -29,6 +30,8 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
   constructor(private http: Http, private apiserv: ApiServices) {   }
 
   ngOnInit() {
+    this.click();
+
     this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {
       this.tmpdataSource = data;        
       this.dataSource.data = this.tmpdataSource;
@@ -81,5 +84,17 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
       return items;
     }
   }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("abanclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("abanclick","1");
+    } else {
+      localSave++;
+      localStorage.setItem("abanclick",localSave.toString());
+
+    }
+  }
+
 }
 

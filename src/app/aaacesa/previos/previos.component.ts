@@ -17,6 +17,7 @@ import { ApiServices } from '../../services/api.services';
 // Modelos Previos
 import { PrevioNuevo, PrevioBusqueda, Documento, Seguimiento, PrevioSeguimiento } from '../../models/previos.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
@@ -365,6 +366,9 @@ export class DialogCreatePreviosComponent implements OnInit {
     public snackBar: MatSnackBar ) { }
 
   ngOnInit() {
+
+    this.click();
+    
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -671,4 +675,16 @@ export class DialogCreatePreviosComponent implements OnInit {
    }
    this.files = [];
   }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("prevclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("prevclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("prevclick",localSave.toString());
+      console.log(localSave);
+    }
+  }
+
 }

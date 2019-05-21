@@ -7,6 +7,7 @@ import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ApiServices } from '../../services/api.services';
 
 import { BsLocaleService } from 'ngx-bootstrap';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-finanzas',
@@ -95,6 +96,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
+  this.click();
+
     for(var i = 0;i <= 3; i++ ){
       var fac = new facturasBusqueda();
       this.busquedaModel.push(fac);
@@ -417,6 +420,17 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.rangoFechaSearch = "";
     // this.Pedimento = [];         
     this.account.data = [];    
+  }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("finclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("finclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("finclick",localSave.toString());
+      console.log(localSave);
+    }
   }
 
 }

@@ -6,11 +6,13 @@ import { Merchant } from '../../aaacesa/general-summary/merchant'
 import { Chart } from 'chart.js';
 import { collectExternalReferences } from '@angular/compiler';
 import { ApiServices } from '../../services/api.services';
-import { mercancias } from '../../models/dashboard.model';
+import { mercancias, CountClicks } from '../../models/dashboard.model';
 import { MatTableDataSource, MatSnackBar, } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { categoryAnualData, widgetAnualData } from '../../models/graficaDashboard.model';
+import { isNull, isNullOrUndefined } from 'util';
+import { count } from 'rxjs-compat/operator/count';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +37,7 @@ export class DashboardComponent implements OnInit {
   b:number;
   d:number;
   c:number;
-  
+   public table = Array<CountClicks>();
   
 
   private showAlert (msj:string) {
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
    ngOnInit(): void {
     this.getWidgetAnual();
     this.dia();
+    this.click();
     this.frecuentes();
 
 /*
@@ -324,16 +327,53 @@ export class DashboardComponent implements OnInit {
   }
 
   frecuentes(){
-    let resume = ['response.Semana', 'b', 'c', 'd'];
-    resume.sort();
-    console.log(resume);
+    
+    
+      let tab = new CountClicks();
+      tab.click  = parseInt(localStorage.getItem("clk")); // Dashboard
+      tab.nombre = "Dashboard";
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("preclick")); //Prealertas
+      tab.nombre = "Prealertas";
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("prevclick"));
+      tab.nombre = "Previos";
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("salidasclick"));
+      tab.nombre = "Salidas"
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("exportclick"));
+      tab.nombre = "Exportaciones"
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("finclick"));
+      tab.nombre = "Finanzas"
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("mercaclick"));
+      tab.nombre = "Mercancias"
+      this.table.push(tab);
+      tab = new CountClicks();
+      tab.click = parseInt(localStorage.getItem("abanclick"));
+      tab.nombre = "Abandono"
+      this.table.push(tab);
+      this.table.sort();
   }
 
 
   click(){
-    localStorage.setItem("clk", "1");
     let localSave = parseInt(localStorage.getItem("clk"));
-    localSave++;
-    localStorage.setItem("clk",localSave.toString());
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("clk", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("clk",localSave.toString());
+      console.log(localSave);
+    }
   }
+
 }

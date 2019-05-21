@@ -90,7 +90,7 @@ export class BitacorasComponent implements OnInit {
     }, 
     (err: HttpErrorResponse) => { 
       this.loading=false;
-      console.log(err.error);
+    
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {

@@ -17,6 +17,7 @@ import { ApiServices } from '../../services/api.services';
 import { PrealertaBusqueda, PrealertaSeguimiento, Documento, PrealertaNuevo, EstatusTransferencia } from '../../models/prealertas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ExportacionBusqueda, ExportacionNuevo, ExportacionSeguimiento } from '../../models/exportaciones.model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-exportaciones',
@@ -378,6 +379,9 @@ export class DialogCreateExportacionesComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.click();
+
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],      
@@ -501,5 +505,16 @@ export class DialogCreateExportacionesComponent implements OnInit {
       };                    
    }
    this.files = [];
+  }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("exportclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("exportclick","1");
+    } else {
+      localSave++;
+      localStorage.setItem("exportclick",localSave.toString());
+      console.log(localSave);
+    }
   }
 }

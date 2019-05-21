@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { MatTabChangeEvent, MatSnackBar, MatSort, MatTableDataSource, MatPaginator, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MercanciasBusqueda, GetInformacionGeneral, GetEstatus, GetInformacionSalidas, GetEstatusTransferencia } from '../../models/mercancias.model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-mercancias',
@@ -50,6 +51,9 @@ export class MercanciasComponent implements OnInit {
   constructor(private http: Http, private apiserv: ApiServices,public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
+    this.click();
+    
   }
 
   buscarMercancias(){
@@ -164,6 +168,17 @@ export class MercanciasComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'right'
     });
+  }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("mercaclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("mercaclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("mercaclick",localSave.toString());
+      console.log(localSave);
+    }
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {}

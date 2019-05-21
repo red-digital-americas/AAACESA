@@ -15,6 +15,7 @@ import { ApiServices } from '../../services/api.services';
 // Modelos Prealertas
 import { SalidaBusqueda, SalidaSeguimiento, Documento, SalidaNuevo } from '../../models/salidas.model';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-salidas',
@@ -329,7 +330,10 @@ constructor(
   private apiService:ApiServices,
   public snackBar: MatSnackBar) { }
 
-  ngOnInit() {        
+  ngOnInit() {
+
+    this.click();
+
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -579,6 +583,17 @@ constructor(
       };                    
    }
    this.files = [];
+  }
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("salidasclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("salidasclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("salidasclick",localSave.toString());
+      console.log(localSave);
+    }
   }
 
 }
