@@ -177,7 +177,7 @@ export class MercanciasComponent implements OnInit {
     } else {
       localSave++;
       localStorage.setItem("mercaclick",localSave.toString());
-      console.log(localSave);
+  
     }
   }
 

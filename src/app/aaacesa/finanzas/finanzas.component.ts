@@ -429,7 +429,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     } else {
       localSave++;
       localStorage.setItem("finclick",localSave.toString());
-      console.log(localSave);
+    
     }
   }
 

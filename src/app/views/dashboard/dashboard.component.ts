@@ -372,7 +372,6 @@ export class DashboardComponent implements OnInit {
     } else {
       localSave++;
       localStorage.setItem("clk",localSave.toString());
-      console.log(localSave);
     }
   }
 
