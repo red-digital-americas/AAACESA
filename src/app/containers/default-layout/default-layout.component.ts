@@ -41,10 +41,12 @@ export class DefaultLayoutComponent implements OnInit {
   
 
   ngOnInit() {
+    //console.log(this.userIdle.getConfigValue());
     //Start watching for user inactivity.
     this.userIdle.startWatching();
     // Start watching when user idle is starting.
     this.userIdle.onTimerStart().subscribe(()=>{
+      
     });
     
     this.userIdle.ping$.subscribe(() => {
@@ -71,6 +73,7 @@ export class DefaultLayoutComponent implements OnInit {
        this.lastTime = this.IDUSR.FechaUltimaSesion;
      }
 
+     this.getNotificaciones();  
   }
 
   constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices, private snackBar: MatSnackBar) {
@@ -84,7 +87,7 @@ export class DefaultLayoutComponent implements OnInit {
       attributes: true
     });    
 
-    this.getNotificaciones();     
+       
   }
 
   redirect(ruta){
@@ -121,13 +124,19 @@ export class DefaultLayoutComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.respuesta = result;
-      console.log(result);
       this.refreshToken = localStorage.getItem("refreshToken");
       if(result){
         this.apiservice.service_general_post('/Authentication/Refresh',{RefreshToken: this.refreshToken}).subscribe((respuesta)=>{
+          let myDate = new Date();
           localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('mytime');
           localStorage.setItem('token', respuesta.Token);
-          this.userIdle.resetTimer();
+          localStorage.setItem('refreshToken', respuesta.RefreshToken);
+          localStorage.setItem("mytime", myDate.toString());
+          this.userIdle.stopWatching();
+          this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
+          this.userIdle.startWatching();
         });
       }
     }, 
