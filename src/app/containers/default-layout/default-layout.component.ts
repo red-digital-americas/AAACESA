@@ -34,6 +34,9 @@ export class DefaultLayoutComponent implements OnInit {
   respuesta: boolean = true;
 
   public toogleCalc = false;
+
+  public notificacionesArray = [];
+  public notificacionesActiveCount = 0;
   
 
   ngOnInit() {
@@ -79,7 +82,9 @@ export class DefaultLayoutComponent implements OnInit {
 
     this.changes.observe(<Element>this.element, {
       attributes: true
-    });
+    });    
+
+    this.getNotificaciones();     
   }
 
   redirect(ruta){
@@ -185,6 +190,35 @@ export class DefaultLayoutComponent implements OnInit {
       return true;
     }
   }
+
+  ///////////////////////
+  // Notificaciones
+  getNotificaciones () {
+    this.apiservice.service_general_get('/Dashboard/GetNotificaciones')
+      .subscribe ( 
+      (response:any) => { 
+        this.notificacionesArray = response;
+        this.getNotificacionesActiveCount();
+      }, 
+      (errorService) => { });
+  }
+
+  getNotificacionesActiveCount () {
+    this.notificacionesActiveCount = this.notificacionesArray.filter ( (data) => { return !data.Read } ).length;
+  }
+
+  lecturaNotifcacion (idNotificacion) {
+    // console.log(idNotificacion);
+    this.apiservice.service_general_put('/Dashboard/LecturaNotificacion', {Id: idNotificacion})
+      .subscribe ( 
+      (response:any) => {         
+        this.getNotificaciones();
+      }, 
+      (errorService) => { this.sendAlert("Ocurrio un problema."); });
+  }
+
+
+
 }
 
 

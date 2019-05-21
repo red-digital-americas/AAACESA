@@ -526,3 +526,26 @@ td.mat-cell{
 .dashboard__btn--underline {
     border-bottom: 2px solid red !important;
 }
+
+/* Notificaciones */
+.notificacion {
+    padding: 0rem 1rem;
+    margin-bottom: .3rem;
+    font-size: .65rem;
+    color: #d7d7de;
+    border-top: 1px solid #646880 !important;
+
+    &__head {
+        font-weight: bold;        
+    }
+
+    &__fecha {
+        float: right;
+    }
+
+    &__status {        
+        color: #F00;
+        letter-spacing: .1rem;
+        font-weight: 700;
+    }
+}
