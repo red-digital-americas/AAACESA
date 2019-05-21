@@ -77,6 +77,7 @@ export class PrealertasComponent {
         default: { return item[property];} 
       }
     };
+    this.click();
   }   
 
   ///////////////////////////////
@@ -95,6 +96,7 @@ export class PrealertasComponent {
       .subscribe ( 
       (response:any) => { this.instruccionesManejoCatalogo = response;}, 
       (errorService) => { });
+    
   }
 
   //////////////////////////
@@ -360,6 +362,18 @@ export class PrealertasComponent {
     });
   } 
 
+  click(){
+    let localSave = parseInt(localStorage.getItem("preclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("preclick", "1");
+      
+    } else {
+      localSave++;
+      localStorage.setItem("preclick",localSave.toString());
+      console.log("por aquí pase");
+    }
+  }
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -443,8 +457,6 @@ export class DialogCreatePrealertasComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.click();
 
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
@@ -727,15 +739,6 @@ export class DialogCreatePrealertasComponent implements OnInit {
    this.files = [];
   }
 
-  click(){
-    let localSave = parseInt(localStorage.getItem("preclick"));
-    if(isNullOrUndefined(localSave) || isNaN(localSave)){
-      localStorage.setItem("preclick", "1");
-    } else {
-      localSave++;
-      localStorage.setItem("preclick",localSave.toString());
-      console.log(localSave);
-    }
-  }
+  
 
 } //Final

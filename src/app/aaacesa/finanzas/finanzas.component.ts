@@ -423,6 +423,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   }
 
   click(){
+    debugger;
     let localSave = parseInt(localStorage.getItem("finclick"));
     if(isNullOrUndefined(localSave) || isNaN(localSave)){
       localStorage.setItem("finclick", "1");

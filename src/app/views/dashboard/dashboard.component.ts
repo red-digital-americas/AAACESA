@@ -328,39 +328,46 @@ export class DashboardComponent implements OnInit {
 
   frecuentes(){
     
-    
       let tab = new CountClicks();
       tab.click  = parseInt(localStorage.getItem("clk")); // Dashboard
       tab.nombre = "Dashboard";
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("preclick")); //Prealertas
       tab.nombre = "Prealertas";
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("prevclick"));
       tab.nombre = "Previos";
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("salidasclick"));
       tab.nombre = "Salidas"
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("exportclick"));
       tab.nombre = "Exportaciones"
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("finclick"));
       tab.nombre = "Finanzas"
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("mercaclick"));
       tab.nombre = "Mercancias"
       this.table.push(tab);
+
       tab = new CountClicks();
       tab.click = parseInt(localStorage.getItem("abanclick"));
       tab.nombre = "Abandono"
       this.table.push(tab);
+
       this.table.sort();
   }
 

@@ -62,6 +62,8 @@ export class PreviosComponent  {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
+
+    this.click();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;     
     this.dataSource.sortingDataAccessor = (item, property) => {      
@@ -303,6 +305,8 @@ export class PreviosComponent  {
       data: { }      
     });
 
+
+
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed');   
       // console.log(result);
@@ -313,6 +317,17 @@ export class PreviosComponent  {
       // this.buscarPrevios();
     });
   } 
+
+  click(){
+    let localSave = parseInt(localStorage.getItem("prevclick"));
+    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+      localStorage.setItem("prevclick", "1");
+    } else {
+      localSave++;
+      localStorage.setItem("prevclick",localSave.toString());
+      console.log(localSave);
+    }
+  }
 }
 
 
@@ -367,7 +382,7 @@ export class DialogCreatePreviosComponent implements OnInit {
 
   ngOnInit() {
 
-    this.click();
+    
     
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
@@ -676,15 +691,6 @@ export class DialogCreatePreviosComponent implements OnInit {
    this.files = [];
   }
 
-  click(){
-    let localSave = parseInt(localStorage.getItem("prevclick"));
-    if(isNullOrUndefined(localSave) || isNaN(localSave)){
-      localStorage.setItem("prevclick", "1");
-    } else {
-      localSave++;
-      localStorage.setItem("prevclick",localSave.toString());
-      console.log(localSave);
-    }
-  }
+
 
 }

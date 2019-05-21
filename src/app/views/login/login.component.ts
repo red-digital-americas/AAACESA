@@ -50,17 +50,12 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("mytime", myDate.toString());
             
      localStorage.setItem("clk","0")
-      
+     localStorage.setItem("preclick","0")
      localStorage.setItem("prevclick","0")
-      
      localStorage.setItem("salidasclick","0")
-      
      localStorage.setItem("exportclick","0")
-     
      localStorage.setItem("finclick","0")
-      
      localStorage.setItem("mercaclick","0")
-      
      localStorage.setItem("abanclick","0")
      
             this.loading = false;
