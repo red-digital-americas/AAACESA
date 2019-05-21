@@ -57,7 +57,7 @@ export class PreviosComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['Master', 'House', 'Patente', 'Nombre', 'FechaPrevio', 'Referencia', 'Etiquetado', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoPrevios', 'FechaSolicitud', 'Master', 'House', 'Nombre', 'Patente', 'FechaPrevio', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
