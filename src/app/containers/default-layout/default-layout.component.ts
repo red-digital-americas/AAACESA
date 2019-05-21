@@ -6,6 +6,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ApiServices } from '../../services/api.services';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DetalleUserComponent } from '../../aaacesa/admin-user/detalle-user/detalle-user.component';
 
 export interface DialogData {
   visible: boolean;
@@ -137,6 +138,33 @@ export class DefaultLayoutComponent implements OnInit {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
         this.sendAlert(error);
       }
+    });
+  }
+
+  detalleUSer(){
+    const dialogRef = this.dialog.open(DetalleUserComponent, {
+      width: '95%',
+      data: { 
+        cveCliente: this.IDUSR.Id,
+        title: "Detalle de Usuario",
+        tipoPerfil: false
+       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiservice.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
+        this.user = respuesta.Nombre+" "+respuesta.Paterno+" "+respuesta.Materno;
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(respuesta));
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.sendAlert(error);
+        }
+      });
     });
   }
   

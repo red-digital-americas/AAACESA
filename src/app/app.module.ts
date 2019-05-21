@@ -65,6 +65,7 @@ import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.componen
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { SharedModule } from './aaacesa/shared/shared.module';
 import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
+import { AdminUserModule } from './aaacesa/admin-user/admin-user.module';
 
 
 
@@ -109,7 +110,8 @@ import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
     MatSelectModule,
     NgxLoadingModule.forRoot({}),
     UserIdleModule.forRoot({idle:0, timeout:3300,ping:3000}),
-    CalculadoraModule
+    CalculadoraModule,
+    AdminUserModule
     // UserIdleModule.forRoot({idle:0, timeout:20,ping:12})
   ],
   exports: [

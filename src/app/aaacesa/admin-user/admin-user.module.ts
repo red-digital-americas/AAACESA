@@ -50,6 +50,9 @@ import { NgxLoadingModule } from 'ngx-loading';
     DetalleUserComponent,
     CrearUserComponent,
   ],
+  exports:[
+    DetalleUserComponent
+  ],
   entryComponents: [DetalleUserComponent,CrearUserComponent]
 })
 export class AdminUserModule { }
