@@ -54,7 +54,7 @@ export class DefaultLayoutComponent implements OnInit {
       setTimeout(function(){
         localStorage.clear();
         window.location.href ="login";
-      },3000);
+      },6000);
     });
 
      if (localStorage.getItem("user") == undefined) {
