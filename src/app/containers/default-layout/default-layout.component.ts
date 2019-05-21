@@ -45,16 +45,16 @@ export class DefaultLayoutComponent implements OnInit {
     });
     
     this.userIdle.ping$.subscribe(() => {
-      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 5 minutos. Tome sus precauciones",true);
+      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 10 minutos. Tome sus precauciones",true);
     });
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() =>{ 
 
-      this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login",false);
+      this.sesionDialog("Cierre de sesión","La sesión a caducará en 5 minutos y será redirigido al login",false);
       setTimeout(function(){
         localStorage.clear();
         window.location.href ="login";
-      },6000);
+      },300000);
     });
 
      if (localStorage.getItem("user") == undefined) {

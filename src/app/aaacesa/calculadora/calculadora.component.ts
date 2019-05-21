@@ -26,6 +26,7 @@ export class CalculadoraComponent implements OnInit {
   getCadena: string = "";
   calculoForm: FormGroup;
   minDate = this.minDate = moment(new Date()).add(1, 'days').toDate();
+  masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
   constructor(private apiservice : ApiServices,private _formBuilder: FormBuilder,private localeService: BsLocaleService,public snackBar: MatSnackBar) {
     this.localeService.use('es');
@@ -33,6 +34,8 @@ export class CalculadoraComponent implements OnInit {
 
   ngOnInit() {
     this.calculoForm = this._formBuilder.group({
+      tMaster: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
+      tHouse: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],
       sTipoEntrada:['',Validators.required],
       sConceptoCadenaFria:['',Validators.required],
       sPeso:['',[Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],

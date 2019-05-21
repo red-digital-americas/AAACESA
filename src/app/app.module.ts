@@ -108,7 +108,7 @@ import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
     TextMaskModule,
     MatSelectModule,
     NgxLoadingModule.forRoot({}),
-    UserIdleModule.forRoot({idle:0, timeout:1800,ping:1500}),
+    UserIdleModule.forRoot({idle:0, timeout:3300,ping:3000}),
     CalculadoraModule
     // UserIdleModule.forRoot({idle:0, timeout:20,ping:12})
   ],
