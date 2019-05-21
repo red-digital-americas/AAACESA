@@ -30,8 +30,12 @@ export class DashboardComponent implements OnInit {
   public detailAbandono = "";
   public currentIndex = 0;
   public WidgetData = new widgetAnualData();
-
   charts: boolean;
+  a:number;
+  b:number;
+  d:number;
+  c:number;
+  
   
 
   private showAlert (msj:string) {
@@ -86,6 +90,7 @@ export class DashboardComponent implements OnInit {
    ngOnInit(): void {
     this.getWidgetAnual();
     this.dia();
+    this.frecuentes();
 
 /*
     new Chart(document.getElementById("bar-chart-summary"), {
@@ -188,10 +193,9 @@ export class DashboardComponent implements OnInit {
     public getMercancias() {
       this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
         this.dataInfoSalidas.data = data.splice(0,4);
-      
       }, 
       (err: HttpErrorResponse) => { 
-        if (err.error instanceof Error) {
+        if (err.error instanceof Error) { 
           this.showAlert('Error:'+ err.error.message);
         } else {
           let error= (err.error.Description == undefined)?err.error:err.error.Description;
@@ -199,7 +203,6 @@ export class DashboardComponent implements OnInit {
         }
     }
       )};
-
 
 
   public dia() {
@@ -251,7 +254,7 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
         this.detailPrevios = response.Semana
-        
+        this.a = response.Semana;
       },
       (errorService) => { 
         
@@ -261,7 +264,7 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Semana;
-         
+         this.b = response.Semana;
         },
         (errorService) => {
           
@@ -271,7 +274,7 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Semana;
-         
+         this.b = response.Semana;
         },
         (errorService) => {
           
@@ -281,7 +284,7 @@ export class DashboardComponent implements OnInit {
       this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Semana;
-          
+          this.c = response.Semana;
         },
         (errorService) => {
           
@@ -294,42 +297,38 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
       (response:any) => {
         this.detailPrevios = response.Mes
-        
       },
       (errorService) => { 
-        
       })
-
       this.detailSalidas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
         (response:any) => {
           this.detailSalidas = response.Mes;
-          
         },
         (errorService) => {
-        
         })
-
         this.detailPrealertas = "";
       this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
         (response:any) => {
           this.detailPrealertas = response.Mes;
-         
         },
-        (errorService) => {
-          
+        (errorService) => {  
         })
-
         this.detailAbandono = "";
       this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
         (response:any) => {
           this.detailAbandono = response.Mes;
-          
         },
         (errorService) => {
-          
         })
   }
+
+  frecuentes(){
+    let resume = ['response.Semana', 'b', 'c', 'd'];
+    resume.sort();
+    console.log(resume);
+  }
+
 
   click(){
     localStorage.setItem("clk", "1");
