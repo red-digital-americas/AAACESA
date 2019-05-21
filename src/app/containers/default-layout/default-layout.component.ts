@@ -2,9 +2,11 @@ import { Component, Input, OnInit, Inject } from '@angular/core';
 import { navItems } from './../../_nav';
 import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ApiServices } from '../../services/api.services';
+import { HttpErrorResponse } from '@angular/common/http';
+import { DetalleUserComponent } from '../../aaacesa/admin-user/detalle-user/detalle-user.component';
 
 export interface DialogData {
   visible: boolean;
@@ -33,27 +35,31 @@ export class DefaultLayoutComponent implements OnInit {
   respuesta: boolean = true;
 
   public toogleCalc = false;
+
+  public notificacionesArray = [];
+  public notificacionesActiveCount = 0;
   
 
   ngOnInit() {
+    //console.log(this.userIdle.getConfigValue());
     //Start watching for user inactivity.
     this.userIdle.startWatching();
     // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe((count)=>{
-
+    this.userIdle.onTimerStart().subscribe(()=>{
+      
     });
     
     this.userIdle.ping$.subscribe(() => {
-      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 5 minutos. Tome sus precauciones",true);
+      this.sesionDialog("Aviso de cierre de sesión","La sesión se cerrará en 10 minutos. Tome sus precauciones",true);
     });
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() =>{ 
 
-      this.sesionDialog("Cierre de sesión","La sesión a caducado, será redirigido al login",false);
+      this.sesionDialog("Cierre de sesión","La sesión a caducará en 5 minutos y será redirigido al login",false);
       setTimeout(function(){
         localStorage.clear();
         window.location.href ="login";
-      },3000);
+      },300000);
     });
 
      if (localStorage.getItem("user") == undefined) {
@@ -67,9 +73,10 @@ export class DefaultLayoutComponent implements OnInit {
        this.lastTime = this.IDUSR.FechaUltimaSesion;
      }
 
+     this.getNotificaciones();  
   }
 
-  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices) {
+  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices, private snackBar: MatSnackBar) {
     (this.getTimeSesion())?"":this.closeSession();
     
     this.changes = new MutationObserver((mutations) => {
@@ -78,7 +85,9 @@ export class DefaultLayoutComponent implements OnInit {
 
     this.changes.observe(<Element>this.element, {
       attributes: true
-    });
+    });    
+
+       
   }
 
   redirect(ruta){
@@ -114,15 +123,57 @@ export class DefaultLayoutComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.respuesta = result;
-      this.refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+      this.refreshToken = localStorage.getItem("refreshToken");
       if(result){
         this.apiservice.service_general_post('/Authentication/Refresh',{RefreshToken: this.refreshToken}).subscribe((respuesta)=>{
+          let myDate = new Date();
           localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('mytime');
           localStorage.setItem('token', respuesta.Token);
+          localStorage.setItem('refreshToken', respuesta.RefreshToken);
+          localStorage.setItem("mytime", myDate.toString());
+          this.userIdle.stopWatching();
+          this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
+          this.userIdle.startWatching();
         });
       }
+    }, 
+    (err: HttpErrorResponse) => { 
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
+      }
+    });
+  }
+
+  detalleUSer(){
+    const dialogRef = this.dialog.open(DetalleUserComponent, {
+      width: '95%',
+      data: { 
+        cveCliente: this.IDUSR.Id,
+        title: "Detalle de Usuario",
+        tipoPerfil: false
+       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiservice.service_general_get("/AdministracionCuentas/GetCurrent").subscribe((respuesta)=>{
+        this.user = respuesta.Nombre+" "+respuesta.Paterno+" "+respuesta.Materno;
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(respuesta));
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.sendAlert(error);
+        }
+      });
     });
   }
   
@@ -130,6 +181,14 @@ export class DefaultLayoutComponent implements OnInit {
     this.loading=true;
     this.apiservice.service_general_put('/Authentication/LogOut',{});
     localStorage.clear();
+  }
+
+  sendAlert(mensaje:string){
+    this.snackBar.open(mensaje, "", {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
   
@@ -150,7 +209,7 @@ export class DefaultLayoutComponent implements OnInit {
     let msecFin = dt.getTime() - oneHrMas.getTime();
 
     //Minutus restantes para cierre de sesión
-    let secTimeout = Math.floor((oneHrMas.getTime() - dt.getTime())/ 1000);
+    let secTimeout = (Math.floor((oneHrMas.getTime() - dt.getTime())/ 1000))-300;
     let Ping = secTimeout -300;
     let secPing = ( Ping <= 300)?0:Ping;
     
@@ -164,10 +223,40 @@ export class DefaultLayoutComponent implements OnInit {
       this.configValues.idle = 0;
       this.configValues.timeout = secTimeout;
       this.configValues.ping = secPing;
-      // this.userIdle.setConfigValues(this.configValues);
+      this.userIdle.setConfigValues(this.configValues);
       return true;
+      
     }
   }
+
+  ///////////////////////
+  // Notificaciones
+  getNotificaciones () {
+    this.apiservice.service_general_get('/Dashboard/GetNotificaciones')
+      .subscribe ( 
+      (response:any) => { 
+        this.notificacionesArray = response;
+        this.getNotificacionesActiveCount();
+      }, 
+      (errorService) => { });
+  }
+
+  getNotificacionesActiveCount () {
+    this.notificacionesActiveCount = this.notificacionesArray.filter ( (data) => { return !data.Read } ).length;
+  }
+
+  lecturaNotifcacion (idNotificacion) {
+    // console.log(idNotificacion);
+    this.apiservice.service_general_put('/Dashboard/LecturaNotificacion', {Id: idNotificacion})
+      .subscribe ( 
+      (response:any) => {         
+        this.getNotificaciones();
+      }, 
+      (errorService) => { this.sendAlert("Ocurrio un problema."); });
+  }
+
+
+
 }
 
 

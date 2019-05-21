@@ -122,7 +122,16 @@
                   
         <div class="table-responsive">
           <table mat-table [dataSource]="dataSource" matSort>                                   
-          
+            <ng-container matColumnDef="IdAdelantoPrevios">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Adelanto Previos </th>
+              <td mat-cell *matCellDef="let element"> {{element.IdAdelantoPrevios}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="FechaSolicitud">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Solicitud </th>
+              <td mat-cell *matCellDef="let element"> {{element.FechaSolicitud}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="Master">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía Master </th>
               <td mat-cell *matCellDef="let element"> {{element.Master}} </td>
@@ -131,32 +140,23 @@
             <ng-container matColumnDef="House">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía House </th>
               <td mat-cell *matCellDef="let element"> {{element.House}} </td>
+            </ng-container>                    
+            
+            <ng-container matColumnDef="Nombre">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tramitador </th>
+              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
             </ng-container>
-          
+
             <ng-container matColumnDef="Patente">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Patente </th>
               <td mat-cell *matCellDef="let element"> {{element.Patente}} </td>
             </ng-container>
             
-            <ng-container matColumnDef="Nombre">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
-              <td mat-cell *matCellDef="let element"> {{element.Nombre}} </td>
-            </ng-container>
-            
             <ng-container matColumnDef="FechaPrevio">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Previo </th>
-              <td mat-cell *matCellDef="let element"> {{element.FechaPrevio.split(' ')[0]}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="Referencia">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Referencia </th>
-              <td mat-cell *matCellDef="let element"> {{element.Referencia}} </td>
-            </ng-container>
-            
-            <ng-container matColumnDef="Etiquetado">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Etiquetado </th>
-              <td mat-cell *matCellDef="let element"> {{element.Etiquetado ? 'Sí' : 'No'}} </td>
-            </ng-container>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.FechaPrevio.split(' ')[0]}} </td> -->
+              <td mat-cell *matCellDef="let element"> {{element.FechaPrevio}} </td>
+            </ng-container>                        
             
             <ng-container matColumnDef="Estatus">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
@@ -229,22 +229,28 @@
                               </div>
                             </div>
                           </div><!-- End Row Inside -->
+
+                          <hr class="dividerb">
                           <div class="row mt-2">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
                               <div class="detail-text font-weight-bold">Piezas </div>
                               <p class="detail-text">{{detailData.Piezas}}</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
                               <div class="detail-text font-weight-bold">Peso</div>
                               <p class="detail-text">{{detailData.Peso}} kg.</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
                                 <div class="detail-text font-weight-bold">Etiquetado  </div>
                                 <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
                               </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                               <div class="detail-text font-weight-bold">Fecha y Hora previo </div>
                               <p class="detail-text">{{detailData.FechaPrevio }}</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <div class="detail-text font-weight-bold">Fecha y Hora solicitud </div>
+                              <p class="detail-text">{{detailData.FechaSolicitud?.slice(0, 16) }}{{detailData.FechaSolicitud?.slice(-6)}}</p>
                             </div>
                             
                           </div><!-- End Row Inside -->
@@ -258,8 +264,12 @@
                               <p class="detail-text">{{detailData.Patente}}</p>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-3">
-                                <div class="detail-text font-weight-bold">Nombre Completo</div>
-                                <p class="detail-text">{{detailData.Nombre}} {{detailData.Paterno}} {{detailData.Materno}}</p>
+                              <div class="detail-text font-weight-bold">Tramitador</div>
+                              <p class="detail-text">{{detailData.Nombre}} {{detailData.Paterno}} {{detailData.Materno}}</p>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-3">
+                              <div class="detail-text font-weight-bold">Correo</div>
+                              <p class="detail-text">{{detailData.Correo}}</p>
                             </div>
                           </div><!-- End Row Inside -->
                           <hr class="dividerb">

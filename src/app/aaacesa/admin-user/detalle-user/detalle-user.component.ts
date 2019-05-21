@@ -34,6 +34,7 @@ export class DetalleUserComponent implements OnInit {
   public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    console.log(this.data.tipoPerfil);
     this.title= this.data.title;
     this.loading=true;
     this.actualizaUser.Telefono= "";

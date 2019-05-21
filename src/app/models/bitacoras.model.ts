@@ -34,6 +34,8 @@ export class BitacoraResult{
 
 export class CalculoManiobra {
     constructor() { }    
+    public Master:string = "";    
+    public House:string = "";    
     public TipoEntrada:string = "";    
     public Peso:string = "";        
     public ValorAduana:string = "";    
@@ -42,6 +44,8 @@ export class CalculoManiobra {
     public ConceptoCadenaFria:string = "";    
 
     Clean() {
+        this.Master = "";    
+        this.House = "";    
         this.TipoEntrada = "";    
         this.Peso = "";        
         this.ValorAduana = "";    

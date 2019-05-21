@@ -13,10 +13,22 @@
   <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span>
+        <i class="icon-bell"></i><span *ngIf="notificacionesArray.length" class="badge badge-pill badge-danger">{{notificacionesActiveCount}}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>You have 5 notifications</strong></div>
+        <div *ngIf="notificacionesArray.length" class="dropdown-header text-center"><strong>Tienes {{notificacionesArray.length}} notificaciones</strong></div>
+        <div *ngIf="!notificacionesArray.length" class="dropdown-header text-center"><strong>No hay notificaciones</strong></div>
+
+        <div (click)="lecturaNotifcacion(item.Id)" *ngFor="let item of notificacionesArray" class="notificacion">
+          <div *ngIf="!item.Read" class="notificacion__status">Nueva</div>
+          <div class="notificacion__head">{{item.Head}} <span class="notificacion__fecha">{{item.Fecha}}</span></div>                    
+          <div class="notificacion__body">{{item.Body}}</div>                              
+        </div>        
+        <!-- <div class="notificacion">
+          <div class="notificacion__status">Nueva</div>
+          <div class="notificacion__head">Prenotificaciones Abandono <span class="notificacion__fecha">21/05/2019</span></div>                    
+          <div class="notificacion__body">La guía Master 178-39821782 House HRM3756 causará abandono en 15 días.</div>                              
+        </div>         -->
       </div>
     </li>
     <li class="nav-item dropdown" dropdown placement="bottom right">
@@ -29,6 +41,8 @@
         <a class="dropdown-item" [routerLink]="" (click)="redirect('bitacoras')" ><i class="icon-note"></i>Bitácora</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
         <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " [routerLink]="" (click)="redirect('adminuser')" ><i class="aaa-maintenance"></i> Admin de usuarios</a>
+        <div class="dropdown-divider" *ngIf="rolUser == 'OPERACION' || rolUser == 'FACTURACION' "></div>
+        <div class="dropdown-item" *ngIf="rolUser == 'OPERACION' || rolUser == 'FACTURACION' " [routerLink]="" (click)="detalleUSer()" ><i class="aaa-user"></i> Usuario</div>
         <div class="dropdown-divider  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION' "></div>
         <a class="dropdown-item  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION'" [routerLink]="" (click)="redirect('calculadora')" ><i class="icon-people"></i> Cálculo Maniobras</a>
         <div class="dropdown-divider" *ngIf="rolUser != 'OPERACION'"></div>

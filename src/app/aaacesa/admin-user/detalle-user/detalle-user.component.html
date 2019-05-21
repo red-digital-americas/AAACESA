@@ -63,8 +63,8 @@
             <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
               Correo&nbsp;&nbsp;&nbsp;<i class="cui-pencil"></i>
             </div>
-            <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
-              Perfil&nbsp;&nbsp;&nbsp;<i class="cui-pencil" *ngIf="data.tipoPerfil"></i>
+            <div title="Click para editar" (click)="edit()" *ngIf="data.tipoPerfil" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
+              Perfil&nbsp;&nbsp;&nbsp;<i class="cui-pencil"></i>
             </div>
             <div title="Click para editar" (click)="edit()" class="input-full-width col-md-4 d-none d-lg-block d-xl-block">
               Teléfono&nbsp;&nbsp;&nbsp;<i class="cui-pencil"></i>
@@ -82,7 +82,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" *ngIf="data.tipoPerfil">
               <mat-form-field class="input-full-width">
                 <select matNativeControl [disabled]="!disablePerfil" [(ngModel)]="actualizaPerfil.Perfil.ClavePerfil" #selPerfilUser="ngModel" name="selPerfil" required >
                   <option label="--Selecciona el perfil --">--Selecciona el perfil --</option>
