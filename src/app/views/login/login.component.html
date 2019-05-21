@@ -8,19 +8,16 @@
             <div class="card p-4">
               <div class="card-body" [hidden]="getPasword">
                 <form #loginForm="ngForm">
-                  <h1>Login</h1>
-                  <p class="text-muted">Ingresa a tu cuenta</p>
+                  <h4 class="text-center">Portal de Servicios</h4>
+                  <p class="text-muted text-center">Inicio de Sesión</p>
                   <div class="row">
                     <div class="col-md-12">
                       <mat-form-field class="input-full-width">
-                        <mat-label>Correo</mat-label>
-                        <input class="text-right" type="text" matInput  [(ngModel)]="email" #emailUser="ngModel" id="emailUser" name="emailUser" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                        <mat-label>Nombre de usuario</mat-label>
+                        <input type="text" matInput  [(ngModel)]="email" maxlength="40" #emailUser="ngModel" id="emailUser" name="emailUser" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
                         <span matPrefix><i class="icon-user info"></i> &nbsp;</span>
-                        <mat-error *ngIf="emailUser.dirty || emailUser.pristine">
-                          El formato del campo es <strong>incorrecto</strong>
-                        </mat-error>
-                        <mat-error *ngIf="emailUser.hasError('required')">
-                          El campo Correo es <strong>requerido</strong>
+                        <mat-error *ngIf="emailUser.dirty || emailUser.pristine || emailUser.errors?.required">
+                          * Nombre de usuario incorrecto
                         </mat-error>
                       </mat-form-field> 
                     </div>
@@ -29,10 +26,9 @@
                     <div class="col-md-12">
                       <mat-form-field class="input-full-width">
                         <mat-label>Contraseña</mat-label>
-                        <input class="text-right" [type]="hide ? 'password' : 'text'" matInput  [(ngModel)]="password" #passwordUser="ngModel" id="passwordUser" name="passwordUser" required>
-                        <mat-icon matPrefix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <input [type]="hide ? 'password' : 'text'" matInput maxlength="40"  [(ngModel)]="password" #passwordUser="ngModel" id="passwordUser" name="passwordUser" required>
                         <mat-error *ngIf="passwordUser.dirty || passwordUser.pristine ||passwordUser.hasError('required')">
-                          El campo Contraseña es <strong>requerido</strong>
+                            * Contraseña no valida
                         </mat-error>
                       </mat-form-field> 
                     </div>
@@ -57,19 +53,16 @@
               </div>
               <div class="card-body" [hidden]="!getPasword">
                 <form #resetForm="ngForm">
-                  <h3>Recupera tu contraseña</h3>
-                    <p class="text-muted">Ingresa el correo registrado en tu cuenta</p>
+                  <h5 class="text-center">Recupera tu contraseña</h5>
+                    <p class="text-muted text-center">Ingresa el correo registrado en tu cuenta</p>
                     <div class="row mt-2">
                       <div class="col-md-12">
                         <mat-form-field class="input-full-width">
-                          <mat-label>Correo</mat-label>
-                          <input class="text-right" type="text" matInput  [(ngModel)]="recuperaEmail" #recuEmail="ngModel" id="recuEmail" name="recuEmail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
-                          <span matPrefix><i class="icon-envelope-open"></i> &nbsp;</span>
-                          <mat-error *ngIf="recuEmail.dirty || recuEmail.pristine">
-                            El formato del campo es <strong>incorrecto</strong>
-                          </mat-error>
-                          <mat-error *ngIf="recuEmail.hasError('required')">
-                            El campo Correo es <strong>requerido</strong>
+                          <mat-label>Nombre de usuario</mat-label>
+                          <input type="text" matInput  [(ngModel)]="recuperaEmail" maxlength="40" #recuEmail="ngModel" id="recuEmail" name="recuEmail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+                          <span matPrefix><i class="icon-user info"></i> &nbsp;</span>
+                          <mat-error *ngIf="recuEmail.dirty || recuEmail.pristine || recuEmail.errors?.required">
+                              * Nombre de usuario incorrecto
                           </mat-error>
                         </mat-form-field>
                       </div>
