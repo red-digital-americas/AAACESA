@@ -44,8 +44,7 @@ export class DefaultLayoutComponent implements OnInit {
     //Start watching for user inactivity.
     this.userIdle.startWatching();
     // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe((count)=>{
-
+    this.userIdle.onTimerStart().subscribe(()=>{
     });
     
     this.userIdle.ping$.subscribe(() => {
@@ -122,7 +121,8 @@ export class DefaultLayoutComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.respuesta = result;
-      this.refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
+      console.log(result);
+      this.refreshToken = localStorage.getItem("refreshToken");
       if(result){
         this.apiservice.service_general_post('/Authentication/Refresh',{RefreshToken: this.refreshToken}).subscribe((respuesta)=>{
           localStorage.removeItem('token');
@@ -200,7 +200,7 @@ export class DefaultLayoutComponent implements OnInit {
     let msecFin = dt.getTime() - oneHrMas.getTime();
 
     //Minutus restantes para cierre de sesión
-    let secTimeout = Math.floor((oneHrMas.getTime() - dt.getTime())/ 1000);
+    let secTimeout = (Math.floor((oneHrMas.getTime() - dt.getTime())/ 1000))-300;
     let Ping = secTimeout -300;
     let secPing = ( Ping <= 300)?0:Ping;
     
@@ -216,6 +216,7 @@ export class DefaultLayoutComponent implements OnInit {
       this.configValues.ping = secPing;
       this.userIdle.setConfigValues(this.configValues);
       return true;
+      
     }
   }
 
