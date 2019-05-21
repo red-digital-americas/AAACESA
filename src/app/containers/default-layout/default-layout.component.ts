@@ -2,9 +2,10 @@ import { Component, Input, OnInit, Inject } from '@angular/core';
 import { navItems } from './../../_nav';
 import { Router } from '@angular/router';
 import { UserIdleConfig, UserIdleService } from 'angular-user-idle';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { moment } from 'ngx-bootstrap/chronos/test/chain';
 import { ApiServices } from '../../services/api.services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface DialogData {
   visible: boolean;
@@ -69,7 +70,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   }
 
-  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices) {
+  constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices, private snackBar: MatSnackBar) {
     (this.getTimeSesion())?"":this.closeSession();
     
     this.changes = new MutationObserver((mutations) => {
@@ -114,14 +115,22 @@ export class DefaultLayoutComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.respuesta = result;
       this.refreshToken = JSON.parse(localStorage.getItem("refreshToken"));
       if(result){
         this.apiservice.service_general_post('/Authentication/Refresh',{RefreshToken: this.refreshToken}).subscribe((respuesta)=>{
           localStorage.removeItem('token');
           localStorage.setItem('token', respuesta.Token);
+          this.userIdle.resetTimer();
         });
+      }
+    }, 
+    (err: HttpErrorResponse) => { 
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
       }
     });
   }
@@ -130,6 +139,14 @@ export class DefaultLayoutComponent implements OnInit {
     this.loading=true;
     this.apiservice.service_general_put('/Authentication/LogOut',{});
     localStorage.clear();
+  }
+
+  sendAlert(mensaje:string){
+    this.snackBar.open(mensaje, "", {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
   }
 
   
@@ -164,7 +181,7 @@ export class DefaultLayoutComponent implements OnInit {
       this.configValues.idle = 0;
       this.configValues.timeout = secTimeout;
       this.configValues.ping = secPing;
-      // this.userIdle.setConfigValues(this.configValues);
+      this.userIdle.setConfigValues(this.configValues);
       return true;
     }
   }
