@@ -89,7 +89,7 @@
           <div class="row mt-2">
             <div class="col-md-6 styled-select">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="calculoManiobra.FechaEntrada" formControlName="fechaEntradaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placement="top"  placeholder="Fecha de Entrada" required >
+                <input matInput type="text" [(ngModel)]="calculoManiobra.FechaEntrada" formControlName="fechaEntradaCtrl" #dp="bsDatepicker" bsDatepicker [maxDate]="calculoForm.get('fechaSalidaCtrl').value" placement="top"  placeholder="Fecha de Entrada" required >
                 <mat-error *ngIf="calculoForm.get('fechaEntradaCtrl').errors?.required">
                     El campo Fecha de Entrada es <strong>requerido</strong>
                 </mat-error> 
@@ -97,7 +97,7 @@
             </div><!-- end col -->
             <div class="col-md-6 styled-select">
               <mat-form-field class="input-full-width">
-                  <input matInput type="text" [(ngModel)]="calculoManiobra.FechaSalida" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placement="top" placeholder="Fecha de Salida" required >
+                  <input matInput type="text" [(ngModel)]="calculoManiobra.FechaSalida" formControlName="fechaSalidaCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="calculoForm.get('fechaEntradaCtrl').value" placement="top" placeholder="Fecha de Salida" required >
                   <mat-error *ngIf="calculoForm.get('fechaSalidaCtrl').errors?.required">
                       El campo Fecha de Salida es <strong>requerido</strong>
                   </mat-error>  
