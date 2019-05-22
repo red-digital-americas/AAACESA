@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { categoryAnualData, widgetAnualData } from '../../models/graficaDashboard.model';
 import { isNull, isNullOrUndefined } from 'util';
 import { count } from 'rxjs-compat/operator/count';
+import { TablesComponent } from '../base/tables.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -368,8 +369,25 @@ export class DashboardComponent implements OnInit {
       tab.nombre = "Abandono"
       this.table.push(tab);
 
-      this.table.sort();
+      /* this.table.sort(); */
+      debugger;
+
+      for(let i=1; i < 8; i++){
+        for(let j=0 ; j< 8 - 1; j++){
+             if (this.table[j].click < this.table[j+1].click){
+              let temp2 = this.table[j];
+                    //let temp = this.table[j].click;
+                    this.table[j] = this.table[j+1];
+                    
+                    //this.table[j+1].click = temp;
+                    this.table[j+1] = temp2; 
+                }
+    }
   }
+  debugger;
+  }
+
+
 
 
   click(){
