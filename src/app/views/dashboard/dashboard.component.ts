@@ -96,7 +96,8 @@ export class DashboardComponent implements OnInit {
     this.click();
     this.frecuentes();
 
-/*
+
+ /*    public emptygraphic(){
     new Chart(document.getElementById("bar-chart-summary"), {
       type: 'bar',
       data: {
@@ -105,22 +106,22 @@ export class DashboardComponent implements OnInit {
           {
             label: "Prealertas",
             backgroundColor: "#1E82BA",
-            data: [65, 59, 80, 8, 56, 60, 4, 8, 11, 5, 94, 56]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           },
           {
             label: "Previos",
             backgroundColor: "gray",
-            data: [65, 59, 80, 81, 56, 55, 40, 8, 11, 78, 34, 12]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           },  
           {
             label: "Salidas",
             backgroundColor: "#1EC8F3",
-            data: [23, 45, 8, 90, 56, 40, 40, 8, 11, 78, 94, 56]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           },
           {
             label: "Abandono",
             backgroundColor: "#D9E11E",
-            data: [25, 79, 40, 81, 56, 55, 90, 8, 11, 78, 54, 56]
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           }
         ]
       },
@@ -135,7 +136,9 @@ export class DashboardComponent implements OnInit {
 
     });
 
-    this.getMercancias(); */
+  } */
+
+    this.getMercancias(); 
   }
 
   public chart(formatData){
@@ -180,7 +183,7 @@ export class DashboardComponent implements OnInit {
     this.apiservice.service_general_get('/Dashboard/GetWidgetAnual').subscribe((datas) => {
       this.WidgetData.parseData(datas);
       this.chart(this.WidgetData);
-      this.charts = true;
+      /* this.charts = true; */
     }, 
     (err: HttpErrorResponse) => { 
       if (err.error instanceof Error) {
@@ -188,7 +191,9 @@ export class DashboardComponent implements OnInit {
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
         /* this.showAlert(error); */
-        this.charts = false;
+        /* this.charts = false; */
+        this.WidgetData;
+        this.chart(this.WidgetData);
       }
   }
     )
@@ -196,10 +201,10 @@ export class DashboardComponent implements OnInit {
     // **************************** Tabla de mercancias ****************************
     public getMercancias() {
       this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
-        this.dataInfoSalidas.data = data.splice(0,4);
+        this.dataInfoSalidas.data = data.splice(0,5);
       }, 
-      (err: HttpErrorResponse) => { 
-        if (err.error instanceof Error) { 
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
           this.showAlert('Error:'+ err.error.message);
         } else {
           let error= (err.error.Description == undefined)?err.error:err.error.Description;

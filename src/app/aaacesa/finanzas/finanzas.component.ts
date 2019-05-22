@@ -32,6 +32,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   busquedaModel = new Array<facturasBusqueda>();
   clear:facturasBusqueda = new facturasBusqueda();
   fechaEmisionSearch:Date = null;
+  masterMask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
 
   displayedColumns: string[] = ['Master', 'House', 'Folio', 'Importe', 'Pedimento', 'FechaEmision', 'Descargar'];

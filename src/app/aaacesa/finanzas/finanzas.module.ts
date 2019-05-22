@@ -16,6 +16,7 @@ import { FinanzasRoutingModule } from './finanzas-routing.module';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxLoadingModule } from 'ngx-loading';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 
@@ -30,6 +31,7 @@ import { NgxLoadingModule } from 'ngx-loading';
     MatInputModule,
     MatTabsModule,
     MatCardModule,
+    TextMaskModule,
     MatTableModule,
     MatDialogModule,
     MatSortModule,
