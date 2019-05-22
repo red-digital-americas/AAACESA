@@ -370,7 +370,6 @@ export class DashboardComponent implements OnInit {
       this.table.push(tab);
 
       /* this.table.sort(); */
-      debugger;
 
       for(let i=1; i < 8; i++){
         for(let j=0 ; j< 8 - 1; j++){
@@ -384,7 +383,6 @@ export class DashboardComponent implements OnInit {
                 }
     }
   }
-  debugger;
   }
 
 
