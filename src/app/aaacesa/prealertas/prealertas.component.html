@@ -22,7 +22,7 @@
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.House" maxlength="20" placeholder="Guía House"/>
               </mat-form-field>
             </div>
 
@@ -42,13 +42,13 @@
           <div class="row">
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.Consignatario" placeholder="Consignatario"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.Consignatario" maxlength="200" placeholder="Consignatario"/>
               </mat-form-field>
             </div>
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.Referencia" maxlength="20" placeholder="Referencia"/>
               </mat-form-field>
             </div>
 
@@ -68,7 +68,7 @@
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.IdPrealerta" placeholder="Id Prealerta"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.IdPrealerta" maxlength="20" placeholder="Id Prealerta"/>
               </mat-form-field>
             </div>
           </div>
@@ -94,27 +94,17 @@
           <div class="col-lg-12">
             <div class="row align-items-center">
 
-              <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+              <div (click)="applyFilter(i)" *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
                 <div>
                   <div class="status-filter__circle status-filter__circle--mr-sm status-filter__circle--{{estado | statusPipe}}"></div>
                   <span class="status-filter__number">({{ countStatus[i] }})</span>
                 </div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(i)" class="u-cursor">
+                  <label class="u-cursor">
                     {{statusLabels[i]}}                    
                   </label>
                 </div>
-              </div>    
-              
-              <!-- Barra Original -->
-              <!-- <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
-                <div class="status-filter__circle status-filter__circle--{{estado | statusPipe}}"></div>
-                <div class="status-filter__text">
-                  <label (click)="applyFilter(i)" class="u-cursor">
-                    <span class="status-filter__number">({{ countStatus[i] }})</span> {{statusLabels[i]}}
-                  </label>
-                </div>
-              </div>  -->
+              </div>                             
 
               <div [ngClass]="{'status-filter--active': currentFilterIndex==statusEnum.length}"  class="col mb-1 text-center status-filter u-cursor">                          
                 <div class="status-filter__text">
@@ -158,7 +148,8 @@
             
             <ng-container matColumnDef="FechaArribo">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Arribo </th>
-              <td mat-cell *matCellDef="let element"> {{element.FechaArribo.split(' ')[0]}} </td>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.FechaArribo.split(' ')[0]}} </td> -->
+              <td mat-cell *matCellDef="let element"> {{element.FechaArribo}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Consignatario">
@@ -230,7 +221,7 @@
                         <p class="detail-text">{{detailData.Referencia }}</p>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                      <div class="detail-text font-weight-bold">Estatus</div>
+                      <div class="detail-text font-weight-bold">Estatus Prealerta</div>
                       <div class="status-filter__circle status-filter__circle--{{detailData.Estatus | statusPipe }}"></div>
                       <div class="status-filter__text">
                         <p> {{detailData.Estatus}} </p>
@@ -291,7 +282,7 @@
                     </div>
                     
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                        <div class="detail-text font-weight-bold">Consignatario a Facturar</div> 
+                        <div class="detail-text font-weight-bold">Consignatario</div> 
                         <p class="detail-text">{{detailData.Consignatario}}</p>
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
@@ -344,7 +335,7 @@
                           <!-- <div class="status-filter__circle status-filter__circle--Solicitada"></div> -->
                           <div class="status-filter__circle status-filter__circle--{{estado.Estado | statusPipe }}"></div>
                           <div class="status-filter__text">
-                            <div class="detail-text">{{estado.Estado}}</div>
+                            <div class="detail-text">{{estado.Estado | estatusTransferenciaPipe }}</div>
                           </div>                        
                         </div>
                         <div class="col-12 col-sm-4 col-md-4 col-lg-12 col-xl-4 text-left">
@@ -363,7 +354,7 @@
 
                     <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
                       <mat-form-field class="input-full-width">         
-                        <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                        <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Escribir comentario" style="margin-bottom: 1em;"></textarea>                       
                       </mat-form-field>
                                              
                       <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >
@@ -407,8 +398,8 @@
                             <div class="col status-filter">            
                               <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
                               <div class="status-filter__text">{{item.Estatus}}</div>
-                              <!-- <p class="detail-text" style="display: inline; padding-left: 5px;">{{item.Fecha.split(' ')[0] }}</p>                                       -->
-                              <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha?.slice(0, -3)}}</div>
+                              <!-- <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha?.slice(0, -3)}}</div> -->
+                              <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha}}</div>
                             </div>                                                                                                              
                           </mat-expansion-panel-header>
                           <p class="detail-text">{{item.Usuario}}</p>

@@ -427,7 +427,10 @@ export class DialogCreatePrealertasComponent implements OnInit {
 
       this.apiService.service_general_get('/Catalogos/GetInstruccionesManejo')
       .subscribe ( 
-      (response:any) => { this.instruccionesManejoCatalogo = response;}, 
+      (response:any) => { 
+        this.instruccionesManejoCatalogo = response;
+        this.secondFormGroup.controls.instruccionesManejoCtrl.setValue(this.instruccionesManejoCatalogo[0].ClaveInstruccion);
+      }, 
       (errorService) => { });
 
       this.apiService.service_general_get('/Catalogos/GetCatalogoAlmacenOrigen')
@@ -466,7 +469,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       referenciaCtrl: [''],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
       fechaArriboCtrl: [new Date(), Validators.required],      
       horaPrevioCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoPrevioCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],
@@ -485,7 +488,7 @@ export class DialogCreatePrealertasComponent implements OnInit {
       consolidadoCtrl: [false, Validators.required],      
       comentarioCtrl: [''],    
     });
-    
+            
     this.fechaArriboChange(); this.hourChange(); this.minuteChange(); this.instruccionesManejoChange();
   }
   
