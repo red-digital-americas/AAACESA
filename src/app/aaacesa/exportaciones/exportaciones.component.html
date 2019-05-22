@@ -140,7 +140,7 @@
             </ng-container>
 
             <ng-container matColumnDef="FechaCreacion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creacion </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Solicitud </th>
               <td mat-cell *matCellDef="let element"> {{element.FechaCreacion}} </td>
             </ng-container>
                         
@@ -221,10 +221,10 @@
                   </div><!-- End Row Inside -->
                   <div class="row mt-2">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                      <div class="detail-text font-weight-bold">Fecha Creación</div>
+                      <div class="detail-text font-weight-bold">Fecha Solicitud</div>
                       <p class="detail-text">{{detailData.FechaCreacion }}</p>
                     </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-2">
                       <div class="detail-text font-weight-bold">Fecha Entrada Mercancía </div>
                       <p class="detail-text">{{detailData.FechaEntradaMercancia }}</p>
                     </div>
@@ -232,7 +232,7 @@
                       <div class="detail-text font-weight-bold">Pedimento </div>
                       <p class="detail-text">{{detailData.Pedimento}}</p>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-5">
                       <div class="detail-text font-weight-bold">Correo </div>
                       <p class="detail-text">{{detailData.Correo}}</p>
                     </div>

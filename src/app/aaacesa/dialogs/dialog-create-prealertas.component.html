@@ -29,10 +29,10 @@
                   <mat-form-field class="input-full-width">         
                     <input matInput type="text" formControlName="masterCtrl" [textMask]="{mask: masterMask, guide: false, modelClean: true}" placeholder="Guía Master"/> 
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.required">
-                      Este campo es obligatorio
+                      * Este campo es obligatorio
                     </mat-error>
                     <mat-error *ngIf="firstFormGroup.get('masterCtrl').errors?.pattern">
-                      Debe ser una Guia Master
+                      * Debe ser una Guia Master
                     </mat-error>    
                   </mat-form-field>                                                
                 </div>
@@ -40,10 +40,10 @@
                   <mat-form-field class="input-full-width">    
                     <input matInput type="text" maxlength="20" formControlName="houseCtrl" placeholder="Guía House"/>                    
                     <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.required">
-                        Este campo es obligatorio
+                        * Este campo es obligatorio
                       </mat-error>
                       <mat-error *ngIf="firstFormGroup.get('houseCtrl').errors?.pattern">
-                        Carácteres no permitidos
+                        * Carácteres no permitidos
                       </mat-error>    
                   </mat-form-field>                 
                 </div>
@@ -71,7 +71,7 @@
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>
                   <mat-error *ngIf="secondFormGroup.get('referenciaCtrl').errors?.required">
-                    Este campo es obligatorio
+                    * Este campo es obligatorio
                   </mat-error>  
                 </mat-form-field>
               </div>
@@ -80,10 +80,10 @@
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" formControlName="piezasCtrl" maxlength="7" placeholder="Piezas"/>
                   <mat-error *ngIf="secondFormGroup.get('piezasCtrl').errors?.required">
-                    Este campo es obligatorio
+                    * Este campo es obligatorio
                   </mat-error> 
                   <mat-error *ngIf="secondFormGroup.get('piezasCtrl').errors?.pattern">
-                    Debe ser un número
+                    * Debe ser un número
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -92,10 +92,10 @@
                   <input matInput type="text" class="no-spinners" formControlName="pesoCtrl" placeholder="Peso"/>
                   <span matSuffix>Kg.</span>
                   <mat-error *ngIf="secondFormGroup.get('pesoCtrl').errors?.required">
-                    Este campo es obligatorio
+                    * Este campo es obligatorio
                   </mat-error> 
                   <mat-error *ngIf="secondFormGroup.get('pesoCtrl').errors?.pattern">
-                    Debe ser un número con máximo 2 decimales
+                    * Debe ser un número con máximo 2 decimales
                   </mat-error> 
                 </mat-form-field>
               </div>
@@ -107,7 +107,7 @@
                   <mat-form-field class="input-full-width">
                     <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha estimada de Arribo">
                     <mat-error *ngIf="secondFormGroup.get('fechaArriboCtrl').errors?.required">
-                      Este campo es obligatorio
+                      * Este campo es obligatorio
                     </mat-error> 
                   </mat-form-field>                                              
                 </div>
@@ -126,7 +126,7 @@
                   <mat-form-field class="input-full-width">
                     <mat-select formControlName="almacenOrigenCtrl" placeholder="Almacén de Origen" #singleSelect>
                       <mat-option>                      
-                        <ngx-mat-select-search formControlName="almacenOrigenSearchCtrl" [placeholderLabel]="'Almacén'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                        <ngx-mat-select-search formControlName="almacenOrigenSearchCtrl" [placeholderLabel]="'Almacén de Origen'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                       </mat-option>
                       <!-- <mat-option>Ninguno</mat-option>                     -->
                       <mat-option *ngFor="let option of almacenOrigenCatalogo | filterSelect: secondFormGroup.get('almacenOrigenSearchCtrl').value" [value]="option.Clave"> 
@@ -189,7 +189,7 @@
                 <mat-form-field class="input-full-width">
                   <input matInput type="text" formControlName="consignatarioCtrl" maxlength="200" placeholder="Consignatario"/>
                   <mat-error *ngIf="secondFormGroup.get('consignatarioCtrl').errors?.required">
-                    Este campo es obligatorio
+                    * Este campo es obligatorio
                   </mat-error>                     
                 </mat-form-field>
               </div>  
@@ -363,7 +363,7 @@
           </div>
 
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="detail-text font-weight-bold">Condición de Almacenaje</div>
+              <div class="detail-text font-weight-bold">Condiciones de Almacenaje</div>
               <p class="detail-text">{{condicionesAlmacenesCatalogo | getSelect: model.CondicionAlmacenaje : 2}}</p>
           </div>
           
