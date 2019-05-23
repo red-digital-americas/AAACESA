@@ -301,7 +301,7 @@ export class PreviosComponent  {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreatePreviosComponent, {
-      // width: '95%',        
+      width: '70%',        
       disableClose: true,
       data: { }      
     });
@@ -350,6 +350,7 @@ export class DialogCreatePreviosComponent implements OnInit {
   isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  isThirdFormValid = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
     
@@ -395,7 +396,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       horaPrevioCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoPrevioCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
       etiquetadoCtrl: [false, Validators.required],      
     });
 
@@ -404,7 +405,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       nombreCtrl: ['', Validators.required],
       paternoCtrl: ['', Validators.required],
       maternoCtrl: ['', Validators.required],
-      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],            
+      patenteCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],            
       comentarioCtrl: [''],     
     });
     
@@ -473,6 +474,10 @@ export class DialogCreatePreviosComponent implements OnInit {
       this.isMasterHouseValid = false;
     }
 
+    if (event.selectedIndex === 2) {
+      this.isThirdFormValid = false;
+    }
+
     if (event.selectedIndex === 4){
       this.guardarFirstForm();
     }
@@ -493,25 +498,30 @@ export class DialogCreatePreviosComponent implements OnInit {
     if (this.firstFormGroup.valid && index === 0) {
       this.validarMasterHouse();
     }
+
+    if (this.thirdFormGroup.valid && index === 2) {
+      this.checkPatente();
+    }
   }
 
   private validarMasterHouse() {
     this.processingCreation = true;
     this.isMasterHouseValid = false;
-    
-    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+        
+    // this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.get('masterCtrl').value}&House=${this.firstFormGroup.get('houseCtrl').value}`)
     .subscribe ( 
     (response:any) => {       
       this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
       this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
       this.showAlert("Master/House encontrada");      
       this.isMasterHouseValid = true;
-      this.processingCreation = false;
+      this.processingCreation = false;   
       setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
     }, 
     (errorService) => {       
       this.secondFormGroup.value.piezasCtrl = "";                  
-      this.secondFormGroup.value.pesoCtrl = "";
+      this.secondFormGroup.value.pesoCtrl = "";      
       this.showAlert(errorService.error);      
       this.processingCreation = false; 
     });        
@@ -533,9 +543,9 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
     .subscribe ( 
     (response:any) => { 
-      // console.log(response);
+      // console.log(response);      
       this.firstFormGroup.get('masterCtrl').setValue(response.Master);
-      this.firstFormGroup.get('houseCtrl').setValue(response.House);
+      this.firstFormGroup.get('houseCtrl').setValue(response.House);      
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     },(errorService) => { 
       // console.log(errorService);
@@ -548,6 +558,25 @@ export class DialogCreatePreviosComponent implements OnInit {
 
   cleanReferencia() {        
     this.firstFormGroup.get('referenciaCtrl').setValue('');  
+
+    this.firstFormGroup.get('referenciaCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('masterCtrl').value.length > 0 || this.firstFormGroup.get('houseCtrl').value.length > 0) {
+      this.firstFormGroup.get('referenciaCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
+    this.referencia = "Sin Referencia";        
+  }
+  cleanMasterHouse() {        
+    this.firstFormGroup.get('masterCtrl').setValue('');  
+    this.firstFormGroup.get('houseCtrl').setValue('');  
+
+    this.firstFormGroup.get('masterCtrl').enable({onlySelf: true, emitEvent: false});
+    this.firstFormGroup.get('houseCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('referenciaCtrl').value.length > 0) {
+      this.firstFormGroup.get('masterCtrl').disable({onlySelf: true, emitEvent: false});
+      this.firstFormGroup.get('houseCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
     this.referencia = "Sin Referencia";        
   }
 
@@ -585,6 +614,38 @@ export class DialogCreatePreviosComponent implements OnInit {
     });
   }  
 
+  ////////////////////
+  // Paso 3
+  private checkPatente () {
+    this.apiService.service_general_get(`/AdelantoPrevios/ValidaPatenteTerceros/${this.thirdFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("PATENTE Valido");      
+      this.isThirdFormValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 3;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {             
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);      
+      this.processingCreation = false; 
+    });  
+  }
+
+  public checkPatenteOnChange() {
+    this.apiService.service_general_get(`/AdelantoPrevios/ValidaPatenteTerceros/${this.thirdFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("PATENTE Valido");            
+      this.processingCreation = false;      
+    }, 
+    (errorService) => {             
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);
+      this.processingCreation = false; 
+    });      
+  }
+
 
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
@@ -593,8 +654,8 @@ export class DialogCreatePreviosComponent implements OnInit {
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);
 
-    this.model.Master = this.firstFormGroup.value.masterCtrl;
-    this.model.House = this.firstFormGroup.value.houseCtrl;
+    this.model.Master = this.firstFormGroup.get('masterCtrl').value;
+    this.model.House = this.firstFormGroup.get('houseCtrl').value;
     this.model.Nombre = this.thirdFormGroup.value.nombreCtrl;
     this.model.Paterno = this.thirdFormGroup.value.paternoCtrl;
     this.model.Materno = this.thirdFormGroup.value.maternoCtrl;

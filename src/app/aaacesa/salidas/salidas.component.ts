@@ -54,7 +54,7 @@ export class SalidasComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Patente', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoSalidas', 'FechaCreacion', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -309,6 +309,7 @@ export class DialogCreateSalidaComponent implements OnInit {
   firstFormGroup: FormGroup;
   isMasterHouseValid = false;
   secondFormGroup: FormGroup;
+  isSecondFormValid = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = this.minDate = moment(new Date()).add(1, 'days').toDate();
 
@@ -341,10 +342,10 @@ constructor(
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
-      rfcFacturarCtrl: ['', Validators.required],
-      pedimentoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      rfcFacturarCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      pedimentoCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       subdivisionCtrl: [false, Validators.required],      
-      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      patenteCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       fechaSalidaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
       horaSalidaCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoSalidaCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            
@@ -416,6 +417,10 @@ constructor(
       this.isMasterHouseValid = false;
     }
 
+    if (event.selectedIndex === 1) {
+      this.isSecondFormValid = false;
+    }
+
     if (event.selectedIndex === 3){
       this.guardarFirstForm();
     }
@@ -431,17 +436,20 @@ constructor(
     }
     
     if (this.firstFormGroup.valid && index === 0) {
-      this.validarMasterHouse();
-      // this.isMasterHouseValid = true;                           //QuitarEsto
-      // setTimeout(() => {this.stepper.selectedIndex = 1;});      //QuitarEsto
+      this.validarMasterHouse();      
     }
+
+    if (this.secondFormGroup.valid && index === 1) {
+      this.validarRFCPatente();
+    }
+
   }
 
   private validarMasterHouse() {
     this.processingCreation = true;
     this.isMasterHouseValid = false;
     
-    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.get('masterCtrl').value}&House=${this.firstFormGroup.get('houseCtrl').value}`)    
     .subscribe ( 
     (response:any) => {       
       // this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
@@ -454,6 +462,23 @@ constructor(
     (errorService) => {       
       // this.secondFormGroup.value.piezasCtrl = "";                  
       // this.secondFormGroup.value.pesoCtrl = "";
+      this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });        
+  }
+
+  private validarRFCPatente() {
+    this.processingCreation = true;
+    this.isSecondFormValid = false;
+        
+    this.apiService.service_general_get(`/AdelantoFacturacion/ValidaRFCFactura/${this.secondFormGroup.get('rfcFacturarCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("RFC Valido");      
+      this.checkPatente();
+    }, 
+    (errorService) => {             
+      // this.showAlert("RFC No Valido");            
       this.showAlert(errorService.error);      
       this.processingCreation = false; 
     });        
@@ -486,18 +511,55 @@ constructor(
       this.showAlert("Referencia no encontrada");
     });
   }
-
+  
   cleanReferencia() {        
-    this.firstFormGroup.get('referenciaCtrl').setValue('');          
-    this.referencia = "Sin Referencia";
+    this.firstFormGroup.get('referenciaCtrl').setValue('');  
+
+    this.firstFormGroup.get('referenciaCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('masterCtrl').value.length > 0 || this.firstFormGroup.get('houseCtrl').value.length > 0) {
+      this.firstFormGroup.get('referenciaCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
+    this.referencia = "Sin Referencia";        
+  }
+  cleanMasterHouse() {        
+    this.firstFormGroup.get('masterCtrl').setValue('');  
+    this.firstFormGroup.get('houseCtrl').setValue('');  
+
+    this.firstFormGroup.get('masterCtrl').enable({onlySelf: true, emitEvent: false});
+    this.firstFormGroup.get('houseCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('referenciaCtrl').value.length > 0) {
+      this.firstFormGroup.get('masterCtrl').disable({onlySelf: true, emitEvent: false});
+      this.firstFormGroup.get('houseCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
+    this.referencia = "Sin Referencia";        
+  }
+
+  ////////////////////
+  // Paso 2
+  private checkPatente () {
+    this.apiService.service_general_get(`/AdelantoFacturacion/ValidaPatenteTerceros/${this.secondFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("PATENTE Valido");      
+      this.isSecondFormValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 2;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {             
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);      
+      this.processingCreation = false; 
+    });  
   }
 
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
     if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >
     
-    this.model.Master = this.firstFormGroup.value.masterCtrl;      
-    this.model.House = this.firstFormGroup.value.houseCtrl;
+    this.model.Master = this.firstFormGroup.get('masterCtrl').value;
+    this.model.House = this.firstFormGroup.get('houseCtrl').value;
     this.model.RFCFacturar = this.secondFormGroup.value.rfcFacturarCtrl;      
     this.model.Pedimento = this.secondFormGroup.value.pedimentoCtrl;  
     this.model.Subdivision = this.secondFormGroup.value.subdivisionCtrl;               

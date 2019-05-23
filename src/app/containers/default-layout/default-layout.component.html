@@ -12,7 +12,7 @@
   <span class="label label-default d-none d-lg-block small ml-3"><small class="text-muted">Sesión actual {{logTime | date:'dd/MMM/y'}} &nbsp;|&nbsp;hora {{logTime | date:'h:mm a'}}</small></span>
   <ul class="nav navbar-nav">
     <li class="nav-item dropdown d-md-down-none" dropdown placement="bottom right">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle [routerLink]="" (click)="false; getNotificaciones();">
         <i class="icon-bell"></i><span *ngIf="notificacionesArray.length" class="badge badge-pill badge-danger">{{notificacionesActiveCount}}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg" *dropdownMenu aria-labelledby="simple-dropdown">
@@ -90,7 +90,7 @@
       <!-- Grid column -->
       <hr class="clearfix w-100 d-md-none">
       <!-- Grid column -->
-      <div class="col-md-2 mr-1">
+      <div class="col-md-1 mr-0 pr-0">
         <h6><strong>Servicios</strong></h6>
         <ul class="dash">
           <li>Prealertas</li>
@@ -103,7 +103,7 @@
       <!-- Grid column -->
       <hr class="clearfix w-100 d-md-none">
       <!-- Grid column -->
-      <div class="col-md-2">
+      <div class="col-md-2 ml-0">
         <h6><strong>&nbsp;</strong></h6>
         <ul class="dash">
           <li>Consulta de mercancías</li>
@@ -124,9 +124,9 @@
       <!-- Grid column -->
       <hr class="clearfix w-100 d-md-none">
       <!-- Grid column -->
-      <div class="col-md-2">
+      <div class="col-md-3">
         <h6><strong>Correos</strong></h6>
-        <ul class="list-unstyled">
+        <ul class="dash" style="line-height: 0.65rem;" >
           <li><a class="link-footer" href="mailto:clientes@aaacesa.com.mx">clientes@aaacesa.com.mx</a></li>
           <li><a class="link-footer" href="mailto:ventas@aaacesa.com.mx">ventas@aaacesa.com.mx</a></li>
           <li><a class="link-footer" href="mailto:facturación@aaacesa.com.mx">facturacion@aaacesa.com.mx</a></li>

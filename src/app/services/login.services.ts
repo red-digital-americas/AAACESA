@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 export class LoginServices{
     // public url="http://api.desarrollo.com.mx/api";
     public url="http://192.170.15.17:8089/api";
+    loading= false;
     
     constructor(private http: HttpClient, private https: Http) { }
 
