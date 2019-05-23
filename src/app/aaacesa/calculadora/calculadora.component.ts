@@ -25,9 +25,7 @@ export class CalculadoraComponent implements OnInit {
   getTipoIngreso:string = "";
   getCadena: string = "";
   calculoForm: FormGroup;  
-  // minDateFechaEntrada = moment(new Date()).add(1, 'days').toDate();
-  // maxDateFechaEntrada = null;
-  // minDateFechaSalida = moment(new Date()).add(1, 'days').toDate();  
+  visibImport= false;
 
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
@@ -35,16 +33,16 @@ export class CalculadoraComponent implements OnInit {
     this.localeService.use('es');
    }
 
+
   ngOnInit() {
     this.calculoForm = this._formBuilder.group({
       tMaster: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
       tHouse: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],
       sTipoEntrada:['',Validators.required],
       sConceptoCadenaFria:['',Validators.required],
-      sPeso:['',[Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
-      sValorAduana:['',[Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
-      fechaEntradaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
-      fechaSalidaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
+      sPeso:['',[Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
+      sValorAduana:['',[Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
+      fechaSalidaCtrl: ['', [Validators.required]],
     })
     this.apiservice.service_general_get('/Catalogos/GetCatalogoTipoIngresoMercancia').subscribe((resIM)=>{
       this.getTipoIngreso = resIM;
@@ -55,13 +53,30 @@ export class CalculadoraComponent implements OnInit {
     
   }
 
-  calcularManiobra(){
+  calcularImport(){
     this.loading=true;
-    let Fe = moment(this.calculoManiobra.FechaEntrada).format('DD/MM/YYYY');
     let Fs = moment(this.calculoManiobra.FechaSalida).format('DD/MM/YYYY');    
-    this.calculoManiobra.FechaEntrada = Fe;
     this.calculoManiobra.FechaSalida = Fs;
-    this.apiservice.service_general_get_with_params('/CalculoManiobras',this.calculoManiobra).subscribe((resIM)=>{
+    this.apiservice.service_general_get_with_params('/CalculoManiobras/GetImportacion',this.calculoManiobra).subscribe((resIM)=>{
+      this.loading=false;
+      this.resCalcuo=resIM;
+    }, 
+    (err: HttpErrorResponse) => { 
+      this.loading=false;
+      if (err.error instanceof Error) {
+        this.sendAlert('Error:'+ err.error.message);
+      } else {
+        let error= (err.error.Description == undefined)?err.error:err.error.Description;
+        this.sendAlert(error);
+      }
+    });
+  }
+
+  calcularExport(){
+    this.loading=true;
+    let Fs = moment(this.calculoManiobra.FechaSalida).format('DD/MM/YYYY');    
+    this.calculoManiobra.FechaSalida = Fs;
+    this.apiservice.service_general_get_with_params('/CalculoManiobras/GetExportacion',this.calculoManiobra).subscribe((resIM)=>{
       this.loading=false;
       this.resCalcuo=resIM;
     }, 
@@ -77,22 +92,25 @@ export class CalculadoraComponent implements OnInit {
   }
 
   clean(){
-    this.resCalcuo.CostoAlmacenaje="";
-    this.resCalcuo.CostoCongelacion="";
-    this.resCalcuo.CostoCustodia="";
-    this.resCalcuo.CostoManiobra="";
-    this.resCalcuo.CostoPrevio="";
-    this.resCalcuo.CostoRefrigeracion="";
-    this.resCalcuo.CostoTEC="";
-    this.resCalcuo.IVA="";
-    this.resCalcuo.Subtotal="";
-    this.resCalcuo.Total="";
-    this.calculoManiobra.ConceptoCadenaFria="";
-    this.calculoManiobra.FechaEntrada="";
-    this.calculoManiobra.FechaSalida="";
-    this.calculoManiobra.Peso="";
-    this.calculoManiobra.TipoEntrada="";
-    this.calculoManiobra.ValorAduana="";
+    this.resCalcuo.Clean();
+    this.calculoManiobra.Clean();
+    this.calculoForm.controls.sTipoEntrada.setValue('I');
+    // this.resCalcuo.CostoAlmacenaje="";
+    // this.resCalcuo.CostoCongelacion="";
+    // this.resCalcuo.CostoCustodia="";
+    // this.resCalcuo.CostoManiobra="";
+    // this.resCalcuo.CostoPrevio="";
+    // this.resCalcuo.CostoRefrigeracion="";
+    // this.resCalcuo.CostoTEC="";
+    // this.resCalcuo.IVA="";
+    // this.resCalcuo.Subtotal="";
+    // this.resCalcuo.Total="";
+    // this.calculoManiobra.ConceptoCadenaFria="";
+    // this.calculoManiobra.FechaSalida="";
+    // this.calculoManiobra.Peso="";
+    // this.calculoManiobra.TipoEntrada="I";
+    // this.calculoManiobra.ValorAduana="";
+    this.visibImport= false;
   }
   sendAlert(mensaje:string){
     this.snackBar.open(mensaje, "", {

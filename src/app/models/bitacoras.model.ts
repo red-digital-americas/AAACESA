@@ -39,7 +39,6 @@ export class CalculoManiobra {
     public TipoEntrada:string = "";    
     public Peso:string = "";        
     public ValorAduana:string = "";    
-    public FechaEntrada:string = "";    
     public FechaSalida:string = "";    
     public ConceptoCadenaFria:string = "";    
 
@@ -49,7 +48,6 @@ export class CalculoManiobra {
         this.TipoEntrada = "";    
         this.Peso = "";        
         this.ValorAduana = "";    
-        this.FechaEntrada = "";    
         this.FechaSalida = "";    
         this.ConceptoCadenaFria = "";    
     }

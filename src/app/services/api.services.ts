@@ -13,6 +13,7 @@ import { UserIdleService } from 'angular-user-idle';
 export class ApiServices {
   // public url="http://api.desarrollo.com.mx/api";
   public url = "http://192.170.15.17:8089/api";
+  loading= false;
 
   constructor(private http: HttpClient, private https: Http, private userIdle: UserIdleService ) { }
 
@@ -29,12 +30,12 @@ export class ApiServices {
     return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
-           console.log(error.status);
-            if(error.status  === 401) {
+           console.log(error);
+            if((error.status  === 401||(error.status === 0))) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
@@ -55,17 +56,16 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401)||(error.status === 0)) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
             }
-            return Observable.throw(error);
             return Observable.throw(error);
          })
          .take(5)
@@ -81,17 +81,16 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401)||(error.status === 0)) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
             }
-            return Observable.throw(error);
             return Observable.throw(error);
          })
          .take(5)
@@ -107,17 +106,16 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401)||(error.status === 0)) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
             }
-            return Observable.throw(error);
             return Observable.throw(error);
          })
          .take(5)
