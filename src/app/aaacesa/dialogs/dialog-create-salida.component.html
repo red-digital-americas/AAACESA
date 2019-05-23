@@ -74,7 +74,7 @@
           <div class="row mb-1">            
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" formControlName="rfcFacturarCtrl" maxlength="14" placeholder="RFC Facturar"/>
+                  <input matInput type="text" (change)="checkRFCOnChange()" formControlName="rfcFacturarCtrl" maxlength="14" placeholder="RFC Facturar"/>
                   <mat-error *ngIf="secondFormGroup.get('rfcFacturarCtrl').errors?.required">
                     * Este campo es obligatorio
                   </mat-error>  
@@ -105,7 +105,7 @@
             <div class="row mb-1">
               <div class="col-lg-4">
                 <mat-form-field class="input-full-width">
-                  <input matInput type="text" class="no-spinners" formControlName="patenteCtrl" maxlength="10" placeholder="Patente"/>
+                  <input matInput type="text" (change)="checkPatenteOnChange()" class="no-spinners" formControlName="patenteCtrl" maxlength="10" placeholder="Patente"/>
                   <mat-error *ngIf="secondFormGroup.get('patenteCtrl').errors?.required">
                     * Este campo es obligatorio
                   </mat-error> 
