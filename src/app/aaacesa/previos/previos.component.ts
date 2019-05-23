@@ -349,6 +349,7 @@ export class DialogCreatePreviosComponent implements OnInit {
   isMasterHouseValid = false;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  isThirdFormValid = false;
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
   minDate = new Date();
     
@@ -472,6 +473,10 @@ export class DialogCreatePreviosComponent implements OnInit {
       this.isMasterHouseValid = false;
     }
 
+    if (event.selectedIndex === 2) {
+      this.isThirdFormValid = false;
+    }
+
     if (event.selectedIndex === 4){
       this.guardarFirstForm();
     }
@@ -491,6 +496,10 @@ export class DialogCreatePreviosComponent implements OnInit {
 
     if (this.firstFormGroup.valid && index === 0) {
       this.validarMasterHouse();
+    }
+
+    if (this.thirdFormGroup.valid && index === 2) {
+      this.checkPatente();
     }
   }
 
@@ -603,6 +612,38 @@ export class DialogCreatePreviosComponent implements OnInit {
       // this.showAlert("Gafete no encontrada");
     });
   }  
+
+  ////////////////////
+  // Paso 3
+  private checkPatente () {
+    this.apiService.service_general_get(`/AdelantoPrevios/ValidaPatenteTerceros/${this.thirdFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("PATENTE Valido");      
+      this.isThirdFormValid = true;
+      this.processingCreation = false;
+      setTimeout(() => {this.stepper.selectedIndex = 3;});      // For Linear Steppers need this trick
+    }, 
+    (errorService) => {             
+      this.showAlert("PATENTE No Valido");      
+      // this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });  
+  }
+
+  public checkPatenteOnChange() {
+    this.apiService.service_general_get(`/AdelantoPrevios/ValidaPatenteTerceros/${this.thirdFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => {             
+      // this.showAlert("PATENTE Valido");            
+      this.processingCreation = false;      
+    }, 
+    (errorService) => {             
+      this.showAlert("PATENTE No Valido");      
+      // this.showAlert(errorService.error);      
+      this.processingCreation = false; 
+    });      
+  }
 
 
   guardarFirstForm () {    

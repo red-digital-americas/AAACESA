@@ -50,7 +50,7 @@
                     <input matInput type="text" (input)="cleanMasterHouse()" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>                      
                     <!-- <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                       -->
                   </mat-form-field>                 
-                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar referencia</button>            
+                  <button (click)="checkReferencia()" [disabled]="firstFormGroup.get('masterCtrl').value.length > 0 || firstFormGroup.get('houseCtrl').value.length > 0" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar referencia</button>            
                 </div>
               </div>          
             </div>
@@ -186,7 +186,8 @@
                 
     </mat-step>
 
-    <mat-step [stepControl]="thirdFormGroup">
+    <!-- <mat-step [stepControl]="thirdFormGroup"> -->
+    <mat-step [completed]="isThirdFormValid">
 
       <div class="container mt-3">
         <form [formGroup]="thirdFormGroup">
@@ -206,7 +207,7 @@
             
             <div class="col-lg-6">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" formControlName="patenteCtrl" maxlength="10" placeholder="Patente"/>
+                <input matInput type="text" (change)="checkPatenteOnChange()" formControlName="patenteCtrl" maxlength="10" placeholder="Patente"/>
                 <mat-error *ngIf="thirdFormGroup.get('patenteCtrl').errors?.required">
                   * Este campo es obligatorio
                 </mat-error> 
