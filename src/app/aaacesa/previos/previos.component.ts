@@ -300,7 +300,7 @@ export class PreviosComponent  {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreatePreviosComponent, {
-      // width: '95%',        
+      // width: '60%',        
       disableClose: true,
       data: { }      
     });
@@ -625,8 +625,8 @@ export class DialogCreatePreviosComponent implements OnInit {
       setTimeout(() => {this.stepper.selectedIndex = 3;});      // For Linear Steppers need this trick
     }, 
     (errorService) => {             
-      this.showAlert("PATENTE No Valido");      
-      // this.showAlert(errorService.error);      
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);      
       this.processingCreation = false; 
     });  
   }
@@ -639,8 +639,8 @@ export class DialogCreatePreviosComponent implements OnInit {
       this.processingCreation = false;      
     }, 
     (errorService) => {             
-      this.showAlert("PATENTE No Valido");      
-      // this.showAlert(errorService.error);      
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);
       this.processingCreation = false; 
     });      
   }

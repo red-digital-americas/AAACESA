@@ -477,8 +477,8 @@ constructor(
       this.checkPatente();
     }, 
     (errorService) => {             
-      this.showAlert("RFC No Valido");      
-      // this.showAlert(errorService.error);      
+      // this.showAlert("RFC No Valido");            
+      this.showAlert(errorService.error);      
       this.processingCreation = false; 
     });        
   }
@@ -547,8 +547,8 @@ constructor(
       setTimeout(() => {this.stepper.selectedIndex = 2;});      // For Linear Steppers need this trick
     }, 
     (errorService) => {             
-      this.showAlert("PATENTE No Valido");      
-      // this.showAlert(errorService.error);      
+      // this.showAlert("PATENTE No Valido");      
+      this.showAlert(errorService.error.Description);      
       this.processingCreation = false; 
     });  
   }
