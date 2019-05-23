@@ -92,19 +92,15 @@ export class CalculadoraComponent implements OnInit {
   }
 
   clean(){
-    this.resCalcuo.Clean();
     this.calculoManiobra.Clean();
     this.calculoForm.controls.sTipoEntrada.setValue('I');
-    // this.resCalcuo.CostoAlmacenaje="";
-    // this.resCalcuo.CostoCongelacion="";
-    // this.resCalcuo.CostoCustodia="";
-    // this.resCalcuo.CostoManiobra="";
-    // this.resCalcuo.CostoPrevio="";
-    // this.resCalcuo.CostoRefrigeracion="";
-    // this.resCalcuo.CostoTEC="";
-    // this.resCalcuo.IVA="";
-    // this.resCalcuo.Subtotal="";
-    // this.resCalcuo.Total="";
+    this.resCalcuo.CostoAlmacenaje="";
+    this.resCalcuo.CostoCongelacion="";
+    this.resCalcuo.CostoCustodia="";
+    this.resCalcuo.CostoManiobra="";
+    this.resCalcuo.CostoRefrigeracion="";
+    this.resCalcuo.CostoTEC="";
+    this.resCalcuo.Total="";
     // this.calculoManiobra.ConceptoCadenaFria="";
     // this.calculoManiobra.FechaSalida="";
     // this.calculoManiobra.Peso="";

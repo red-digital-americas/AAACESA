@@ -27,100 +27,33 @@ export class ApiServices {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
-      return error
-         .flatMap((error: any) => {
-           console.log(error);
-            if((error.status  === 401||(error.status === 0))) {
-              this.service_refresh_token();
-              return Observable.of(error.status).delay(1000)
-            }
-            if(error.status >= 500)
-            {
-              this.closeSession();
-              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
-            }
-            return Observable.throw(error);
-         })
-         .take(5)
-         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
-      });
+    this.service_refresh_token();
+    return this.http.get(this.url + url, { headers: headers });
+
   }
 
   service_general_get_with_params(url, parametros): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-
-    return this.http.get(this.url + url, { headers: headers, params: parametros }).retryWhen(error => {
-      return error
-         .flatMap((error: any) => {
-          console.log(error.status);
-            if((error.status  === 401)||(error.status === 0)) {
-              console.log(error.status);
-              this.service_refresh_token();
-              return Observable.of(error.status).delay(1000)
-            }
-            if(error.status >= 500)
-            {
-              this.closeSession();
-              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
-            }
-            return Observable.throw(error);
-         })
-         .take(5)
-         .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
-      });
+    this.service_refresh_token();
+    return this.http.get(this.url + url, { headers: headers, params: parametros });
   }
 
   service_general_post(url, parametros): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    return this.http.post(this.url + url, parametros, { headers: headers }).retryWhen(error => {
-      return error
-         .flatMap((error: any) => {
-          console.log(error.status);
-            if((error.status  === 401)||(error.status === 0)) {
-              console.log(error.status);
-              this.service_refresh_token();
-              return Observable.of(error.status).delay(1000)
-            }
-            if(error.status >= 500)
-            {
-              this.closeSession();
-              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
-            }
-            return Observable.throw(error);
-         })
-         .take(5)
-         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
-      });
+    this.service_refresh_token();
+    return this.http.post(this.url + url, parametros, { headers: headers });
   }
 
   service_general_put(url, parametros): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    return this.http.put(this.url + url, parametros, { headers: headers }).retryWhen(error => {
-      return error
-         .flatMap((error: any) => {
-          console.log(error.status);
-            if((error.status  === 401)||(error.status === 0)) {
-              console.log(error.status);
-              this.service_refresh_token();
-              return Observable.of(error.status).delay(1000)
-            }
-            if(error.status >= 500)
-            {
-              this.closeSession();
-              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
-            }
-            return Observable.throw(error);
-         })
-         .take(5)
-         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
-      });
+    this.service_refresh_token();
+    return this.http.put(this.url + url, parametros, { headers: headers });
   }
 
   service_refresh_token(){
@@ -129,7 +62,6 @@ export class ApiServices {
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
     this.http.post(this.url +'/Authentication/Refresh',{RefreshToken: refreshToken},{ headers: headers }).subscribe((respuesta)=>{
-      console.log(respuesta);
       let myDate = new Date();
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
@@ -141,11 +73,7 @@ export class ApiServices {
       this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
       this.userIdle.startWatching();
       console.log(this.userIdle.getConfigValue());
-    }, 
-    (err: HttpErrorResponse) => { 
-      console.log("refresh"+err);
-      this.closeSession();
-    })
+    });
   }
 
   closeSession(){

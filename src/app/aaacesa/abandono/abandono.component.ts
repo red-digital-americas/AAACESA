@@ -39,7 +39,8 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.PreNotificacionesPaginator;    
+    this.dataSource.paginator = this.PreNotificacionesPaginator;
+    this.PreNotificacionesPaginator._intl.itemsPerPageLabel = "Registros por página"; 
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
@@ -49,14 +50,16 @@ export class AbandonoComponent implements OnInit, AfterViewInit {
       this.apiserv.service_general_get('/Abandono/GetPreNotificacion').subscribe((data) => {        
         this.tmpdataSource = data;              
         this.dataSource.data = this.tmpdataSource;
-        this.dataSource.paginator = this.PreNotificacionesPaginator;  
+        this.dataSource.paginator = this.PreNotificacionesPaginator;
+        this.PreNotificacionesPaginator._intl.itemsPerPageLabel = "Registros por página";
       });
     }
     else{
       this.apiserv.service_general_get('/Abandono/GetNotificacion').subscribe((res) => {
         this.tmpdataSource = res;         
         this.dataSource.data = this.tmpdataSource; 
-        this.dataSource.paginator = this.NotificacionesPaginator;      
+        this.dataSource.paginator = this.NotificacionesPaginator;
+        this.NotificacionesPaginator._intl.itemsPerPageLabel = "Registros por página";  
       });
     }
   }

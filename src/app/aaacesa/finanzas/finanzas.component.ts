@@ -33,6 +33,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   clear:facturasBusqueda = new facturasBusqueda();
   fechaEmisionSearch:Date = null;
   masterMask = [/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  
 
 
   displayedColumns: string[] = ['Master', 'House', 'Folio', 'Importe', 'Pedimento', 'FechaEmision', 'Descargar'];
@@ -48,6 +49,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   tmpdataSources = [];
   tmpinfo = [];
   tmpaccount = [];
+  tmpcta = [];
 
   public data;
   public userData;
@@ -59,6 +61,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   public Pedimento: any = [];
   public myModal;
   public detalle;
+  public resum:boolean = false;
   apiService: any;
 
   private showAlert (msj:string) {
@@ -75,8 +78,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.dataSources.paginator = this.CreditNotesPaginator;
     this.info.paginator = this.PaidComplementPaginator;
     this.account.paginator = this.AccountStatusPaginator;
-    // this.InvoicesPaginator._intl.itemsPerPageLabel = "Registros por página";    
-      
+    this.InvoicesPaginator._intl.itemsPerPageLabel = "Registros por página";    
+
     this.dataSource.sort = this.sort;     
     this.dataSource.sortingDataAccessor = (item, property) => {      
       switch (property) {     
@@ -190,7 +193,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.busquedaModel[0].Clean();    
     this.rangoFechaSearch = "";
     // this.Pedimento = [];
-    this.dataSource.data = [];  
+    this.dataSource.data = [];
   }
 
   public getPDFInvoices(element){
@@ -390,7 +393,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
 
   //Estados de cuenta **********************************************************************************************
   public EstadosBusqueda(){
-    
+    this.busquedaModel[3].Clean();    
+
     if (this.rangoFechaSearch != null) {
       if (this.rangoFechaSearch[0] != null && this.rangoFechaSearch[1] != null){      
         this.busquedaModel[3].FechaInicial = moment(this.rangoFechaSearch[0]).format('YYYYMMDD');
@@ -400,6 +404,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[3].FechaInicial = "";
       this.busquedaModel[3].FechaFinal = "";
     }        
+
+    console.log(this.busquedaModel[3]);
     this.loading = true;
     this.apiserv.service_general_get_with_params('/Finanzas/GetEstadoDeCuenta', this.busquedaModel[3])
       .subscribe ( 
@@ -407,12 +413,27 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.tmpaccount = response;    
         this.account.data = this.tmpaccount;        
         this.loading = false;
+        console.log(this.tmpaccount);
       }, 
       (errorService) => { 
  this.loading = false;
         /* this.showAlert(errorService.error); */
         this.showAlert("Rango de fechas no válido");  
       });
+
+      this.apiserv.service_general_get_with_params('/Finanzas/GetResumenEstadoDeCuenta', this.busquedaModel[3])
+      .subscribe ( 
+      (response:any) => {
+        this.tmpcta = response;
+        this.loading = false;
+        this.resum = true;
+        console.log(this.tmpcta);
+      }, 
+      (errorService) => { 
+        this.loading = false;
+        this.showAlert("Rango de fechas no válido");
+      });
+      
   }
   
 
@@ -420,7 +441,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     this.busquedaModel[3].Clean();    
     this.rangoFechaSearch = "";
     // this.Pedimento = [];         
-    this.account.data = [];    
+    this.account.data = [];
+    this.resum = false;
   }
 
   click(){

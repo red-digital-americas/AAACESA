@@ -59,6 +59,7 @@ export class SalidasComponent  {
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.paginator._intl.itemsPerPageLabel = "Registros por página";
     this.dataSource.sort = this.sort;     
     this.dataSource.sortingDataAccessor = (item, property) => {      
       switch (property) {     
