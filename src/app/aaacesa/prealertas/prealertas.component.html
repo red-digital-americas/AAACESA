@@ -56,7 +56,7 @@
               <mat-form-field class="input-full-width">
                 <mat-select [(ngModel)]="busquedaModel.ClaveInstruccionManejo" class="" placeholder="Instrucciones de Manejo" #singleSelect>
                   <mat-option>                      
-                    <ngx-mat-select-search [(ngModel)]="instruccionesManejoSearch" [placeholderLabel]="'Estatus'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                    <ngx-mat-select-search [(ngModel)]="instruccionesManejoSearch" [placeholderLabel]="'Instrucciones de Manejo'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                   </mat-option>
                   <mat-option>Ninguno</mat-option>                    
                   <mat-option *ngFor="let option of instruccionesManejoCatalogo | filterSelect: instruccionesManejoSearch" [value]="option.ClaveInstruccion"> 
@@ -239,7 +239,7 @@
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                       <div class="detail-text font-weight-bold">Peso</div>
-                      <p class="detail-text">{{detailData.Peso}} kg.</p>
+                      <p class="detail-text">{{detailData.Peso}} Kg.</p>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                       <div class="detail-text font-weight-bold">Fecha Estimada de Arribo</div>

@@ -157,7 +157,7 @@
                   <mat-form-field class="input-full-width">
                     <mat-select formControlName="rangoTemperaturaCtrl" placeholder="Rango de Temperatura" #singleSelect>
                       <mat-option>                      
-                        <ngx-mat-select-search formControlName="rangoTemperaturaSearchCtrl" [placeholderLabel]="'Temperatura'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
+                        <ngx-mat-select-search formControlName="rangoTemperaturaSearchCtrl" [placeholderLabel]="'Rango de Temperatura'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                       </mat-option>
                       <!-- <mat-option>Ninguno</mat-option>                     -->
                       <mat-option *ngFor="let option of rangoTemperaturaCatalogo | filterSelect: secondFormGroup.get('rangoTemperaturaSearchCtrl').value" [value]="option.Concepto"> 
@@ -345,7 +345,7 @@
 
           <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text font-weight-bold">Peso</div>
-            <p class="detail-text">{{model.Peso}} kg.</p>
+            <p class="detail-text">{{model.Peso}} Kg.</p>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
               <div class="detail-text font-weight-bold">Fecha de Arribo</div>

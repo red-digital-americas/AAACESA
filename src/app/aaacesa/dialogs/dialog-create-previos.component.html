@@ -155,7 +155,7 @@
               <div class="row mb-1">                 
                 <div class="col-lg-6">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha">
+                    <input matInput type="text" formControlName="fechaPrevioCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" placeholder="Fecha Previo">
                     <mat-error *ngIf="secondFormGroup.get('fechaPrevioCtrl').errors?.required">
                       * Este campo es obligatorio
                     </mat-error> 
@@ -337,10 +337,10 @@
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
             <div class="detail-text font-weight-bold">Peso</div>
-            <p class="detail-text">{{model.Peso}}&nbsp;kg</p>
+            <p class="detail-text">{{model.Peso}}&nbsp;Kg.</p>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-2 col-xl-2">
-            <div class="detail-text font-weight-bold">Fecha y Hora</div>
+            <div class="detail-text font-weight-bold">Fecha Previo</div>
             <p class="detail-text">{{model.FechaPrevio?.slice(6,8)}}/{{model.FechaPrevio?.slice(4,6)}}/{{model.FechaPrevio?.slice(0,4)}} {{model.FechaPrevio?.slice(9,14)}}</p>
           </div>
         </div><!-- End Row Inside -->
@@ -355,7 +355,7 @@
             <p class="detail-text">{{model.Patente}}</p>
           </div>
           <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-            <div class="detail-text font-weight-bold">Nombre Completo</div>
+            <div class="detail-text font-weight-bold">Nombre tramitador</div>
             <p class="detail-text">{{model.Nombre}}&nbsp;{{model.Paterno}}&nbsp;{{model.Materno}}</p>
           </div>
           <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3">
