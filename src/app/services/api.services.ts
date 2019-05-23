@@ -29,7 +29,6 @@ export class ApiServices {
     return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
-          console.log(error.status);
             if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
@@ -49,7 +48,6 @@ export class ApiServices {
     return this.http.get(this.url + url, { headers: headers, params: parametros }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
-          console.log(error.status);
             if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
@@ -68,7 +66,6 @@ export class ApiServices {
     return this.http.post(this.url + url, parametros, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
-          console.log(error.status);
             if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
@@ -87,7 +84,6 @@ export class ApiServices {
     return this.http.put(this.url + url, parametros, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
-          console.log(error.status);
             if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
@@ -104,7 +100,7 @@ export class ApiServices {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    this.http.post('/Authentication/Refresh',{RefreshToken: refreshToken},{ headers: headers }).subscribe((respuesta)=>{
+    this.http.post(this.url +'/Authentication/Refresh',{RefreshToken: refreshToken},{ headers: headers }).subscribe((respuesta)=>{
       console.log(respuesta);
       let myDate = new Date();
       localStorage.removeItem('token');
@@ -116,6 +112,7 @@ export class ApiServices {
       this.userIdle.stopWatching();
       this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
       this.userIdle.startWatching();
+      console.log(this.userIdle.getConfigValue());
     });
   }
 }

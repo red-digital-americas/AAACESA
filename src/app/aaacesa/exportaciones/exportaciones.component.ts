@@ -387,9 +387,9 @@ export class DialogCreateExportacionesComponent implements OnInit {
       houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],      
     });
     this.secondFormGroup = this._formBuilder.group({
-      pedimentoCtrl: ['', Validators.required],
+      pedimentoCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
       fechaEntradaMercanciaCtrl: [new Date(), Validators.required],
       comentarioCtrl: ['']    
     });

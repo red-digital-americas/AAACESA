@@ -22,13 +22,13 @@
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.House" maxlength="20" placeholder="Guía House"/>
               </mat-form-field>
             </div>            
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.IdExportacion" placeholder="Id Exportacion"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.IdExportacion" maxlength="20" placeholder="Id Exportación"/>
               </mat-form-field>
             </div>
 
@@ -42,7 +42,7 @@
           <div class="row">
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" [(ngModel)]="busquedaModel.Pedimento" placeholder="Pedimento"/>
+                <input matInput type="text" [(ngModel)]="busquedaModel.Pedimento" maxlength="15" placeholder="Pedimento"/>
               </mat-form-field>
             </div>            
 
@@ -82,13 +82,13 @@
           <div class="col-lg-12">
             <div class="row align-items-center">
 
-              <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+              <div (click)="applyFilter(i)" *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
                 <div>
                   <div class="status-filter__circle status-filter__circle--mr-sm status-filter__circle--{{estado | statusPipe}}"></div>
                   <span class="status-filter__number">({{ countStatus[i] }})</span>
                 </div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(i)" class="u-cursor">
+                  <label class="u-cursor">
                     {{statusLabels[i]}}                    
                   </label>
                 </div>
@@ -115,7 +115,7 @@
           <table mat-table [dataSource]="dataSource" matSort>                                   
           
             <ng-container matColumnDef="IdExportacion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Exportacion </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Exportación </th>
               <td mat-cell *matCellDef="let element">{{element.IdExportacion}}</td>
             </ng-container>
           
@@ -135,12 +135,12 @@
             </ng-container>
             
             <ng-container matColumnDef="FechaEntradaMercancia">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrada Mercancía </th>
-              <td mat-cell *matCellDef="let element"> {{element.FechaEntradaMercancia?.slice(0, 16) }}{{element.FechaEntradaMercancia?.slice(-6)}} </td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrada Mercancía </th>              
+              <td mat-cell *matCellDef="let element"> {{element.FechaEntradaMercancia}} </td>
             </ng-container>
 
             <ng-container matColumnDef="FechaCreacion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creacion </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Solicitud </th>
               <td mat-cell *matCellDef="let element"> {{element.FechaCreacion}} </td>
             </ng-container>
                         
@@ -221,10 +221,10 @@
                   </div><!-- End Row Inside -->
                   <div class="row mt-2">
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                      <div class="detail-text font-weight-bold">Fecha Creación</div>
+                      <div class="detail-text font-weight-bold">Fecha Solicitud</div>
                       <p class="detail-text">{{detailData.FechaCreacion }}</p>
                     </div>
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-2">
                       <div class="detail-text font-weight-bold">Fecha Entrada Mercancía </div>
                       <p class="detail-text">{{detailData.FechaEntradaMercancia }}</p>
                     </div>
@@ -232,7 +232,7 @@
                       <div class="detail-text font-weight-bold">Pedimento </div>
                       <p class="detail-text">{{detailData.Pedimento}}</p>
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-5">
                       <div class="detail-text font-weight-bold">Correo </div>
                       <p class="detail-text">{{detailData.Correo}}</p>
                     </div>
@@ -266,7 +266,7 @@
 
                     <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
                       <mat-form-field class="input-full-width">         
-                        <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                        <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Escribir comentario" style="margin-bottom: 1em;"></textarea>                       
                       </mat-form-field>
 
                       <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >

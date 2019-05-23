@@ -94,13 +94,13 @@
           <div class="col-lg-12">
             <div class="row align-items-center">
 
-              <div *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
+              <div (click)="applyFilter(i)" *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="col mb-1 text-center status-filter u-cursor">            
                 <div>
                   <div class="status-filter__circle status-filter__circle--mr-sm status-filter__circle--{{estado | statusPipe}}"></div>
                   <span class="status-filter__number">({{ countStatus[i] }})</span>
                 </div>
                 <div class="status-filter__text">
-                  <label (click)="applyFilter(i)" class="u-cursor">
+                  <label class="u-cursor">
                     {{statusLabels[i]}}                    
                   </label>
                 </div>
@@ -304,7 +304,7 @@
                           
                           <div *ngIf="detailData.EstatusDisponibles?.length" class="col-sm-12 col-md-12 col-lg-12 mb-1">
                             <mat-form-field class="input-full-width">         
-                              <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Comentario" style="margin-bottom: 1em;"></textarea>                       
+                              <textarea matInput class="form-control" rows="2" [(ngModel)]="modelSeguimiento.Comentarios" placeholder="Escribir comentario" style="margin-bottom: 1em;"></textarea>                       
                             </mat-form-field>
 
                             <ng-container *ngFor="let estado of detailData.EstatusDisponibles" >
@@ -352,7 +352,8 @@
                                     <div class="col status-filter">            
                                       <div class="status-filter__circle status-filter__circle--{{item.Estatus | statusPipe }}"></div>
                                       <div class="status-filter__text">{{item.Estatus}}</div>
-                                      <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha?.slice(0, -3)}}</div>
+                                      <!-- <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha?.slice(0, -3)}}</div> -->
+                                      <div class="detail-text" style="display: inline-block; padding-left: 5px;">{{item.Fecha}}</div>
                                     </div>                                                                                                              
                                   </mat-expansion-panel-header>
                                   <p class="detail-text">{{item.Usuario}}</p>
