@@ -80,6 +80,15 @@ export class LoginComponent implements OnInit {
           this.message = value.Detalle;
           this.sendAlert(this.message);
         }
+      }, 
+      (err: HttpErrorResponse) => { 
+        this.loading=false;
+        if (err.error instanceof Error) {
+          this.sendAlert('Error:'+ err.error.message);
+        } else {
+          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          this.sendAlert(error);
+        }
       });
   }
   

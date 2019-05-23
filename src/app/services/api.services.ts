@@ -28,15 +28,17 @@ export class ApiServices {
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
     return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
+      console.log(error);
       return error
          .flatMap((error: any) => {
-           console.log(error);
-            if((error.status  === 401||(error.status === 0))) {
+           
+            if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if(error.status >= 500)
+            if((error.status >= 500)||(error.status === 0))
             {
+              this.loading= false;
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
             }
