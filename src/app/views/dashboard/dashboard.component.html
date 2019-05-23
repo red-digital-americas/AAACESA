@@ -112,17 +112,36 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
             <div class="row">
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0">
+              
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0;">
                 <a href="http://t21.com.mx/"><img class="img-fluid" src="assets/img/portada(2).jpg" alt="Imagen card"
-                    style="height:257px" /></a>
+                    style="height:155px;" /></a>              
+                
+                <small style="font-size:10px; font-weight:bold; text-align: center;">Tipo Cambio</small>
+
+                <div *ngFor="let item of tipoCambioArray; let i=index" class="col-12">                    
+                  <small class="info-box-text" style="font-size:10px; text-align: left"><span class="badge badge-primary" style="font-weight: bold;" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}}</span> - {{item.Paridad}}</small>
+                </div>                
+                <!-- <div class="col-12">                    
+                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
+                </div>
+                <div class="col-12">                    
+                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
+                </div>
+                <div class="col-12">                    
+                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
+                </div>
+                <div class="col-12">                    
+                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
+                </div> -->
               </div>
+
               <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                 <div>
                   <a href="https://www.aicm.com.mx/"><img class="airport img-fluid"
                       src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg"
                       alt="Imagen Aeropuerto" style="height: 155px"></a>
                 </div>
-
 
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                   style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">

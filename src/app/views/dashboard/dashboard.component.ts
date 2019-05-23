@@ -42,6 +42,10 @@ export class DashboardComponent implements OnInit {
   c: number;
   public table = Array<CountClicks>();
 
+  ///////////////
+  // Tipo Cambio
+  public tipoCambioArray = [];
+  public tipoCambioColors = ['#184485', '#4C58A9', '#18EDED', '#E2DA0C','#D31E28'];  
 
   private showAlert(msj: string) {
     this.snackBar.open(msj, "", {
@@ -97,6 +101,7 @@ export class DashboardComponent implements OnInit {
     this.dia();
     this.click();
     this.frecuentes();
+    this.getTipoCambio();
 
 
     /*    public emptygraphic(){
@@ -392,6 +397,20 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
+  }
+
+  private getTipoCambio () {
+    this.apiservice.service_general_get(`/Dashboard/GetTipoCambio`).subscribe(
+      (response: any) => {
+        // this.tipoCambioArray = response.Divisas; 
+        this.tipoCambioArray = [];
+        this.tipoCambioArray.push(response.Divisas[2]);
+        this.tipoCambioArray.push(response.Divisas[1]);
+        this.tipoCambioArray.push(response.Divisas[0]);
+        this.tipoCambioArray.push(response.Divisas[3]);
+        this.tipoCambioArray.push(response.Divisas[4]);
+      },
+      (errorService) => { })
   }
 
   click() {
