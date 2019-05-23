@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -29,14 +29,20 @@ export class ApiServices {
     return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
+           console.log(error.status);
             if(error.status  === 401) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            return Observable.throw({error: 'No retry'});
+            if((error.status >= 500)||(error.status === 0))
+            {
+              this.closeSession();
+              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
+            }
+            return Observable.throw(error);
          })
          .take(5)
-         .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
+         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
       });
   }
 
@@ -48,11 +54,19 @@ export class ApiServices {
     return this.http.get(this.url + url, { headers: headers, params: parametros }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
+          console.log(error.status);
             if(error.status  === 401) {
+              console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            return Observable.throw({error: 'No retry'});
+            if((error.status >= 500)||(error.status === 0))
+            {
+              this.closeSession();
+              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
+            }
+            return Observable.throw(error);
+            return Observable.throw(error);
          })
          .take(5)
          .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
@@ -66,14 +80,22 @@ export class ApiServices {
     return this.http.post(this.url + url, parametros, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
+          console.log(error.status);
             if(error.status  === 401) {
+              console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            return Observable.throw({error: 'No retry'});
+            if((error.status >= 500)||(error.status === 0))
+            {
+              this.closeSession();
+              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
+            }
+            return Observable.throw(error);
+            return Observable.throw(error);
          })
          .take(5)
-         .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
+         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
       });
   }
 
@@ -84,14 +106,22 @@ export class ApiServices {
     return this.http.put(this.url + url, parametros, { headers: headers }).retryWhen(error => {
       return error
          .flatMap((error: any) => {
+          console.log(error.status);
             if(error.status  === 401) {
+              console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            return Observable.throw({error: 'No retry'});
+            if((error.status >= 500)||(error.status === 0))
+            {
+              this.closeSession();
+              return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
+            }
+            return Observable.throw(error);
+            return Observable.throw(error);
          })
          .take(5)
-         .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
+         .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
       });
   }
 
@@ -113,6 +143,15 @@ export class ApiServices {
       this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
       this.userIdle.startWatching();
       console.log(this.userIdle.getConfigValue());
-    });
+    }, 
+    (err: HttpErrorResponse) => { 
+      console.log("refresh"+err);
+      this.closeSession();
+    })
+  }
+
+  closeSession(){
+    this.service_general_put(this.url +'/Authentication/LogOut',{});
+    localStorage.clear();
   }
 }

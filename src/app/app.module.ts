@@ -61,9 +61,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NgxLoadingModule } from 'ngx-loading';
 import { UserIdleModule } from 'angular-user-idle';
 
-import { CalculadoraComponent } from './aaacesa/calculadora/calculadora.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
-import { SharedModule } from './aaacesa/shared/shared.module';
 import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
 import { AdminUserModule } from './aaacesa/admin-user/admin-user.module';
 
