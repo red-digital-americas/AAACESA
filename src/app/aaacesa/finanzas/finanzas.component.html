@@ -6,12 +6,12 @@
   <div class="card">
     <div class="card-body">
       <div class="row mb-3">
-        <div class="col-md-4 offset-md-8">
+        <!-- <div class="col-md-4 offset-md-8">
           <mat-form-field class="input-full-width">
             <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Buscar..." />
             <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
           </mat-form-field>
-        </div>
+        </div> -->
       </div>
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
         <mat-tab label="Facturas">
@@ -20,13 +20,13 @@
           <div class="row mb-3 mr-0 ml-0">
             <div class="col-md-3">
               <mat-form-field class="input-full-width">
-                <input matInput [(ngModel)]="busquedaModel[0].Pedimento" type="text" placeholder="Pedimento" />
+                <input matInput [(ngModel)]="busquedaModel[0].Pedimento" [textMask]="{mask: masterMask, guide: false, modelClean: true}" type="text" placeholder="Pedimento" />
               </mat-form-field>
             </div>
             <div class="col-md-3">
               <mat-form-field class="input-full-width">
                 <input matInput type="text" #drp="bsDaterangepicker" bsDaterangepicker  placement="right top" [(ngModel)]="rangoFechaSearch"
-                  placeholder="Fecha Emision" />
+                  placeholder="Fecha Emisión" />
               </mat-form-field>
             </div>
             <div class="col-lg-3">
@@ -36,12 +36,18 @@
                       class="fas fa-search"></i> Buscar </button>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0">
-                  <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm"> Nueva
-                    Búsqueda</button>
+                  <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda </button>
                 </div>
               </div>
             </div>
           </div>
+            <div class="offset-md-8"> <!--Input de Búsqueda General -->
+              <mat-form-field class="input-full-width">
+                <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Búsqueda general..." />
+                <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+              </mat-form-field>
+            </div>
+          
           <div class="table-responsive ">
             <table mat-table [dataSource]="dataSource" matSort>
 
@@ -104,7 +110,7 @@
           <div class="row mb-3 mr-0 ml-0">
             <div class="col-md-3">
               <mat-form-field class="input-full-width">
-                <input matInput [(ngModel)]="busquedaModel[1].Pedimento" type="text" placeholder="Pedimento" />
+                <input matInput [(ngModel)]="busquedaModel[1].Pedimento" [textMask]="{mask: masterMask, guide: false, modelClean: true}" type="text" placeholder="Pedimento" />
               </mat-form-field>
             </div>
             <div class="col-md-3">
@@ -125,6 +131,12 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="offset-md-8"> <!--Input de Búsqueda General -->
+            <mat-form-field class="input-full-width">
+              <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Búsqueda general..." />
+              <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+            </mat-form-field>
           </div>
           <div class="table-responsive">
             <table mat-table [dataSource]="dataSources" matSort >
@@ -204,6 +216,12 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="offset-md-8"> <!--Input de Búsqueda General -->
+            <mat-form-field class="input-full-width">
+              <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Búsqueda general..." />
+              <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+            </mat-form-field>
           </div>
           <div class="table-responsive">
             <table mat-table [dataSource]="info" matSort>

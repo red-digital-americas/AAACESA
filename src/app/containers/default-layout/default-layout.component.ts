@@ -56,10 +56,10 @@ export class DefaultLayoutComponent implements OnInit {
     this.userIdle.onTimeout().subscribe(() =>{ 
 
       this.sesionDialog("Cierre de sesión","La sesión a caducará en 5 minutos y será redirigido al login",false);
-      setTimeout(function(){
-        localStorage.clear();
-        window.location.href ="login";
-      },300000);
+      // setTimeout(function(){
+      //   localStorage.clear();
+      //   window.location.href ="login";
+      // },300000);
     });
 
      if (localStorage.getItem("user") == undefined) {
@@ -77,7 +77,7 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   constructor(private router: Router, private userIdle: UserIdleService,public dialog: MatDialog, private apiservice: ApiServices, private snackBar: MatSnackBar) {
-    (this.getTimeSesion())?"":this.closeSession();
+    // (this.getTimeSesion())?"":this.closeSession();
     
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');

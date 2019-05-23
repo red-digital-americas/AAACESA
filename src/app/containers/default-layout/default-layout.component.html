@@ -41,8 +41,8 @@
         <a class="dropdown-item" [routerLink]="" (click)="redirect('bitacoras')" ><i class="icon-note"></i>Bitácora</a>
         <div class="dropdown-divider" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' "></div>
         <a class="dropdown-item" *ngIf="rolUser == 'ADMIN' || rolUser == 'MAESTRO' " [routerLink]="" (click)="redirect('adminuser')" ><i class="aaa-maintenance"></i> Admin de usuarios</a>
-        <div class="dropdown-divider" *ngIf="rolUser == 'OPERACION' || rolUser == 'FACTURACION' "></div>
-        <div class="dropdown-item" *ngIf="rolUser == 'OPERACION' || rolUser == 'FACTURACION' " [routerLink]="" (click)="detalleUSer()" ><i class="aaa-user"></i> Usuario</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item"  [routerLink]="" (click)="detalleUSer()" ><i class="aaa-user"></i> Mi perfil</div>
         <div class="dropdown-divider  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION' "></div>
         <a class="dropdown-item  d-sm-block d-lg-none" *ngIf="rolUser != 'OPERACION'" [routerLink]="" (click)="redirect('calculadora')" ><i class="icon-people"></i> Cálculo Maniobras</a>
         <div class="dropdown-divider" *ngIf="rolUser != 'OPERACION'"></div>
