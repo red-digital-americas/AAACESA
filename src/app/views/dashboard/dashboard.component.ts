@@ -15,6 +15,7 @@ import { isNull, isNullOrUndefined } from 'util';
 import { count } from 'rxjs-compat/operator/count';
 import { TablesComponent } from '../base/tables.component';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.component.html',
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
   @Input() color: any
   @Input() summary: Summary
-  
+
   public detailPrevios = "";
   public detailPrealertas = "";
   public detailSalidas = "";
@@ -34,14 +35,15 @@ export class DashboardComponent implements OnInit {
   public currentIndex = 0;
   public WidgetData = new widgetAnualData();
   charts: boolean;
-  a:number;
-  b:number;
-  d:number;
-  c:number;
-   public table = Array<CountClicks>();
-  
+  all: boolean;
+  a: number;
+  b: number;
+  d: number;
+  c: number;
+  public table = Array<CountClicks>();
 
-  private showAlert (msj:string) {
+
+  private showAlert(msj: string) {
     this.snackBar.open(msj, "", {
       duration: 4000,
       verticalPosition: 'bottom',
@@ -49,29 +51,29 @@ export class DashboardComponent implements OnInit {
     });
   }
 
- 
+
 
   dataInfoSalidas = new MatTableDataSource();
   searchModel = new Array<mercancias>();
 
-   public summarys: any[] = [
+  public summarys: any[] = [
     new Summary("Previos", "bg-gray"),
     new Summary("Salidas", "bg-salidas"),
     new Summary("Prealertas", "bg-transfer"),
     new Summary("Abandono", "bg-abandono")
-  ] 
+  ]
 
-/*   public merchant: any[] = [
-    new Merchant("021563431", "12345978", "21/03/2018", "Prealertas"),
-    new Merchant("021563431", "12345978", "21/03/2018", "Salida"),
-    new Merchant("021563431", "12345978", "21/03/2018", "Previo"),
-    new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
-  ] */
+  /*   public merchant: any[] = [
+      new Merchant("021563431", "12345978", "21/03/2018", "Prealertas"),
+      new Merchant("021563431", "12345978", "21/03/2018", "Salida"),
+      new Merchant("021563431", "12345978", "21/03/2018", "Previo"),
+      new Merchant("021563431", "12345978", "21/03/2018", "Abandono"),
+    ] */
 
-  constructor(private router: Router, private apiservice:ApiServices, public snackBar: MatSnackBar) {}
-  
-  redirect(ruta){
-    this.router.navigate(['/'+ruta+'']);
+  constructor(private router: Router, private apiservice: ApiServices, public snackBar: MatSnackBar) { }
+
+  redirect(ruta) {
+    this.router.navigate(['/' + ruta + '']);
   }
 
   // barChart
@@ -90,14 +92,59 @@ export class DashboardComponent implements OnInit {
   //  { data: [28, 48, 40, 19, 86, 27, 90], label: 'Transferencias' }
   //];
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.getWidgetAnual();
     this.dia();
     this.click();
     this.frecuentes();
 
 
- /*    public emptygraphic(){
+    /*    public emptygraphic(){
+       new Chart(document.getElementById("bar-chart-summary"), {
+         type: 'bar',
+         data: {
+           labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+           datasets: [
+             {
+               label: "Prealertas",
+               backgroundColor: "#1E82BA",
+               data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+             },
+             {
+               label: "Previos",
+               backgroundColor: "gray",
+               data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+             },  
+             {
+               label: "Salidas",
+               backgroundColor: "#1EC8F3",
+               data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+             },
+             {
+               label: "Abandono",
+               backgroundColor: "#D9E11E",
+               data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+             }
+           ]
+         },
+         options: {
+           title: {
+             display: true,
+             text: 'Cantidad VS Estado'
+           }
+         }
+   
+   
+   
+       });
+   
+     } */
+
+    this.getMercancias();
+  }
+
+  public chart(formatData) {
+
     new Chart(document.getElementById("bar-chart-summary"), {
       type: 'bar',
       data: {
@@ -106,23 +153,23 @@ export class DashboardComponent implements OnInit {
           {
             label: "Prealertas",
             backgroundColor: "#1E82BA",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: formatData.Data[0].data
           },
           {
             label: "Previos",
             backgroundColor: "gray",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-          },  
+            data: formatData.Data[1].data
+          },
           {
             label: "Salidas",
             backgroundColor: "#1EC8F3",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            data: formatData.Data[2].data
           },
-          {
+          /* {
             label: "Abandono",
             backgroundColor: "#D9E11E",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-          }
+            data: formatData.Data[3].data
+          } */
         ]
       },
       options: {
@@ -131,275 +178,229 @@ export class DashboardComponent implements OnInit {
           text: 'Cantidad VS Estado'
         }
       }
-
-
-
     });
-
-  } */
-
-    this.getMercancias(); 
   }
-
-  public chart(formatData){
-
-      new Chart(document.getElementById("bar-chart-summary"), {
-        type: 'bar',
-        data: {
-          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-          datasets: [
-            {
-              label: "Prealertas",
-              backgroundColor: "#1E82BA",
-              data: formatData.Data[0].data
-            },
-            {
-              label: "Previos",
-              backgroundColor: "gray",
-              data: formatData.Data[1].data
-            },  
-            {
-              label: "Salidas",
-              backgroundColor: "#1EC8F3",
-              data: formatData.Data[2].data
-            },
-            {
-              label: "Abandono",
-              backgroundColor: "#D9E11E",
-              data: formatData.Data[3].data
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Cantidad VS Estado'
-          }
-        }
-  });
-}
 
   public getWidgetAnual() {
     this.apiservice.service_general_get('/Dashboard/GetWidgetAnual').subscribe((datas) => {
       this.WidgetData.parseData(datas);
       this.chart(this.WidgetData);
       /* this.charts = true; */
-    }, 
-    (err: HttpErrorResponse) => { 
-      if (err.error instanceof Error) {
-        this.showAlert('Error:'+ err.error.message);
-      } else {
-        let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        /* this.showAlert(error); */
-        /* this.charts = false; */
-        this.WidgetData;
-        this.chart(this.WidgetData);
-      }
-  }
-    )
-  }
-    // **************************** Tabla de mercancias ****************************
-    public getMercancias() {
-      this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
-        this.dataInfoSalidas.data = data.splice(0,5);
-      }, 
+    },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
-          this.showAlert('Error:'+ err.error.message);
+          this.showAlert('Error:' + err.error.message);
         } else {
-          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          let error = (err.error.Description == undefined) ? err.error : err.error.Description;
+          /* this.showAlert(error); */
+          /* this.charts = false; */
+          this.WidgetData;
+          this.chart(this.WidgetData);
+        }
+      }
+    )
+  }
+  // **************************** Tabla de mercancias ****************************
+  public getMercancias() {
+    this.apiservice.service_general_get('/Dashboard/GetWidgetEstatusMercancia').subscribe((data) => {
+    this.dataInfoSalidas.data = data.splice(0,20);
+
+    },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          this.showAlert('Error:' + err.error.message);
+        } else {
+          let error = (err.error.Description == undefined) ? err.error : err.error.Description;
           this.showAlert(error);
         }
-    }
-      )};
+      }
+    )
+  };
 
 
   public dia() {
     this.currentIndex = 0;
     this.detailPrevios = "";
-    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
-      (response:any) => {
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe(
+      (response: any) => {
         this.detailPrevios = response.Dia
-        
+
       },
-      (errorService) => { 
-        
+      (errorService) => {
+
       })
 
-      this.detailSalidas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
-        (response:any) => {
-          this.detailSalidas = response.Dia;
-          
-        },
-        (errorService) => {
-          
-        })
+    this.detailSalidas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe(
+      (response: any) => {
+        this.detailSalidas = response.Dia;
 
-        this.detailPrealertas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
-        (response:any) => {
-          this.detailPrealertas = response.Dia;
-          
-        },
-        (errorService) => {
-          
-        })
+      },
+      (errorService) => {
 
-        this.detailAbandono = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
-        (response:any) => {
-          this.detailAbandono = response.Dia;
-         
-        },
-        (errorService) => {
-          
-        })
+      })
+
+    this.detailPrealertas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe(
+      (response: any) => {
+        this.detailPrealertas = response.Dia;
+
+      },
+      (errorService) => {
+
+      })
+
+    this.detailAbandono = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe(
+      (response: any) => {
+        this.detailAbandono = response.Dia;
+
+      },
+      (errorService) => {
+
+      })
   }
 
   public semana() {
     this.currentIndex = 1;
     this.detailPrevios = "";
-    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
-      (response:any) => {
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe(
+      (response: any) => {
         this.detailPrevios = response.Semana
         this.a = response.Semana;
       },
-      (errorService) => { 
-        
+      (errorService) => {
+
       })
 
-      this.detailSalidas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
-        (response:any) => {
-          this.detailSalidas = response.Semana;
-         this.b = response.Semana;
-        },
-        (errorService) => {
-          
-        })
+    this.detailSalidas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe(
+      (response: any) => {
+        this.detailSalidas = response.Semana;
+        this.b = response.Semana;
+      },
+      (errorService) => {
 
-        this.detailPrealertas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
-        (response:any) => {
-          this.detailPrealertas = response.Semana;
-         this.b = response.Semana;
-        },
-        (errorService) => {
-          
-        })
+      })
 
-        this.detailAbandono = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
-        (response:any) => {
-          this.detailAbandono = response.Semana;
-          this.c = response.Semana;
-        },
-        (errorService) => {
-          
-        })
+    this.detailPrealertas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe(
+      (response: any) => {
+        this.detailPrealertas = response.Semana;
+        this.b = response.Semana;
+      },
+      (errorService) => {
+
+      })
+
+    this.detailAbandono = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe(
+      (response: any) => {
+        this.detailAbandono = response.Semana;
+        this.c = response.Semana;
+      },
+      (errorService) => {
+
+      })
   }
 
   public mes() {
     this.currentIndex = 2;
     this.detailPrevios = "";
-    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe (
-      (response:any) => {
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrevios`).subscribe(
+      (response: any) => {
         this.detailPrevios = response.Mes
       },
-      (errorService) => { 
+      (errorService) => {
       })
-      this.detailSalidas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe (
-        (response:any) => {
-          this.detailSalidas = response.Mes;
-        },
-        (errorService) => {
-        })
-        this.detailPrealertas = "";
-      this. apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe (
-        (response:any) => {
-          this.detailPrealertas = response.Mes;
-        },
-        (errorService) => {  
-        })
-        this.detailAbandono = "";
-      this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe (
-        (response:any) => {
-          this.detailAbandono = response.Mes;
-        },
-        (errorService) => {
-        })
+    this.detailSalidas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetSalidas`).subscribe(
+      (response: any) => {
+        this.detailSalidas = response.Mes;
+      },
+      (errorService) => {
+      })
+    this.detailPrealertas = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetPrealertas`).subscribe(
+      (response: any) => {
+        this.detailPrealertas = response.Mes;
+      },
+      (errorService) => {
+      })
+    this.detailAbandono = "";
+    this.apiservice.service_general_get(`/Dashboard/GetWidgetAbandono`).subscribe(
+      (response: any) => {
+        this.detailAbandono = response.Mes;
+      },
+      (errorService) => {
+      })
   }
 
-  frecuentes(){
-    
-      let tab = new CountClicks();
-      tab.click  = parseInt(localStorage.getItem("clk")); // Dashboard
-      tab.nombre = "Dashboard";
-      this.table.push(tab);
+  frecuentes() {
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("preclick")); //Prealertas
-      tab.nombre = "Prealertas";
-      this.table.push(tab);
+    let tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("clk")); // Dashboard
+    tab.nombre = "Dashboard";
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("prevclick"));
-      tab.nombre = "Previos";
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("preclick")); //Prealertas
+    tab.nombre = "Prealertas";
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("salidasclick"));
-      tab.nombre = "Salidas"
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("prevclick"));
+    tab.nombre = "Previos";
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("exportclick"));
-      tab.nombre = "Exportaciones"
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("salidasclick"));
+    tab.nombre = "Salidas"
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("finclick"));
-      tab.nombre = "Finanzas"
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("exportclick"));
+    tab.nombre = "Exportaciones"
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("mercaclick"));
-      tab.nombre = "Mercancias"
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("finclick"));
+    tab.nombre = "Finanzas"
+    this.table.push(tab);
 
-      tab = new CountClicks();
-      tab.click = parseInt(localStorage.getItem("abanclick"));
-      tab.nombre = "Abandono"
-      this.table.push(tab);
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("mercaclick"));
+    tab.nombre = "Mercancias"
+    this.table.push(tab);
 
-      /* this.table.sort(); */
+    tab = new CountClicks();
+    tab.click = parseInt(localStorage.getItem("abanclick"));
+    tab.nombre = "Abandono"
+    this.table.push(tab);
 
-      for(let i=1; i < 8; i++){
-        for(let j=0 ; j< 8 - 1; j++){
-             if (this.table[j].click < this.table[j+1].click){
-              let temp2 = this.table[j];
-                    //let temp = this.table[j].click;
-                    this.table[j] = this.table[j+1];
-                    
-                    //this.table[j+1].click = temp;
-                    this.table[j+1] = temp2; 
-                }
+    /* this.table.sort(); */
+
+    for (let i = 1; i < 8; i++) {
+      for (let j = 0; j < 8 - 1; j++) {
+        if (this.table[j].click < this.table[j + 1].click) {
+          let temp2 = this.table[j];
+          //let temp = this.table[j].click;
+          this.table[j] = this.table[j + 1];
+
+          //this.table[j+1].click = temp;
+          this.table[j + 1] = temp2;
+        }
+      }
     }
   }
-  }
 
-
-
-
-  click(){
+  click() {
     let localSave = parseInt(localStorage.getItem("clk"));
-    if(isNullOrUndefined(localSave) || isNaN(localSave)){
+    if (isNullOrUndefined(localSave) || isNaN(localSave)) {
       localStorage.setItem("clk", "1");
     } else {
       localSave++;
-      localStorage.setItem("clk",localSave.toString());
+      localStorage.setItem("clk", localSave.toString());
     }
   }
 

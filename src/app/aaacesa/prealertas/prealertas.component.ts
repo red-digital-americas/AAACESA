@@ -370,7 +370,6 @@ export class PrealertasComponent {
     } else {
       localSave++;
       localStorage.setItem("preclick",localSave.toString());
-      console.log("por aquí pase");
     }
   }
 

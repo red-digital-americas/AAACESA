@@ -1,11 +1,14 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="animated fadeIn" style="margin-top: -40px">
-    <div>  
-        <button mat-button (click)="dia()" [ngClass]="{'dashboard__btn--underline': currentIndex === 0}" style="color:#CF0A2B">Día</button>
-        <button mat-button (click)="semana()" [ngClass]="{'dashboard__btn--underline': currentIndex === 1}" style="color:#CF0A2B">Semana</button>
-        <button mat-button (click)="mes()" [ngClass]="{'dashboard__btn--underline': currentIndex === 2}" style="color:#CF0A2B">Mes</button>
-    </div>
-      <br>
+  <div>
+    <button mat-button (click)="dia()" [ngClass]="{'dashboard__btn--underline': currentIndex === 0}"
+      style="color:#CF0A2B">Día</button>
+    <button mat-button (click)="semana()" [ngClass]="{'dashboard__btn--underline': currentIndex === 1}"
+      style="color:#CF0A2B">Semana</button>
+    <button mat-button (click)="mes()" [ngClass]="{'dashboard__btn--underline': currentIndex === 2}"
+      style="color:#CF0A2B">Mes</button>
+  </div>
+  <br>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
       <div class="info-box">
@@ -13,7 +16,9 @@
         <div class="info-box-content">
           <div class="row">
             <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-              <span class="info-box-text"><h5>{{summarys[0].tipo}}</h5></span>
+              <span class="info-box-text">
+                <h5>{{summarys[0].tipo}}</h5>
+              </span>
               <span class="info-box-number">{{detailPrevios.length > 0 ? detailPrevios : '0'}}</span>
 
             </div>
@@ -24,74 +29,82 @@
           </div>
         </div>
       </div>
-             <!-- /.info-box-content -->
-             <div class="info-box">
-              <span class="info-box-icon {{summarys[1].color}}"></span>
-              <div class="info-box-content">
-                <div class="row">
-                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-                    <span class="info-box-text"><h5>{{summarys[1].tipo}}</h5></span>
-                    <span class="info-box-number">{{detailSalidas}}</span>
-                  </div>
-                  <div class="col-xs-12 col-lg-4" style="padding:0">
-                    <br>
-                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
-                  </div>
-                </div>
-              </div>
+      <!-- /.info-box-content -->
+      <div class="info-box">
+        <span class="info-box-icon {{summarys[1].color}}"></span>
+        <div class="info-box-content">
+          <div class="row">
+            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+              <span class="info-box-text">
+                <h5>{{summarys[1].tipo}}</h5>
+              </span>
+              <span class="info-box-number">{{detailSalidas}}</span>
             </div>
+            <div class="col-xs-12 col-lg-4" style="padding:0">
+              <br>
+              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="info-box">
-              <span class="info-box-icon {{summarys[2].color}}"></span>
-              <div class="info-box-content">
-                <div class="row">
-                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-                    <span class="info-box-text"><h5>{{summarys[2].tipo}}</h5></span>
-                    <span class="info-box-number">{{detailPrealertas}}</span>
-                  </div>
-                  <div class="col-xs-12 col-lg-4" style="padding:0">
-                    <br>
-                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
-                  </div>
-                </div>
-              </div>
+      <div class="info-box">
+        <span class="info-box-icon {{summarys[2].color}}"></span>
+        <div class="info-box-content">
+          <div class="row">
+            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+              <span class="info-box-text">
+                <h5>{{summarys[2].tipo}}</h5>
+              </span>
+              <span class="info-box-number">{{detailPrealertas}}</span>
             </div>
+            <div class="col-xs-12 col-lg-4" style="padding:0">
+              <br>
+              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="info-box">
-              <span class="info-box-icon {{summarys[3].color}}"></span>
-              <div class="info-box-content">
-                <div class="row">
-                  <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-                    <span class="info-box-text"><h5>{{summarys[3].tipo}}</h5></span>
-                    <span class="info-box-number">{{detailAbandono.length > 0 ? detailAbandono : '0'}}</span>
-                  </div>
-                  <div class="col-xs-12 col-lg-4" style="padding:0">
-                    <br>
-                    <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
-                  </div>
-                </div>
-              </div>
+      <div class="info-box">
+        <span class="info-box-icon {{summarys[3].color}}"></span>
+        <div class="info-box-content">
+          <div class="row">
+            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
+              <span class="info-box-text">
+                <h5>{{summarys[3].tipo}}</h5>
+              </span>
+              <span class="info-box-number">{{detailAbandono.length > 0 ? detailAbandono : '0'}}</span>
             </div>
+            <div class="col-xs-12 col-lg-4" style="padding:0">
+              <br>
+              <span class="info-box-text text-left" style="padding:50% 0 0 0">Prenotificaciones</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
       <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-        <mat-card class="noticias" style="margin-bottom:20px; padding: 0">
-        <mat-card-header>
-          <mat-card-subtitle>Noticias</mat-card-subtitle>
-        </mat-card-header>
-        <a href="http://www.aaacesa.com.mx/Aaacesa/Noticias"><img #aaacesa src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" alt="Imagen Noticias" ></a>
-        <mat-card-content><br>
-        <p style="color:#183964; text-align: center"><b>AAACESA a la vanguardia en infraestructura en cadena de frío.</b></p>
-      </mat-card-content>
-        </mat-card>
-      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+          <mat-card class="noticias" style="margin-bottom:20px; padding: 0">
+            <mat-card-header>
+              <mat-card-subtitle>Noticias</mat-card-subtitle>
+            </mat-card-header>
+            <a href="http://www.aaacesa.com.mx/Aaacesa/Noticias"><img #aaacesa
+                src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" alt="Imagen Noticias"></a>
+            <mat-card-content><br>
+              <p style="color:#183964; text-align: center"><b>AAACESA a la vanguardia en infraestructura en cadena de
+                  frío.</b></p>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
 
 
-       <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <p>Noticias</p>
           <img class="img-fluid" style="height:220px, width:400px" src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" />
           <p><b>AAACESA, a la vanguardia en infraestructura en cade de frio.</b></p>
@@ -100,111 +113,115 @@
           <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
             <div class="row">
               <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0">
-              <a href="http://t21.com.mx/"><img class="img-fluid" src="assets/img/portada(1).jpg" alt="Imagen card" style="height:257px"/></a>
-            </div>
-            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >
-              <div>
-              <a href="https://www.aicm.com.mx/"><img class="airport img-fluid" src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg" alt="Imagen Aeropuerto" style="height: 155px" ></a>
-            </div>
-
-            
-            <!-- <div class="row"> -->
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">
-                  <small style="font-size:11px; font-weight:bold">Lo más frecuente</small>
-                  <div class="col-xs-12" style="color:black; padding: 0"><mat-divider></mat-divider></div> 
+                <a href="http://t21.com.mx/"><img class="img-fluid" src="assets/img/portada(2).jpg" alt="Imagen card"
+                    style="height:257px" /></a>
+              </div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                <div>
+                  <a href="https://www.aicm.com.mx/"><img class="airport img-fluid"
+                      src="https://casetasdemexico.com.mx/wp-content/uploads/2016/02/AEROPUERTO.jpg"
+                      alt="Imagen Aeropuerto" style="height: 155px"></a>
                 </div>
-                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                    <small class="info-box-text" style="font-size:10px; text-align: center">{{table[0].nombre}}: {{table[0].click}} visitas</small>
-                    <div class="col-xs-12" style="color:black; padding: 0"><mat-divider></mat-divider></div> 
+
+
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">
+                  <small style="font-size:11px; font-weight:bold">Lo más frecuente</small>
+                  <div class="col-xs-12" style="color:black; padding: 0">
+                    <mat-divider></mat-divider>
                   </div>
-                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                      <small class="info-box-text" style="font-size:10px; text-align: center">{{table[1].nombre}}: {{table[1].click}} visitas</small>
-                      <div class="col-xs-3" style="color:black; padding: 0"><mat-divider></mat-divider></div>
-                    </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                        <small class="info-box-text" style="font-size:10px; text-align: center">{{table[2].nombre}}: {{table[2].click}} visitas</small>
-                      </div>
-                <!-- </div> -->
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
+                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[0].nombre}}:
+                    {{table[0].click}} visitas</small>
+                  <div class="col-xs-12" style="color:black; padding: 0">
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
+                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[1].nombre}}:
+                    {{table[1].click}} visitas</small>
+                  <div class="col-xs-3" style="color:black; padding: 0">
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
+                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[2].nombre}}:
+                    {{table[2].click}} visitas</small>
                 </div>
               </div>
-            <!-- <div class="second-img col-lg-8">
-              <img class="img-fluid" style="height:140px; width:370px; border: 1px" src="https://upload.wikimedia.org/wikipedia/commons/e/ec/AICM_logo.jpg" alt="">
-            </div> -->
-            </mat-card>
+            </div>
+          </mat-card>
         </div>
       </div>
 
-      
+
       <div class="row">
-        <div  class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ">  <!-- *ngIf="charts" -->
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
+          <!-- *ngIf="charts" -->
           <mat-card class="grafica">
-          <!-- <div class="card"> -->
-            <!-- <div class="card-body"> -->
-              <div class="chart-wrapper">
-                <!--<canvas baseChart class="chart"
-                [datasets]="barChartData"
-                [labels]="barChartLabels"
-                [options]="barChartOptions"
-                [legend]="barChartLegend"
-                [chartType]="barChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>-->
-                <canvas id="bar-chart-summary" height="254"></canvas>
-              </div>
-            <!-- </div> -->
-          <!-- </div> -->
-        </mat-card>
+            <div class="chart-wrapper">
+              <canvas id="bar-chart-summary" height="254"></canvas>
+            </div>
+          </mat-card>
         </div>
 
 
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-          <!-- <div class="card">
-            <div class="card-body"> -->
-              <mat-card class="mercancia">
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 15px">
-                  <small style="font-size:11px; font-weight:bold">Master</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 5px">
-                  <small style="font-size:11px; font-weight:bold">House</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 5px">
-                  <small style="font-size:11px; font-weight:bold">Fecha</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 15px 5px 5px">
-                  <small style="font-size:11px; font-weight:bold">Status</small>
-                </div>
+          <div class="mercancia card">
+            <div class="card-body" style="overflow-y:auto;">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12">
+                <small style="font-size:12px;font-weight:bold; text-align: center;">Últimas solicitudes</small>
               </div>
-
-              
-              <div class="col-xs-12" style="color:aqua"><mat-divider></mat-divider></div>
-              <div class="row" *ngFor="let item of dataInfoSalidas.data; let i = index">
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 15px">
-                  <small class="info-box-text" style="font-size:10px;">{{item.Master}}</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
-                  <small class="info-box-text" style="font-size:10px;">{{item.House}}</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
-                  <small class="info-box-text" style="font-size:10px;">{{item.Fecha}}</small>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center" style="padding: 15px 15px 15px 5px">
-                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1E82BA" *ngIf="item.Estatus == 'PREALERTAS'">{{item.Estatus}}</small>
-                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1EC8F3" *ngIf="item.Estatus == 'SALIDAS'">{{item.Estatus}}</small>
-                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:gray" *ngIf="item.Estatus == 'PREVIOS'">{{item.Estatus}}</small>
-                  <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#D9E11E" *ngIf="item.Estatus == 'ABANDONOS'">{{item.Estatus}}</small>
-                </div>
-
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 15px">
+                <small style="font-size:11px; font-weight:bold">Master</small>
               </div>
-              <!-- <div class="col-xs-12" style="color:aqua; margin-bottom:14px"><mat-divider></mat-divider></div>
-              <div class="col-xs-12 text-center"><a [routerLink]="" (click)="redirect('mercancias')" style="color:#1E82BA">Ver todo</a></div> -->
-            </mat-card>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 5px">
+                <small style="font-size:11px; font-weight:bold">House</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 5px 5px 5px">
+                <small style="font-size:11px; font-weight:bold">Fecha</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 15px 5px 5px">
+                <small style="font-size:11px; font-weight:bold">Status</small>
+              </div>
             </div>
 
+            <div class="col-xs-12" style="color:aqua">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="row" *ngFor="let item of dataInfoSalidas.data; let i = index">
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 15px">
+                <small class="info-box-text " style="font-size:10px;">{{item.Master}}</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
+                <small class="info-box-text" style="font-size:10px;">{{item.House}}</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 15px 5px 15px 5px">
+                <small class="info-box-text" style="font-size:10px;">{{item.Fecha}}</small>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center"
+                style="padding: 15px 15px 15px 5px">
+                <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1E82BA"
+                  *ngIf="item.Estatus == 'PREALERTAS'">{{item.Estatus}}</small>
+                <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#1EC8F3"
+                  *ngIf="item.Estatus == 'SALIDAS'">{{item.Estatus}}</small>
+                <small class="info-box-text" style="font-size:9px; font-weight:bold; color:gray"
+                  *ngIf="item.Estatus == 'PREVIOS'">{{item.Estatus}}</small>
+                <small class="info-box-text" style="font-size:9px; font-weight:bold; color:#D9E11E"
+                  *ngIf="item.Estatus == 'ABANDONOS'">{{item.Estatus}}</small>
+              </div>
 
-          <!-- </div> -->
-        <!-- </div> -->
-      
+            </div>
+            <div class="col-xs-12" style="color:aqua; margin-bottom:14px"><mat-divider></mat-divider></div>
+              <div class="col-xs-12 text-center"><a style="color:#1E82BA">Solicitudes mostradas: 20</a></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
