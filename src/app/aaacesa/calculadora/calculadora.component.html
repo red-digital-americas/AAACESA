@@ -148,7 +148,13 @@
             </div><!-- end Col -->
             <div class="col-12" *ngIf="resCalcuo.CostoRefrigeracion > '0' ">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoRefrigeracion" placeholder="Costo Refrigeracion" [ngModelOptions]="{standalone: true}">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoRefrigeracion" placeholder="Costo Refrigeración" [ngModelOptions]="{standalone: true}">
+                <span matPrefix>$</span>
+              </mat-form-field>
+            </div><!-- end Col -->
+            <div class="col-12" *ngIf="resCalcuo.CostoCongelacion > '0' ">
+              <mat-form-field class="input-full-width">
+                <input matInput type="text" readonly style="text-align: right;" [(ngModel)]="resCalcuo.CostoCongelacion" placeholder="Costo Congelación" [ngModelOptions]="{standalone: true}">
                 <span matPrefix>$</span>
               </mat-form-field>
             </div><!-- end Col -->

@@ -23,20 +23,7 @@ export class LoginServices{
     }
     
     service_general_login(url, parametros): Observable<any> {
-      return this.http.post(this.url + url, parametros).retryWhen(error => {
-        console.log(error);
-        return error
-           .flatMap((error: any) => {
-              if((error.status >= 500)||(error.status === 0))
-              {
-                this.loading= false;
-                return Observable.throw({error: 'Error de conexión, revise su servicio de Internet.'});
-              }
-              return Observable.throw(error);
-           })
-           .take(5)
-           .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
-        });
+      return this.http.post(this.url + url, parametros);
     }
 
     service_general_put(url, parametros): Observable<any> {

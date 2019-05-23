@@ -61,9 +61,6 @@ export class ResCalculoManiobra {
     public CostoRefrigeracion:string = "";    
     public CostoCongelacion:string = "";    
     public CostoTEC:string = "";    
-    public CostoPrevio:string = "";    
-    public Subtotal:string = "";    
-    public IVA:string = "";    
     public Total:string = "";    
 
     Clean() {
@@ -73,9 +70,6 @@ export class ResCalculoManiobra {
         this.CostoRefrigeracion = "";    
         this.CostoCongelacion = "";    
         this.CostoTEC = "";    
-        this.CostoPrevio = "";    
-        this.Subtotal = "";    
-        this.IVA = "";    
         this.Total = "";    
     }
 }
