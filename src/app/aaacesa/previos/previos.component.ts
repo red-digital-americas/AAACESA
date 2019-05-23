@@ -300,7 +300,7 @@ export class PreviosComponent  {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCreatePreviosComponent, {
-      // width: '60%',        
+      width: '70%',        
       disableClose: true,
       data: { }      
     });
