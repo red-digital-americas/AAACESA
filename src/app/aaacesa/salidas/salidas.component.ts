@@ -541,7 +541,7 @@ constructor(
     this.apiService.service_general_get(`/AdelantoFacturacion/ValidaPatenteTerceros/${this.secondFormGroup.get('patenteCtrl').value}`)        
     .subscribe ( 
     (response:any) => {             
-      this.showAlert("PATENTE Valido");      
+      // this.showAlert("PATENTE Valido");      
       this.isSecondFormValid = true;
       this.processingCreation = false;
       setTimeout(() => {this.stepper.selectedIndex = 2;});      // For Linear Steppers need this trick
