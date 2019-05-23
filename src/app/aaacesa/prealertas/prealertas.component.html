@@ -28,7 +28,7 @@
 
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha Arribo">                
+                <input matInput type="text" #dp="bsDatepicker" bsDatepicker [(ngModel)]="fechaPrevioSearch" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha Estimada de Arribo">                
               </mat-form-field>
             </div>
 
@@ -131,6 +131,11 @@
               <td mat-cell *matCellDef="let element">{{element.IdPrealerta}}</td>
             </ng-container>
           
+            <ng-container matColumnDef="FechaSolicitud">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Solicitud </th>              
+              <td mat-cell *matCellDef="let element"> {{element.FechaSolicitud}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="GuiaMaster">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Guía Master </th>
               <td mat-cell *matCellDef="let element"> {{element.GuiaMaster}} </td>
@@ -142,13 +147,12 @@
             </ng-container>
             
             <ng-container matColumnDef="InstruccionesManejo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrucciones Manejo</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Instrucciones de Manejo</th>
               <td mat-cell *matCellDef="let element"> {{element.InstruccionesManejo}} </td>
             </ng-container>
             
             <ng-container matColumnDef="FechaArribo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Arribo </th>
-              <!-- <td mat-cell *matCellDef="let element"> {{element.FechaArribo.split(' ')[0]}} </td> -->
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Estimada de Arribo </th>              
               <td mat-cell *matCellDef="let element"> {{element.FechaArribo}} </td>
             </ng-container>
 
@@ -238,7 +242,7 @@
                       <p class="detail-text">{{detailData.Peso}} kg.</p>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                      <div class="detail-text font-weight-bold">Fecha de Arribo</div>
+                      <div class="detail-text font-weight-bold">Fecha Estimada de Arribo</div>
                       <p class="detail-text">{{detailData.FechaArribo}}</p>
                     </div>
                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
@@ -338,8 +342,8 @@
                             <div class="detail-text">{{estado.Estado | estatusTransferenciaPipe }}</div>
                           </div>                        
                         </div>
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-12 col-xl-4 text-left">
-                          <h5 class="detail-text">{{estado.Fecha?.slice(0, 16) }}{{estado.Fecha?.slice(-6)}}</h5>                        
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-12 col-xl-4 text-left">                                                
+                          <h5 class="detail-text">{{estado.Fecha}}</h5>                        
                         </div>
                       </div>                      
                     </div>                             

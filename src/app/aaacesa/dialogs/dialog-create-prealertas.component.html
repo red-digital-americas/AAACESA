@@ -105,7 +105,7 @@
             <div class="row mb-1">                              
                 <div class="col-lg-4">
                   <mat-form-field class="input-full-width">
-                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha estimada de Arribo">
+                    <input matInput type="text" formControlName="fechaArriboCtrl" #dp="bsDatepicker" bsDatepicker [minDate]="minDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placeholder="Fecha Estimada de Arribo">
                     <mat-error *ngIf="secondFormGroup.get('fechaArriboCtrl').errors?.required">
                       * Este campo es obligatorio
                     </mat-error> 
@@ -246,10 +246,7 @@
                   <div class="row mt-1">
                     <mat-radio-button class="col" *ngFor="let option of instruccionesManejoCatalogo; let i=index" [value]="option.ClaveInstruccion" color="primary">                      
                       {{option.Descripcion}}
-                    </mat-radio-button>       
-                    <mat-radio-button class="col" value="O" color="primary">                      
-                      OTRO
-                    </mat-radio-button>                    
+                    </mat-radio-button>                           
                   </div>                                      
                 </mat-radio-group>
               </div>
