@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>                      
+                    <input matInput type="text" (input)="cleanMasterHouse()" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>                      
                     <!-- <input matInput type="text" (input)="checkReferencia()" formControlName="referenciaCtrl" placeholder="Referencia"/>                       -->
                   </mat-form-field>                 
                   <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar referencia</button>            

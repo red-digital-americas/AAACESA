@@ -48,9 +48,9 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">                                                
                   <mat-form-field class="input-full-width">    
-                    <input matInput type="text" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>                      
+                    <input matInput type="text" (input)="cleanMasterHouse()" formControlName="referenciaCtrl" maxlength="20" placeholder="Referencia"/>                      
                   </mat-form-field> 
-                  <button (click)="checkReferencia()" style="float: right;" class="btn btn-pill btn-primary btn-sm"><i class="fas fa-search"></i> Buscar referencia</button>                            
+                  <button (click)="checkReferencia()" [disabled]="firstFormGroup.get('masterCtrl').value.length > 0 || firstFormGroup.get('houseCtrl').value.length > 0" style="float: right;" class="btn btn-pill btn-primary btn-sm"><i class="fas fa-search"></i> Buscar referencia</button>                            
                 </div>
               </div>          
             </div>
@@ -65,7 +65,8 @@
     </div>
       
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
+    <!-- <mat-step [stepControl]="secondFormGroup"> -->
+    <mat-step [completed]="isSecondFormValid">
       <!-- <ng-template matStepLabel>Información complementaria</ng-template> -->
               
       <div class="container mt-3">

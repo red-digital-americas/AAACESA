@@ -497,20 +497,21 @@ export class DialogCreatePreviosComponent implements OnInit {
   private validarMasterHouse() {
     this.processingCreation = true;
     this.isMasterHouseValid = false;
-    
-    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+        
+    // this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.value.masterCtrl}&House=${this.firstFormGroup.value.houseCtrl}`)
+    this.apiService.service_general_get(`/ConsultaMercancia/CheckAWB?Master=${this.firstFormGroup.get('masterCtrl').value}&House=${this.firstFormGroup.get('houseCtrl').value}`)
     .subscribe ( 
     (response:any) => {       
       this.secondFormGroup.get('piezasCtrl').setValue(response.Piezas);
       this.secondFormGroup.get('pesoCtrl').setValue(response.Peso);            
       this.showAlert("Master/House encontrada");      
       this.isMasterHouseValid = true;
-      this.processingCreation = false;
+      this.processingCreation = false;   
       setTimeout(() => {this.stepper.selectedIndex = 1;});      // For Linear Steppers need this trick
     }, 
     (errorService) => {       
       this.secondFormGroup.value.piezasCtrl = "";                  
-      this.secondFormGroup.value.pesoCtrl = "";
+      this.secondFormGroup.value.pesoCtrl = "";      
       this.showAlert(errorService.error);      
       this.processingCreation = false; 
     });        
@@ -532,9 +533,9 @@ export class DialogCreatePreviosComponent implements OnInit {
     this.apiService.service_general_get(`/ConsultaMercancia/GetAWBByReference/${referencia}`)
     .subscribe ( 
     (response:any) => { 
-      // console.log(response);
+      // console.log(response);      
       this.firstFormGroup.get('masterCtrl').setValue(response.Master);
-      this.firstFormGroup.get('houseCtrl').setValue(response.House);
+      this.firstFormGroup.get('houseCtrl').setValue(response.House);      
       this.referencia = this.firstFormGroup.get('referenciaCtrl').value;
     },(errorService) => { 
       // console.log(errorService);
@@ -547,6 +548,25 @@ export class DialogCreatePreviosComponent implements OnInit {
 
   cleanReferencia() {        
     this.firstFormGroup.get('referenciaCtrl').setValue('');  
+
+    this.firstFormGroup.get('referenciaCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('masterCtrl').value.length > 0 || this.firstFormGroup.get('houseCtrl').value.length > 0) {
+      this.firstFormGroup.get('referenciaCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
+    this.referencia = "Sin Referencia";        
+  }
+  cleanMasterHouse() {        
+    this.firstFormGroup.get('masterCtrl').setValue('');  
+    this.firstFormGroup.get('houseCtrl').setValue('');  
+
+    this.firstFormGroup.get('masterCtrl').enable({onlySelf: true, emitEvent: false});
+    this.firstFormGroup.get('houseCtrl').enable({onlySelf: true, emitEvent: false});
+    if (this.firstFormGroup.get('referenciaCtrl').value.length > 0) {
+      this.firstFormGroup.get('masterCtrl').disable({onlySelf: true, emitEvent: false});
+      this.firstFormGroup.get('houseCtrl').disable({onlySelf: true, emitEvent: false});
+    }
+
     this.referencia = "Sin Referencia";        
   }
 
@@ -592,8 +612,8 @@ export class DialogCreatePreviosComponent implements OnInit {
     // console.log(this.firstFormGroup.value);
     // console.log(this.secondFormGroup.value);
 
-    this.model.Master = this.firstFormGroup.value.masterCtrl;
-    this.model.House = this.firstFormGroup.value.houseCtrl;
+    this.model.Master = this.firstFormGroup.get('masterCtrl').value;
+    this.model.House = this.firstFormGroup.get('houseCtrl').value;
     this.model.Nombre = this.thirdFormGroup.value.nombreCtrl;
     this.model.Paterno = this.thirdFormGroup.value.paternoCtrl;
     this.model.Materno = this.thirdFormGroup.value.maternoCtrl;
