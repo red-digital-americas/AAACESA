@@ -30,11 +30,11 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
            console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401||(error.status === 0))) {
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
@@ -55,12 +55,12 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401||(error.status === 0))) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
@@ -81,12 +81,12 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401)||(error.status === 0)) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
@@ -107,12 +107,12 @@ export class ApiServices {
       return error
          .flatMap((error: any) => {
           console.log(error.status);
-            if(error.status  === 401) {
+            if((error.status  === 401||(error.status === 0))) {
               console.log(error.status);
               this.service_refresh_token();
               return Observable.of(error.status).delay(1000)
             }
-            if((error.status >= 500)||(error.status === 0))
+            if(error.status >= 500)
             {
               this.closeSession();
               return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
