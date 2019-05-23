@@ -54,7 +54,7 @@ export class SalidasComponent  {
   public detailData = {};                   // Registro con el detalle obtenido
   dataSource = new MatTableDataSource();    // Data usada en la Mat Table
 
-  displayedColumns: string[] = ['IdAdelantoSalidas', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Patente', 'Estatus', 'Acciones'];    
+  displayedColumns: string[] = ['IdAdelantoSalidas', 'FechaCreacion', 'Master', 'House', 'Pedimento', 'RFCFacturar', 'FechaSalida', 'Estatus', 'Acciones'];    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   ngAfterViewInit() {
@@ -340,10 +340,10 @@ constructor(
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({
-      rfcFacturarCtrl: ['', Validators.required],
-      pedimentoCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      rfcFacturarCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      pedimentoCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       subdivisionCtrl: [false, Validators.required],      
-      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      patenteCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       fechaSalidaCtrl: [moment(new Date()).add(1, 'days').toDate(), Validators.required],
       horaSalidaCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoSalidaCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],            

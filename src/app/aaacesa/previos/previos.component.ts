@@ -394,7 +394,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       horaPrevioCtrl: [parseInt(moment(new Date()).format('HH')), [Validators.required, Validators.min(0), Validators.max(23), this.hourValidation.bind(this)]],
       minutoPrevioCtrl: [parseInt(moment(new Date()).format('mm')), [Validators.required, Validators.min(0), Validators.max(59), this.minuteValidation.bind(this)]],      
       piezasCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]*')]],
+      pesoCtrl: ['', [Validators.required, Validators.pattern('^[0-9]*[.]?[0-9]{1,2}')]],
       etiquetadoCtrl: [false, Validators.required],      
     });
 
@@ -403,7 +403,7 @@ export class DialogCreatePreviosComponent implements OnInit {
       nombreCtrl: ['', Validators.required],
       paternoCtrl: ['', Validators.required],
       maternoCtrl: ['', Validators.required],
-      patenteCtrl: ['', [Validators.required, Validators.pattern('[0-9]*')]],            
+      patenteCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],            
       comentarioCtrl: [''],     
     });
     

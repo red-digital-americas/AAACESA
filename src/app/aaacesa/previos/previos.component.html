@@ -20,7 +20,7 @@
             </div>
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="busquedaModel.House" placeholder="Guía House"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.House" maxlength="20" placeholder="Guía House"/>
               </mat-form-field>
             </div>
 
@@ -47,7 +47,7 @@
           <div class="row">
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" placeholder="Id Adelanto Previo"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.IdAdelantoPrevio" maxlength="20"  placeholder="Id Adelanto Previo"/>
               </mat-form-field>
             </div>
             <!-- <div class="col-lg-3 mb-1">
@@ -65,12 +65,12 @@
             </div>                             -->
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">
-                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" placeholder="Patente"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Patente" maxlength="10" placeholder="Patente"/>
               </mat-form-field>
             </div>
             <div class="col-lg-3 mb-1">
               <mat-form-field class="input-full-width">  
-                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Referencia" placeholder="Referencia"/>
+                <input matInput type="text" class="" [(ngModel)]="busquedaModel.Referencia" maxlength="20" placeholder="Referencia"/>
               </mat-form-field>
             </div>      
           </div>
@@ -232,46 +232,50 @@
 
                           <hr class="dividerb">
                           <div class="row mt-2">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                               <div class="detail-text font-weight-bold">Piezas </div>
                               <p class="detail-text">{{detailData.Piezas}}</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                               <div class="detail-text font-weight-bold">Peso</div>
                               <p class="detail-text">{{detailData.Peso}} kg.</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-2">
-                                <div class="detail-text font-weight-bold">Etiquetado  </div>
-                                <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
-                              </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                              <div class="detail-text font-weight-bold">Fecha y Hora previo </div>
-                              <p class="detail-text">{{detailData.FechaPrevio }}</p>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold">Etiquetado  </div>
+                              <p class="detail-text">{{detailData.Etiquetado ? 'Sí' : 'No'}}</p>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                               <div class="detail-text font-weight-bold">Fecha y Hora solicitud </div>
-                              <p class="detail-text">{{detailData.FechaSolicitud?.slice(0, 16) }}{{detailData.FechaSolicitud?.slice(-6)}}</p>
-                            </div>
-                            
+                              <p class="detail-text">{{detailData.FechaSolicitud}}</p>
+                            </div>                                                                                   
                           </div><!-- End Row Inside -->
+
                           <div class="row mt-2">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                              <div class="detail-text font-weight-bold ">No. Gafete </div>
-                              <p class="detail-text">{{detailData.NumGafete}}</p>
-                            </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                               <div class="detail-text font-weight-bold">Patente </div>
                               <p class="detail-text">{{detailData.Patente}}</p>
                             </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                              <div class="detail-text font-weight-bold ">No. Gafete </div>
+                              <p class="detail-text">{{detailData.NumGafete}}</p>
+                            </div>                            
                             <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-3">
                               <div class="detail-text font-weight-bold">Tramitador</div>
                               <p class="detail-text">{{detailData.Nombre}} {{detailData.Paterno}} {{detailData.Materno}}</p>
                             </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-3">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+                              <div class="detail-text font-weight-bold">Fecha y Hora previo </div>
+                              <p class="detail-text">{{detailData.FechaPrevio }}</p>
+                            </div>                                                        
+                          </div><!-- End Row Inside -->
+
+                          <div class="row mt-2">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-12 col-xl-12">
                               <div class="detail-text font-weight-bold">Correo</div>
                               <p class="detail-text">{{detailData.Correo}}</p>
                             </div>
-                          </div><!-- End Row Inside -->
+                          </div>
+
                           <hr class="dividerb">
                           <div class="row mt-3">
                             <div *ngFor="let file of detailData.Documentos" class="col-xs-2 col-sm-3 col-md-2 col-lg-2">
