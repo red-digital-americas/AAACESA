@@ -15,6 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { UsuarioComponent } from '../../aaacesa/usuario/usuario.component';
 import { ContadorComponent } from '../../aaacesa/contador/contador.component';
 import { GeneralSummaryComponent } from '../../aaacesa/general-summary/general-summary.component'
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { GeneralSummaryComponent } from '../../aaacesa/general-summary/general-s
     MatSnackBarModule,
     MatGridListModule,
     CommonModule,
-    MatDividerModule
+    MatDividerModule,
+    ScrollDispatchModule
   ],
   exports: [
     UsuarioComponent,
