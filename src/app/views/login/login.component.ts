@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         if (err.error instanceof Error) {
           this.sendAlert('Error:'+ err.error.message);
         } else {
-          let error= (err.error.Description == undefined)?err.error:err.error.Description;
+          let error= (err.error.Description == undefined)?"Ocurrió un error inesperado, favor de revisar su conexión.":err.error.Description;
           this.sendAlert(error);
         }
       });

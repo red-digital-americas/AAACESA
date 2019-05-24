@@ -6,7 +6,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { HttpClient } from '@angular/common/http';import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, Http } from '@angular/http';
 
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -64,6 +64,9 @@ import { UserIdleModule } from 'angular-user-idle';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { CalculadoraModule } from './aaacesa/calculadora/calculadora.module';
 import { AdminUserModule } from './aaacesa/admin-user/admin-user.module';
+import { AuthInterceptor } from './services/AuthInterceptor';
+import { ApiServices } from './services/api.services';
+import { LoginServices } from './services/login.services';
 
 
 
@@ -114,8 +117,9 @@ import { AdminUserModule } from './aaacesa/admin-user/admin-user.module';
   ],
   exports: [
   ],
+  // providers: [{ provide: LOCALE_ID, useValue: 'es-Mx' }, 
+  // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },LoginServices,ApiServices],
   providers: [{ provide: LOCALE_ID, useValue: 'es-Mx' }],
-
   bootstrap: [ AppComponent ],
 
   entryComponents:[

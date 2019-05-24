@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, delay } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { UserAuth } from '../models/user.models';
 import 'rxjs/add/operator/map';
@@ -24,35 +24,15 @@ export class ApiServices {
   }
 
   service_general_get(url): Observable<any> {
+    this.service_refresh_token();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
-      return error
-        .flatMap((error: any) => {
-          console.log(error.status)
-          if(error.status  == 401) {
-            this.service_refresh_token();
-            return Observable.of(error.status).delay(1000);
-          }
-          if(error.status  === 0) {
-            this.service_refresh_token();
-            return Observable;
-          }
-          if(error.status >= 500)
-          {
-            this.closeSession();
-            return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
-          }
-          return Observable.throw(error);
-        })
-        .take(2)
-        .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
-      });
-
+    return this.http.get(this.url + url, { headers: headers });
   }
 
   service_general_get_with_params(url, parametros): Observable<any> {
+    this.service_refresh_token();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -60,6 +40,7 @@ export class ApiServices {
   }
 
   service_general_post(url, parametros): Observable<any> {
+    this.service_refresh_token();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -67,6 +48,7 @@ export class ApiServices {
   }
 
   service_general_put(url, parametros): Observable<any> {
+    this.service_refresh_token();
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -93,12 +75,16 @@ export class ApiServices {
     }, 
     (err: HttpErrorResponse) => { 
       this.closeSession();
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     });
   }
 
   closeSession(){
-    this.service_general_put(this.url +'/Authentication/LogOut',{});
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
+    this.service_general_put(this.url +'/Authentication/LogOut',{ headers: headers });
     localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
