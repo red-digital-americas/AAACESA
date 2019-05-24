@@ -8,6 +8,7 @@ import { UserAuth } from '../models/user.models';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { UserIdleService } from 'angular-user-idle';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ApiServices {
@@ -15,20 +16,39 @@ export class ApiServices {
   public url = "http://192.170.15.17:8089/api";
   loading= false;
 
-  constructor(private http: HttpClient, private https: Http, private userIdle: UserIdleService ) { }
+  constructor(private http: HttpClient, private https: Http, private userIdle: UserIdleService,private router: Router, ) { }
 
   public getJSON(_jsonURL): Observable<any> {
     return this.https.get(_jsonURL)
       .map((response: any) => response.json());
-
   }
 
   service_general_get(url): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    this.service_refresh_token();
-    return this.http.get(this.url + url, { headers: headers });
+    return this.http.get(this.url + url, { headers: headers }).retryWhen(error => {
+      return error
+        .flatMap((error: any) => {
+          console.log(error.status)
+          if(error.status  == 401) {
+            this.service_refresh_token();
+            return Observable.of(error.status).delay(1000);
+          }
+          if(error.status  === 0) {
+            this.service_refresh_token();
+            return Observable;
+          }
+          if(error.status >= 500)
+          {
+            this.closeSession();
+            return Observable.throw({error: 'El servidor no responde, Reinicie sesión.'});
+          }
+          return Observable.throw(error);
+        })
+        .take(2)
+        .concat(Observable.throw({error: 'No se pudo completar la acción.'}));
+      });
 
   }
 
@@ -36,7 +56,6 @@ export class ApiServices {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    this.service_refresh_token();
     return this.http.get(this.url + url, { headers: headers, params: parametros });
   }
 
@@ -44,7 +63,6 @@ export class ApiServices {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    this.service_refresh_token();
     return this.http.post(this.url + url, parametros, { headers: headers });
   }
 
@@ -52,7 +70,6 @@ export class ApiServices {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    this.service_refresh_token();
     return this.http.put(this.url + url, parametros, { headers: headers });
   }
 
@@ -73,6 +90,10 @@ export class ApiServices {
       this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
       this.userIdle.startWatching();
       console.log(this.userIdle.getConfigValue());
+    }, 
+    (err: HttpErrorResponse) => { 
+      this.closeSession();
+      this.router.navigate(['/']);
     });
   }
 

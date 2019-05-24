@@ -1,6 +1,6 @@
 <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true }"></ngx-loading>
 <div class="animated fadeIn">
-  <div class="card" style="height: 100vh">
+  <div class="card">
     <div class="card-body">
       <!-- Start Busqueda Superior -->
       <div class="row mb-4">
@@ -40,9 +40,12 @@
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)" >
         <!-- TAB INFO GENERAL -->
         <mat-tab label="Información General"> 
-          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+          <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
-              <div class="table-responsive" *ngIf="visibleIG">
+              <div class="col-md-12" [ngClass]="{'invisible': !visibleIG}">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+              <div class="table-responsive" [ngClass]="{'invisible': visibleIG}">
                 <table mat-table [dataSource]="dataGetInfoG">
         
                   <!-- RazonSocial Column -->
@@ -78,10 +81,10 @@
                   <tr mat-header-row *matHeaderRowDef="infoGralColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: infoGralColumns;"></tr>
                 </table>
+                <mat-paginator #InfoGeneralPag [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
               </div>
-              <div class="col-md-12" *ngIf="!visibleIG">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
-              </div>
+              
             </div>
           </div>
         </mat-tab>
@@ -89,9 +92,12 @@
         
         <!-- TAB ESTATUS MERCANCIA -->
         <mat-tab label="Estatus Mercancía">  
-          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+          <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
-              <div class="table-responsive" *ngIf="visibleES">
+              <div class="col-md-12" [ngClass]="{'invisible': !visibleES}">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+              <div class="table-responsive" [ngClass]="{'invisible': visibleES}">
                 <table mat-table [dataSource]="dataEstatus" >
         
                   <!-- UltimaZona Column -->
@@ -133,10 +139,10 @@
                   <tr mat-header-row *matHeaderRowDef="estatusColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: estatusColumns;"></tr>
                 </table>
+                <mat-paginator #InfoEstatusPag [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
               </div>
-              <div class="col-md-12" *ngIf="!visibleES">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
-              </div>
+              
             </div>
           </div>
         </mat-tab>
@@ -144,9 +150,12 @@
 
         <!-- TAB INFO SALIDAS MERCANCIAS -->
         <mat-tab label="Información Salidas">  
-          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+          <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
-              <div class="table-responsive" *ngIf="visibleIS">
+              <div class="col-md-12" [ngClass]="{'invisible': !visibleIS}">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+              <div class="table-responsive" [ngClass]="{'invisible': visibleIS}">
                 <table mat-table [dataSource]="dataInfoSalidas">
         
                   <!-- FechaSalida Column -->
@@ -194,10 +203,10 @@
                   <tr mat-header-row *matHeaderRowDef="infoSalidasColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: infoSalidasColumns;"></tr>
                 </table>
+                <mat-paginator #InfoSalidasPag [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
               </div>
-              <div class="col-md-12" *ngIf="!visibleIS">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
-              </div>
+              
             </div>
           </div>
         </mat-tab>
@@ -205,9 +214,12 @@
 
         <!-- TAB ESTATUS TRANSFERENCIA -->
         <mat-tab label="Estatus Transferencia">  
-          <div class="container mb-3 mt-5 mr-0 ml-0" *ngIf="visible" >
+          <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
-              <div class="table-responsive" *ngIf="visibleET">
+              <div class="col-md-12" [ngClass]="{'invisible': !visibleET}">
+                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+              </div>
+              <div class="table-responsive" [ngClass]="{'invisible': visibleET}">
                 <table mat-table [dataSource]="dataStatTrans">
         
                   <!-- FechaPrealerta Column -->
@@ -243,10 +255,10 @@
                   <tr mat-header-row *matHeaderRowDef="statTransColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: statTransColumns;"></tr>
                 </table>
+                <mat-paginator #InfoTranferenciaPag [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
               </div>
-              <div class="col-md-12" *ngIf="!visibleET">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
-              </div>
+              
             </div>
           </div>
         </mat-tab>
