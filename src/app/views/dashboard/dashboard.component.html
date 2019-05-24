@@ -38,7 +38,7 @@
               <span class="info-box-text">
                 <h5>{{summarys[1].tipo}}</h5>
               </span>
-              <span class="info-box-number">{{detailSalidas}}</span>
+              <span class="info-box-number">{{detailSalidas.length > 0 ? detailSalidas : '0'}}</span>
             </div>
             <div class="col-xs-12 col-lg-4" style="padding:0">
               <br>
@@ -56,7 +56,7 @@
               <span class="info-box-text">
                 <h5>{{summarys[2].tipo}}</h5>
               </span>
-              <span class="info-box-number">{{detailPrealertas}}</span>
+              <span class="info-box-number">{{detailPrealertas.length > 0 ? detailPrealertas : '0'}}</span>
             </div>
             <div class="col-xs-12 col-lg-4" style="padding:0">
               <br>
@@ -114,13 +114,12 @@
             <div class="row">
               
               <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0;">
-                <a href="http://t21.com.mx/"><img class="img-fluid" src="assets/img/portada(3).jpg" alt="Imagen card"
-                    style="height:155px;" /></a>              
-                <div class="divisas">
-                <div style="font-size:11px; margin-bottom: 5px; font-weight:bold; text-align: center;">Tipo Cambio</div>
-
+                <a href="http://t21.com.mx/"><img class="img-fluid t21" src="assets/img/portada(3).jpg" alt="Imagen card" style="height:155px;" /></a>              
+                <div class="clearfix divisas">
+                <div style="font-size:11px; margin-bottom: 5px; font-weight:bold; text-align: center;">Tipo Cambio(Banxico)</div>
+                  <div class="date-responsive" style="text-align: center; font-size:11px; padding-bottom: 5px;"><b>Fecha de Autorización:{{fechaTipoCambio}}</b></div>
                 <div *ngFor="let item of tipoCambioArray; let i=index" class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: left; float:left"><span class="badge badge-primary" style="font-weight: bold;" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>&nbsp;&nbsp;&nbsp; <b>{{item.Paridad | currency: 0 : "$"}}</b></small> <small style="font-size:10px; float: right;">  {{fechaTipoCambio}}</small>
+                  <small class="info-box-text" style="font-size:10px; text-align: left; float:left"><span class="badge badge-primary" style="font-weight: bold;" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>&nbsp;&nbsp;&nbsp; <b>{{item.Paridad | currency: 0 : "$"}}</b></small> <small class="date" style="font-size:10px; float: right;">  {{fechaTipoCambio}}</small>
                 </div>
               </div>              
                 <!-- <div class="col-12">                    

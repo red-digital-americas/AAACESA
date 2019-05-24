@@ -27,6 +27,11 @@ img {
       display: none;
     }
 
+    .t21 {
+      width: 96%;
+      height: 200px;
+      margin-bottom: 10px;
+    }
     .airport{
       visibility:hidden;
     }
@@ -37,14 +42,29 @@ img {
     .info-box-text {
       text-align: center;
     }
-    .divisas{
-      display: none;
+    .date-responsive {
+      display: show;
     }
+   /*  .divisas{
+      display: none;
+    } */
 }
 
 @media(max-width:920px){
   .info-box {
     height: 180px;
+  }
+  .date {
+    display: none;
+  }
+  .date-responsive {
+    display: show;
+  }
+}
+
+@media(min-width:992px){
+  .date-responsive {
+    display: none;
   }
 }
 

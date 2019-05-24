@@ -24,7 +24,7 @@ export class ApiServices {
   }
 
   service_general_get(url): Observable<any> {
-    this.service_refresh_token();
+    /* this.service_refresh_token(); */
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -32,7 +32,7 @@ export class ApiServices {
   }
 
   service_general_get_with_params(url, parametros): Observable<any> {
-    this.service_refresh_token();
+    /* this.service_refresh_token(); */
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -40,7 +40,7 @@ export class ApiServices {
   }
 
   service_general_post(url, parametros): Observable<any> {
-    this.service_refresh_token();
+    /* this.service_refresh_token(); */
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -48,7 +48,7 @@ export class ApiServices {
   }
 
   service_general_put(url, parametros): Observable<any> {
-    this.service_refresh_token();
+    /* this.service_refresh_token(); */
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
