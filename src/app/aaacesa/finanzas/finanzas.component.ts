@@ -25,6 +25,9 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
   @ViewChild('PaidComplementPaginator',{read:MatPaginator}) PaidComplementPaginator: MatPaginator;
   @ViewChild('AccountStatusPaginator',{read:MatPaginator}) AccountStatusPaginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('CreditNotesSort') public creditNotesSort: MatSort;
+  @ViewChild('PaidComplementSort') public paidComplementSort: MatSort;
+  @ViewChild('AccountStatusSort') public accountStatusSort: MatSort;
   @ViewChild('tabGroup') tabGroup;
 
   //Variables busquedas por fecha
@@ -92,6 +95,23 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         default: { return item[property];} 
       }
     };
+
+
+    this.dataSources.sort = this.creditNotesSort;
+    this.info.sort = this.paidComplementSort;
+    this.account.sort = this.accountStatusSort;
+
+    const rangoLabel = (page: number, pageSize: number, length: number) => {
+      if (length === 0 || pageSize === 0) { return `0 de ${length}`; }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+ 
+      const endIndex = startIndex < length ?
+        Math.min(startIndex + pageSize, length) :
+        startIndex + pageSize;
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
+    this.dataSource.paginator._intl.getRangeLabel = rangoLabel;
   }
 
 

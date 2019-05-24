@@ -139,7 +139,7 @@
             </mat-form-field>
           </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="dataSources" matSort >
+            <table mat-table [dataSource]="dataSources" #CreditNotesSort="matSort" matSort >
 
               <!-- Nombre Column -->
               <ng-container matColumnDef="Master">
@@ -224,7 +224,7 @@
             </mat-form-field>
           </div>
           <div class="table-responsive">
-            <table mat-table [dataSource]="info" matSort>
+            <table mat-table [dataSource]="info" #PaidComplementSort="matSort" matSort>
 
               <!-- UUID Column -->
               <ng-container matColumnDef="UUID">
@@ -360,7 +360,7 @@
           </div>
 
           <div class="table-responsive">
-            <table mat-table [dataSource]="account" matSort >
+            <table mat-table [dataSource]="account" #AccountStatusSort="matSort" matSort >
 
               <!-- MasterHouse Column -->
               <ng-container matColumnDef="MasterHouse">
