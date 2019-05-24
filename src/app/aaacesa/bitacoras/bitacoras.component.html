@@ -24,7 +24,7 @@
                   <mat-option>                      
                     <ngx-mat-select-search [(ngModel)]="moduloSearch" [placeholderLabel]="'Buscar'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                   </mat-option>
-                  <mat-option [value]="">Todos</mat-option>                    
+                  <mat-option [value]="">TODOS</mat-option>                    
                   <mat-option *ngFor="let option of modulosGet | filterSelectSingle: moduloSearch" [value]="option"> 
                     {{option}}
                   </mat-option>
@@ -39,7 +39,7 @@
                   <mat-option>                      
                     <ngx-mat-select-search [(ngModel)]="usuarioSearch" [placeholderLabel]="'Buscar'" [noEntriesFoundLabel]="'No hay coincidencias'"></ngx-mat-select-search>
                   </mat-option>
-                  <mat-option [value]="">Todos</mat-option>                    
+                  <mat-option [value]="">TODOS</mat-option>                    
                   <mat-option *ngFor="let option of usuariosGet | filterSelect: usuarioSearch" [value]="option['IdCliente']"> 
                     {{option['Nombre']}}
                   </mat-option>
