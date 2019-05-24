@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
   b: number;
   d: number;
   c: number;
+  public fechaTipoCambio ="";
   public table = Array<CountClicks>();
 
   ///////////////
@@ -409,6 +410,7 @@ export class DashboardComponent implements OnInit {
         this.tipoCambioArray.push(response.Divisas[0]);
         this.tipoCambioArray.push(response.Divisas[3]);
         this.tipoCambioArray.push(response.Divisas[4]);
+        this.fechaTipoCambio = response.UltimaActualizacion.substring(0,10);
       },
       (errorService) => { })
   }
