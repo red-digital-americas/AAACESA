@@ -113,11 +113,11 @@
           <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
             <div class="row">
               
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0;">
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5" style="padding-right:0;">
                 <a href="http://t21.com.mx/"><img class="img-fluid" src="assets/img/portada(3).jpg" alt="Imagen card"
                     style="height:155px;" /></a>              
                 <div class="divisas">
-                <div style="font-size:11px; margin-bottom: 5px; font-weight:bold; text-align: center;">Tipo Cambio</div>
+                <div style="font-size:11px; margin-bottom: 5px; font-weight:bold; text-align: center;">Tipo Cambio (Banxico)</div>
 
                 <div *ngFor="let item of tipoCambioArray; let i=index" class="col-12">                    
                   <small class="info-box-text" style="font-size:10px; text-align: left; float:left"><span class="badge badge-primary" style="font-weight: bold;" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>&nbsp;&nbsp;&nbsp; <b>{{item.Paridad | currency: 0 : "$"}}</b></small> <small style="font-size:10px; float: right;">  {{fechaTipoCambio}}</small>
@@ -137,21 +137,21 @@
                 </div> -->
               </div>
 
-              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+              <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
                 <div>
                   <a href="https://www.aicm.com.mx/"><img class="airport img-fluid"
                       src="assets/img/aicm.jpg"
                       alt="Imagen Aeropuerto" style="height: 155px"></a>
                 </div>
 
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                   style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">
                   <div style="font-size:11px; font-weight:bold; text-align: center;">Lo más frecuente</div>
                   <div class="col-xs-12" style="color:black; padding: 0">
                     <mat-divider></mat-divider>
                   </div>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                   style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                   <small class="info-box-text" style="font-size:10px; text-align: center">{{table[0].nombre}}:
                     {{table[0].click}} visitas</small>
@@ -159,7 +159,7 @@
                     <mat-divider></mat-divider>
                   </div>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                   style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                   <small class="info-box-text" style="font-size:10px; text-align: center">{{table[1].nombre}}:
                     {{table[1].click}} visitas</small>
@@ -167,7 +167,7 @@
                     <mat-divider></mat-divider>
                   </div>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                   style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
                   <small class="info-box-text" style="font-size:10px; text-align: center">{{table[2].nombre}}:
                     {{table[2].click}} visitas</small>
