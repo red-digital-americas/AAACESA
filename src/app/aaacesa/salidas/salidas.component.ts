@@ -554,6 +554,20 @@ constructor(
     });  
   }
 
+  public checkPatenteOnChange () {
+    this.apiService.service_general_get(`/AdelantoFacturacion/ValidaPatenteTerceros/${this.secondFormGroup.get('patenteCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => { }, 
+    (errorService) => { this.showAlert(errorService.error.Description); });  
+  }
+
+  public checkRFCOnChange () {
+    this.apiService.service_general_get(`/AdelantoFacturacion/ValidaRFCFactura/${this.secondFormGroup.get('rfcFacturarCtrl').value}`)        
+    .subscribe ( 
+    (response:any) => { }, 
+    (errorService) => { this.showAlert(errorService.error); });  
+  }
+
   guardarFirstForm () {    
     if (this.model.Documentos.length < 1) { this.showAlert("Mínimo subir un documento"); return; }  // No olvidar en la vista
     if (this.model.Documentos.length > 5) { this.showAlert("Máximo subir 5 documentos"); return; }  // <mat-step [completed]="model.Documentos?.length >= 1 && this.model.Documentos.length <= 5" >

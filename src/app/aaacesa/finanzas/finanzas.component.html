@@ -350,6 +350,13 @@
               </mat-card>
             </div>
 
+            
+          </div>
+          <div class="offset-md-8"> <!--Input de Búsqueda General -->
+            <mat-form-field class="input-full-width">
+              <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Búsqueda general..." />
+              <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
+            </mat-form-field>
           </div>
 
           <div class="table-responsive">

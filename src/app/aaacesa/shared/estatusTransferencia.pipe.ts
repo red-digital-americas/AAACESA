@@ -15,6 +15,7 @@ export class EstatusTransferenciaPipe implements PipeTransform {
             result = result + estatus[i];
         }
 
+        if (result === "Recoleccion") { result = "Recolección";}
         return result;
     }
 }
