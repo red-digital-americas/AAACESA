@@ -71,7 +71,7 @@ export class ApiServices {
       this.userIdle.stopWatching();
       this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});
       this.userIdle.startWatching();
-      console.log(this.userIdle.getConfigValue());
+      // console.log(this.userIdle.getConfigValue());
     }, 
     (err: HttpErrorResponse) => { 
       this.closeSession();
