@@ -19,10 +19,6 @@ export class ApiServices {
   }
 
   service_general_get(url): Observable<any> {
-<<<<<<< HEAD
-    // this.service_refresh_token();
-=======
->>>>>>> 9e21746e563ce6447e1dfc5af163836a70d4b1d5
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -30,10 +26,6 @@ export class ApiServices {
   }
 
   service_general_get_with_params(url, parametros): Observable<any> {
-<<<<<<< HEAD
-    // this.service_refresh_token();
-=======
->>>>>>> 9e21746e563ce6447e1dfc5af163836a70d4b1d5
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -41,10 +33,6 @@ export class ApiServices {
   }
 
   service_general_post(url, parametros): Observable<any> {
-<<<<<<< HEAD
-    // this.service_refresh_token();
-=======
->>>>>>> 9e21746e563ce6447e1dfc5af163836a70d4b1d5
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -52,10 +40,6 @@ export class ApiServices {
   }
 
   service_general_put(url, parametros): Observable<any> {
-<<<<<<< HEAD
-    // this.service_refresh_token();
-=======
->>>>>>> 9e21746e563ce6447e1dfc5af163836a70d4b1d5
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
