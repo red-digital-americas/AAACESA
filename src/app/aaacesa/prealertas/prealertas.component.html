@@ -75,22 +75,54 @@
 
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
           <div class="row justify-content-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 align-self-end">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
               <button (click)="buscarPrealertas()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 align-self-start">              
-              <button (click)="buscaPrealertasNueva()" style="float:right" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+              <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
             </div>
           </div>
-        </div>    
+        </div> <!-- End Botones md,lg,xl-->
+        <div class="col-lg-3 d-block d-sm-none">
+          <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+              <button (click)="buscarPrealertas()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+              <button (click)="buscaPrealertasNueva()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+            </div>
+          </div>
+        </div> <!-- End Botones sm-->
       </div>      
       <!-- End Busqueda Superior -->
+      <!-- filter bar responsive SM Superior -->
+      <div class="container d-sm-block d-md-block d-lg-none d-xl-none">
+        <section class="roll-card">
+          <div (click)="applyFilter(i)" *ngFor="let estado of statusEnum; let i=index" [ngClass]="{'status-filter--active': currentFilterIndex==i}" class="text-center roll-card--content status-filter u-cursor">            
+            <div>
+              <div class="status-filter__circle status-filter__circle--mr-sm status-filter__circle--{{estado | statusPipe}}"></div>
+              <span class="status-filter__number">({{ countStatus[i] }})</span>
+            </div>
+            <div class="status-filter__text">
+              <label class="u-cursor">
+                {{statusLabels[i]}}                    
+              </label>
+            </div>
+          </div>                             
 
-      <!-- Start Status Filter Bar -->
-      <div class="container">      
-        <div class="row justify-content-center mt-5 mb-3">
+          <div [ngClass]="{'status-filter--active': currentFilterIndex==statusEnum.length}"  class="roll-card--content text-center status-filter u-cursor">                          
+            <div class="status-filter__text">
+              <label (click)="applyFilter(statusEnum.length)" class="u-cursor">
+                <span class="status-filter__number">({{data.length}})</span> Todos
+              </label>
+            </div>              
+          </div>
+        </section>
+      </div>
+
+      <!-- Start Status Filter Bar LG -->
+      <div class="container d-none d-lg-block d-xl-block">      
+        <div class="row justify-content-center  mt-5 mb-3">
           <div class="col-lg-12">
             <div class="row align-items-center">
 

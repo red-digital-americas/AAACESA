@@ -179,7 +179,9 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
     }
     else if (tabChangeEvent.index == 3) {
       this.tmpaccount = [];
-      this.account.data = [];      
+      this.account.data = [];
+      this.tmpcta = [];
+      this.resum = false;      
     }
   } 
 
@@ -425,7 +427,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
       this.busquedaModel[3].FechaFinal = "";
     }        
 
-    console.log(this.busquedaModel[3]);
+    // console.log(this.busquedaModel[3]);
     this.loading = true;
     this.apiserv.service_general_get_with_params('/Finanzas/GetEstadoDeCuenta', this.busquedaModel[3])
       .subscribe ( 
@@ -433,7 +435,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.tmpaccount = response;    
         this.account.data = this.tmpaccount;        
         this.loading = false;
-        console.log(this.tmpaccount);
+        // console.log(this.tmpaccount);
       }, 
       (errorService) => { 
  this.loading = false;
@@ -447,7 +449,7 @@ export class FinanzasComponent implements OnInit, AfterViewInit{
         this.tmpcta = response;
         this.loading = false;
         this.resum = true;
-        console.log(this.tmpcta);
+        // console.log(this.tmpcta);
       }, 
       (errorService) => { 
         this.loading = false;

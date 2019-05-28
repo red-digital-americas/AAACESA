@@ -350,7 +350,7 @@ constructor(
 
     this.firstFormGroup = this._formBuilder.group({
       masterCtrl: ['', [Validators.required, Validators.pattern('([0-9]{3}-[0-9]{8})')]],
-      houseCtrl: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      houseCtrl: ['', [Validators.pattern('^[a-zA-Z0-9]+$')]],
       referenciaCtrl: ['', []]
     });
     this.secondFormGroup = this._formBuilder.group({

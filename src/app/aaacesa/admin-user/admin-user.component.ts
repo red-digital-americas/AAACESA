@@ -119,6 +119,7 @@ export class AdminUserComponent implements OnInit {
       this.loading=false;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
+      this.paginator._intl.itemsPerPageLabel = "Registros por página";
       this.dataSource.sort = this.sort;
       this.dataSource.sortingDataAccessor = (item, property) => {      
         switch (property) {     
@@ -129,6 +130,17 @@ export class AdminUserComponent implements OnInit {
           default: { return item[property];} 
         }
       };
+      const rangoLabel = (page: number, pageSize: number, length: number) => {
+        if (length === 0 || pageSize === 0) { return `0 de ${length}`; }
+        length = Math.max(length, 0);
+        const startIndex = page * pageSize;
+   
+        const endIndex = startIndex < length ?
+          Math.min(startIndex + pageSize, length) :
+          startIndex + pageSize;
+        return `${startIndex + 1} - ${endIndex} de ${length}`;
+      };
+      this.dataSource.paginator._intl.getRangeLabel = rangoLabel;
     });
   }
 

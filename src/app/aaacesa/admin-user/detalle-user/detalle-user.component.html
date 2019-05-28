@@ -105,12 +105,16 @@
         </div>
       </form>
     </div>
-    <div class="row justify-content-end">
-      <div class="col-lg-2 text-right">
+    <div class="row justify-content-end mt-3">
+      <!-- <div class="col-lg-2 text-right">
         <button *ngIf="disabled" type="button" class="btn btn-primary btn-pill btn-sm" (click)="(disabled = !disabled);(disablePerfil = !disablePerfil);" >Cancelar</button>
       </div>
       <div class="col-lg-2">
         <button *ngIf="disabled" type="button" class="btn btn-primary btn-pill btn-sm" (click)="detailUserForm.valid ? actualiza() : validar_campos(detailUserForm)">Actualizar</button>
+      </div> -->
+      <div class="col-lg-12 text-center">
+        <button *ngIf="disabled" class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1" (click)="(disabled = !disabled);(disablePerfil = !disablePerfil);" >Cancelar</button>            
+        <button *ngIf="disabled" (click)="detailUserForm.valid ? actualiza() : validar_campos(detailUserForm)"  class="btn btn-pill btn-primary btn-sm btn-save-forms mb-1 mb-md-0 mr-1 ml-1">Siguiente</button>            
       </div>
     </div>
   </div>

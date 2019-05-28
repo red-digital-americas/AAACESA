@@ -28,6 +28,7 @@ export class CalculadoraComponent implements OnInit {
   visibImport= false;
 
   masterMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+  currecyMask = ['#,##0.00'];
 
   constructor(private apiservice : ApiServices,private _formBuilder: FormBuilder,private localeService: BsLocaleService,public snackBar: MatSnackBar) {
     this.localeService.use('es');

@@ -29,17 +29,24 @@
                   placeholder="Fecha Emisión" />
               </mat-form-field>
             </div>
-            <div class="col-lg-3">
-              <div class="row justify-content-start">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 ">
-                  <button (click)="facturasBusqueda()" class="btn btn-pill btn-primary btn-sm"> <i
-                      class="fas fa-search"></i> Buscar </button>
+            <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+              <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+                  <button (click)="facturasBusqueda()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0">
-                  <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda </button>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+                  <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
                 </div>
               </div>
-            </div>
+            </div> <!-- End Botones md,lg,xl-->
+            <div class="col-lg-3 d-block d-sm-none">
+              <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+                  <button (click)="facturasBusqueda()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+                  <button (click)="NuevaBusquedaFinanzas()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+                </div>
+              </div>
+            </div> <!-- End Botones sm-->
           </div>
             <div class="offset-md-8"> <!--Input de Búsqueda General -->
               <mat-form-field class="input-full-width">
@@ -72,7 +79,7 @@
               <!-- Importe Column -->
               <ng-container matColumnDef="Importe">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
-                <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.Importe | currency: 0 : "$ "}} </td>
               </ng-container>
 
               <!-- Pedimento Column -->
@@ -119,18 +126,24 @@
                   placeholder="Fecha Emision" />
               </mat-form-field>
             </div>
-            <div class="col-lg-3">
-              <div class="row justify-content-start">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-                  <button (click)="notasBusqueda()" class="btn btn-pill btn-primary btn-sm"> <i
-                      class="fas fa-search"></i> Buscar</button>
+            <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+              <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+                  <button (click)="notasBusqueda()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-                  <button (click)="NuevaBusquedaNotas()" class="btn btn-pill btn-primary btn-sm"> Nueva
-                    Búsqueda</button>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+                  <button (click)="NuevaBusquedaNotas()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
                 </div>
               </div>
-            </div>
+            </div> <!-- End Botones md,lg,xl-->
+            <div class="col-lg-3 d-block d-sm-none">
+              <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+                  <button (click)="notasBusqueda()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+                  <button (click)="NuevaBusquedaNotas()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+                </div>
+              </div>
+            </div> <!-- End Botones sm-->
           </div>
           <div class="offset-md-8"> <!--Input de Búsqueda General -->
             <mat-form-field class="input-full-width">
@@ -162,7 +175,7 @@
               <!-- Importe Column -->
               <ng-container matColumnDef="Importe">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
-                <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.Importe | currency: 0 : "$ "}} </td>
               </ng-container>
 
               <!-- Pedimento Column -->
@@ -204,18 +217,24 @@
                   placeholder="Rango de Fecha">
               </mat-form-field>
             </div>
-            <div class="col-lg-3">
-              <div class="row justify-content-start">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-                  <button (click)="ComplementoBusqueda()" class="btn btn-pill btn-primary btn-sm"> <i
-                      class="fas fa-search"></i> Buscar</button>
+            <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+              <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+                  <button (click)="ComplementoBusqueda()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-                  <button (click)="NuevaBusquedaComplemento()" class="btn btn-pill btn-primary btn-sm"> Nueva
-                    Búsqueda</button>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+                  <button (click)="NuevaBusquedaComplemento()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
                 </div>
               </div>
-            </div>
+            </div> <!-- End Botones md,lg,xl-->
+            <div class="col-lg-3 d-block d-sm-none">
+              <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+                  <button (click)="ComplementoBusqueda()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+                  <button (click)="NuevaBusquedaComplemento()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+                </div>
+              </div>
+            </div> <!-- End Botones sm-->
           </div>
           <div class="offset-md-8"> <!--Input de Búsqueda General -->
             <mat-form-field class="input-full-width">
@@ -247,7 +266,7 @@
               <!-- Importe Column -->
               <ng-container matColumnDef="Importe">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
-                <td mat-cell *matCellDef="let element"> {{element.Importe}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.Importe | currency: 0 : "$ "}} </td>
               </ng-container>
 
               <!-- RFC Column -->
@@ -295,64 +314,58 @@
                   placeholder="Rango de Fecha">
               </mat-form-field>
             </div>
-            <div class="col-lg-3">
-              <div class="row justify-content-start">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1">
-                  <button (click)="EstadosBusqueda()" class="btn btn-pill btn-primary btn-sm"><i
-                      class="fas fa-search"></i> Buscar </button>
+            <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block mb-2">
+              <div class="row justify-content-center">
+                <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+                  <button (click)="EstadosBusqueda()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-1">
-                  <button (click)="NuevaBusquedaEstados()" class="btn btn-pill btn-primary btn-sm"> Nueva
-                    Búsqueda</button>
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+                  <button (click)="NuevaBusquedaEstados()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
                 </div>
               </div>
-            </div>
+            </div> <!-- End Botones md,lg,xl-->
+            <div class="col-lg-3 d-block d-sm-none mb-2">
+              <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+                  <button (click)="EstadosBusqueda()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+                  <button (click)="NuevaBusquedaEstados()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+                </div>
+              </div>
+            </div> <!-- End Botones sm-->
 
-            <div class="col-lg-4 " *ngIf="resum">
+            <div class="col-sm-12 col-lg-3 mt-2" *ngIf="resum">
               <mat-card class="resumen">
-                <mat-card-header><mat-card-subtitle><b>Resumen</b></mat-card-subtitle></mat-card-header>
-                  <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding: 5px 5px 5px 15px">
-                        <small style="font-size:13px; font-weight:bold">Concepto</small>
-                      </div>
-                      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding: 5px 5px 5px 5px">
-                        <small style="font-size:13px; font-weight:bold">Importe</small>
-                      </div>
-                    </div>
-                      <div class="col-xs-12" style="color:black"><mat-divider></mat-divider></div><br>
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                          <div >
-                            <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">Total Cartera:</small>
-                          </div>
-                          <div>
-                              <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">Total Vencido:</small>
-                            </div>
-                          <div>
-                            <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">Total Corriente:</small>
-                          </div>
-
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" >
-                            <div>
-                                <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">${{tmpcta.TotalCartera}}</small>
-                              </div>
-                              <div>
-                                  <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">${{tmpcta.TotalVencido}}</small>
-                                </div>
-                              <div>
-                                <small class="info-box-text" style="font-size:12px; padding: 5px 5px 5px 5px">${{tmpcta.TotalCorriente}}</small>
-                              </div>
-                        </div>
-                        </div>
-
-                  
+                <mat-card-header class="text-center"> <b>Resumen</b></mat-card-header>
+                  <div class="row ml-1">
+                    <table class="table table-responsive">
+                      <thead>
+                        <tr>
+                          <th scope="col">Concepto</th>
+                          <th scope="col">Importe</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Total Cartera</th>
+                          <td>{{tmpcta.TotalCartera | currency: 0 : "$ "}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Vencido:</th>
+                          <td>{{tmpcta.TotalVencido | currency: 0 : "$ "}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Corriente:</th>
+                          <td>{{tmpcta.TotalCorriente | currency: 0 : "$ "}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
               </mat-card>
             </div>
 
             
           </div>
-          <div class="offset-md-8"> <!--Input de Búsqueda General -->
+          <div class="offset-md-8 mt-2 mb-2"> <!--Input de Búsqueda General -->
             <mat-form-field class="input-full-width">
               <input matInput (input)="generalSearch()" [(ngModel)]="filterQuery" type="text" placeholder="Búsqueda general..." />
               <mat-icon matSuffix><i class="fa fa-search"></i></mat-icon>
@@ -390,13 +403,13 @@
               <!-- Importe Column -->
               <ng-container matColumnDef="ImporteFactura">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe </th>
-                <td mat-cell *matCellDef="let element"> {{element.ImporteFactura}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.ImporteFactura | currency: 0 : "$ "}} </td>
               </ng-container>
 
               <!-- ImporteFaltante Column -->
               <ng-container matColumnDef="ImporteFaltante">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Faltante </th>
-                <td mat-cell *matCellDef="let element"> {{element.ImporteFaltante}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.ImporteFaltante | currency: 0 : "$ "}} </td>
               </ng-container>
 
               <!-- FechaFactura Column -->

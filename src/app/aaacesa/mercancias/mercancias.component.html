@@ -25,16 +25,24 @@
           <!-- end row -->
         </div>
 
-        <div class="col-lg-6">
-          <div class="row justify-content-start">
-            <div class="col-lg-3 col-xs-6 col-md-3 align-self-end mr-0">
-              <button (click)="buscarMercancias()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+        <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+          <div class="row justify-content-center">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+              <button (click)="buscarMercancias()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
             </div>
-            <div class="col  col-xs-6 col-md-4 align-self-start">              
+            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+              <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
+            </div>
+          </div>
+        </div> <!-- End Botones md,lg,xl-->
+        <div class="col-lg-3 d-block d-sm-none">
+          <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+              <button (click)="buscarMercancias()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
               <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
             </div>
           </div>
-        </div>    
+        </div> <!-- End Botones sm-->    
       </div>      
       <!-- End Busqueda Superior -->
       <mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)" >
@@ -43,7 +51,7 @@
           <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
               <div class="col-md-12" [ngClass]="{'invisible': !visibleIG}">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+                <span class="label label-default mr-auto ml-3 text-center"> No existe información disponible </span>
               </div>
               <div class="table-responsive" [ngClass]="{'invisible': visibleIG}">
                 <table mat-table [dataSource]="dataGetInfoG">
@@ -95,7 +103,7 @@
           <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
               <div class="col-md-12" [ngClass]="{'invisible': !visibleES}">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+                <span class="label label-default mr-auto ml-3 text-center"> No existe información disponible </span>
               </div>
               <div class="table-responsive" [ngClass]="{'invisible': visibleES}">
                 <table mat-table [dataSource]="dataEstatus" >
@@ -153,7 +161,7 @@
           <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
               <div class="col-md-12" [ngClass]="{'invisible': !visibleIS}">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+                <span class="label label-default mr-auto ml-3 text-center"> No existe información disponible </span>
               </div>
               <div class="table-responsive" [ngClass]="{'invisible': visibleIS}">
                 <table mat-table [dataSource]="dataInfoSalidas">
@@ -217,7 +225,7 @@
           <div class="container mb-3 mt-5 mr-0 ml-0" [ngClass]="{'invisible': visible}" >
             <div class="row">
               <div class="col-md-12" [ngClass]="{'invisible': !visibleET}">
-                <span class="label label-default d-none d-lg-block mr-auto ml-3 text-center"> No existe información disponible </span>
+                <span class="label label-default mr-auto ml-3 text-center"> No existe información disponible </span>
               </div>
               <div class="table-responsive" [ngClass]="{'invisible': visibleET}">
                 <table mat-table [dataSource]="dataStatTrans">

@@ -549,3 +549,26 @@ td.mat-cell{
         font-weight: 700;
     }
 }
+
+//Estatus filter botones (prealertas, previos, salidas)
+.roll-card {
+    display: flex;
+    overflow-x: auto;
+    min-width: 100%;
+  }
+
+.roll-card--content {
+min-width: 70px;
+margin: 5px;
+}
+
+@media(min-width: 992px){
+    .nueva-busqueda{
+        float:right;
+    }
+}
+@media(max-width: 380px){
+    .dialog-responsive{
+        width: 80%!important;
+    }
+}

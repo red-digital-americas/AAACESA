@@ -96,7 +96,7 @@ export class MercanciasComponent implements OnInit, AfterViewInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert(error+". En algún estatus.");
+        this.sendAlert("En algún estatus: "+error);
       }
     });
 
@@ -114,7 +114,7 @@ export class MercanciasComponent implements OnInit, AfterViewInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert( error+". En algún estatus.");
+        this.sendAlert( "En algún estatus: "+error);
       }
     });
 
@@ -132,7 +132,7 @@ export class MercanciasComponent implements OnInit, AfterViewInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert(error+". En algún estatus.");
+        this.sendAlert("En algún estatus: "+error);
       }
     });
 
@@ -153,7 +153,7 @@ export class MercanciasComponent implements OnInit, AfterViewInit {
         this.sendAlert('Error:'+ err.error.message);
       } else {
         let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert(error+". En algún estatus.");
+        this.sendAlert("En algún estatus: "+error);
       }
     });
   }

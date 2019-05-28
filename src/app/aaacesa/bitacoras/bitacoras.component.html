@@ -7,7 +7,7 @@
     <div class="card-body">
       <!-- Start Busqueda Superior -->
       <div class="row mb-3">
-        <div class="col-lg-9">
+        <div class="col-lg-8 mr-0 pr-0">
           <div class="row">
 
             <!-- busqueda rango fechas -->
@@ -33,7 +33,7 @@
             </div>
 
             <!-- busqueda usuario -->
-            <div class="col-lg-3 mb-1">
+            <div class="col-lg-5 mb-1">
               <mat-form-field class="input-full-width">
                 <mat-select [(ngModel)]="busquedaBit.IdCuentaEspecifica" class="" placeholder="Usuario" #singleSelect>
                   <mat-option>                      
@@ -50,16 +50,24 @@
           <!-- end row -->
         </div>
 
-        <div class="col-lg-3">
-          <div class="row justify-content-center">
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-5 mb-1 pr-0 align-self-end">
-              <button (click)="buscarBitacoras()" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+        <div class="col-lg-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row justify-content-center">
+              <div class="col-xs-6 col-sm-3 col-md-3 col-lg-12 col-xl-5 mb-1 align-self-end">
+                <button (click)="buscarBitacoras()" style="float:right" class="btn btn-pill btn-primary btn-sm"> <i class="fas fa-search"></i> Buscar</button>
+              </div>
+              <div class="col-xs-6 col-sm-4 col-md-4 col-lg-12 col-xl-7 mb-1 align-self-start">              
+                <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm nueva-busqueda"> Nueva Búsqueda</button>
+              </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12 col-xl-7 mb-1 pl-0 align-self-start">              
-              <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+          </div> <!-- End Botones md,lg,xl-->
+          <div class="col-lg-3 ml-0 d-block d-sm-none">
+            <div class="row justify-content-center">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 mb-1 text-center">
+                <button (click)="buscarBitacoras()" class="btn btn-pill btn-primary btn-sm mr-3"> <i class="fas fa-search"></i> Buscar</button>
+                <button (click)="limpiarFlitros()" class="btn btn-pill btn-primary btn-sm"> Nueva Búsqueda</button>
+              </div>
             </div>
-          </div>
-        </div>    
+          </div> <!-- End Botones sm-->  
       </div>      
       <!-- End Busqueda Superior -->
 
