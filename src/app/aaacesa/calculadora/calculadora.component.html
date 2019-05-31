@@ -41,10 +41,7 @@
             </div><!-- end col -->
             <div class="col-md-6 styled-select">
               <mat-form-field class="input-full-width">
-                <input matInput type="text"  [(ngModel)]="calculoManiobra.House" formControlName="tHouse" maxlength="20" placeholder="Guía House" required/>
-                <mat-error *ngIf="calculoForm.get('tHouse').errors?.required">
-                  *  El campo Guía House es <strong>requerido</strong>
-                </mat-error> 
+                <input matInput type="text"  [(ngModel)]="calculoManiobra.House" formControlName="tHouse" maxlength="20" placeholder="Guía House"/>
                 <mat-error *ngIf="calculoForm.get('tHouse').errors?.pattern">
                    * El campo Guía House es <strong>incorrecto</strong>
                 </mat-error>

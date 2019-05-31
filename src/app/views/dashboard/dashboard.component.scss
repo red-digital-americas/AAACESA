@@ -22,49 +22,47 @@ img {
   height: 15px;
 }
 
+
+
 @media(max-width:450px){
-     .grafica {
-      display: none;
+    
+    .cards-info-colors{
+      height: 130px;
     }
-
-    .t21 {
-      width: 96%;
-      height: 200px;
-      margin-bottom: 10px;
+    .cards-full{
+      text-align: center;
     }
-    .airport{
-      visibility:hidden;
-    }
-
     .info-box {
       height: 150px;
     }
     .info-box-text {
       text-align: center;
     }
-    .date-responsive {
-      display: show;
-    }
-   /*  .divisas{
-      display: none;
-    } */
 }
 
 @media(max-width:920px){
   .info-box {
     height: 180px;
   }
-  .date {
-    display: none;
+  .cards-full{
+    text-align: center;
   }
-  .date-responsive {
-    display: show;
+  .cards-info-colors{
+    height: 130px;
   }
+  .table-centered{
+    margin: 0 auto;
+    text-align: center;
+    width: 100%!important;
+  }
+  
 }
 
 @media(min-width:992px){
-  .date-responsive {
-    display: none;
+  .table-centered{
+    margin: 0 auto;
+    text-align: center;
+    width: 80%!important;
   }
 }
 
@@ -151,12 +149,3 @@ img {
     transition: all .35s ease-in-out;
   }
   
-  @media(max-width:480px){
-     mat-card .grafica {
-      display: none !important;
-    }
-
-    img #airport {
-      display: none;
-    }
-  }

@@ -19,7 +19,6 @@ export class ApiServices {
   }
 
   service_general_get(url): Observable<any> {
-    this.service_refresh_token(); 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -27,7 +26,6 @@ export class ApiServices {
   }
 
   service_general_get_with_params(url, parametros): Observable<any> {
-    this.service_refresh_token(); 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -35,7 +33,6 @@ export class ApiServices {
   }
 
   service_general_post(url, parametros): Observable<any> {
-    this.service_refresh_token(); 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -43,7 +40,6 @@ export class ApiServices {
   }
 
   service_general_put(url, parametros): Observable<any> {
-    this.service_refresh_token(); 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
@@ -55,26 +51,7 @@ export class ApiServices {
     let headers = new HttpHeaders();	
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');	
     headers = headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));	
-    this.http.post(this.url +'/Authentication/Refresh',{RefreshToken: refreshToken},{ headers: headers }).subscribe((respuesta)=>{	
-      let myDate = new Date();	
-      localStorage.removeItem('token');	
-      localStorage.removeItem('refreshToken');	
-      localStorage.removeItem('mytime');	
-      localStorage.setItem('token', respuesta['Token']);	
-      localStorage.setItem('refreshToken', respuesta['RefreshToken']);	
-      localStorage.setItem("mytime", myDate.toString());	
-      this.userIdle.stopWatching();	
-      this.userIdle.setConfigValues({idle:0, timeout:3300,ping:3000});	
-      this.userIdle.startWatching();	
-      // console.log(this.userIdle.getConfigValue());	
-    }, 	
-    (err: HttpErrorResponse) => { 
-      console.log(err.status);
-      if(err.status == 405){
-        this.closeSession();	
-        this.router.navigate(['/login']);
-      }	
-    });	
+    return this.http.post(this.url +'/Authentication/Refresh',{RefreshToken: refreshToken},{ headers: headers });
   }	
 
    closeSession(){	

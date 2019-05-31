@@ -1,6 +1,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 <div class="animated fadeIn" style="margin-top: -40px">
-  <div>
+  <div class="mb-2">
     <button mat-button (click)="dia()" [ngClass]="{'dashboard__btn--underline': currentIndex === 0}"
       style="color:#CF0A2B">Día</button>
     <button mat-button (click)="semana()" [ngClass]="{'dashboard__btn--underline': currentIndex === 1}"
@@ -8,174 +8,201 @@
     <button mat-button (click)="mes()" [ngClass]="{'dashboard__btn--underline': currentIndex === 2}"
       style="color:#CF0A2B">Mes</button>
   </div>
-  <br>
   <div class="row">
+    <!-- card solicitudes -->
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-      <div class="info-box">
-        <span class="info-box-icon {{summarys[0].color}}"></span>
-        <div class="info-box-content">
-          <div class="row">
-            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-              <span class="info-box-text">
-                <h5>{{summarys[0].tipo}}</h5>
-              </span>
-              <span class="info-box-number">{{detailPrevios.length > 0 ? detailPrevios : '0'}}</span>
-
-            </div>
-            <div class="col-xs-12 col-lg-4" style="padding:0">
-              <br>
-              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+      <div class="row">
+        <div class="col-6 col-sm-6 col-md-12 col-lg-12 ">
+          <div class="card"> <!--Prealertas 2-->
+            <div class="card-body cards-full p-0 pl-lg-5 clearfix">
+              <div class="cards-info-colors {{summarys[2].color}} float-right"></div>
+              <div class="h5 mb-0 mt-3 text-primary">{{summarys[2].tipo}}</div>
+              <span class="info-box-number text-primary text-center">{{detailPrealertas.length > 0 ? detailPrealertas : '0'}}</span>
+              <div class="text-muted text-center  text-primary font-weight-bold font-xs">Solicitudes</div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- /.info-box-content -->
-      <div class="info-box">
-        <span class="info-box-icon {{summarys[1].color}}"></span>
-        <div class="info-box-content">
-          <div class="row">
-            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-              <span class="info-box-text">
-                <h5>{{summarys[1].tipo}}</h5>
-              </span>
-              <span class="info-box-number">{{detailSalidas.length > 0 ? detailSalidas : '0'}}</span>
-            </div>
-            <div class="col-xs-12 col-lg-4" style="padding:0">
-              <br>
-              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+        <!--/.col-->
+        <div class="col-6 col-md-12 col-sm-6 col-lg-12">
+          <div class="card"> <!--Preavios 0-->
+            <div class="card-body cards-full p-0  pl-lg-5 clearfix">
+              <span class="cards-info-colors {{summarys[0].color}} float-right"></span>
+              <div class="h5 mb-0 mt-3 text-primary">{{summarys[0].tipo}}</div>
+              <span class="info-box-number text-primary text-center">{{detailPrevios.length > 0 ? detailPrevios : '0'}}</span>
+              <div class="text-muted text-center font-weight-bold font-xs">Solicitudes</div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="info-box">
-        <span class="info-box-icon {{summarys[2].color}}"></span>
-        <div class="info-box-content">
-          <div class="row">
-            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-              <span class="info-box-text">
-                <h5>{{summarys[2].tipo}}</h5>
-              </span>
-              <span class="info-box-number">{{detailPrealertas.length > 0 ? detailPrealertas : '0'}}</span>
-            </div>
-            <div class="col-xs-12 col-lg-4" style="padding:0">
-              <br>
-              <span class="info-box-text text-left" style="padding:50% 0 0 0">Solicitudes</span>
+        <!--/.col-->
+        <div class="col-6 col-sm-6 col-md-12 col-lg-12">
+          <div class="card"><!--Salidas 1-->
+            <div class="card-body cards-full p-0  pl-lg-5 clearfix">
+              <span class="cards-info-colors {{summarys[1].color}} float-right"></span>
+              <div class="h5 mb-0 mt-3 text-primary">{{summarys[1].tipo}}</div>
+              <span class="info-box-number text-primary text-center">{{detailSalidas.length > 0 ? detailSalidas : '0'}}</span>
+              <div class="text-muted text-center font-weight-bold font-xs">Solicitudes</div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="info-box">
-        <span class="info-box-icon {{summarys[3].color}}"></span>
-        <div class="info-box-content">
-          <div class="row">
-            <div class="col-xs-12 col-lg-4 text-center" style="padding:0;">
-              <span class="info-box-text">
-                <h5>{{summarys[3].tipo}}</h5>
-              </span>
-              <span class="info-box-number">{{detailAbandono.length > 0 ? detailAbandono : '0'}}</span>
-            </div>
-            <div class="col-xs-12 col-lg-4" style="padding:0">
-              <br>
-              <span class="info-box-text text-left" style="padding:50% 0 0 0">Prenotificaciones</span>
+        <!--/.col-->
+        <div class="col-6 col-sm-6 col-md-12 col-lg-12">
+          <div class="card"><!--Abandono 3-->
+            <div class="card-body cards-full p-0  pl-lg-5 clearfix">
+              <span class="cards-info-colors {{summarys[3].color}} float-right"></span>
+              <div class="h5 mb-0 mt-3 text-primary">{{summarys[3].tipo}}</div>
+              <span class="info-box-number text-primary text-center">{{detailAbandono.length > 0 ? detailAbandono : '0'}}</span>
+              <div class="text-muted text-center font-weight-bold font-xs">Prenotificaciones</div>
             </div>
           </div>
         </div>
+        <!--/.col-->
       </div>
-
     </div>
+     <!-- end cards -->
 
+     <!-- seccion noticias | tipo cambio | grafica | solicitudes -->
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
       <div class="row">
+        <!-- seccion noticias -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
-          <mat-card class="noticias" style="margin-bottom:20px; padding: 0">
-            <mat-card-header>
-              <mat-card-subtitle>Noticias</mat-card-subtitle>
-            </mat-card-header>
-            <a href="http://www.aaacesa.com.mx/Aaacesa/Noticias"><img #aaacesa
-                src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" alt="Imagen Noticias"></a>
-            <mat-card-content><br>
-              <p style="color:#183964; text-align: center"><b>AAACESA a la vanguardia en infraestructura en cadena de
-                  frío.</b></p>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-
-
-        <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <p>Noticias</p>
-          <img class="img-fluid" style="height:220px, width:400px" src="http://www.aaacesa.com.mx/Content/images/new-noticia-CadenaFrio.jpg" />
-          <p><b>AAACESA, a la vanguardia en infraestructura en cade de frio.</b></p>
-        </div> -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-          <mat-card class="Imagen" style="margin-bottom:20px; height:257px; padding:0">
-            <div class="row">
-              
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" style="padding-right:0;">
-                <a href="http://t21.com.mx/"><img class="img-fluid t21" src="assets/img/portada(3).jpg" alt="Imagen card" style="height:155px;" /></a>              
-                <div class="clearfix divisas">
-                <div style="font-size:11px; margin-bottom: 5px; font-weight:bold; text-align: center;">Tipo Cambio(Banxico)</div>
-                  <div class="date-responsive" style="text-align: center; font-size:11px; padding-bottom: 5px;"><b>Fecha de Autorización:{{fechaTipoCambio}}</b></div>
-                <div *ngFor="let item of tipoCambioArray; let i=index" class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: left; float:left"><span class="badge badge-primary" style="font-weight: bold;" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>&nbsp;&nbsp;&nbsp; <b>{{item.Paridad | currency: 0 : "$"}}</b></small> <small class="date" style="font-size:10px; float: right;">  {{fechaTipoCambio}}</small>
-                </div>
-              </div>              
-                <!-- <div class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
-                </div>
-                <div class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
-                </div>
-                <div class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
-                </div>
-                <div class="col-12">                    
-                  <small class="info-box-text" style="font-size:10px; text-align: center">USD - 19.03</small>
-                </div> -->
-              </div>
-
-              <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                <div>
-                  <a href="https://www.aicm.com.mx/"><img class="airport img-fluid"
-                      src="assets/img/aicm.jpg"
-                      alt="Imagen Aeropuerto" style="height: 155px"></a>
-                </div>
-
-                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                  style="padding: 5px 5px 5px 15px; margin-right:0; max-width: 100%">
-                  <div style="font-size:11px; font-weight:bold; text-align: center;">Lo más frecuente</div>
-                  <div class="col-xs-12" style="color:black; padding: 0">
-                    <mat-divider></mat-divider>
-                  </div>
-                </div>
-                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[0].nombre}}:
-                    {{table[0].click}} visitas</small>
-                  <div class="col-xs-12" style="color:black; padding: 0">
-                    <mat-divider></mat-divider>
-                  </div>
-                </div>
-                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[1].nombre}}:
-                    {{table[1].click}} visitas</small>
-                  <div class="col-xs-3" style="color:black; padding: 0">
-                    <mat-divider></mat-divider>
-                  </div>
-                </div>
-                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                  style="padding: 5px 0px 1px 5px; margin-right:0; max-width: 100%">
-                  <small class="info-box-text" style="font-size:10px; text-align: center">{{table[2].nombre}}:
-                    {{table[2].click}} visitas</small>
-                </div>
-              </div>
+          <div class="card">
+            <div class="card-header">
+                <div class="h6 text-center text-muted">Noticias</div>
             </div>
-          </mat-card>
+            <div class="card-body">
+              <div class="full-width mt-0">
+                  <a href="http://www.aaacesa.com.mx/Aaacesa/Noticias"><img #aaacesa
+                    src="assets/img/dashboard/aaacesa.jpg" alt="Imagen Noticias"></a>
+              </div>
+              <p class="text-center text-primary font-weight-bold mt-2 font-md">AAACESA a la vanguardia en infraestructura en cadena de
+                  frío.</p>
+            </div>
+          </div>
         </div>
-      </div>
+        <!-- end noticias -->
+
+        <div class="col-xs-12 px-1 col-sm-12 col-md-6 col-lg-6 col-xl-3 d-block d-md-none d-lg-none d-xl-block">
+          <div class="card">
+            <div class="card-body">
+              <!-- noticias t21  | AICM -->
+              <div class="col-6 col-xl-12 float-left pt-xl-3">
+                <div>
+                  <a href="http://t21.com.mx/"><img class="img-fluid" style="height: 80%; width: fit-content" src="assets/img/dashboard/LogoT21.jpg" alt="Imagen t21" /></a>              
+                </div>
+              </div>
+              <div class="col-6 col-xl-12 float-right pt-xl-3">
+                <div>
+                  <a href="https://www.aicm.com.mx/"><img class="img-fluid" style="height: 80%;" src="assets/img/dashboard/aicm.jpg" alt="Imagen Aeropuerto" ></a>
+                </div>
+              </div><!-- end noticias t21 -->
+            </div><!-- end card body -->
+              
+          </div><!-- end card -->
+        </div><!-- end div noticias -->
+        <div class="col-xs-12 px-1 col-sm-12 col-md-6 col-lg-6 col-xl-3 d-block d-md-none d-lg-none d-xl-block">
+          <div class="card">
+            <div class="card-header d-block d-sm-none d-xl-block pb-xl-0">
+                <div class="h6 text-center text-muted">Tipo Cambio (Banxico).</div>
+            </div>
+            <div class="card-body pt-sm-4 pt-xl-0">
+              <!-- tipo cambio | secciones visitada -->
+              <div class="row">
+                <div class="col-12 col-xl-12 col-sm-6">
+                  <div class="text-center font-md text-muted font-weight-bold d-none d-sm-block d-xl-none">Tipo Cambio (Banxico)</div>
+                  <div class="row text-justify pt-sm-4 pl-lg-2 pt-xl-0">                    
+                    <div class="col-4 col-lg-6 col-xl-6 mb-1 px-sm-2 px-md-1" *ngFor="let item of tipoCambioArray; let i=index">
+                      <span class="badge badge-primary" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>
+                      <span class="ml-xl-3 ml-sm-2 ml-md-1 ml-lg-2">{{item.Paridad | currency: 0 : "$"}}</span>
+                    </div>
+                  </div>
+                  <div class="text-center font-xs text-muted font-weight-bold pt-sm-3 pt-xl-0">{{fechaTipoCambio}}</div>
+                  <hr class="dividerb">
+                </div>
+                
+                <div class="col-12 col-xl-12 col-sm-6">
+                  <div class="text-center text-muted font-md font-weight-bold">Lo más frecuente</div>
+                  <div class="row text-center mt-1 px-3">
+                    <table class="table mb-xl-2">
+                      <tbody>
+                        <tr *ngFor="let item of table | slice:0:3; let i=index">
+                          <th class="align-middle pt-1 pb-1" scope="row">{{item.nombre}}</th>
+                          <td class="align-middle pt-1 pb-1">{{item.click}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- end tipo cambio -->
+            </div><!-- end card body -->
+          </div><!-- end card -->
+        </div><!-- end div -->
+
+        <!-- col visible solo ipad superior -->
+        <div class="col-md-6 d-none d-md-block d-lg-block d-xl-none">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body m-xl-0 p-xl-0 m-lg-0 p-lg-0">
+                  <!-- noticias t21  | AICM -->
+                  <div class="col-6 col-xl-12 float-left">
+                    <div class="m-xl-0 p-xl-0 m-lg-0 p-lg-0">
+                      <a href="http://t21.com.mx/"><img class="img-fluid" style="height: 80%; width: fit-content" src="assets/img/dashboard/LogoT21.jpg" alt="Imagen t21" /></a>              
+                    </div>
+                  </div>
+                  <div class="col-6 col-xl-12 float-right">
+                    <div class="m-xl-0 p-xl-0 m-lg-0 p-lg-0">
+                      <a href="https://www.aicm.com.mx/"><img class="img-fluid" style="height: 80%;" src="assets/img/dashboard/aicm.jpg" alt="Imagen Aeropuerto" ></a>
+                    </div>
+                  </div><!-- end noticias t21 -->
+                </div><!-- end card body -->
+                  
+              </div><!-- end card -->
+            </div><!-- end div noticias -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body pt-2">
+                  <!-- tipo cambio | secciones visitada -->
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="text-center font-md text-muted font-weight-bold">Tipo Cambio (Banxico)</div>
+                      <div class="row text-justify pt-2">                    
+                        <div class="col-4 px-md-1" *ngFor="let item of tipoCambioArray; let i=index">
+                          <span class="badge badge-primary" [ngStyle]="{'background-color': tipoCambioColors[i]}">{{item.Moneda}} </span>
+                          <span class="ml-1">{{item.Paridad | currency: 0 : "$"}}</span>
+                        </div>
+                      </div>
+                      <div class="text-center font-xs text-muted font-weight-bold pt-1">{{fechaTipoCambio}}</div>
+                      <hr class="dividerb">
+                    </div> <!-- /tipo cambio -->
+                    <!--  secciones visitada -->
+                    <div class="col-12">
+                      <div class="text-center text-muted font-md font-weight-bold">Lo más frecuente</div>
+                      <div class="row text-center mt-1 px-3">
+                        <table class="table mb-0">
+                          <tbody>
+                            <tr *ngFor="let item of table | slice:0:3; let i=index">
+                              <th class="align-middle pt-0 pb-0" scope="row">{{item.nombre}}</th>
+                              <td class="align-middle pt-0 pb-0">{{item.click}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div><!--  /secciones visitada -->
+                  </div>
+                  <!-- end tipo cambio -->
+                </div><!-- end card body -->
+              </div><!-- end card -->
+            </div><!-- end div -->
+          </div>
+        </div><!-- col ipad superior -->
+        
+
+
+      </div><!-- row superior -->
+        
+        
+      
 
 
       <div class="row">
@@ -206,7 +233,7 @@
                 <small style="font-size:11px; font-weight:bold">Fecha</small>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" style="padding: 5px 15px 5px 5px">
-                <small style="font-size:11px; font-weight:bold">Status</small>
+                <small style="font-size:11px; font-weight:bold">Tipo</small>
               </div>
             </div>
 
@@ -240,6 +267,27 @@
               <div class="col-xs-12 text-center"><a style="color:#1E82BA">Solicitudes mostradas: 20</a></div>
             </div>
           </div>
+          <!-- <div class="col-12 col-xl-12 col-sm-6">
+              <div class="text-center text-muted font-md font-weight-bold">Últimas solicitudes</div>
+              <div class="row text-center mt-1 px-3">
+                <table class="table mb-xl-2">
+                  <thead>
+                    <th class="align-middle pt-1 pb-1" scope="row">Master</th>
+                    <th class="align-middle pt-1 pb-1" scope="row">House</th>
+                    <th class="align-middle pt-1 pb-1" scope="row">Fecha</th>
+                    <th class="align-middle pt-1 pb-1" scope="row">Tipo</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of dataInfoSalidas.data; let i = index">
+                      <th class="align-middle pt-1 pb-1" scope="row">{{item.Master}}</th>
+                      <td class="align-middle pt-1 pb-1">{{item.House}}</td>
+                      <td class="align-middle pt-1 pb-1">{{item.Fecha}}</td>
+                      <td class="align-middle pt-1 pb-1">{{item.Estatus}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> -->
         </div>
       </div>
     </div>

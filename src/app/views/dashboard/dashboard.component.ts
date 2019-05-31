@@ -1,19 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
-import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { Summary } from '../../aaacesa/general-summary/summary'
-import { Merchant } from '../../aaacesa/general-summary/merchant'
 import { Chart } from 'chart.js';
-import { collectExternalReferences } from '@angular/compiler';
 import { ApiServices } from '../../services/api.services';
 import { mercancias, CountClicks } from '../../models/dashboard.model';
 import { MatTableDataSource, MatSnackBar, } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { categoryAnualData, widgetAnualData } from '../../models/graficaDashboard.model';
-import { isNull, isNullOrUndefined } from 'util';
-import { count } from 'rxjs-compat/operator/count';
-import { TablesComponent } from '../base/tables.component';
+import { widgetAnualData } from '../../models/graficaDashboard.model';
+import { isNullOrUndefined } from 'util';
 
 
 @Component({
@@ -182,6 +176,13 @@ export class DashboardComponent implements OnInit {
         title: {
           display: true,
           text: 'Cantidad VS Estado'
+        },
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
         }
       }
     });
@@ -197,7 +198,7 @@ export class DashboardComponent implements OnInit {
         if (err.error instanceof Error) {
           this.showAlert('Error:' + err.error.message);
         } else {
-          let error = (err.error.Description == undefined) ? err.error : err.error.Description;
+          let error = (err.error.Description == undefined) ? err.error : err.error;
           /* this.showAlert(error); */
           /* this.charts = false; */
           this.WidgetData;
@@ -216,7 +217,7 @@ export class DashboardComponent implements OnInit {
         if (err.error instanceof Error) {
           this.showAlert('Error:' + err.error.message);
         } else {
-          let error = (err.error.Description == undefined) ? err.error : err.error.Description;
+          let error = (err.error == undefined) ? err.error : err.error.Description;
           this.showAlert(error);
         }
       }

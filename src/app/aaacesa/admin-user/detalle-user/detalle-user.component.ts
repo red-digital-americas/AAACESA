@@ -34,7 +34,7 @@ export class DetalleUserComponent implements OnInit {
   public snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    console.log(this.data.tipoPerfil);
+    // console.log(this.data.tipoPerfil);
     this.title= this.data.title;
     this.loading=true;
     this.actualizaUser.Telefono= "";
@@ -70,8 +70,7 @@ export class DetalleUserComponent implements OnInit {
       if (err.error instanceof Error) {
         this.sendAlert('Error:'+ err.error.message);
       } else {
-        let error= (err.error.Description == undefined)?err.error:err.error.Description;
-        this.sendAlert(error);
+        this.sendAlert(err.error);
       }
     });
 

@@ -142,43 +142,18 @@ small {
   border: none;
   color: #183964;
 }
-
-//paginador
-
-
-/*.pagination li a {
-  background-color:#212649;
+.cards-full{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.cards-info-colors{
+  width:20px;
+  float:right;
+  height:150px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-
-.lastfirst{
-  border-radius: 0;
-  background: none;
-  border: none;
-}
-.lastfirst:active{
-  border-radius: 0;
-  background: none;
-  border: none;
-}
-.lastfirst:hover{
-  border-radius: 0;
-  background: none;
-  border: none;
-}
-
-.lastfirst{
-  border-radius: 0;
-  background: none !important;
-  border: none;
-  color: #303666;
-}
-
-.page-item.disabled .page-link{
-  border-radius: 0;
-  background: none;
-  border: none;
-}*/
 
 .input-full-width {
   width: 100%;
